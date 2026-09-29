@@ -1,0 +1,407 @@
+{
+  "final_test": {
+    "period": "Apr 2026",
+    "cards": 265324,
+    "start_rate": 0.04918137937784195,
+    "AUC": 0.75601924882223,
+    "PR-AUC": 0.1554572482089659,
+    "lift top 10%": 3.539788246154785,
+    "lift top 20%": 2.6891355514526367,
+    "Brier": 0.04412343359749127,
+    "mean predicted": 0.047205131111372235
+  },
+  "backtest": [
+    {
+      "test snapshot": "Oct 2025",
+      "trained on": "Jul 2025",
+      "model": "rule: wallet share",
+      "cards": 292323,
+      "start rate": 0.062300000339746475,
+      "AUC": 0.6149,
+      "PR-AUC": 0.1016,
+      "lift top 10%": 2.8362998962402344,
+      "lift top 20%": 1.979099988937378
+    },
+    {
+      "test snapshot": "Oct 2025",
+      "trained on": "Jul 2025",
+      "model": "logistic regression",
+      "cards": 292323,
+      "start rate": 0.062300000339746475,
+      "AUC": 0.7215,
+      "PR-AUC": 0.1541,
+      "lift top 10%": 2.998800039291382,
+      "lift top 20%": 2.391200065612793
+    },
+    {
+      "test snapshot": "Oct 2025",
+      "trained on": "Jul 2025",
+      "model": "LightGBM (tuned)",
+      "cards": 292323,
+      "start rate": 0.062300000339746475,
+      "AUC": 0.7355,
+      "PR-AUC": 0.1678,
+      "lift top 10%": 3.1666998863220215,
+      "lift top 20%": 2.4683001041412354
+    },
+    {
+      "test snapshot": "Jan 2026",
+      "trained on": "Jul 2025, Oct 2025",
+      "model": "rule: wallet share",
+      "cards": 278125,
+      "start rate": 0.05220000073313713,
+      "AUC": 0.6158,
+      "PR-AUC": 0.0865,
+      "lift top 10%": 2.9133999347686768,
+      "lift top 20%": 1.9860999584197998
+    },
+    {
+      "test snapshot": "Jan 2026",
+      "trained on": "Jul 2025, Oct 2025",
+      "model": "logistic regression",
+      "cards": 278125,
+      "start rate": 0.05220000073313713,
+      "AUC": 0.7269,
+      "PR-AUC": 0.1432,
+      "lift top 10%": 3.1393001079559326,
+      "lift top 20%": 2.4356000423431396
+    },
+    {
+      "test snapshot": "Jan 2026",
+      "trained on": "Jul 2025, Oct 2025",
+      "model": "LightGBM (tuned)",
+      "cards": 278125,
+      "start rate": 0.05220000073313713,
+      "AUC": 0.7417,
+      "PR-AUC": 0.1562,
+      "lift top 10%": 3.3224000930786133,
+      "lift top 20%": 2.5371999740600586
+    },
+    {
+      "test snapshot": "Apr 2026",
+      "trained on": "Jul 2025, Oct 2025, Jan 2026",
+      "model": "rule: wallet share",
+      "cards": 265324,
+      "start rate": 0.04919999837875366,
+      "AUC": 0.6287,
+      "PR-AUC": 0.088,
+      "lift top 10%": 3.1006999015808105,
+      "lift top 20%": 2.1059000492095947
+    },
+    {
+      "test snapshot": "Apr 2026",
+      "trained on": "Jul 2025, Oct 2025, Jan 2026",
+      "model": "logistic regression",
+      "cards": 265324,
+      "start rate": 0.04919999837875366,
+      "AUC": 0.7392,
+      "PR-AUC": 0.146,
+      "lift top 10%": 3.324399948120117,
+      "lift top 20%": 2.5776000022888184
+    },
+    {
+      "test snapshot": "Apr 2026",
+      "trained on": "Jul 2025, Oct 2025, Jan 2026",
+      "model": "LightGBM (tuned)",
+      "cards": 265324,
+      "start rate": 0.04919999837875366,
+      "AUC": 0.7572,
+      "PR-AUC": 0.162,
+      "lift top 10%": 3.5467000007629395,
+      "lift top 20%": 2.7032999992370605
+    }
+  ],
+  "calibration_deciles": [
+    {
+      "decile": 1,
+      "cards": 26533,
+      "raw": 0.0128,
+      "calibrated": 0.0074,
+      "actual": 0.006899999920278788
+    },
+    {
+      "decile": 2,
+      "cards": 26532,
+      "raw": 0.0184,
+      "calibrated": 0.013,
+      "actual": 0.01209999993443489
+    },
+    {
+      "decile": 3,
+      "cards": 26532,
+      "raw": 0.0236,
+      "calibrated": 0.0171,
+      "actual": 0.017000000923871994
+    },
+    {
+      "decile": 4,
+      "cards": 26533,
+      "raw": 0.0296,
+      "calibrated": 0.0207,
+      "actual": 0.021400000900030136
+    },
+    {
+      "decile": 5,
+      "cards": 26532,
+      "raw": 0.0372,
+      "calibrated": 0.0268,
+      "actual": 0.028200000524520874
+    },
+    {
+      "decile": 6,
+      "cards": 26532,
+      "raw": 0.0464,
+      "calibrated": 0.0357,
+      "actual": 0.0357000008225441
+    },
+    {
+      "decile": 7,
+      "cards": 26533,
+      "raw": 0.0583,
+      "calibrated": 0.0448,
+      "actual": 0.046300001442432404
+    },
+    {
+      "decile": 8,
+      "cards": 26532,
+      "raw": 0.0749,
+      "calibrated": 0.0598,
+      "actual": 0.059700001031160355
+    },
+    {
+      "decile": 9,
+      "cards": 26532,
+      "raw": 0.1056,
+      "calibrated": 0.0836,
+      "actual": 0.09080000221729279
+    },
+    {
+      "decile": 10,
+      "cards": 26533,
+      "raw": 0.1916,
+      "calibrated": 0.163,
+      "actual": 0.1737000048160553
+    }
+  ],
+  "gains": [
+    {
+      "contacted_pct": 5,
+      "starters_reached_pct": 21.84
+    },
+    {
+      "contacted_pct": 10,
+      "starters_reached_pct": 35.4
+    },
+    {
+      "contacted_pct": 15,
+      "starters_reached_pct": 45.58
+    },
+    {
+      "contacted_pct": 20,
+      "starters_reached_pct": 53.78
+    },
+    {
+      "contacted_pct": 25,
+      "starters_reached_pct": 60.54
+    },
+    {
+      "contacted_pct": 30,
+      "starters_reached_pct": 65.91
+    },
+    {
+      "contacted_pct": 35,
+      "starters_reached_pct": 70.86
+    },
+    {
+      "contacted_pct": 40,
+      "starters_reached_pct": 75.21
+    },
+    {
+      "contacted_pct": 45,
+      "starters_reached_pct": 79.13
+    },
+    {
+      "contacted_pct": 50,
+      "starters_reached_pct": 82.55
+    },
+    {
+      "contacted_pct": 55,
+      "starters_reached_pct": 85.53
+    },
+    {
+      "contacted_pct": 60,
+      "starters_reached_pct": 88.3
+    },
+    {
+      "contacted_pct": 65,
+      "starters_reached_pct": 90.58
+    },
+    {
+      "contacted_pct": 70,
+      "starters_reached_pct": 92.73
+    },
+    {
+      "contacted_pct": 75,
+      "starters_reached_pct": 94.43
+    },
+    {
+      "contacted_pct": 80,
+      "starters_reached_pct": 96.08
+    },
+    {
+      "contacted_pct": 85,
+      "starters_reached_pct": 97.41
+    },
+    {
+      "contacted_pct": 90,
+      "starters_reached_pct": 98.59
+    },
+    {
+      "contacted_pct": 95,
+      "starters_reached_pct": 99.47
+    },
+    {
+      "contacted_pct": 100,
+      "starters_reached_pct": 100.0
+    }
+  ],
+  "drivers": [
+    {
+      "feature": "evening_share",
+      "mean_abs_shap": 0.2329,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "s_fast_food",
+      "mean_abs_shap": 0.2294,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "s_car_fuel",
+      "mean_abs_shap": 0.1098,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "wallet_ever",
+      "mean_abs_shap": 0.0987,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "s_restaurants_bars",
+      "mean_abs_shap": 0.0937,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "wallet_share",
+      "mean_abs_shap": 0.0888,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "typical_store_amount",
+      "mean_abs_shap": 0.0787,
+      "direction": "higher -> less likely"
+    },
+    {
+      "feature": "s_public_transport",
+      "mean_abs_shap": 0.0563,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "abroad_share",
+      "mean_abs_shap": 0.0559,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "s_entertainment_betting",
+      "mean_abs_shap": 0.0508,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "tx_trend",
+      "mean_abs_shap": 0.0487,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "home_area",
+      "mean_abs_shap": 0.0469,
+      "direction": "mixed / categorical"
+    },
+    {
+      "feature": "s_fashion_sport",
+      "mean_abs_shap": 0.0463,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "cnp_other_share",
+      "mean_abs_shap": 0.0447,
+      "direction": "higher -> more likely"
+    },
+    {
+      "feature": "active_months",
+      "mean_abs_shap": 0.0438,
+      "direction": "higher -> less likely"
+    }
+  ],
+  "personas": [
+    {
+      "persona": "phone-first city",
+      "cards": 29225,
+      "actual_start_pct": 13.310999870300293,
+      "predicted_start_pct": 12.854,
+      "cards_in_model_top10": 17305,
+      "wallet_share": 0.6389999985694885,
+      "share_of_top10_pct": 62.172,
+      "top10_start_pct": 17.768999099731445
+    },
+    {
+      "persona": "travellers",
+      "cards": 3167,
+      "actual_start_pct": 13.008999824523926,
+      "predicted_start_pct": 11.68,
+      "cards_in_model_top10": 1525,
+      "wallet_share": 0.24199999868869781,
+      "share_of_top10_pct": 5.479,
+      "top10_start_pct": 20.131000518798828
+    },
+    {
+      "persona": "active all-rounders",
+      "cards": 63979,
+      "actual_start_pct": 4.758999824523926,
+      "predicted_start_pct": 4.693,
+      "cards_in_model_top10": 3759,
+      "wallet_share": 0.03099999949336052,
+      "share_of_top10_pct": 13.505,
+      "top10_start_pct": 15.29699993133545
+    },
+    {
+      "persona": "home & car",
+      "cards": 28624,
+      "actual_start_pct": 4.348999977111816,
+      "predicted_start_pct": 4.166,
+      "cards_in_model_top10": 1369,
+      "wallet_share": 0.039000000804662704,
+      "share_of_top10_pct": 4.918,
+      "top10_start_pct": 14.463000297546387
+    },
+    {
+      "persona": "mall shoppers",
+      "cards": 51899,
+      "actual_start_pct": 3.5409998893737793,
+      "predicted_start_pct": 3.356,
+      "cards_in_model_top10": 1638,
+      "wallet_share": 0.02800000086426735,
+      "share_of_top10_pct": 5.885,
+      "top10_start_pct": 16.422000885009766
+    },
+    {
+      "persona": "everyday grocery",
+      "cards": 88430,
+      "actual_start_pct": 2.9619998931884766,
+      "predicted_start_pct": 2.784,
+      "cards_in_model_top10": 2238,
+      "wallet_share": 0.01600000075995922,
+      "share_of_top10_pct": 8.041,
+      "top10_start_pct": 15.550000190734863
+    }
+  ]
+}

@@ -1,0 +1,694 @@
+{
+  "roi_inputs": {
+    "as_of": "Jan-Jun 2026 window, snapshot Jul 2026",
+    "active_cards_in_sample": 878168,
+    "audiences": {
+      "A mostly typing": {
+        "cards": 190336,
+        "share_of_active_cards": 0.2167,
+        "share_of_typed_online_payments": 0.7999,
+        "online_payments_per_card_month": 3.66,
+        "typed_payments_per_card_month": 2.82,
+        "mostly_phone_in_store_share": 0.714
+      },
+      "C ready to start": {
+        "cards": 57628,
+        "share_of_active_cards": 0.0656,
+        "share_of_typed_online_payments": 0.0,
+        "online_payments_per_card_month": 0.0,
+        "typed_payments_per_card_month": 0.0,
+        "mostly_phone_in_store_share": 0.432
+      },
+      "D sometimes typing": {
+        "cards": 150758,
+        "share_of_active_cards": 0.1717,
+        "share_of_typed_online_payments": 0.2001,
+        "online_payments_per_card_month": 4.24,
+        "typed_payments_per_card_month": 0.89,
+        "mostly_phone_in_store_share": 0.481
+      },
+      "E not ready": {
+        "cards": 281853,
+        "share_of_active_cards": 0.321,
+        "share_of_typed_online_payments": 0.0,
+        "online_payments_per_card_month": 0.0,
+        "typed_payments_per_card_month": 0.0,
+        "mostly_phone_in_store_share": 0.037
+      },
+      "F never typing": {
+        "cards": 148595,
+        "share_of_active_cards": 0.1692,
+        "share_of_typed_online_payments": 0.0,
+        "online_payments_per_card_month": 1.27,
+        "typed_payments_per_card_month": 0.0,
+        "mostly_phone_in_store_share": 0.253
+      },
+      "L lapsed": {
+        "cards": 48998,
+        "share_of_active_cards": 0.0558,
+        "share_of_typed_online_payments": 0.0,
+        "online_payments_per_card_month": 0.0,
+        "typed_payments_per_card_month": 0.0,
+        "mostly_phone_in_store_share": 0.268
+      }
+    },
+    "ready_to_start": {
+      "definition": "never online since Jan 2025, model top 20%",
+      "expected_first_online_payments_3m": 8161.526535591038,
+      "expected_start_rate_3m": 0.14162432386324422
+    },
+    "new_cards": {
+      "per_month_avg": 27393.533333333333,
+      "per_month_share_of_active_cards": 0.0312,
+      "online_within_3_months": 0.486,
+      "first_online_payment_typed": 0.704
+    },
+    "retention_effect_of_one_click_first_payment_pp": {
+      "conservative_same_category": 4.2,
+      "overall": 14.0,
+      "source": "wallet_online.ipynb, share paying online in 3+ of the next 6 months"
+    }
+  },
+  "audiences": [
+    {
+      "audience": "A mostly typing",
+      "cards": 190336,
+      "online_tx": 4184494.0,
+      "typed_tx": 3223115.0,
+      "new_cards": 4581,
+      "mostly_wallet_share": 0.7138,
+      "expected_starters_3m": 0.0,
+      "share_of_cards": 0.2167,
+      "share_of_typed_tx": 0.7998999953269958,
+      "online_tx_per_card_month": 3.6641,
+      "typed_tx_per_card_month": 2.8223
+    },
+    {
+      "audience": "C ready to start",
+      "cards": 57628,
+      "online_tx": 0.0,
+      "typed_tx": 0.0,
+      "new_cards": 3370,
+      "mostly_wallet_share": 0.4324,
+      "expected_starters_3m": 8161.5265,
+      "share_of_cards": 0.0656,
+      "share_of_typed_tx": 0.0,
+      "online_tx_per_card_month": 0.0,
+      "typed_tx_per_card_month": 0.0
+    },
+    {
+      "audience": "D sometimes typing",
+      "cards": 150758,
+      "online_tx": 3835737.0,
+      "typed_tx": 806112.0,
+      "new_cards": 1476,
+      "mostly_wallet_share": 0.4815,
+      "expected_starters_3m": 0.0,
+      "share_of_cards": 0.1717,
+      "share_of_typed_tx": 0.20010000467300415,
+      "online_tx_per_card_month": 4.2405,
+      "typed_tx_per_card_month": 0.8912
+    },
+    {
+      "audience": "E not ready",
+      "cards": 281853,
+      "online_tx": 0.0,
+      "typed_tx": 0.0,
+      "new_cards": 3673,
+      "mostly_wallet_share": 0.0367,
+      "expected_starters_3m": 6653.5714,
+      "share_of_cards": 0.321,
+      "share_of_typed_tx": 0.0,
+      "online_tx_per_card_month": 0.0,
+      "typed_tx_per_card_month": 0.0
+    },
+    {
+      "audience": "F never typing",
+      "cards": 148595,
+      "online_tx": 1134219.0,
+      "typed_tx": 0.0,
+      "new_cards": 1252,
+      "mostly_wallet_share": 0.2525,
+      "expected_starters_3m": 0.0,
+      "share_of_cards": 0.1692,
+      "share_of_typed_tx": 0.0,
+      "online_tx_per_card_month": 1.2722,
+      "typed_tx_per_card_month": 0.0
+    },
+    {
+      "audience": "L lapsed",
+      "cards": 48998,
+      "online_tx": 0.0,
+      "typed_tx": 0.0,
+      "new_cards": 0,
+      "mostly_wallet_share": 0.2681,
+      "expected_starters_3m": 0.0,
+      "share_of_cards": 0.0558,
+      "share_of_typed_tx": 0.0,
+      "online_tx_per_card_month": 0.0,
+      "typed_tx_per_card_month": 0.0
+    }
+  ],
+  "audience_a_categories": [
+    {
+      "category": "marketplace_general",
+      "typed_tx": 563707,
+      "share_of_a_typed_pct": 17.49,
+      "typed_within_category_pct": 94.745,
+      "cards_typing": 87792,
+      "avg_typed_amount": 269.383,
+      "polish_merchant_pct": 75.75
+    },
+    {
+      "category": "taxi",
+      "typed_tx": 544764,
+      "share_of_a_typed_pct": 16.902,
+      "typed_within_category_pct": 89.343,
+      "cards_typing": 58952,
+      "avg_typed_amount": 42.393,
+      "polish_merchant_pct": 49.591
+    },
+    {
+      "category": "other",
+      "typed_tx": 357772,
+      "share_of_a_typed_pct": 11.1,
+      "typed_within_category_pct": 80.426,
+      "cards_typing": 89870,
+      "avg_typed_amount": 306.474,
+      "polish_merchant_pct": 52.338
+    },
+    {
+      "category": "public_transport",
+      "typed_tx": 341775,
+      "share_of_a_typed_pct": 10.604,
+      "typed_within_category_pct": 92.465,
+      "cards_typing": 58417,
+      "avg_typed_amount": 81.209,
+      "polish_merchant_pct": 87.024
+    },
+    {
+      "category": "digital_content",
+      "typed_tx": 211703,
+      "share_of_a_typed_pct": 6.568,
+      "typed_within_category_pct": 27.14,
+      "cards_typing": 64307,
+      "avg_typed_amount": 141.188,
+      "polish_merchant_pct": 21.578
+    },
+    {
+      "category": "fast_food",
+      "typed_tx": 200421,
+      "share_of_a_typed_pct": 6.218,
+      "typed_within_category_pct": 94.77,
+      "cards_typing": 47589,
+      "avg_typed_amount": 114.19,
+      "polish_merchant_pct": 96.745
+    },
+    {
+      "category": "fashion_sport",
+      "typed_tx": 171384,
+      "share_of_a_typed_pct": 5.317,
+      "typed_within_category_pct": 96.746,
+      "cards_typing": 55455,
+      "avg_typed_amount": 603.017,
+      "polish_merchant_pct": 61.728
+    },
+    {
+      "category": "bills_telecom_edu",
+      "typed_tx": 165989,
+      "share_of_a_typed_pct": 5.15,
+      "typed_within_category_pct": 88.322,
+      "cards_typing": 51375,
+      "avg_typed_amount": 370.32,
+      "polish_merchant_pct": 87.443
+    },
+    {
+      "category": "entertainment_betting",
+      "typed_tx": 155265,
+      "share_of_a_typed_pct": 4.817,
+      "typed_within_category_pct": 76.889,
+      "cards_typing": 40072,
+      "avg_typed_amount": 261.973,
+      "polish_merchant_pct": 48.221
+    },
+    {
+      "category": "restaurants_bars",
+      "typed_tx": 147504,
+      "share_of_a_typed_pct": 4.576,
+      "typed_within_category_pct": 91.986,
+      "cards_typing": 32061,
+      "avg_typed_amount": 151.791,
+      "polish_merchant_pct": 40.324
+    },
+    {
+      "category": "travel",
+      "typed_tx": 105613,
+      "share_of_a_typed_pct": 3.277,
+      "typed_within_category_pct": 87.111,
+      "cards_typing": 45387,
+      "avg_typed_amount": 1840.482,
+      "polish_merchant_pct": 23.528
+    },
+    {
+      "category": "health_beauty",
+      "typed_tx": 76961,
+      "share_of_a_typed_pct": 2.388,
+      "typed_within_category_pct": 94.382,
+      "cards_typing": 35796,
+      "avg_typed_amount": 367.33,
+      "polish_merchant_pct": 79.985
+    },
+    {
+      "category": "home_electronics",
+      "typed_tx": 62416,
+      "share_of_a_typed_pct": 1.937,
+      "typed_within_category_pct": 62.059,
+      "cards_typing": 37005,
+      "avg_typed_amount": 876.81,
+      "polish_merchant_pct": 70.133
+    },
+    {
+      "category": "hobby_books_gifts",
+      "typed_tx": 41863,
+      "share_of_a_typed_pct": 1.299,
+      "typed_within_category_pct": 88.075,
+      "cards_typing": 24453,
+      "avg_typed_amount": 426.51,
+      "polish_merchant_pct": 62.908
+    },
+    {
+      "category": "grocery",
+      "typed_tx": 40014,
+      "share_of_a_typed_pct": 1.241,
+      "typed_within_category_pct": 85.098,
+      "cards_typing": 15462,
+      "avg_typed_amount": 328.742,
+      "polish_merchant_pct": 85.458
+    },
+    {
+      "category": "car_fuel",
+      "typed_tx": 35964,
+      "share_of_a_typed_pct": 1.116,
+      "typed_within_category_pct": 74.146,
+      "cards_typing": 11726,
+      "avg_typed_amount": 377.945,
+      "polish_merchant_pct": 50.153
+    }
+  ],
+  "audience_a_device_typed_tx": {
+    "computer_other": 446108,
+    "phone": 2777007
+  },
+  "audience_a_typed_share_by_time_of_day_pct": {
+    "00-06": 48.9,
+    "06-12": 77.6,
+    "12-18": 80.9,
+    "18-24": 80.4
+  },
+  "audience_persona_cards": [
+    {
+      "audience": "A mostly typing",
+      "persona": "active all-rounders",
+      "cards": 18039
+    },
+    {
+      "audience": "A mostly typing",
+      "persona": "everyday grocery",
+      "cards": 15721
+    },
+    {
+      "audience": "A mostly typing",
+      "persona": "home & car",
+      "cards": 12072
+    },
+    {
+      "audience": "A mostly typing",
+      "persona": "mall shoppers",
+      "cards": 11834
+    },
+    {
+      "audience": "A mostly typing",
+      "persona": "phone-first city",
+      "cards": 116069
+    },
+    {
+      "audience": "A mostly typing",
+      "persona": "travellers",
+      "cards": 16601
+    },
+    {
+      "audience": "C ready to start",
+      "persona": "active all-rounders",
+      "cards": 13259
+    },
+    {
+      "audience": "C ready to start",
+      "persona": "everyday grocery",
+      "cards": 6976
+    },
+    {
+      "audience": "C ready to start",
+      "persona": "home & car",
+      "cards": 4252
+    },
+    {
+      "audience": "C ready to start",
+      "persona": "mall shoppers",
+      "cards": 4281
+    },
+    {
+      "audience": "C ready to start",
+      "persona": "phone-first city",
+      "cards": 26117
+    },
+    {
+      "audience": "C ready to start",
+      "persona": "travellers",
+      "cards": 2743
+    },
+    {
+      "audience": "D sometimes typing",
+      "persona": "active all-rounders",
+      "cards": 26660
+    },
+    {
+      "audience": "D sometimes typing",
+      "persona": "everyday grocery",
+      "cards": 20202
+    },
+    {
+      "audience": "D sometimes typing",
+      "persona": "home & car",
+      "cards": 11656
+    },
+    {
+      "audience": "D sometimes typing",
+      "persona": "mall shoppers",
+      "cards": 10325
+    },
+    {
+      "audience": "D sometimes typing",
+      "persona": "phone-first city",
+      "cards": 71791
+    },
+    {
+      "audience": "D sometimes typing",
+      "persona": "travellers",
+      "cards": 10124
+    },
+    {
+      "audience": "E not ready",
+      "persona": "active all-rounders",
+      "cards": 54188
+    },
+    {
+      "audience": "E not ready",
+      "persona": "everyday grocery",
+      "cards": 107284
+    },
+    {
+      "audience": "E not ready",
+      "persona": "home & car",
+      "cards": 43200
+    },
+    {
+      "audience": "E not ready",
+      "persona": "mall shoppers",
+      "cards": 59347
+    },
+    {
+      "audience": "E not ready",
+      "persona": "phone-first city",
+      "cards": 14001
+    },
+    {
+      "audience": "E not ready",
+      "persona": "travellers",
+      "cards": 3833
+    },
+    {
+      "audience": "F never typing",
+      "persona": "active all-rounders",
+      "cards": 34502
+    },
+    {
+      "audience": "F never typing",
+      "persona": "everyday grocery",
+      "cards": 36295
+    },
+    {
+      "audience": "F never typing",
+      "persona": "home & car",
+      "cards": 15724
+    },
+    {
+      "audience": "F never typing",
+      "persona": "mall shoppers",
+      "cards": 17581
+    },
+    {
+      "audience": "F never typing",
+      "persona": "phone-first city",
+      "cards": 39927
+    },
+    {
+      "audience": "F never typing",
+      "persona": "travellers",
+      "cards": 4566
+    },
+    {
+      "audience": "L lapsed",
+      "persona": "active all-rounders",
+      "cards": 9969
+    },
+    {
+      "audience": "L lapsed",
+      "persona": "everyday grocery",
+      "cards": 10657
+    },
+    {
+      "audience": "L lapsed",
+      "persona": "home & car",
+      "cards": 6339
+    },
+    {
+      "audience": "L lapsed",
+      "persona": "mall shoppers",
+      "cards": 6864
+    },
+    {
+      "audience": "L lapsed",
+      "persona": "phone-first city",
+      "cards": 12751
+    },
+    {
+      "audience": "L lapsed",
+      "persona": "travellers",
+      "cards": 2418
+    }
+  ],
+  "audience_a_deciles": [
+    {
+      "group": "top 10%",
+      "cards": 19034,
+      "typed_tx": 1382299.0,
+      "min_typed_per_month": 7.166999816894531,
+      "mostly_wallet_share": 0.939,
+      "cum_share_of_typed_pct": 42.887001037597656
+    },
+    {
+      "group": "top 20%",
+      "cards": 19033,
+      "typed_tx": 647125.0,
+      "min_typed_per_month": 4.5,
+      "mostly_wallet_share": 0.929,
+      "cum_share_of_typed_pct": 62.96500015258789
+    },
+    {
+      "group": "top 30%",
+      "cards": 19034,
+      "typed_tx": 426891.0,
+      "min_typed_per_month": 3.0,
+      "mostly_wallet_share": 0.907,
+      "cum_share_of_typed_pct": 76.20899963378906
+    },
+    {
+      "group": "top 40%",
+      "cards": 19033,
+      "typed_tx": 288797.0,
+      "min_typed_per_month": 2.0,
+      "mostly_wallet_share": 0.867,
+      "cum_share_of_typed_pct": 85.16999816894531
+    },
+    {
+      "group": "top 50%",
+      "cards": 19034,
+      "typed_tx": 191298.0,
+      "min_typed_per_month": 1.3329999446868896,
+      "mostly_wallet_share": 0.804,
+      "cum_share_of_typed_pct": 91.1050033569336
+    },
+    {
+      "group": "top 60%",
+      "cards": 19033,
+      "typed_tx": 122301.0,
+      "min_typed_per_month": 0.8330000042915344,
+      "mostly_wallet_share": 0.714,
+      "cum_share_of_typed_pct": 94.89900207519531
+    },
+    {
+      "group": "top 70%",
+      "cards": 19034,
+      "typed_tx": 75676.0,
+      "min_typed_per_month": 0.5,
+      "mostly_wallet_share": 0.61,
+      "cum_share_of_typed_pct": 97.24700164794922
+    },
+    {
+      "group": "top 80%",
+      "cards": 19033,
+      "typed_tx": 45387.0,
+      "min_typed_per_month": 0.3330000042915344,
+      "mostly_wallet_share": 0.532,
+      "cum_share_of_typed_pct": 98.65499877929688
+    },
+    {
+      "group": "top 90%",
+      "cards": 19034,
+      "typed_tx": 24307.0,
+      "min_typed_per_month": 0.16699999570846558,
+      "mostly_wallet_share": 0.433,
+      "cum_share_of_typed_pct": 99.40899658203125
+    },
+    {
+      "group": "top 100%",
+      "cards": 19034,
+      "typed_tx": 19034.0,
+      "min_typed_per_month": 0.16699999570846558,
+      "mostly_wallet_share": 0.402,
+      "cum_share_of_typed_pct": 100.0
+    }
+  ],
+  "new_card_cohorts": [
+    {
+      "cohort_m": 3,
+      "cards": 36158,
+      "wallet_first_month": 0.245,
+      "online_first_month": 0.3153,
+      "online_within_3m": 0.4155,
+      "first_online_typed": 0.6585
+    },
+    {
+      "cohort_m": 4,
+      "cards": 32367,
+      "wallet_first_month": 0.2628,
+      "online_first_month": 0.3214,
+      "online_within_3m": 0.4263,
+      "first_online_typed": 0.6652
+    },
+    {
+      "cohort_m": 5,
+      "cards": 30131,
+      "wallet_first_month": 0.2889,
+      "online_first_month": 0.3272,
+      "online_within_3m": 0.4363,
+      "first_online_typed": 0.6942
+    },
+    {
+      "cohort_m": 6,
+      "cards": 30634,
+      "wallet_first_month": 0.2973,
+      "online_first_month": 0.3408,
+      "online_within_3m": 0.4567,
+      "first_online_typed": 0.7121
+    },
+    {
+      "cohort_m": 7,
+      "cards": 28351,
+      "wallet_first_month": 0.3119,
+      "online_first_month": 0.3502,
+      "online_within_3m": 0.4615,
+      "first_online_typed": 0.7071
+    },
+    {
+      "cohort_m": 8,
+      "cards": 27752,
+      "wallet_first_month": 0.3331,
+      "online_first_month": 0.3684,
+      "online_within_3m": 0.4839,
+      "first_online_typed": 0.7133
+    },
+    {
+      "cohort_m": 9,
+      "cards": 27504,
+      "wallet_first_month": 0.3217,
+      "online_first_month": 0.3826,
+      "online_within_3m": 0.5058,
+      "first_online_typed": 0.708
+    },
+    {
+      "cohort_m": 10,
+      "cards": 24939,
+      "wallet_first_month": 0.3208,
+      "online_first_month": 0.4208,
+      "online_within_3m": 0.5323,
+      "first_online_typed": 0.7216
+    },
+    {
+      "cohort_m": 11,
+      "cards": 24212,
+      "wallet_first_month": 0.3314,
+      "online_first_month": 0.4119,
+      "online_within_3m": 0.5254,
+      "first_online_typed": 0.7297
+    },
+    {
+      "cohort_m": 12,
+      "cards": 23126,
+      "wallet_first_month": 0.3448,
+      "online_first_month": 0.4011,
+      "online_within_3m": 0.5267,
+      "first_online_typed": 0.722
+    },
+    {
+      "cohort_m": 13,
+      "cards": 23967,
+      "wallet_first_month": 0.3559,
+      "online_first_month": 0.4064,
+      "online_within_3m": 0.5287,
+      "first_online_typed": 0.7147
+    },
+    {
+      "cohort_m": 14,
+      "cards": 24812,
+      "wallet_first_month": 0.3495,
+      "online_first_month": 0.3773,
+      "online_within_3m": 0.5027,
+      "first_online_typed": 0.6989
+    },
+    {
+      "cohort_m": 15,
+      "cards": 24669,
+      "wallet_first_month": 0.3525,
+      "online_first_month": 0.3811,
+      "online_within_3m": 0.5106,
+      "first_online_typed": 0.7009
+    },
+    {
+      "cohort_m": 16,
+      "cards": 25319,
+      "wallet_first_month": 0.3651,
+      "online_first_month": 0.3824,
+      "online_within_3m": NaN,
+      "first_online_typed": NaN
+    },
+    {
+      "cohort_m": 17,
+      "cards": 26962,
+      "wallet_first_month": 0.383,
+      "online_first_month": 0.3796,
+      "online_within_3m": NaN,
+      "first_online_typed": NaN
+    }
+  ]
+}
