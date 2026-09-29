@@ -9,12 +9,17 @@ from app_pages.common import load_json, t, VISA_BLUE, VISA_GOLD, BLIK_PINK, ACCE
 
 
 def render():
+    lang = st.session_state.get("lang", "EN")
+
     models = load_json("model_results.json")
     st.header(t("Predictive Models & Simulations", "Modele Predykcyjne i Symulacje"))
     st.caption(t("6 models projecting Visa QR Pay adoption, transaction volume, BLIK cannibalization, ROI, and market share impact over 36 months",
                   "6 modeli prognozujacych adopcje Visa QR Pay, wolumen transakcji, kanibalizacje BLIK, ROI i wplyw na udzial rynkowy w ciagu 36 miesiecy"))
 
-    scenario = st.radio(t("Select scenario:", "Wybierz scenariusz:"), ["Conservative", "Base", "Optimistic"], index=1, horizontal=True)
+    scenario_labels = [t("Conservative", "Konserwatywny"), t("Base", "Bazowy"), t("Optimistic", "Optymistyczny")]
+    scenario_map = {t("Conservative", "Konserwatywny"): "Conservative", t("Base", "Bazowy"): "Base", t("Optimistic", "Optymistyczny"): "Optimistic"}
+    scenario_label = st.radio(t("Select scenario:", "Wybierz scenariusz:"), scenario_labels, index=1, horizontal=True)
+    scenario = scenario_map[scenario_label]
 
     months_labels = [f"M{i+1}" for i in range(36)]
     year_labels = [""] * 36
@@ -49,7 +54,7 @@ def render():
             fig.add_trace(go.Scatter(x=months_labels, y=np.array(ad["cumulative"])/1e6,
                                      name=name, line=dict(color=colors_sc[name], width=3 if name==scenario else 1.5,
                                                           dash="solid" if name==scenario else "dot")))
-        fig.update_layout(height=400, yaxis_title="Cumulative adopters (millions)", title_text="QR Pay Adoption Curve",
+        fig.update_layout(height=400, yaxis_title=t("Cumulative adopters (millions)", "Skumulowani użytkownicy (mln)"), title_text=t("QR Pay Adoption Curve", "Krzywa Adopcji QR Pay"),
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -60,7 +65,7 @@ def render():
             fig.add_trace(go.Bar(x=months_labels, y=np.array(ad["monthly_new"])/1e3,
                                  name=name, marker_color=colors_sc[name],
                                  visible=True if name==scenario else "legendonly"))
-        fig.update_layout(height=400, yaxis_title="New adopters per month (K)", title_text="Monthly New Adopters",
+        fig.update_layout(height=400, yaxis_title=t("New adopters per month (K)", "Nowi użytkownicy/mies. (tys.)"), title_text=t("Monthly New Adopters", "Nowi Użytkownicy Miesięcznie"),
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -81,8 +86,8 @@ def render():
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(sv["ecom_tx_monthly"])/1e6,
                                  name="E-Commerce", fill="tonexty", line=dict(color=ACCENT[3]), stackgroup="one"))
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(sv["svc_tx_monthly"])/1e6,
-                                 name="Services", fill="tonexty", line=dict(color=ACCENT[2]), stackgroup="one"))
-        fig.update_layout(height=400, yaxis_title="Monthly TX (millions)", title_text=f"Monthly Transactions — {scenario}",
+                                 name=t("Services", "Usługi"), fill="tonexty", line=dict(color=ACCENT[2]), stackgroup="one"))
+        fig.update_layout(height=400, yaxis_title=t("Monthly TX (millions)", "Miesięczne TX (mln)"), title_text=t(f"Monthly Transactions — {scenario}", f"Miesięczne Transakcje — {scenario}"),
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -93,8 +98,8 @@ def render():
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(sv["ecom_val_monthly"])/1e9,
                                  name="E-Commerce", fill="tonexty", line=dict(color=ACCENT[3]), stackgroup="one"))
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(sv["svc_val_monthly"])/1e9,
-                                 name="Services", fill="tonexty", line=dict(color=ACCENT[2]), stackgroup="one"))
-        fig.update_layout(height=400, yaxis_title="Monthly value (B PLN)", title_text=f"Monthly Transaction Value — {scenario}",
+                                 name=t("Services", "Usługi"), fill="tonexty", line=dict(color=ACCENT[2]), stackgroup="one"))
+        fig.update_layout(height=400, yaxis_title=t("Monthly value (B PLN)", "Wartość miesięczna (mld PLN)"), title_text=t(f"Monthly Transaction Value — {scenario}", f"Miesięczna Wartość Transakcji — {scenario}"),
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -113,12 +118,12 @@ def render():
     with col1:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(cn["net_new_monthly"])/1e6,
-                                 name="Net new to Visa (from cash/transfer)", fill="tozeroy",
+                                 name=t("Net new to Visa (from cash/transfer)", "Nowe netto dla Visa (z gotówki/przelewów)"), fill="tozeroy",
                                  line=dict(color=ACCENT[2]), fillcolor="rgba(46,204,113,0.3)"))
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(cn["from_blik_monthly"])/1e6,
-                                 name="Cannibalized from BLIK", fill="tozeroy",
+                                 name=t("Cannibalized from BLIK", "Skanibalizowane z BLIK"), fill="tozeroy",
                                  line=dict(color=BLIK_PINK), fillcolor="rgba(212,14,106,0.2)"))
-        fig.update_layout(height=400, yaxis_title="Monthly value (M PLN)", title_text=f"Source of QR Pay Volume — {scenario}",
+        fig.update_layout(height=400, yaxis_title=t("Monthly value (M PLN)", "Wartość miesięczna (M PLN)"), title_text=t(f"Source of QR Pay Volume — {scenario}", f"Źródło Wolumenu QR Pay — {scenario}"),
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -127,15 +132,18 @@ def render():
         net_new_36 = cn["net_new_monthly"][35]
         blik_36 = cn["from_blik_monthly"][35]
         existing_36 = cn["from_existing_card"][35]
-        fig = px.pie(names=["Net new (cash/transfer → card)", "From BLIK", "From existing card"],
+        fig = px.pie(names=[t("Net new (cash/transfer → card)", "Nowe netto (gotówka/przelew → karta)"), t("From BLIK", "Z BLIK"), t("From existing card", "Z istniejącej karty")],
                      values=[net_new_36, blik_36, existing_36],
                      color_discrete_sequence=[ACCENT[2], BLIK_PINK, ACCENT[0]], hole=0.35,
-                     title=f"Volume Source at Month 36 — {scenario}")
+                     title=t(f"Volume Source at Month 36 — {scenario}", f"Źródło Wolumenu w Miesiącu 36 — {scenario}"))
         fig.update_layout(height=400, margin=dict(t=40,b=30))
         st.plotly_chart(fig, use_container_width=True)
 
     net_new_pct = cn["net_new_pct"][35]
-    st.info(f"**{scenario} scenario at Month 36:** {net_new_pct:.0f}% of QR Pay volume is NET NEW to the card ecosystem (from cash/transfers). {100-net_new_pct:.0f}% is cannibalized from BLIK or existing card channels.")
+    if lang == "EN":
+        st.info(f"**{scenario} scenario at Month 36:** {net_new_pct:.0f}% of QR Pay volume is NET NEW to the card ecosystem (from cash/transfers). {100-net_new_pct:.0f}% is cannibalized from BLIK or existing card channels.")
+    else:
+        st.info(f"**Scenariusz {scenario} w Miesiącu 36:** {net_new_pct:.0f}% wolumenu QR Pay to NOWE NETTO dla ekosystemu kartowego (z gotówki/przelewów). {100-net_new_pct:.0f}% jest skanibalizowane z BLIK lub istniejących kanałów kartowych.")
 
     st.divider()
 
@@ -147,27 +155,27 @@ def render():
     with col1:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(rv["cumulative_revenue"])/1e6,
-                                 name="Cumulative Revenue", line=dict(color=ACCENT[2], width=3), fill="tozeroy", fillcolor="rgba(46,204,113,0.15)"))
+                                 name=t("Cumulative Revenue", "Skumulowany Przychód"), line=dict(color=ACCENT[2], width=3), fill="tozeroy", fillcolor="rgba(46,204,113,0.15)"))
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(rv["cumulative_costs"])/1e6,
-                                 name="Cumulative Costs", line=dict(color=ACCENT[1], width=3, dash="dash")))
+                                 name=t("Cumulative Costs", "Skumulowane Koszty"), line=dict(color=ACCENT[1], width=3, dash="dash")))
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(rv["cumulative_profit"])/1e6,
-                                 name="Cumulative Profit", line=dict(color=VISA_BLUE, width=3)))
+                                 name=t("Cumulative Profit", "Skumulowany Zysk"), line=dict(color=VISA_BLUE, width=3)))
         if rv["breakeven_month"]:
             fig.add_vline(x=rv["breakeven_month"]-1, line_dash="dot", line_color=VISA_GOLD,
-                          annotation_text=f"Break-even: M{rv['breakeven_month']}")
-        fig.update_layout(height=400, yaxis_title="PLN (millions)", title_text=f"Cumulative P&L — {scenario}",
+                          annotation_text=t(f"Break-even: M{rv['breakeven_month']}", f"Punkt rentowności: M{rv['breakeven_month']}"))
+        fig.update_layout(height=400, yaxis_title=t("PLN (millions)", "PLN (mln)"), title_text=t(f"Cumulative P&L — {scenario}", f"Skumulowany P&L — {scenario}"),
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(rv["p2p_rev"])/1e6,
-                                 name="P2P revenue", fill="tonexty", stackgroup="one", line=dict(color=ACCENT[0])))
+                                 name=t("P2P revenue", "Przychód P2P"), fill="tonexty", stackgroup="one", line=dict(color=ACCENT[0])))
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(rv["ecom_rev"])/1e6,
-                                 name="E-commerce revenue", fill="tonexty", stackgroup="one", line=dict(color=ACCENT[3])))
+                                 name=t("E-commerce revenue", "Przychód e-commerce"), fill="tonexty", stackgroup="one", line=dict(color=ACCENT[3])))
         fig.add_trace(go.Scatter(x=months_labels, y=np.array(rv["svc_rev"])/1e6,
-                                 name="Services revenue", fill="tonexty", stackgroup="one", line=dict(color=ACCENT[2])))
-        fig.update_layout(height=400, yaxis_title="Monthly revenue (M PLN)", title_text=f"Revenue by Channel — {scenario}",
+                                 name=t("Services revenue", "Przychód z usług"), fill="tonexty", stackgroup="one", line=dict(color=ACCENT[2])))
+        fig.update_layout(height=400, yaxis_title=t("Monthly revenue (M PLN)", "Przychód miesięczny (M PLN)"), title_text=t(f"Revenue by Channel — {scenario}", f"Przychód wg Kanału — {scenario}"),
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -183,15 +191,15 @@ def render():
 
     es = models["ecom_share"][scenario]
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=months_labels, y=es["visa_share_pct"], name="Visa total (card + QR Pay)",
+    fig.add_trace(go.Scatter(x=months_labels, y=es["visa_share_pct"], name=t("Visa total (card + QR Pay)", "Visa łącznie (karta + QR Pay)"),
                              line=dict(color=VISA_BLUE, width=3)))
-    fig.add_trace(go.Scatter(x=months_labels, y=es["visa_base_share"], name="Visa baseline (without QR Pay)",
+    fig.add_trace(go.Scatter(x=months_labels, y=es["visa_base_share"], name=t("Visa baseline (without QR Pay)", "Visa bazowo (bez QR Pay)"),
                              line=dict(color=VISA_BLUE, width=1.5, dash="dot")))
-    fig.add_trace(go.Scatter(x=months_labels, y=es["blik_share_pct"], name="BLIK (adjusted)",
+    fig.add_trace(go.Scatter(x=months_labels, y=es["blik_share_pct"], name=t("BLIK (adjusted)", "BLIK (skorygowany)"),
                              line=dict(color=BLIK_PINK, width=3)))
     fig.add_hline(y=es["visa_base_share"][0], line_dash="dash", line_color="#ccc",
-                  annotation_text=f"Current Visa e-com share: {es['visa_base_share'][0]:.1f}%")
-    fig.update_layout(height=450, yaxis_title="Market share (%)", title_text=f"E-Commerce Payment Share — {scenario}",
+                  annotation_text=t(f"Current Visa e-com share: {es['visa_base_share'][0]:.1f}%", f"Obecny udział Visa e-com: {es['visa_base_share'][0]:.1f}%"))
+    fig.update_layout(height=450, yaxis_title=t("Market share (%)", "Udział rynkowy (%)"), title_text=t(f"E-Commerce Payment Share — {scenario}", f"Udział w Płatnościach E-Commerce — {scenario}"),
                       legend=dict(orientation="h",y=-0.12), margin=dict(t=40,b=40))
     st.plotly_chart(fig, use_container_width=True)
 
@@ -199,7 +207,10 @@ def render():
     visa_end = es["visa_share_pct"][35]
     blik_start = es["blik_share_pct"][0]
     blik_end = es["blik_share_pct"][35]
-    st.success(f"**{scenario}:** Visa e-commerce share moves from **{visa_start:.1f}%** to **{visa_end:.1f}%** (+{visa_end-visa_start:.1f}pp). BLIK declines from **{blik_start:.1f}%** to **{blik_end:.1f}%** ({blik_end-blik_start:+.1f}pp).")
+    if lang == "EN":
+        st.success(f"**{scenario}:** Visa e-commerce share moves from **{visa_start:.1f}%** to **{visa_end:.1f}%** (+{visa_end-visa_start:.1f}pp). BLIK declines from **{blik_start:.1f}%** to **{blik_end:.1f}%** ({blik_end-blik_start:+.1f}pp).")
+    else:
+        st.success(f"**{scenario}:** Udział Visa w e-commerce rośnie z **{visa_start:.1f}%** do **{visa_end:.1f}%** (+{visa_end-visa_start:.1f}pp). BLIK spada z **{blik_start:.1f}%** do **{blik_end:.1f}%** ({blik_end-blik_start:+.1f}pp).")
 
     st.divider()
 
@@ -219,10 +230,10 @@ def render():
     fig.add_trace(go.Bar(x=df_p["multiplier"].apply(lambda m: f"{m:.0%}"), y=df_p["revenue_3yr_mln"],
                          marker_color=colors_bar.tolist(), text=df_p["revenue_3yr_mln"].apply(lambda v: f"{v:.0f}M"),
                          textposition="outside"))
-    fig.add_hline(y=base_rev, line_dash="dash", line_color=VISA_GOLD, annotation_text=f"Base: {base_rev:.0f}M PLN")
-    fig.update_layout(height=400, yaxis_title="3-year revenue (M PLN)",
-                      xaxis_title=f"{param_choice} (multiplier vs base)",
-                      title_text=f"Sensitivity: {param_choice}", margin=dict(t=40,b=40))
+    fig.add_hline(y=base_rev, line_dash="dash", line_color=VISA_GOLD, annotation_text=t(f"Base: {base_rev:.0f}M PLN", f"Baza: {base_rev:.0f}M PLN"))
+    fig.update_layout(height=400, yaxis_title=t("3-year revenue (M PLN)", "Przychód 3-letni (M PLN)"),
+                      xaxis_title=t(f"{param_choice} (multiplier vs base)", f"{param_choice} (mnożnik vs baza)"),
+                      title_text=t(f"Sensitivity: {param_choice}", f"Wrażliwość: {param_choice}"), margin=dict(t=40,b=40))
     st.plotly_chart(fig, use_container_width=True)
 
     # Tornado chart
@@ -238,12 +249,12 @@ def render():
     df_torn = pd.DataFrame(tornado).sort_values("Range", ascending=True)
 
     fig = go.Figure()
-    fig.add_trace(go.Bar(y=df_torn["Parameter"], x=df_torn["Low (50%)"], name="50% of base",
+    fig.add_trace(go.Bar(y=df_torn["Parameter"], x=df_torn["Low (50%)"], name=t("50% of base", "50% bazy"),
                          orientation="h", marker_color=ACCENT[1]))
-    fig.add_trace(go.Bar(y=df_torn["Parameter"], x=df_torn["High (150%)"], name="150% of base",
+    fig.add_trace(go.Bar(y=df_torn["Parameter"], x=df_torn["High (150%)"], name=t("150% of base", "150% bazy"),
                          orientation="h", marker_color=ACCENT[2]))
-    fig.update_layout(height=400, xaxis_title="Impact on 3Y revenue (M PLN vs base)",
-                      barmode="overlay", title_text="Tornado: Which Parameters Matter Most",
+    fig.update_layout(height=400, xaxis_title=t("Impact on 3Y revenue (M PLN vs base)", "Wpływ na przychód 3L (M PLN vs baza)"),
+                      barmode="overlay", title_text=t("Tornado: Which Parameters Matter Most", "Tornado: Które Parametry Mają Największe Znaczenie"),
                       legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
     st.plotly_chart(fig, use_container_width=True)
 
@@ -257,16 +268,30 @@ def render():
         v = models["volume"][name]
         r = models["revenue"][name]
         cn = models["cannibalization"][name]
-        comp_data.append({
-            "Scenario": name,
-            "Y3 Adopters": f"{a['cumulative'][35]/1e6:.1f}M",
-            "Y3 Penetration": f"{a['penetration_pct'][35]:.0f}%",
-            "Y3 Monthly TX": f"{v['total_tx_monthly'][35]/1e6:.1f}M",
-            "Y3 Monthly Value": f"{v['total_val_monthly'][35]/1e9:.1f}B PLN",
-            "3Y Revenue": f"{r['total_3yr_revenue']/1e6:.0f}M PLN",
-            "3Y Profit": f"{r['total_3yr_profit']/1e6:.0f}M PLN",
-            "ROI": f"{r['roi_pct']:.0f}%",
-            "Break-even": f"Month {r['breakeven_month']}" if r["breakeven_month"] else "Not reached",
-            "Net New %": f"{cn['net_new_pct'][35]:.0f}%",
-        })
+        if lang == "EN":
+            comp_data.append({
+                "Scenario": name,
+                "Y3 Adopters": f"{a['cumulative'][35]/1e6:.1f}M",
+                "Y3 Penetration": f"{a['penetration_pct'][35]:.0f}%",
+                "Y3 Monthly TX": f"{v['total_tx_monthly'][35]/1e6:.1f}M",
+                "Y3 Monthly Value": f"{v['total_val_monthly'][35]/1e9:.1f}B PLN",
+                "3Y Revenue": f"{r['total_3yr_revenue']/1e6:.0f}M PLN",
+                "3Y Profit": f"{r['total_3yr_profit']/1e6:.0f}M PLN",
+                "ROI": f"{r['roi_pct']:.0f}%",
+                "Break-even": f"Month {r['breakeven_month']}" if r["breakeven_month"] else "Not reached",
+                "Net New %": f"{cn['net_new_pct'][35]:.0f}%",
+            })
+        else:
+            comp_data.append({
+                "Scenariusz": name,
+                "Użytkownicy 3L": f"{a['cumulative'][35]/1e6:.1f}M",
+                "Penetracja 3L": f"{a['penetration_pct'][35]:.0f}%",
+                "Mies. TX 3L": f"{v['total_tx_monthly'][35]/1e6:.1f}M",
+                "Mies. Wartość 3L": f"{v['total_val_monthly'][35]/1e9:.1f} mld PLN",
+                "Przychód 3L": f"{r['total_3yr_revenue']/1e6:.0f}M PLN",
+                "Zysk 3L": f"{r['total_3yr_profit']/1e6:.0f}M PLN",
+                "ROI": f"{r['roi_pct']:.0f}%",
+                "Punkt rentowności": f"Miesiąc {r['breakeven_month']}" if r["breakeven_month"] else "Nie osiągnięty",
+                "Nowe netto %": f"{cn['net_new_pct'][35]:.0f}%",
+            })
     st.dataframe(pd.DataFrame(comp_data), use_container_width=True, hide_index=True)

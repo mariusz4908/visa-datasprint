@@ -22,10 +22,10 @@ def render():
     with col1:
         st.subheader(t("Monthly Transaction Volume & Value", "Miesięczny Wolumen i Wartość Transakcji"))
         fig = make_subplots(specs=[[{"secondary_y": True}]])
-        fig.add_trace(go.Bar(x=df_m["month"], y=df_m["tx_count"]/1e6, name="Transactions (M)", marker_color=VISA_BLUE, opacity=0.7), secondary_y=False)
-        fig.add_trace(go.Scatter(x=df_m["month"], y=df_m["total_amount"]/1e9, name="Value (B)", line=dict(color=VISA_GOLD, width=3)), secondary_y=True)
-        fig.update_yaxes(title_text="Transactions (M)", secondary_y=False)
-        fig.update_yaxes(title_text="Value (B)", secondary_y=True)
+        fig.add_trace(go.Bar(x=df_m["month"], y=df_m["tx_count"]/1e6, name=t("Transactions (M)", "Transakcje (M)"), marker_color=VISA_BLUE, opacity=0.7), secondary_y=False)
+        fig.add_trace(go.Scatter(x=df_m["month"], y=df_m["total_amount"]/1e9, name=t("Value (B)", "Wartość (mld)"), line=dict(color=VISA_GOLD, width=3)), secondary_y=True)
+        fig.update_yaxes(title_text=t("Transactions (M)", "Transakcje (M)"), secondary_y=False)
+        fig.update_yaxes(title_text=t("Value (B)", "Wartość (mld)"), secondary_y=True)
         fig.update_layout(height=400, margin=dict(t=10,b=30), legend=dict(orientation="h",y=-0.2))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -33,7 +33,7 @@ def render():
         st.subheader(t("Average Transaction Value Over Time", "Średnia Wartość Transakcji w Czasie"))
         fig = px.line(df_m, x="month", y="avg_amount", markers=True)
         fig.update_traces(line_color=ACCENT[0], line_width=3)
-        fig.update_layout(height=400, margin=dict(t=10,b=30), yaxis_title="Avg amount", yaxis_range=[170,200])
+        fig.update_layout(height=400, margin=dict(t=10,b=30), yaxis_title=t("Avg amount", "Średnia kwota"), yaxis_range=[170,200])
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
@@ -46,8 +46,8 @@ def render():
         df_h = pd.DataFrame(hourly)
         df_h["hour_label"] = df_h["hour_gmt"].apply(lambda h: f"{(h+1)%24}:00")
         fig = make_subplots(specs=[[{"secondary_y": True}]])
-        fig.add_trace(go.Bar(x=df_h["hour_label"], y=df_h["tx_count"]/1e6, name="TX (M)", marker_color=VISA_BLUE, opacity=0.6), secondary_y=False)
-        fig.add_trace(go.Scatter(x=df_h["hour_label"], y=df_h["avg_amount"], name="Avg amount", line=dict(color=VISA_GOLD, width=2)), secondary_y=True)
+        fig.add_trace(go.Bar(x=df_h["hour_label"], y=df_h["tx_count"]/1e6, name=t("TX (M)", "TX (M)"), marker_color=VISA_BLUE, opacity=0.6), secondary_y=False)
+        fig.add_trace(go.Scatter(x=df_h["hour_label"], y=df_h["avg_amount"], name=t("Avg amount", "Średnia kwota"), line=dict(color=VISA_GOLD, width=2)), secondary_y=True)
         fig.update_layout(height=350, margin=dict(t=10,b=30), legend=dict(orientation="h",y=-0.2))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -59,7 +59,7 @@ def render():
         colors[df_d["tx_count"].idxmax()] = VISA_GOLD
         colors[df_d["tx_count"].idxmin()] = ACCENT[1]
         fig = go.Figure(go.Bar(x=df_d["day_name"], y=df_d["tx_count"]/1e6, marker_color=colors))
-        fig.update_layout(height=350, margin=dict(t=10,b=30), yaxis_title="TX (millions)")
+        fig.update_layout(height=350, margin=dict(t=10,b=30), yaxis_title=t("TX (millions)", "TX (mln)"))
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
@@ -71,7 +71,7 @@ def render():
         cats = analysis["top_categories"][:15]
         df_c = pd.DataFrame(cats)
         fig = px.bar(df_c, y="mrch_catg_nm", x="tx_count", orientation="h", color_discrete_sequence=[VISA_BLUE])
-        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title="Transactions")
+        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title=t("Transactions", "Transakcje"))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -79,7 +79,7 @@ def render():
         merch = analysis["top_merchants"][:15]
         df_me = pd.DataFrame(merch)
         fig = px.bar(df_me, y="mrch_nm_raw", x="tx_count", orientation="h", color_discrete_sequence=[ACCENT[3]])
-        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title="Transactions")
+        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title=t("Transactions", "Transakcje"))
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
@@ -97,7 +97,7 @@ def render():
     with col2:
         st.subheader(t("Physical vs Online", "Fizyczne vs Online"))
         cp = analysis["cp_flag"]
-        labels = ["Physical (88.8%)", "Online (11.2%)"]
+        labels = [t("Physical (88.8%)", "Fizyczne (88.8%)"), t("Online (11.2%)", "Online (11.2%)")]
         fig = px.pie(names=labels, values=[cp[0]["tx_count"], cp[1]["tx_count"]], color_discrete_sequence=[VISA_BLUE, ACCENT[1]], hole=0.35)
         fig.update_layout(height=350, margin=dict(t=10,b=30))
         st.plotly_chart(fig, use_container_width=True)

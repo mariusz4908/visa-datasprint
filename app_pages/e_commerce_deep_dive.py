@@ -9,6 +9,8 @@ from app_pages.common import t, ecommerce, precise, VISA_BLUE, VISA_GOLD, ACCENT
 
 
 def render():
+    lang = st.session_state.get("lang", "EN")
+
     st.header(t("E-Commerce Deep Dive", "Analiza E-Commerce"))
 
     overall = ecommerce["ecommerce_overall"]
@@ -32,18 +34,18 @@ def render():
     col1, col2 = st.columns(2)
     with col1:
         fig = make_subplots(specs=[[{"secondary_y": True}]])
-        fig.add_trace(go.Bar(x=df_t["month"], y=df_t["online_tx"]/1e6, name="Online TX (M)", marker_color=VISA_BLUE, opacity=0.7), secondary_y=False)
-        fig.add_trace(go.Scatter(x=df_t["month"], y=df_t["online_tx_pct"], name="Online % of TX", line=dict(color=VISA_GOLD, width=3)), secondary_y=True)
-        fig.update_yaxes(title_text="Online TX (M)", secondary_y=False)
-        fig.update_yaxes(title_text="Online share (%)", secondary_y=True)
-        fig.update_layout(height=380, margin=dict(t=10,b=30), legend=dict(orientation="h",y=-0.2), title_text="Online transaction volume & share")
+        fig.add_trace(go.Bar(x=df_t["month"], y=df_t["online_tx"]/1e6, name=t("Online TX (M)", "Online TX (M)"), marker_color=VISA_BLUE, opacity=0.7), secondary_y=False)
+        fig.add_trace(go.Scatter(x=df_t["month"], y=df_t["online_tx_pct"], name=t("Online % of TX", "Online % TX"), line=dict(color=VISA_GOLD, width=3)), secondary_y=True)
+        fig.update_yaxes(title_text=t("Online TX (M)", "Online TX (M)"), secondary_y=False)
+        fig.update_yaxes(title_text=t("Online share (%)", "Udział online (%)"), secondary_y=True)
+        fig.update_layout(height=380, margin=dict(t=10,b=30), legend=dict(orientation="h",y=-0.2), title_text=t("Online transaction volume & share", "Wolumen i udział transakcji online"))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=df_t["month"], y=df_t["online_tx_pct"], name="% of TX", line=dict(color=VISA_BLUE, width=2), mode="lines+markers"))
-        fig.add_trace(go.Scatter(x=df_t["month"], y=df_t["online_val_pct"], name="% of Value", line=dict(color=ACCENT[1], width=2), mode="lines+markers"))
-        fig.update_layout(height=380, margin=dict(t=10,b=30), yaxis_title="Online share (%)", title_text="Online share: transactions vs value", legend=dict(orientation="h",y=-0.2))
+        fig.add_trace(go.Scatter(x=df_t["month"], y=df_t["online_tx_pct"], name=t("% of TX", "% TX"), line=dict(color=VISA_BLUE, width=2), mode="lines+markers"))
+        fig.add_trace(go.Scatter(x=df_t["month"], y=df_t["online_val_pct"], name=t("% of Value", "% wartości"), line=dict(color=ACCENT[1], width=2), mode="lines+markers"))
+        fig.update_layout(height=380, margin=dict(t=10,b=30), yaxis_title=t("Online share (%)", "Udział online (%)"), title_text=t("Online share: transactions vs value", "Udział online: transakcje vs wartość"), legend=dict(orientation="h",y=-0.2))
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
@@ -55,7 +57,7 @@ def render():
         top_ecom = ecommerce["ecommerce_top_categories"][:15]
         df_ec = pd.DataFrame(top_ecom)
         fig = px.bar(df_ec, y="mrch_catg_nm", x="tx_count", orientation="h", color_discrete_sequence=[VISA_BLUE])
-        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title="Transactions")
+        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title=t("Transactions", "Transakcje"))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -64,7 +66,7 @@ def render():
         df_em = pd.DataFrame(top_merch)
         fig = px.bar(df_em, y="mrch_nm_raw", x="tx_count", orientation="h", color_discrete_sequence=[ACCENT[3]],
                      hover_data=["mrch_catg_nm", "avg_amount", "unique_cards"])
-        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title="Transactions")
+        fig.update_layout(height=500, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"), xaxis_title=t("Transactions", "Transakcje"))
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
@@ -81,21 +83,33 @@ def render():
 
     with col2:
         st.subheader(t("Online vs Physical: Avg Transaction Value", "Online vs Fizyczne: Średnia Wartosc Transakcji"))
-        cats_compare = [
-            {"cat": "Family Clothing", "physical": 179, "online": 646},
-            {"cat": "Grocery", "physical": 131, "online": 402},
-            {"cat": "Cosmetics", "physical": 117, "online": 394},
-            {"cat": "Pharmacy", "physical": 143, "online": 479},
-            {"cat": "Misc Food", "physical": 59, "online": 259},
-            {"cat": "Service Stations", "physical": 216, "online": 344},
-            {"cat": "Fast Food", "physical": 64, "online": 133},
-            {"cat": "Restaurants", "physical": 121, "online": 152},
-        ]
+        if lang == "EN":
+            cats_compare = [
+                {"cat": "Family Clothing", "physical": 179, "online": 646},
+                {"cat": "Grocery", "physical": 131, "online": 402},
+                {"cat": "Cosmetics", "physical": 117, "online": 394},
+                {"cat": "Pharmacy", "physical": 143, "online": 479},
+                {"cat": "Misc Food", "physical": 59, "online": 259},
+                {"cat": "Service Stations", "physical": 216, "online": 344},
+                {"cat": "Fast Food", "physical": 64, "online": 133},
+                {"cat": "Restaurants", "physical": 121, "online": 152},
+            ]
+        else:
+            cats_compare = [
+                {"cat": "Odzież rodzinna", "physical": 179, "online": 646},
+                {"cat": "Spożywcze", "physical": 131, "online": 402},
+                {"cat": "Kosmetyki", "physical": 117, "online": 394},
+                {"cat": "Apteka", "physical": 143, "online": 479},
+                {"cat": "Różna żywność", "physical": 59, "online": 259},
+                {"cat": "Stacje paliw", "physical": 216, "online": 344},
+                {"cat": "Fast food", "physical": 64, "online": 133},
+                {"cat": "Restauracje", "physical": 121, "online": 152},
+            ]
         df_cmp = pd.DataFrame(cats_compare)
         fig = go.Figure()
-        fig.add_trace(go.Bar(name="Physical", y=df_cmp["cat"], x=df_cmp["physical"], orientation="h", marker_color=VISA_BLUE, opacity=0.7))
-        fig.add_trace(go.Bar(name="Online", y=df_cmp["cat"], x=df_cmp["online"], orientation="h", marker_color=ACCENT[1]))
-        fig.update_layout(height=350, margin=dict(t=10,b=30), barmode="group", xaxis_title="Avg transaction value", legend=dict(orientation="h",y=-0.15))
+        fig.add_trace(go.Bar(name=t("Physical", "Fizyczne"), y=df_cmp["cat"], x=df_cmp["physical"], orientation="h", marker_color=VISA_BLUE, opacity=0.7))
+        fig.add_trace(go.Bar(name=t("Online", "Online"), y=df_cmp["cat"], x=df_cmp["online"], orientation="h", marker_color=ACCENT[1]))
+        fig.update_layout(height=350, margin=dict(t=10,b=30), barmode="group", xaxis_title=t("Avg transaction value", "Średnia wartość transakcji"), legend=dict(orientation="h",y=-0.15))
         st.plotly_chart(fig, use_container_width=True)
 
     st.info(t("💡 **Key Insight:** Online transactions average **318** (1.9× physical at 165). In clothing the multiplier is **3.6×** (646 online vs 179 in-store). Every physical transaction converted to online generates ~2× the card revenue.",
@@ -111,7 +125,7 @@ def render():
                  color="online_tx_pct", color_continuous_scale=["#E85D75", "#F7B600", "#2ECC71"],
                  hover_data=["total_tx", "online_tx"])
     fig.update_layout(height=500, margin=dict(t=10,b=10), yaxis=dict(autorange="reversed"),
-                      xaxis_title="% of transactions that are online", coloraxis_showscale=False)
+                      xaxis_title=t("% of transactions that are online", "% transakcji online"), coloraxis_showscale=False)
     st.plotly_chart(fig, use_container_width=True)
 
     st.error(t("🛒 **E-Grocery Gap:** Groceries = 26.3% of all card TX but only **0.12%** are online. E-pharmacy = **0.18%**. In mature markets, e-grocery is 10-15% of food retail. At just 5% penetration this would mean millions of new high-value online card transactions.",

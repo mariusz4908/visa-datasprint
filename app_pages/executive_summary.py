@@ -68,16 +68,16 @@ def render():
         st.subheader(t("The Polish Payment Landscape", "Polski Krajobraz Platniczy"))
         fig = go.Figure()
         years = ["2019", "2020", "2021", "2022", "2023", "2024"]
-        fig.add_trace(go.Scatter(x=years, y=[44,50,53,55,57,58], name="Card at POS (%)", line=dict(color=VISA_BLUE, width=3)))
-        fig.add_trace(go.Scatter(x=years, y=[54,47,43,40,37,35], name="Cash at POS (%)", line=dict(color=ACCENT[1], width=3, dash="dash")))
-        fig.add_trace(go.Scatter(x=years, y=[5,10,15,22,30,42], name="BLIK tx (×100M)", line=dict(color=BLIK_PINK, width=3)))
+        fig.add_trace(go.Scatter(x=years, y=[44,50,53,55,57,58], name=t("Card at POS (%)", "Karta w POS (%)"), line=dict(color=VISA_BLUE, width=3)))
+        fig.add_trace(go.Scatter(x=years, y=[54,47,43,40,37,35], name=t("Cash at POS (%)", "Gotówka w POS (%)"), line=dict(color=ACCENT[1], width=3, dash="dash")))
+        fig.add_trace(go.Scatter(x=years, y=[5,10,15,22,30,42], name=t("BLIK tx (×100M)", "BLIK tx (×100M)"), line=dict(color=BLIK_PINK, width=3)))
         fig.update_layout(height=350, margin=dict(t=10,b=30), legend=dict(orientation="h", y=-0.15))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
         st.subheader(t("E-Commerce Payment Methods 2024", "Metody Płatności E-Commerce 2024"))
         fig = px.pie(
-            names=["BLIK (67%)", "Card (16%)", "Bank Transfer (10%)", "Cash on Delivery (5%)", "Other (2%)"],
+            names=[t("BLIK (67%)", "BLIK (67%)"), t("Card (16%)", "Karta (16%)"), t("Bank Transfer (10%)", "Przelew (10%)"), t("Cash on Delivery (5%)", "Za pobraniem (5%)"), t("Other (2%)", "Inne (2%)")],
             values=[67, 16, 10, 5, 2],
             color_discrete_sequence=[BLIK_PINK, VISA_BLUE, ACCENT[0], ACCENT[3], "#ccc"],
             hole=0.4,

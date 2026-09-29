@@ -8,6 +8,8 @@ from app_pages.common import t, ecommerce, precise, VISA_BLUE, VISA_GOLD, ACCENT
 
 
 def render():
+    lang = st.session_state.get("lang", "EN")
+
     st.header(t("The Subscription Economy: Visa's Competitive Moat", "Ekonomia Subskrypcji: Fosa Konkurencyjna Visa"))
 
     subs = ecommerce["subscription_merchants"]
@@ -25,18 +27,18 @@ def render():
         st.subheader(t("Top Subscription Services (by unique cardholders)", "Top Usługi Subskrypcyjne (wg unikalnych posiadaczy kart)"))
         fig = go.Figure()
         fig.add_trace(go.Bar(y=df_s["mrch_nm_raw"][:20], x=df_s["unique_cards"][:20]/1e3, orientation="h",
-                             name="Unique cards (K)", marker_color=VISA_BLUE))
+                             name=t("Unique cards (K)", "Unikalne karty (tys.)"), marker_color=VISA_BLUE))
         fig.update_layout(height=600, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"),
-                          xaxis_title="Unique cards (thousands)")
+                          xaxis_title=t("Unique cards (thousands)", "Unikalne karty (tysiące)"))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
         st.subheader(t("Transaction Frequency (TX per card)", "Czestotliwosc Transakcji (TX na karte)"))
         fig = go.Figure()
         fig.add_trace(go.Bar(y=df_s["mrch_nm_raw"][:20], x=df_s["tx_per_card"][:20], orientation="h",
-                             name="TX per card", marker_color=VISA_GOLD))
+                             name=t("TX per card", "TX na kartę"), marker_color=VISA_GOLD))
         fig.update_layout(height=600, margin=dict(t=10,b=10,l=10), yaxis=dict(autorange="reversed"),
-                          xaxis_title="Transactions per card (18-month period)")
+                          xaxis_title=t("Transactions per card (18-month period)", "Transakcje na kartę (okres 18 miesięcy)"))
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
@@ -48,13 +50,13 @@ def render():
     col1, col2 = st.columns(2)
     with col1:
         fig = px.pie(df_r, names="frequency", values="total_transactions",
-                     color_discrete_sequence=ACCENT, hole=0.35, title="Share of total transactions")
+                     color_discrete_sequence=ACCENT, hole=0.35, title=t("Share of total transactions", "Udział w łącznych transakcjach"))
         fig.update_layout(height=350, margin=dict(t=40,b=30))
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
         fig = px.pie(df_r, names="frequency", values="total_amount",
-                     color_discrete_sequence=ACCENT, hole=0.35, title="Share of total value")
+                     color_discrete_sequence=ACCENT, hole=0.35, title=t("Share of total value", "Udział w łącznej wartości"))
         fig.update_layout(height=350, margin=dict(t=40,b=30))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -77,17 +79,30 @@ def render():
     st.divider()
     st.subheader(t("Subscription Categories Breakdown", "Podzial Kategorii Subskrypcyjnych"))
 
-    sub_cats = {
-        "Streaming & Media": ["APPLE.COM/BILL", "NETFLIX.COM", "Netflix.com", "Disney Plus", "SPOTIFY",
-                              "Sklep Prime Video", "PlayStation Network"],
-        "E-Commerce Platforms": ["Allegro", "Temu.com", "aliexpress", "shein.com", "VINTED, UAB", "Vinted"],
-        "Ride-Hailing & Delivery": ["UBER   *TRIP", "UBR* PENDING.UBER.COM", "UBER   * EATS PENDING",
+    if lang == "EN":
+        sub_cats = {
+            "Streaming & Media": ["APPLE.COM/BILL", "NETFLIX.COM", "Netflix.com", "Disney Plus", "SPOTIFY",
+                                  "Sklep Prime Video", "PlayStation Network"],
+            "E-Commerce Platforms": ["Allegro", "Temu.com", "aliexpress", "shein.com", "VINTED, UAB", "Vinted"],
+            "Ride-Hailing & Delivery": ["UBER   *TRIP", "UBR* PENDING.UBER.COM", "UBER   * EATS PENDING",
+                                         "UBER   *EATS", "Wolt"],
+            "Transport & Mobility": ["jakdojade.pl", "KOLEO bilety kolejowe", "www.bilet.intercity.pl", "Autopay Mobility"],
+            "Finance & Transfers": ["Revolut*VISA MONEY TRANSF", "AllegroPay", "PAYSEND"],
+            "Telecom": ["doladowania.play.pl", "T-MOBILE POLSKA"],
+            "AI & Tech": ["OPENAI *CHATGPT SUBSCR"],
+        }
+    else:
+        sub_cats = {
+            "Streaming i Media": ["APPLE.COM/BILL", "NETFLIX.COM", "Netflix.com", "Disney Plus", "SPOTIFY",
+                                  "Sklep Prime Video", "PlayStation Network"],
+            "Platformy E-Commerce": ["Allegro", "Temu.com", "aliexpress", "shein.com", "VINTED, UAB", "Vinted"],
+            "Przewozy i Dostawy": ["UBER   *TRIP", "UBR* PENDING.UBER.COM", "UBER   * EATS PENDING",
                                      "UBER   *EATS", "Wolt"],
-        "Transport & Mobility": ["jakdojade.pl", "KOLEO bilety kolejowe", "www.bilet.intercity.pl", "Autopay Mobility"],
-        "Finance & Transfers": ["Revolut*VISA MONEY TRANSF", "AllegroPay", "PAYSEND"],
-        "Telecom": ["doladowania.play.pl", "T-MOBILE POLSKA"],
-        "AI & Tech": ["OPENAI *CHATGPT SUBSCR"],
-    }
+            "Transport i Mobilność": ["jakdojade.pl", "KOLEO bilety kolejowe", "www.bilet.intercity.pl", "Autopay Mobility"],
+            "Finanse i Przelewy": ["Revolut*VISA MONEY TRANSF", "AllegroPay", "PAYSEND"],
+            "Telekomunikacja": ["doladowania.play.pl", "T-MOBILE POLSKA"],
+            "AI i Technologia": ["OPENAI *CHATGPT SUBSCR"],
+        }
 
     for cat_name, merchants in sub_cats.items():
         cat_df = df_s[df_s["mrch_nm_raw"].isin(merchants)]
