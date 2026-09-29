@@ -31,6 +31,15 @@ It answers three questions for the QR Pay rollout:
 - 190k active cards pay online and mostly type the number (80% of all typed payments): QR replaces this directly.
 - Among never-online cards the model's top picks are the second wave: QR should be their first online payment.
 
+**Who first** (`target_audiences.ipynb`, `results/target_audiences.json`, Jan-Jun 2026)
+- Wave 1, **mostly typing** (A): 190k cards, 22% of active cards, 80% of all typed online payments; 86% of their typed
+  payments are on a phone, mostly at marketplaces, taxi, transport tickets and food delivery. The heaviest 20% of them
+  make 63% of the typing.
+- Wave 2, **ready to start** (C, model top 20% of never-online cards): 58k cards, ~14% expected to start within 3 months.
+- **New cards**: ~27k per month; 49% pay online within 3 months and 70% of those first online payments are typed,
+  so QR should come with the card.
+- `roi_inputs` in the JSON replaces assumptions of `models.py` with data-based shares and rates.
+
 **Pilot regions** (`pilot_regions.ipynb`, `results/pilot_regions.json`)
 
 | Track | Pilot | Control |
@@ -59,7 +68,8 @@ recommender; the recommender did not beat a popularity baseline and was dropped)
 | 1 | `explore.ipynb` | first look at the data, aggregated cache |
 | 2 | `wallet_online.ipynb` | card-partitioned data (`slim/`), card-month panel, friction analysis |
 | 3 | `readiness_model.ipynb` | features per snapshot, tuning, backtest, calibration, SHAP, personas |
-| 4 | `pilot_regions.ipynb` | today's scores, region ranking, controls, `results/pilot_regions.json` |
+| 4 | `target_audiences.ipynb` | QR Pay audiences, typing profile, personas, new cards, ROI inputs |
+| 5 | `pilot_regions.ipynb` | today's scores, region ranking, controls, `results/pilot_regions.json` |
 | - | `ai_experiments.ipynb` | comparison of AI approaches (optional) |
 
 `readiness.py` holds the shared feature pipeline; `paths.py` holds the data location.

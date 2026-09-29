@@ -5,6 +5,13 @@ when labelled, the 3 months from T as the label window. Inputs are built by wall
 cache/card_month_panel, cache/card_first_online and cache/slim.
 """
 import duckdb
+import lightgbm as lgb
+import numpy as np
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.isotonic import IsotonicRegression
+from sklearn.metrics import roc_auc_score
+from sklearn.preprocessing import StandardScaler
 
 from paths import CACHE
 
@@ -161,3 +168,111 @@ def build_snapshot(con, t, labelled=True):
       ) TO '{out.as_posix()}' (FORMAT parquet)
     ''')
     return out
+
+
+def load_snapshot(t):
+    """Features of snapshot t as a DataFrame with 32-bit floats."""
+    d = pd.read_parquet(FEATURES / f"t{t:02d}.parquet")
+    for c in d.select_dtypes("float64").columns:
+        d[c] = d[c].astype("float32")
+    return d
+
+
+def _model_matrix(d, categories):
+    X = d[NUM + CAT].copy()
+    for c in CAT:
+        X[c] = pd.Categorical(X[c].fillna("UNKNOWN"), categories=categories[c])
+    return X
+
+
+def train_and_score(con, today=18, train=(6, 9, 12), calibrate=15, random_state=42):
+    """Train on labelled snapshots, calibrate on a later one and score the never-online cards of `today`.
+
+    Returns (scored DataFrame with a calibrated probability `p`, check dict for the calibration period).
+    """
+    build_snapshot(con, today, labelled=False)
+    labelled = pd.concat([load_snapshot(t) for t in list(train) + [calibrate]], ignore_index=True)
+    scored = load_snapshot(today)
+    categories = {c: sorted(pd.concat([labelled[c], scored[c]]).fillna("UNKNOWN").unique()) for c in CAT}
+    tr = labelled[labelled.snapshot.isin(train)]
+    cal = labelled[labelled.snapshot == calibrate]
+    model = lgb.LGBMClassifier(**BEST_PARAMS, random_state=random_state, verbose=-1)
+    model.fit(_model_matrix(tr, categories), tr.label, categorical_feature=CAT)
+    p_cal = model.predict_proba(_model_matrix(cal, categories))[:, 1]
+    iso = IsotonicRegression(out_of_bounds="clip").fit(p_cal, cal.label)
+    scored["p"] = iso.predict(model.predict_proba(_model_matrix(scored, categories))[:, 1])
+    check = {"auc": roc_auc_score(cal.label, p_cal), "predicted": iso.predict(p_cal).mean(),
+             "actual": cal.label.mean()}
+    return scored, check
+
+
+PERSONA_FEATURES = ["wallet_share", "evening_share", "weekend_share", "abroad_share", "n_store_categories"] + \
+                   [f"s_{g}" for g in GROUPS]
+# First matching rule wins; ratios are persona average / overall average
+PERSONA_RULES = [
+    ("travellers", lambda r: r.abroad_share > 5),
+    ("phone-first city", lambda r: r.wallet_share > 3),
+    ("home & car", lambda r: r.s_car_fuel > 2 and r.s_home_electronics > 2),
+    ("mall shoppers", lambda r: r.s_fashion_sport > 1.8),
+    ("active all-rounders", lambda r: r.tx_per_month > 1.5),
+    ("everyday grocery", lambda r: r.s_grocery > 1.1),
+]
+
+
+def _persona_matrix(d):
+    X = d[PERSONA_FEATURES].fillna(0).copy()
+    X["log_tx_per_month"] = np.log1p(d.tx_per_month)
+    X["log_median_amount"] = np.log1p(d.typical_store_amount.fillna(0))
+    return X
+
+
+def fit_personas(fit_on, k=6, random_state=42):
+    """KMeans on in-store behaviour; returns a function that maps a DataFrame to persona names."""
+    scaler = StandardScaler().fit(_persona_matrix(fit_on))
+    km = KMeans(n_clusters=k, n_init=10, random_state=random_state).fit(scaler.transform(_persona_matrix(fit_on)))
+    ids = pd.Series(km.labels_, index=fit_on.index)
+    cols = PERSONA_FEATURES + ["tx_per_month"]
+    ratio = fit_on.groupby(ids)[cols].mean() / fit_on[cols].mean()
+    names = {pid: next((name for name, rule in PERSONA_RULES if rule(ratio.loc[pid])), f"persona {pid}")
+             for pid in ratio.index}
+
+    def assign(d):
+        return pd.Series(km.predict(scaler.transform(_persona_matrix(d))), index=d.index).map(names)
+    return assign
+
+
+def all_card_window(con, t):
+    """Every card active in the 6 months before t (>= 3 active months): payment behaviour + in-store features."""
+    build_slim_parts(con, t)
+    out = CACHE / f"all_cards_window_t{t:02d}.parquet"
+    if not out.exists():
+        con.sql(f'''
+          COPY (
+            WITH w AS (
+                SELECT card,
+                       count(*) AS active_months,
+                       sum(n_tx) AS n_tx,
+                       sum(n_store) AS n_store,
+                       sum(n_wallet_store) AS n_wallet,
+                       sum(n_online) AS n_online,
+                       sum(n_online_manual) AS n_typed,
+                       sum(n_online_mobile) AS n_online_phone
+                FROM panel WHERE m BETWEEN {t} - 6 AND {t} - 1 GROUP BY card HAVING count(*) >= 3
+            ),
+            hist AS (
+                SELECT card, min(m) AS first_m, min(m) FILTER (WHERE n_online > 0) AS first_online_m
+                FROM panel GROUP BY card
+            )
+            SELECT w.*, w.n_tx / w.active_months AS tx_per_month,
+                   w.n_wallet / nullif(w.n_store, 0) AS wallet_share,
+                   h.first_m, h.first_online_m, a.card_type, a.home_fua,
+                   f.* EXCLUDE (card, snapshot)
+            FROM w JOIN hist h USING (card)
+            LEFT JOIN attrs a USING (card)
+            LEFT JOIN read_parquet('{SLIM_PARTS.as_posix()}/t{t:02d}_b*.parquet') f USING (card)
+          ) TO '{out.as_posix()}' (FORMAT parquet)
+        ''')
+    d = pd.read_parquet(out)
+    for c in d.select_dtypes("float64").columns:
+        d[c] = d[c].astype("float32")
+    return d
