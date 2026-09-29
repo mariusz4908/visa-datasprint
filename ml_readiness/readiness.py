@@ -4,6 +4,8 @@ Snapshot T (month index, Jan 2025 = 0) uses the 6 months before T as the feature
 when labelled, the 3 months from T as the label window. Inputs are built by wallet_online.ipynb:
 cache/card_month_panel, cache/card_first_online and cache/slim.
 """
+from pathlib import Path
+
 import duckdb
 import lightgbm as lgb
 import numpy as np
@@ -168,6 +170,19 @@ def build_snapshot(con, t, labelled=True):
       ) TO '{out.as_posix()}' (FORMAT parquet)
     ''')
     return out
+
+
+CHECK_3_75 = Path(__file__).resolve().parent / "results" / "check_3_75.csv"
+
+
+def passing_3_75(level):
+    """Merchant categories that pass the 3/75 rule (>= 3 merchants, none above 75%), from check_3_75.py.
+
+    level: "mcc" (online, by MCC name), "mcc_all" (all transactions, by MCC name), "macro" or "macro_all".
+    """
+    df = pd.read_csv(CHECK_3_75)
+    df = df[(df.level == level) & df.passes]
+    return set(df.mrch_catg_nm if level.startswith("mcc") else df.macro)
 
 
 def load_snapshot(t):

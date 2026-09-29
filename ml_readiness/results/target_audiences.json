@@ -64,7 +64,7 @@
       "first_online_payment_typed": 0.704
     },
     "retention_effect_of_one_click_first_payment_pp": {
-      "conservative_same_category": 4.2,
+      "conservative_same_category": 3.9,
       "overall": 14.0,
       "source": "wallet_online.ipynb, share paying online in 3+ of the next 6 months"
     }

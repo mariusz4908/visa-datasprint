@@ -79,3 +79,7 @@ recommender; the recommender did not beat a popularity baseline and was dropped)
 - Nothing card-level leaves `data/`: notebooks and `results/` contain only aggregates of at least 30 cards
   (regions: at least 3,000), merchants only at category level.
 - The model scores single cards internally; campaign outputs are segments, personas and regions.
+- Merchant categories follow the 3/75 rule (at least 3 merchants, none above 75% of the group).
+  `check_3_75.py` measures every category on the full data (`results/check_3_75.csv`, no merchant names):
+  all 16 macro groups pass; single MCC categories that fail (e.g. one-airline or one-marketplace categories)
+  are filtered out of every table and chart via `readiness.passing_3_75()`.
