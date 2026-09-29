@@ -54,6 +54,7 @@ with st.sidebar:
         "🔄 Subscription Economy",
         "💵 Cash Deserts & Infrastructure",
         "💡 Visa QR Pay — Our Solution",
+        "🚀 Innovation Portfolio",
         "📈 Predictive Models & Simulations",
         "🎯 Recommendations",
     ], label_visibility="collapsed")
@@ -69,9 +70,9 @@ with st.sidebar:
 # ══════════════════════════════════════════════════════════════════════════
 if page == "🏠 Executive Summary":
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 40px 32px; border-radius: 16px; color: white; margin-bottom: 24px;">
-        <h1 style="margin:0; font-size:2.2em;">CardFlow</h1>
-        <p style="opacity:0.9; font-size:1.1em; margin-top:4px;">Transaction data as a roadmap for card adoption in e-commerce & P2P payments</p>
+    <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0, #C5CEE8); padding: 40px 32px; border-radius: 16px; color: #1A1F71; margin-bottom: 24px; border: 2px solid #B0BDE0;">
+        <h1 style="margin:0; font-size:2.2em; color:#0D1137;">CardFlow</h1>
+        <p style="color:#333; font-size:1.1em; margin-top:4px;">Transaction data as a roadmap for card adoption in e-commerce & P2P payments</p>
         <span style="background:#F7B600; color:#0D1137; padding:4px 16px; border-radius:16px; font-weight:700; font-size:0.85em;">VISA DATASPRINT HACKATHON 2026</span>
     </div>
     """, unsafe_allow_html=True)
@@ -727,12 +728,11 @@ elif page == "💵 Cash Deserts & Infrastructure":
 # ══════════════════════════════════════════════════════════════════════════
 elif page == "💡 Visa QR Pay — Our Solution":
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 44px 36px; border-radius: 18px; color: white; margin-bottom: 28px; position: relative; overflow: hidden;">
-        <div style="position:absolute; top:-40%; right:-5%; width:400px; height:400px; background:radial-gradient(circle, rgba(247,182,0,0.15) 0%, transparent 70%); border-radius:50%;"></div>
-        <h1 style="margin:0; font-size:2.4em; position:relative;">Visa QR Pay</h1>
-        <p style="opacity:0.9; font-size:1.15em; margin-top:8px; position:relative;">Your card is your identity. One scan — and the payment comes to you.</p>
-        <p style="opacity:0.7; font-size:0.95em; margin-top:4px; position:relative;">A new payment paradigm: instead of entering card details, you scan a QR code on your physical card. The payment request comes to your phone. You approve or decline — that's it.</p>
-        <span style="background:#F7B600; color:#0D1137; padding:5px 20px; border-radius:16px; font-weight:700; font-size:0.85em; position:relative;">OUR PROPOSED SOLUTION</span>
+    <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 44px 36px; border-radius: 18px; color: #1A1F71; margin-bottom: 28px; border: 2px solid #B0BDE0;">
+        <h1 style="margin:0; font-size:2.4em; color:#0D1137;">Visa QR Pay</h1>
+        <p style="color:#333; font-size:1.15em; margin-top:8px;">Your card is your identity. One scan — and the payment comes to you.</p>
+        <p style="color:#555; font-size:0.95em; margin-top:4px;">A new payment paradigm: instead of entering card details, you scan a QR code on your physical card. The payment request comes to your phone. You approve or decline — that's it.</p>
+        <span style="background:#F7B600; color:#0D1137; padding:5px 20px; border-radius:16px; font-weight:700; font-size:0.85em;">OUR PROPOSED SOLUTION</span>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1018,7 +1018,7 @@ elif page == "💡 Visa QR Pay — Our Solution":
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
-        <div style="background:linear-gradient(135deg, #E8F0FE, #C5D9F7); padding:24px; border-radius:14px;">
+        <div style="background:linear-gradient(135deg, #E8F0FE, #D4E2F9); padding:24px; border-radius:14px; border:2px solid #A8C4E8;">
             <h3 style="color:#1A1F71;">Why Visa QR Pay wins over BLIK:</h3>
             <ul style="font-size:0.95em;">
                 <li><strong>No app needed to initiate</strong> — anyone with a camera can scan a QR code. BLIK requires the bank app open.</li>
@@ -1034,7 +1034,7 @@ elif page == "💡 Visa QR Pay — Our Solution":
 
     with col2:
         st.markdown("""
-        <div style="background:linear-gradient(135deg, #FFF3E0, #FFE0B2); padding:24px; border-radius:14px;">
+        <div style="background:linear-gradient(135deg, #FFF3E0, #FFE8CC); padding:24px; border-radius:14px; border:2px solid #FFCC80;">
             <h3 style="color:#E65100;">What BLIK still does well:</h3>
             <ul style="font-size:0.95em;">
                 <li><strong>Deeply integrated in Polish banks</strong> — 95% of mobile banking users have BLIK.</li>
@@ -1090,6 +1090,267 @@ elif page == "💡 Visa QR Pay — Our Solution":
         security, and buyer protection that BLIK cannot match.</p>
     </div>
     """, unsafe_allow_html=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# PAGE: INNOVATION PORTFOLIO
+# ══════════════════════════════════════════════════════════════════════════
+elif page == "🚀 Innovation Portfolio":
+    st.header("Innovation Portfolio — Beyond QR Pay")
+    st.caption("Four additional product concepts backed by data gaps identified in our analysis")
+
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #EDE7F6, #D1C4E9); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #7E57C2; margin-bottom: 20px;">
+        <h4 style="color:#4A148C; margin:0;">Each concept below is directly linked to a specific gap found in our Visa x GUS x NBP cross-analysis.
+        Together with Visa QR Pay, they form a complete strategy to reclaim card share in every segment where cards are losing ground.</h4>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.divider()
+
+    # ── INNOVATION 1: VISA BILL HUB ──
+    st.subheader("1. Visa Bill Hub — Recurring Bill Aggregator")
+
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        **The Gap:** Housing & utilities = **20.6%** of household spending, Communications = **4.0%** — combined **24.6%**
+        of all spending is invisible to cards (Gap Index: 1-2). These are paid by bank transfer or direct debit.
+
+        **The Solution:** A single platform where ALL recurring bills can be paid by card:
+        - Rent / mortgage
+        - Electricity, gas, water
+        - Mobile phone, internet
+        - Insurance premiums
+        - Streaming subscriptions
+
+        **How it works:**
+        1. User links their Visa card in the Visa Bill Hub app
+        2. Adds billers (utility companies, landlord, telecom) via account number or QR scan
+        3. Each month, bills are charged to the card automatically
+        4. User gets **2% cashback** for the first 6 months, then 0.5% ongoing
+        5. All bills visible in one dashboard with spending trends
+
+        **Revenue model:** 0.3-0.5% processing fee from billers (lower than bank transfer costs they pay today)
+        """)
+
+    with col2:
+        st.markdown("""
+        <div style="background:#F3E5F5; padding:20px; border-radius:12px; border:2px solid #CE93D8;">
+            <h4 style="color:#6A1B9A; margin:0 0 12px 0;">Impact Estimate</h4>
+            <p style="margin:4px 0;"><strong>TAM:</strong> 14.5M households</p>
+            <p style="margin:4px 0;"><strong>Avg monthly bills:</strong> 484 PLN</p>
+            <p style="margin:4px 0;"><strong>Annual market:</strong> ~84B PLN</p>
+            <p style="margin:4px 0;"><strong>Target capture:</strong> 5-10%</p>
+            <p style="margin:4px 0;"><strong>New card volume:</strong> 4-8B PLN/yr</p>
+            <hr style="border-color:#CE93D8;"/>
+            <p style="margin:4px 0;"><strong>Data source:</strong></p>
+            <p style="margin:2px 0; font-size:0.85em; color:#555;">GUS COICOP: Housing 20.6% + Telecom 4.0% = 24.6% of 1,690 PLN/month per capita</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.divider()
+
+    # ── INNOVATION 2: VISA INVISIBLE CARD ──
+    st.subheader("2. Visa Invisible Card — Numberless Physical Card")
+
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        **The Gap:** Card number entry is the #1 friction point online. Typing 16 digits + expiry + CVV is why
+        **67% of Polish e-commerce users choose BLIK** instead. Plus, visible card numbers create fraud risk at physical POS.
+
+        **The Solution:** A physical Visa card with **no printed number**:
+        - Front: Cardholder name + chip + contactless symbol
+        - Back: **QR code only** (links to Visa QR Pay) — no number, no CVV, no expiry printed
+        - Card number exists **only in the banking app** (shown on demand with biometric unlock)
+
+        **Benefits:**
+        - **Zero visual fraud risk** — waiter, shop assistant, or camera can't steal your number
+        - **Forces digital-first behavior** — users must use QR Pay or app for online purchases
+        - **Works with existing infrastructure** — chip & contactless work unchanged at POS
+        - **Premium positioning** — "numberless" = modern, secure, exclusive
+        - **Synergy with QR Pay** — the QR on the back IS the payment method for online & P2P
+
+        **Pairs with:** Visa QR Pay (Mode 2 — scan your card to pay online)
+        """)
+
+    with col2:
+        st.markdown("""
+        <div style="background:#E3F2FD; padding:20px; border-radius:12px; border:2px solid #90CAF9;">
+            <h4 style="color:#1565C0; margin:0 0 12px 0;">Impact Estimate</h4>
+            <p style="margin:4px 0;"><strong>Target:</strong> Premium segment</p>
+            <p style="margin:4px 0;"><strong>Fraud reduction:</strong> -30-50% visual theft</p>
+            <p style="margin:4px 0;"><strong>Online card usage:</strong> +15-25% per user</p>
+            <p style="margin:4px 0;"><strong>QR Pay adoption boost:</strong> 3-5x</p>
+            <hr style="border-color:#90CAF9;"/>
+            <p style="margin:4px 0;"><strong>Data source:</strong></p>
+            <p style="margin:2px 0; font-size:0.85em; color:#555;">Visa data: online avg 318 vs physical 165 (1.9x). Users who go online = higher value. Invisible Card forces this transition.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.divider()
+
+    # ── INNOVATION 3: VISA MARKETPLACE SHIELD ──
+    st.subheader("3. Visa Marketplace Shield — Escrow for P2P Commerce")
+
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        **The Gap:** Marketplace transactions (OLX, Vinted, Facebook Marketplace) = ~15B PLN/year. Currently paid by
+        BLIK P2P or bank transfer — **with zero buyer protection**. Scams are common. Cards are not used because
+        there's no card-native mechanism for person-to-person commerce.
+
+        **The Solution:** Card-powered escrow for marketplace transactions:
+
+        **For Buyers:**
+        1. At meetup or online, scan seller's Visa QR code
+        2. Enter amount + item description + take a photo
+        3. Money is **held in Visa escrow** (charged to buyer's card)
+        4. Buyer confirms receipt within 48h → money released to seller
+        5. Dispute? **Full Visa chargeback protection** kicks in
+
+        **For Sellers:**
+        - Guaranteed payment (no bounced transfers, no fake BLIK)
+        - Money arrives to Visa card within 24h of buyer confirmation
+        - Seller reputation score builds over time
+
+        **Key advantage over BLIK P2P:** BLIK transfer is instant and irreversible — if you get scammed, the money is gone.
+        Visa Marketplace Shield holds funds until both parties are satisfied. **Trust = the differentiator.**
+        """)
+
+    with col2:
+        st.markdown("""
+        <div style="background:#E8F5E9; padding:20px; border-radius:12px; border:2px solid #A5D6A7;">
+            <h4 style="color:#2E7D32; margin:0 0 12px 0;">Impact Estimate</h4>
+            <p style="margin:4px 0;"><strong>TAM:</strong> ~15B PLN/year</p>
+            <p style="margin:4px 0;"><strong>OLX users:</strong> ~14M in Poland</p>
+            <p style="margin:4px 0;"><strong>Vinted users:</strong> ~5M in Poland</p>
+            <p style="margin:4px 0;"><strong>Avg marketplace tx:</strong> 120 PLN</p>
+            <p style="margin:4px 0;"><strong>Target capture:</strong> 10-15%</p>
+            <p style="margin:4px 0;"><strong>New card volume:</strong> 1.5-2.3B PLN/yr</p>
+            <p style="margin:4px 0;"><strong>Escrow fee:</strong> 1-2% (paid by buyer for protection)</p>
+            <hr style="border-color:#A5D6A7;"/>
+            <p style="margin:4px 0;"><strong>Data source:</strong></p>
+            <p style="margin:2px 0; font-size:0.85em; color:#555;">Visa data: Vinted 352K tx, Allegro 1.8M tx already on cards. Massive untapped OLX/FB Marketplace volume.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.divider()
+
+    # ── INNOVATION 4: VISA TAP-TO-PHONE FOR SERVICES ──
+    st.subheader("4. Visa Tap-to-Phone — Every Phone is a Terminal")
+
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        **The Gap:** Our analysis identified severe **terminal coverage gaps** in service sectors:
+        - Tutoring/education: **5%** have terminals
+        - Home repair/plumbers: **10%**
+        - Open-air markets: **15%**
+        - Childcare/nurseries: **30%**
+        - Private doctors: **55%**
+        - Beauty/hairdressers: **60%**
+
+        These sectors process ~50B PLN/year, mostly in cash. The barrier isn't demand — it's infrastructure.
+
+        **The Solution:** Any NFC-enabled Android phone becomes a Visa payment terminal:
+
+        1. Service provider downloads **Visa Tap-to-Phone** app
+        2. Quick onboarding (ID + bank account, 10 minutes)
+        3. Customer taps their Visa card on the provider's phone
+        4. Payment processed via Visa network
+        5. **Zero hardware cost** — no POS terminal needed
+
+        **Target verticals (from our data):**
+        - Medical clinics & dental offices (255K + 76K card tx vs millions of cash visits)
+        - Beauty salons (1.3M tx — 60% terminal coverage = 40% untapped)
+        - Tutors & educators (virtually 0 card transactions today)
+        - Market vendors (15% coverage — massive gap)
+        - Plumbers, electricians, handymen (10% coverage)
+        """)
+
+    with col2:
+        st.markdown("""
+        <div style="background:#FFF3E0; padding:20px; border-radius:12px; border:2px solid #FFCC80;">
+            <h4 style="color:#E65100; margin:0 0 12px 0;">Impact Estimate</h4>
+            <p style="margin:4px 0;"><strong>TAM:</strong> ~50B PLN/year (cash services)</p>
+            <p style="margin:4px 0;"><strong>Target sectors:</strong> 6 underserved</p>
+            <p style="margin:4px 0;"><strong>Potential new merchants:</strong> 500K+</p>
+            <p style="margin:4px 0;"><strong>Target conversion:</strong> 5-10%</p>
+            <p style="margin:4px 0;"><strong>New card volume:</strong> 2.5-5B PLN/yr</p>
+            <p style="margin:4px 0;"><strong>Cost per merchant:</strong> 0 PLN hardware</p>
+            <hr style="border-color:#FFCC80;"/>
+            <p style="margin:4px 0;"><strong>Data source:</strong></p>
+            <p style="margin:2px 0; font-size:0.85em; color:#555;">NBP terminal survey 2024 + Visa data: Doctors 255K tx, Dentists 76K tx, Beauty 1.3M tx — tiny vs total visits. ATM avg withdrawal 1,521 confirms cash-for-services behavior.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.divider()
+
+    # ── COMBINED IMPACT ──
+    st.subheader("Combined Innovation Portfolio Impact")
+
+    portfolio = pd.DataFrame([
+        {"Innovation": "Visa QR Pay", "Category": "P2P + E-Commerce", "TAM (B PLN/yr)": 360, "Target Capture": "5-10%", "New Volume (B PLN/yr)": "18-36", "Timeline": "0-24 months"},
+        {"Innovation": "Visa Bill Hub", "Category": "Recurring Bills", "TAM (B PLN/yr)": 84, "Target Capture": "5-10%", "New Volume (B PLN/yr)": "4-8", "Timeline": "6-18 months"},
+        {"Innovation": "Visa Invisible Card", "Category": "Security + Online Adoption", "TAM (B PLN/yr)": "N/A", "Target Capture": "Enabler", "New Volume (B PLN/yr)": "Multiplier", "Timeline": "12-18 months"},
+        {"Innovation": "Visa Marketplace Shield", "Category": "P2P Commerce", "TAM (B PLN/yr)": 15, "Target Capture": "10-15%", "New Volume (B PLN/yr)": "1.5-2.3", "Timeline": "6-12 months"},
+        {"Innovation": "Visa Tap-to-Phone", "Category": "Cash Services", "TAM (B PLN/yr)": 50, "Target Capture": "5-10%", "New Volume (B PLN/yr)": "2.5-5", "Timeline": "3-12 months"},
+    ])
+    st.dataframe(portfolio, use_container_width=True, hide_index=True)
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Combined TAM", "~510B PLN/yr", "addressable market")
+    col2.metric("Conservative estimate", "~26B PLN/yr", "new card volume")
+    col3.metric("Optimistic estimate", "~51B PLN/yr", "new card volume")
+
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #43A047;">
+        <h4 style="color:#1B5E20; margin:0 0 8px 0;">Portfolio Strategy</h4>
+        <p style="color:#333; margin:0;">These five innovations work as a <strong>system</strong>, not individual products:
+        <strong>QR Pay</strong> provides the foundation (identity via QR). <strong>Invisible Card</strong> forces adoption of QR Pay.
+        <strong>Bill Hub</strong> captures recurring payments. <strong>Marketplace Shield</strong> adds trust-based P2P commerce.
+        <strong>Tap-to-Phone</strong> brings the physical service economy onto card rails.
+        Together, they transform Visa from a "store payment tool" into a <strong>universal payment platform</strong>
+        competing with BLIK across every segment.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── PORTFOLIO VISUALIZATION ──
+    st.divider()
+    st.subheader("Innovation Portfolio: Impact vs Effort Matrix")
+
+    fig = go.Figure()
+    innovations = [
+        {"name": "Visa QR Pay", "impact": 9, "effort": 8, "size": 36, "color": VISA_BLUE},
+        {"name": "Visa Bill Hub", "impact": 8, "effort": 6, "size": 28, "color": ACCENT[4]},
+        {"name": "Invisible Card", "impact": 6, "effort": 4, "size": 18, "color": ACCENT[0]},
+        {"name": "Marketplace Shield", "impact": 7, "effort": 5, "size": 22, "color": ACCENT[2]},
+        {"name": "Tap-to-Phone", "impact": 8, "effort": 3, "size": 25, "color": ACCENT[3]},
+    ]
+    for inn in innovations:
+        fig.add_trace(go.Scatter(
+            x=[inn["effort"]], y=[inn["impact"]], mode="markers+text",
+            marker=dict(size=inn["size"]*2.5, color=inn["color"], opacity=0.7, line=dict(width=2, color="#333")),
+            text=[inn["name"]], textposition="top center", textfont=dict(size=11, color="#333"),
+            name=inn["name"], showlegend=False,
+        ))
+    fig.update_layout(
+        height=450, xaxis_title="Implementation Effort (1=easy, 10=hard)",
+        yaxis_title="Potential Impact (1=low, 10=high)",
+        xaxis=dict(range=[0, 10.5]), yaxis=dict(range=[4, 10.5]),
+        margin=dict(t=10, b=40),
+    )
+    # Quadrant labels
+    fig.add_annotation(x=2, y=9.5, text="QUICK WINS", showarrow=False, font=dict(size=12, color="#2E7D32"))
+    fig.add_annotation(x=8.5, y=9.5, text="BIG BETS", showarrow=False, font=dict(size=12, color="#1565C0"))
+    fig.add_annotation(x=2, y=4.5, text="FILL-INS", showarrow=False, font=dict(size=12, color="#999"))
+    fig.add_annotation(x=8.5, y=4.5, text="RECONSIDER", showarrow=False, font=dict(size=12, color="#999"))
+    fig.add_hline(y=7, line_dash="dot", line_color="#ccc")
+    fig.add_vline(x=5, line_dash="dot", line_color="#ccc")
+
+    st.plotly_chart(fig, use_container_width=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -1360,9 +1621,9 @@ elif page == "📈 Predictive Models & Simulations":
 elif page == "🎯 Recommendations":
     st.header("Strategic Recommendations")
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71); padding: 24px 28px; border-radius: 14px; color: white; margin-bottom: 20px;">
-        <h3 style="margin:0; color:#F7B600;">CardFlow — From Cash & Transfer to Card</h3>
-        <p style="opacity:0.9; margin-top:6px;">We turn transaction data into concrete decisions. We show not just how people pay,
+    <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 24px 28px; border-radius: 14px; color: #0D1137; margin-bottom: 20px; border: 2px solid #B0BDE0;">
+        <h3 style="margin:0; color:#1A1F71;">CardFlow — From Cash & Transfer to Card</h3>
+        <p style="color:#333; margin-top:6px;">We turn transaction data into concrete decisions. We show not just how people pay,
         but what to do to make the card their most convenient choice — online and in private payments.</p>
     </div>
     """, unsafe_allow_html=True)
