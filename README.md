@@ -97,7 +97,9 @@ All Visa data was loaded into **Google BigQuery** (`restaurantclub-prod.rozne.da
 ```
 visa-datasprint/
 |
-|-- cardflow_app.py              # Main Streamlit application (9 pages)
+|-- cardflow_app.py              # Streamlit entry point: config, sidebar, page routing
+|-- app_pages/                   # One module per dashboard page (render()), common.py = shared data & colours
+|-- ml_readiness/                # ML readiness model, QR Pay audiences (see ml_readiness/README.md)
 |-- models.py                    # Predictive models (Bass diffusion, ROI, etc.)
 |-- requirements.txt             # Python dependencies
 |-- README.md                    # This file
