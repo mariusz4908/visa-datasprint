@@ -1,45 +1,61 @@
-# CardFlow: storyline and evidence map
+# CardFlow: the story
 
-**[VISA]** = measured in the Visa data (notebooks in `ml_readiness/`) · **[EXT]** = GUS / NBP / Gemius ·
-**[ASSUMPTION]** = scenario input. Visa data are synthetic (305.5M transactions, Jan 2025 - Jun 2026): they show the method.
+*[VISA] = shown in the Visa data (`ml_readiness/` notebooks), [EXT] = GUS / NBP / Gemius, [SIM] = simulation assumption.
+The Visa data are synthetic, so the figures illustrate the method.*
 
-## Pitch
+## 1. People pay by card in shops, but not online
 
-> Almost half of online card payments still require typing a 16-digit card number, and that friction decides whether
-> a new online customer stays with the card. Visa QR Pay removes the typing; our ML targeting tells banks who gets it first.
+Poles tap their Visa card every day at the grocery store, yet when they shop online the card is rarely the first
+choice: BLIK dominates Polish e-commerce **[EXT]**. The Visa data show the same gap from the inside: **36% of active
+cards never made a single online card payment in 18 months** **[VISA]**, and in categories such as clothing or books
+card payments capture only a fraction of what GUS reports as online sales **[VISA + EXT]**.
 
-## Slides
+## 2. Why: paying online by card means typing the card number
 
-| # | Message | Key evidence |
-|---|---|---|
-| 1 | Title | - |
-| 2 | **Cards win in stores, lose online** | [EXT] BLIK 67% vs cards 16% of e-commerce · [VISA] 36% of active cards never pay online |
-| 3 | **Why: typing the card number** | [VISA] 45% of online card payments are typed, growing (42% -> 45%) · phone-first users type on a phone in 49% of online payments · Polish merchants type more than foreign (travel 97% vs 68%) |
-| 4 | **The first online payment decides** | [VISA] one-click first payment: 45% keep paying online vs 31% after typing (+4 pp within the same category) · 70% of new cards' first online payments are typed |
-| 5 | **Solution: Visa QR Pay** | concept · [VISA] 86% of typing happens on phones, so QR must work from the banking app, not only from the card |
-| 6 | **Who first** | [VISA] A: 190k cards (22%) make 80% of typed payments, heaviest 20% make 63% of that · new cards: ~27k/month · C: 58k model-selected cards, ~14% start online within 3 months |
-| 7 | **The ML model** | [VISA] see below |
-| 8 | **Rollout and business case** | in-app QR for A now, QR on every new card, C at first online payment; random 10% control group per audience · ROI = simulation [ASSUMPTION] fed with `results/target_audiences.json` |
-| 9 | **Recommendations** | banks: in-app QR + onboarding of new cards · merchants: marketplaces, transport tickets, food delivery first · Visa: KPI = share of first online payments without typing (today 30%) |
-| 10 | **Prototype vs next steps** | working: pipeline, friction analysis, model, audiences, dashboard · next: real pilot, real data, merchant integration |
+The Visa data point to one clear reason. **45% of online card payments are a typed card number** instead of a saved
+card, and this share is **growing** **[VISA]**. The most digital customers suffer most: people who pay by phone in the
+shop type their 16 digits and CVV **on a phone** in half of their online payments **[VISA]**. And this friction decides
+the future: when a customer's first online payment is one-click, **45% keep paying online by card; after a typed first
+payment only 31% do** **[VISA]**. Today **7 out of 10 first online payments of a new card are typed** **[VISA]**.
 
-## The ML model (slide 7)
+## 3. Solution: Visa QR Pay
 
-- **What:** for cards that never paid online, the chance of a first online card payment in the next 3 months, from in-store behaviour only.
-- **How well:** tested on 3 later periods it never saw: AUC 0.74-0.76; top 10% start **3.5x** more often; top 20% hold **55%** of future starters; calibrated (4.9% predicted = 4.9% actual).
-- **Drivers:** new card (first 90 days), any phone payment in store, evening activity, fast food, transport, payments abroad; not how much people spend.
-- **Role:** the targeting engine, not the heart of the pitch. It is the only part that is ML trained and validated on Visa data.
+Every Visa card gets a QR code. At checkout the customer scans it and approves the payment on the phone: no card
+number, no CVV. Because most typing happens on phones **[VISA]**, the QR must live not only on the plastic card but also
+in the banking app.
 
-## Wording to change
+## 4. Who pilots it: data rules, the ML model, and new cards
 
-- "6 predictive models" -> **"business case simulation"**; the ML model is the predictive part.
-- BLIK, P2P: market context [EXT], not findings from Visa data.
-- Cities as end users -> drop (Business track). "Faster than BLIK" -> "no typing, 2-3 steps".
-- Filter out any table with < 30 cards or < 3 merchants (e.g. a 2-card row in `geo_results.json`).
+A launch needs a clear first audience. We choose it from the data, with three complementary tools:
 
-## Jury questions
+- **A simple data rule finds today's typers.** 190k cards (22% of active cards) make **80% of all typed online
+  payments**; the heaviest fifth of them makes almost two thirds of that **[VISA]**. They get QR in their banking app
+  first: the effect is immediate and measurable within weeks.
+- **New cards get QR from day one.** About 27k cards are issued every month, and a card's chance of going online is
+  highest in its first 90 days **[VISA]**. Printing QR on the card is the cheapest way to scale and to make sure the
+  habit starts without typing.
+- **The ML model finds who is about to start.** Among cards that have never paid online, our readiness model
+  (LightGBM, trained and validated on Visa data) points to the one in five cards that holds more than half of the
+  future online customers. It was tested on three later periods it never saw (AUC 0.74-0.76; the top 10% start
+  3.5x more often than average) **[VISA]**. These cards get QR at the moment of their first online payment, when the
+  habit is formed. The model also explains *why*: new cards, phone payments in shops and a digital lifestyle predict
+  the start, not how much people spend.
 
-- **Is typing really the cause?** Strong correlation in the data; the pilot with control groups proves it.
-- **Is this AI?** Yes: gradient boosting on Visa data, out-of-time validated, calibrated, explained with SHAP.
-- **Why not only new cards?** They are cheapest per card and build the habit, but typers give ~7x more payments to replace in year one and in-app QR needs no re-issue.
-- **Synthetic data?** The pipeline is ready: on real Visa data it produces real audiences and scores.
+The rule gives the biggest immediate volume, new cards give the cheapest scale, and the model makes the second wave
+precise. In each audience the bank keeps a random ~10% without QR as a control group, so the pilot proves what QR itself
+changes.
+
+## 5. What it could be worth: the simulation
+
+The data tell us *who* and *how much they pay online today*; they cannot tell the future of a product that does not exist
+yet. That is the role of the business-case simulation: a scenario model of adoption, transaction volume, BLIK
+cannibalisation and ROI (conservative / base / optimistic) **[SIM]**. To keep it grounded, its key inputs come from the
+data **[VISA]** (`ml_readiness/results/target_audiences.json`): audience sizes as shares of active cards, online and typed
+payments per card, expected first-time online payers, new cards per month, and the retention effect of a one-click first
+payment (+4 pp conservative, +14 pp optimistic). Fees, costs and adoption speed remain assumptions, and the pilot will
+replace them with measured values.
+
+## 6. In one sentence
+
+**The Visa data show that typing the card number is what keeps the card out of e-commerce; QR Pay removes it; data rules
+and an ML model decide who gets it first; the simulation sizes the prize; the pilot with control groups proves it.**
