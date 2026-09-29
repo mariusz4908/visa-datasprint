@@ -15,6 +15,56 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ── GLOBAL CSS FIX: ensure all text has good contrast ──
+st.markdown("""
+<style>
+    /* Force dark text on all Streamlit elements */
+    .stMarkdown, .stMarkdown p, .stMarkdown li, .stMarkdown span,
+    .stText, div[data-testid="stText"] {
+        color: #1F2937 !important;
+    }
+    /* Metric values and labels */
+    div[data-testid="stMetricValue"] {
+        color: #1A1F71 !important;
+    }
+    div[data-testid="stMetricLabel"] label, div[data-testid="stMetricLabel"] p {
+        color: #374151 !important;
+    }
+    /* Table text */
+    .stDataFrame td, .stDataFrame th {
+        color: #1F2937 !important;
+    }
+    /* Tab labels */
+    button[data-baseweb="tab"] {
+        color: #1F2937 !important;
+    }
+    /* Radio labels in sidebar */
+    .stRadio label {
+        color: #1F2937 !important;
+    }
+    /* Expander text */
+    .streamlit-expanderHeader {
+        color: #1F2937 !important;
+    }
+    /* Caption text - make it darker */
+    .stCaption, div[data-testid="stCaptionContainer"] p {
+        color: #6B7280 !important;
+    }
+    /* Info/warning/error/success boxes - ensure readable */
+    div[data-testid="stAlert"] p {
+        color: #1F2937 !important;
+    }
+    /* Blockquote text */
+    blockquote, blockquote p {
+        color: #374151 !important;
+    }
+    /* Selectbox and other inputs */
+    .stSelectbox label, .stRadio label, .stMultiSelect label {
+        color: #1F2937 !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @st.cache_data
@@ -70,9 +120,9 @@ with st.sidebar:
 # ══════════════════════════════════════════════════════════════════════════
 if page == "🏠 Executive Summary":
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0, #C5CEE8); padding: 40px 32px; border-radius: 16px; color: #1A1F71; margin-bottom: 24px; border: 2px solid #B0BDE0;">
-        <h1 style="margin:0; font-size:2.2em; color:#0D1137;">CardFlow</h1>
-        <p style="color:#333; font-size:1.1em; margin-top:4px;">Transaction data as a roadmap for card adoption in e-commerce & P2P payments</p>
+    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 40px 32px; border-radius: 16px; color: #FFFFFF; margin-bottom: 24px;">
+        <h1 style="margin:0; font-size:2.2em; color:#FFFFFF;">CardFlow</h1>
+        <p style="color:#D0D8F0; font-size:1.1em; margin-top:4px;">Transaction data as a roadmap for card adoption in e-commerce & P2P payments</p>
         <span style="background:#F7B600; color:#0D1137; padding:4px 16px; border-radius:16px; font-weight:700; font-size:0.85em;">VISA DATASPRINT HACKATHON 2026</span>
     </div>
     """, unsafe_allow_html=True)
@@ -728,10 +778,10 @@ elif page == "💵 Cash Deserts & Infrastructure":
 # ══════════════════════════════════════════════════════════════════════════
 elif page == "💡 Visa QR Pay — Our Solution":
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 44px 36px; border-radius: 18px; color: #1A1F71; margin-bottom: 28px; border: 2px solid #B0BDE0;">
-        <h1 style="margin:0; font-size:2.4em; color:#0D1137;">Visa QR Pay</h1>
-        <p style="color:#333; font-size:1.15em; margin-top:8px;">Your card is your identity. One scan — and the payment comes to you.</p>
-        <p style="color:#555; font-size:0.95em; margin-top:4px;">A new payment paradigm: instead of entering card details, you scan a QR code on your physical card. The payment request comes to your phone. You approve or decline — that's it.</p>
+    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 44px 36px; border-radius: 18px; color: #FFFFFF; margin-bottom: 28px;">
+        <h1 style="margin:0; font-size:2.4em; color:#FFFFFF;">Visa QR Pay</h1>
+        <p style="color:#D0D8F0; font-size:1.15em; margin-top:8px;">Your card is your identity. One scan — and the payment comes to you.</p>
+        <p style="color:#A0AAC0; font-size:0.95em; margin-top:4px;">A new payment paradigm: instead of entering card details, you scan a QR code on your physical card. The payment request comes to your phone. You approve or decline — that's it.</p>
         <span style="background:#F7B600; color:#0D1137; padding:5px 20px; border-radius:16px; font-weight:700; font-size:0.85em;">OUR PROPOSED SOLUTION</span>
     </div>
     """, unsafe_allow_html=True)
@@ -1621,9 +1671,9 @@ elif page == "📈 Predictive Models & Simulations":
 elif page == "🎯 Recommendations":
     st.header("Strategic Recommendations")
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 24px 28px; border-radius: 14px; color: #0D1137; margin-bottom: 20px; border: 2px solid #B0BDE0;">
-        <h3 style="margin:0; color:#1A1F71;">CardFlow — From Cash & Transfer to Card</h3>
-        <p style="color:#333; margin-top:6px;">We turn transaction data into concrete decisions. We show not just how people pay,
+    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71); padding: 24px 28px; border-radius: 14px; color: #FFFFFF; margin-bottom: 20px;">
+        <h3 style="margin:0; color:#F7B600;">CardFlow — From Cash & Transfer to Card</h3>
+        <p style="color:#D0D8F0; margin-top:6px;">We turn transaction data into concrete decisions. We show not just how people pay,
         but what to do to make the card their most convenient choice — online and in private payments.</p>
     </div>
     """, unsafe_allow_html=True)
