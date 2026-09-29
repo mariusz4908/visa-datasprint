@@ -5,6 +5,7 @@ credentials/
 __pycache__/
 *.pyc
 .env
+.venv/
 
 # ML readiness: local Visa data and cache (tens of GB, never commit)
 ml_readiness/data/
