@@ -15,56 +15,6 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ── GLOBAL CSS FIX: ensure all text has good contrast ──
-st.markdown("""
-<style>
-    /* Force dark text on all Streamlit elements */
-    .stMarkdown, .stMarkdown p, .stMarkdown li, .stMarkdown span,
-    .stText, div[data-testid="stText"] {
-        color: #1F2937 !important;
-    }
-    /* Metric values and labels */
-    div[data-testid="stMetricValue"] {
-        color: #1A1F71 !important;
-    }
-    div[data-testid="stMetricLabel"] label, div[data-testid="stMetricLabel"] p {
-        color: #374151 !important;
-    }
-    /* Table text */
-    .stDataFrame td, .stDataFrame th {
-        color: #1F2937 !important;
-    }
-    /* Tab labels */
-    button[data-baseweb="tab"] {
-        color: #1F2937 !important;
-    }
-    /* Radio labels in sidebar */
-    .stRadio label {
-        color: #1F2937 !important;
-    }
-    /* Expander text */
-    .streamlit-expanderHeader {
-        color: #1F2937 !important;
-    }
-    /* Caption text - make it darker */
-    .stCaption, div[data-testid="stCaptionContainer"] p {
-        color: #6B7280 !important;
-    }
-    /* Info/warning/error/success boxes - ensure readable */
-    div[data-testid="stAlert"] p {
-        color: #1F2937 !important;
-    }
-    /* Blockquote text */
-    blockquote, blockquote p {
-        color: #374151 !important;
-    }
-    /* Selectbox and other inputs */
-    .stSelectbox label, .stRadio label, .stMultiSelect label {
-        color: #1F2937 !important;
-    }
-</style>
-""", unsafe_allow_html=True)
-
 DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
 @st.cache_data
@@ -89,72 +39,116 @@ BLIK_PINK = "#D40E6A"
 ACCENT = ["#4A90D9", "#E85D75", "#2ECC71", "#F39C12", "#9B59B6", "#1ABC9C",
           "#E74C3C", "#3498DB", "#E67E22", "#8E44AD", "#16A085", "#C0392B"]
 
+# ── TRANSLATION HELPER ──────────────────────────────────────────────────
+def t(en, pl):
+    """Return text in selected language."""
+    return en if st.session_state.get("lang", "EN") == "EN" else pl
+
 # ── SIDEBAR ─────────────────────────────────────────────────────────────
 with st.sidebar:
     st.image("https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg", width=120)
     st.markdown("# CardFlow")
     st.caption("Visa DataSprint Hackathon 2026")
+    lang = st.radio("🌐 Language / Jezyk", ["EN", "PL"], horizontal=True)
+    st.session_state["lang"] = lang
     st.divider()
-    page = st.radio("Navigate", [
-        "🏠 Executive Summary",
-        "📊 Transaction Overview",
-        "🛒 E-Commerce Deep Dive",
-        "⚔️ BLIK vs Visa",
-        "🔴 Card-Free Zones",
-        "🔄 Subscription Economy",
-        "💵 Cash Deserts & Infrastructure",
-        "💡 Visa QR Pay — Our Solution",
-        "🚀 Innovation Portfolio",
-        "📈 Predictive Models & Simulations",
-        "🎯 Recommendations",
+    page = st.radio(t("Navigate", "Nawigacja"), [
+        t("🏠 Executive Summary", "🏠 Podsumowanie"),
+        t("📊 Transaction Overview", "📊 Przeglad Transakcji"),
+        t("🛒 E-Commerce Deep Dive", "🛒 Analiza E-Commerce"),
+        t("⚔️ BLIK vs Visa", "⚔️ BLIK vs Visa"),
+        t("🔴 Card-Free Zones", "🔴 Strefy bez Kart"),
+        t("🔄 Subscription Economy", "🔄 Ekonomia Subskrypcji"),
+        t("💵 Cash Deserts & Infrastructure", "💵 Pustynie Gotówkowe"),
+        t("💡 Visa QR Pay — Our Solution", "💡 Visa QR Pay — Nasze Rozwiązanie"),
+        t("🚀 Innovation Portfolio", "🚀 Portfolio Innowacji"),
+        t("📈 Predictive Models & Simulations", "📈 Modele Predykcyjne"),
+        t("🎯 Recommendations", "🎯 Rekomendacje"),
     ], label_visibility="collapsed")
     st.divider()
-    st.markdown("**Data sources:**")
-    st.caption("• Visa synthetic tx (305.5M)")
-    st.caption("• GUS Household Budget 2024")
-    st.caption("• NBP Payment Statistics 2024")
-    st.caption("• Gemius E-commerce Report 2024")
+    st.markdown(t("**Data sources:**", "**Źródła danych:**"))
+    st.caption(t("• Visa synthetic tx (305.5M)", "• Syntetyczne tx Visa (305.5M)"))
+    st.caption(t("• GUS Household Budget 2024", "• GUS Budżety Domowe 2024"))
+    st.caption(t("• NBP Payment Statistics 2024", "• NBP Statystyki Płatnicze 2024"))
+    st.caption(t("• Gemius E-commerce Report 2024", "• Gemius Raport E-commerce 2024"))
+
+# Map page names to internal keys for bilingual routing
+PAGE_KEYS = {
+    "🏠 Executive Summary": "summary", "🏠 Podsumowanie": "summary",
+    "📊 Transaction Overview": "overview", "📊 Przeglad Transakcji": "overview",
+    "🛒 E-Commerce Deep Dive": "ecom", "🛒 Analiza E-Commerce": "ecom",
+    "⚔️ BLIK vs Visa": "blik",
+    "🔴 Card-Free Zones": "cardfree", "🔴 Strefy bez Kart": "cardfree",
+    "🔄 Subscription Economy": "subs", "🔄 Ekonomia Subskrypcji": "subs",
+    "💵 Cash Deserts & Infrastructure": "cash", "💵 Pustynie Gotówkowe": "cash",
+    "💡 Visa QR Pay — Our Solution": "qrpay", "💡 Visa QR Pay — Nasze Rozwiązanie": "qrpay",
+    "🚀 Innovation Portfolio": "innov", "🚀 Portfolio Innowacji": "innov",
+    "📈 Predictive Models & Simulations": "models", "📈 Modele Predykcyjne": "models",
+    "🎯 Recommendations": "recs", "🎯 Rekomendacje": "recs",
+}
+current_page = PAGE_KEYS.get(page, "summary")
 
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: EXECUTIVE SUMMARY
 # ══════════════════════════════════════════════════════════════════════════
-if page == "🏠 Executive Summary":
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 40px 32px; border-radius: 16px; color: #FFFFFF; margin-bottom: 24px;">
-        <h1 style="margin:0; font-size:2.2em; color:#FFFFFF;">CardFlow</h1>
-        <p style="color:#D0D8F0; font-size:1.1em; margin-top:4px;">Transaction data as a roadmap for card adoption in e-commerce & P2P payments</p>
-        <span style="background:#F7B600; color:#0D1137; padding:4px 16px; border-radius:16px; font-weight:700; font-size:0.85em;">VISA DATASPRINT HACKATHON 2026</span>
-    </div>
-    """, unsafe_allow_html=True)
+if current_page == "summary":
+    if lang == "EN":
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 40px 32px; border-radius: 16px; color: white; margin-bottom: 24px;">
+            <h1 style="margin:0; font-size:2.2em;">CardFlow</h1>
+            <p style="opacity:0.9; font-size:1.1em; margin-top:4px;">Transaction data as a roadmap for card adoption in e-commerce & P2P payments</p>
+            <span style="background:#F7B600; color:#0D1137; padding:4px 16px; border-radius:16px; font-weight:700; font-size:0.85em;">VISA DATASPRINT HACKATHON 2026</span>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 40px 32px; border-radius: 16px; color: white; margin-bottom: 24px;">
+            <h1 style="margin:0; font-size:2.2em;">CardFlow</h1>
+            <p style="opacity:0.9; font-size:1.1em; margin-top:4px;">Dane transakcyjne jako mapa drogowa adopcji kart w e-commerce i platnosci P2P</p>
+            <span style="background:#F7B600; color:#0D1137; padding:4px 16px; border-radius:16px; font-weight:700; font-size:0.85em;">VISA DATASPRINT HACKATHON 2026</span>
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown("""
-    > **Payment cards dominate in physical stores, but in e-commerce and peer-to-peer transactions they are being displaced
-    > by other methods.** In Poland, BLIK, fast transfers, and cash are the main alternatives. Users choose them because
-    > they're faster, don't require typing a card number, and feel more secure. The same person pays by card at a local
-    > shop but uses a different method online or when paying a friend.
-    >
-    > **CardFlow** uses anonymized, aggregated transaction data to understand *when, where, and why* the card stops being
-    > the first choice. We analyze behavioral patterns by merchant category, time of day, basket value, and location.
-    > We identify **"escape points"** — moments where customers switch payment methods.
-    """)
+    if lang == "EN":
+        st.markdown("""
+        > **Payment cards dominate in physical stores, but in e-commerce and peer-to-peer transactions they are being displaced
+        > by other methods.** In Poland, BLIK, fast transfers, and cash are the main alternatives. Users choose them because
+        > they're faster, don't require typing a card number, and feel more secure. The same person pays by card at a local
+        > shop but uses a different method online or when paying a friend.
+        >
+        > **CardFlow** uses anonymized, aggregated transaction data to understand *when, where, and why* the card stops being
+        > the first choice. We analyze behavioral patterns by merchant category, time of day, basket value, and location.
+        > We identify **"escape points"** — moments where customers switch payment methods.
+        """)
+    else:
+        st.markdown("""
+        > **Karty płatnicze dominują w sklepach stacjonarnych, ale w e-commerce i platnosci peer-to-peer sa wypierane
+        > przez inne metody.** W Polsce BLIK, szybkie przelewy i gotowka to glowne alternatywy. Uzytkownicy wybieraja je,
+        > bo są szybsze, nie wymagają wpisywania numeru karty i wydają się bezpieczniejsze. Ta sama osoba płaci kartą
+        > w sklepie osiedlowym, ale online lub placac znajomemu — wybiera inna metode.
+        >
+        > **CardFlow** wykorzystuje zanonimizowane, zagregowane dane transakcyjne, by zrozumiec *kiedy, gdzie i dlaczego*
+        > karta przestaje być pierwszym wyborem. Analizujemy wzorce zachowan wedlug kategorii merchantow, pory dnia,
+        > wartości koszyka i lokalizacji. Identyfikujemy **"punkty ucieczki"** — momenty, w ktorych klienci zmieniaja metode platnosci.
+        """)
 
     st.divider()
 
     # KPIs
     c1, c2, c3, c4, c5, c6 = st.columns(6)
-    c1.metric("Transactions", "305.5M", help="Total in sample dataset")
-    c2.metric("Unique Cards", "1.95M", help="Unique card identifiers")
-    c3.metric("Total Value", "55.7B", help="Fictional currency units")
-    c4.metric("Avg Transaction", "182.30", help="Average transaction value")
-    c5.metric("Online Share (TX)", "11.2%", delta="+1.4pp YoY")
-    c6.metric("Online Share (Value)", "19.6%", help="Online = higher avg value")
+    c1.metric(t("Transactions", "Transakcje"), "305.5M", help=t("Total in sample dataset", "Próbka danych"))
+    c2.metric(t("Unique Cards", "Unikalne Karty"), "1.95M", help=t("Unique card identifiers", "Unikalne identyfikatory kart"))
+    c3.metric(t("Total Value", "Łączna Wartość"), "55.7B", help=t("Fictional currency units", "Fikcyjne jednostki walutowe"))
+    c4.metric(t("Avg Transaction", "Średnia Transakcja"), "182.30", help=t("Average transaction value", "Średnia wartość transakcji"))
+    c5.metric(t("Online Share (TX)", "Udział Online (TX)"), "11.2%", delta="+1.4pp YoY")
+    c6.metric(t("Online Share (Value)", "Udział Online (Wartosc)"), "19.6%", help=t("Online = higher avg value", "Online = wyższa średnia wartość"))
 
     st.divider()
 
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("The Polish Payment Landscape")
+        st.subheader(t("The Polish Payment Landscape", "Polski Krajobraz Platniczy"))
         fig = go.Figure()
         years = ["2019", "2020", "2021", "2022", "2023", "2024"]
         fig.add_trace(go.Scatter(x=years, y=[44,50,53,55,57,58], name="Card at POS (%)", line=dict(color=VISA_BLUE, width=3)))
@@ -164,7 +158,7 @@ if page == "🏠 Executive Summary":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("E-Commerce Payment Methods 2024")
+        st.subheader(t("E-Commerce Payment Methods 2024", "Metody Platnosci E-Commerce 2024"))
         fig = px.pie(
             names=["BLIK (67%)", "Card (16%)", "Bank Transfer (10%)", "Cash on Delivery (5%)", "Other (2%)"],
             values=[67, 16, 10, 5, 2],
@@ -175,45 +169,66 @@ if page == "🏠 Executive Summary":
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
-    st.subheader("Key Findings at a Glance")
+    st.subheader(t("Key Findings at a Glance", "Kluczowe Odkrycia"))
     f1, f2, f3 = st.columns(3)
     with f1:
-        st.error("**BLIK Threat:** 67% of e-commerce and growing +5pp/year. Cards fell from 20% to 16% in 2 years.")
+        st.error(t("**BLIK Threat:** 67% of e-commerce and growing +5pp/year. Cards fell from 20% to 16% in 2 years.",
+                    "**Zagrożenie BLIK:** 67% e-commerce i rośnie +5pp/rok. Karty spadly z 20% do 16% w 2 lata."))
     with f2:
-        st.warning("**Card-Free Zones:** Housing (20.6% of spending), telecom (4.0%), education (1.1%) have <1% card penetration.")
+        st.warning(t("**Card-Free Zones:** Housing (20.6% of spending), telecom (4.0%), education (1.1%) have <1% card penetration.",
+                      "**Strefy bez Kart:** Mieszkanie (20.6% wydatkow), telekom (4.0%), edukacja (1.1%) maja <1% penetracji kart."))
     with f3:
-        st.success("**Visa's Moat:** Subscriptions (Apple, Netflix, Spotify) + international e-commerce = ~8M tx locked on card rails.")
+        st.success(t("**Visa's Moat:** Subscriptions (Apple, Netflix, Spotify) + international e-commerce = ~8M tx locked on card rails.",
+                      "**Fosa Visa:** Subskrypcje (Apple, Netflix, Spotify) + miedzynarodowy e-commerce = ~8M tx na szynach kart."))
 
     f4, f5, f6 = st.columns(3)
     with f4:
-        st.info("**E-Grocery Gap:** 26% of card tx are grocery but only 0.12% online. Online avg = 3.1x higher value.")
+        st.info(t("**E-Grocery Gap:** 26% of card tx are grocery but only 0.12% online. Online avg = 3.1x higher value.",
+                   "**Luka E-Grocery:** 26% tx kartowych to spozywcze, ale tylko 0.12% online. Srednia online = 3.1x wyzsza wartosc."))
     with f5:
-        st.error("**Cash Services:** Doctors (255K tx), dentists (76K), home repair (31K) — cash dominates services.")
+        st.error(t("**Cash Services:** Doctors (255K tx), dentists (76K), home repair (31K) — cash dominates services.",
+                    "**Uslugi Gotowkowe:** Lekarze (255K tx), dentysci (76K), naprawy domowe (31K) — gotówka dominuje w usługach."))
     with f6:
-        st.success("**Recurring Power:** 4.1% of card-merchant pairs generate 42.8% of transactions and 36.5% of value.")
+        st.success(t("**Recurring Power:** 4.1% of card-merchant pairs generate 42.8% of transactions and 36.5% of value.",
+                      "**Sila Cyklicznosci:** 4.1% par karta-merchant generuje 42.8% transakcji i 36.5% wartości."))
 
     st.divider()
 
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8F0FE, #D0E0FF); padding: 24px 28px; border-radius: 14px; border-left: 5px solid #1A1F71;">
-        <h3 style="color:#1A1F71; margin:0 0 8px 0;">💡 Our Proposed Solution: Visa QR Pay</h3>
-        <p style="margin:0; font-size:1em;">
-        A QR code on every Visa card that enables <strong>two new payment flows</strong>:
-        (1) <strong>P2P payments</strong> — scan someone's card to send them money, competing directly with BLIK P2P;
-        (2) <strong>E-commerce checkout</strong> — scan your own card instead of typing the number, faster and safer than any existing method.
-        No card number shared, biometric approval, powered by Visa Direct.
-        </p>
-        <p style="margin:8px 0 0 0; font-size:0.9em; color:#555;">👈 Navigate to <strong>"Visa QR Pay — Our Solution"</strong> in the sidebar for the full concept.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    if lang == "EN":
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #0D1137, #1A1F71); padding: 24px 28px; border-radius: 14px; color: white;">
+            <h3 style="color:#F7B600; margin:0 0 8px 0;">💡 Our Proposed Solution: Visa QR Pay</h3>
+            <p style="margin:0; font-size:1em; color:#D0D8F0;">
+            A QR code on every Visa card that enables <strong style="color:white;">two new payment flows</strong>:
+            (1) <strong style="color:white;">P2P payments</strong> — scan someone's card to send them money, competing directly with BLIK P2P;
+            (2) <strong style="color:white;">E-commerce checkout</strong> — scan your own card instead of typing the number, faster and safer than any existing method.
+            No card number shared, biometric approval, powered by Visa Direct.
+            </p>
+            <p style="margin:8px 0 0 0; font-size:0.9em; color:#A0AAC0;">👈 Navigate to <strong style="color:#F7B600;">"Visa QR Pay — Our Solution"</strong> in the sidebar for the full concept.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #0D1137, #1A1F71); padding: 24px 28px; border-radius: 14px; color: white;">
+            <h3 style="color:#F7B600; margin:0 0 8px 0;">💡 Nasze Rozwiązanie: Visa QR Pay</h3>
+            <p style="margin:0; font-size:1em; color:#D0D8F0;">
+            Kod QR na kazdej karcie Visa umozliwia <strong style="color:white;">dwa nowe sposoby platnosci</strong>:
+            (1) <strong style="color:white;">Platnosci P2P</strong> — zeskanuj karte znajomego, by wyslac mu pieniadze, konkurujac bezposrednio z BLIK P2P;
+            (2) <strong style="color:white;">Platnosci e-commerce</strong> — zeskanuj wlasna karte zamiast wpisywac numer, szybciej i bezpieczniej niz jakakolwiek istniejaca metoda.
+            Bez udostepniania numeru karty, zatwierdzenie biometryczne, napedzane przez Visa Direct.
+            </p>
+            <p style="margin:8px 0 0 0; font-size:0.9em; color:#A0AAC0;">👈 Przejdź do <strong style="color:#F7B600;">"Visa QR Pay — Nasze Rozwiązanie"</strong> w menu bocznym, by poznać pełną koncepcję.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: TRANSACTION OVERVIEW
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "📊 Transaction Overview":
-    st.header("Transaction Overview")
-    st.caption("Sample dataset: 305.5M transactions, January 2025 – June 2026")
+elif current_page == "overview":
+    st.header(t("Transaction Overview", "Przegląd Transakcji"))
+    st.caption(t("Sample dataset: 305.5M transactions, January 2025 – June 2026",
+                  "Próbka danych: 305.5M transakcji, styczeń 2025 – czerwiec 2026"))
 
     # Monthly trends
     monthly = analysis["monthly_trends"]
@@ -222,7 +237,7 @@ elif page == "📊 Transaction Overview":
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Monthly Transaction Volume & Value")
+        st.subheader(t("Monthly Transaction Volume & Value", "Miesięczny Wolumen i Wartość Transakcji"))
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         fig.add_trace(go.Bar(x=df_m["month"], y=df_m["tx_count"]/1e6, name="Transactions (M)", marker_color=VISA_BLUE, opacity=0.7), secondary_y=False)
         fig.add_trace(go.Scatter(x=df_m["month"], y=df_m["total_amount"]/1e9, name="Value (B)", line=dict(color=VISA_GOLD, width=3)), secondary_y=True)
@@ -232,7 +247,7 @@ elif page == "📊 Transaction Overview":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Average Transaction Value Over Time")
+        st.subheader(t("Average Transaction Value Over Time", "Średnia Wartość Transakcji w Czasie"))
         fig = px.line(df_m, x="month", y="avg_amount", markers=True)
         fig.update_traces(line_color=ACCENT[0], line_width=3)
         fig.update_layout(height=400, margin=dict(t=10,b=30), yaxis_title="Avg amount", yaxis_range=[170,200])
@@ -243,7 +258,7 @@ elif page == "📊 Transaction Overview":
     # Hourly & Daily
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Hourly Pattern (GMT → Poland = +1/+2h)")
+        st.subheader(t("Hourly Pattern (GMT → Poland = +1/+2h)", "Rozkład Godzinowy (GMT → Polska = +1/+2h)"))
         hourly = analysis["hourly_pattern"]
         df_h = pd.DataFrame(hourly)
         df_h["hour_label"] = df_h["hour_gmt"].apply(lambda h: f"{(h+1)%24}:00")
@@ -254,7 +269,7 @@ elif page == "📊 Transaction Overview":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Day of Week Pattern")
+        st.subheader(t("Day of Week Pattern", "Rozkład Dzienny"))
         daily = analysis["day_of_week"]
         df_d = pd.DataFrame(daily)
         colors = [VISA_BLUE]*7
@@ -269,7 +284,7 @@ elif page == "📊 Transaction Overview":
     # Top categories & merchants
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Top 15 Merchant Categories")
+        st.subheader(t("Top 15 Merchant Categories", "Top 15 Kategorii Merchantow"))
         cats = analysis["top_categories"][:15]
         df_c = pd.DataFrame(cats)
         fig = px.bar(df_c, y="mrch_catg_nm", x="tx_count", orientation="h", color_discrete_sequence=[VISA_BLUE])
@@ -277,7 +292,7 @@ elif page == "📊 Transaction Overview":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Top 15 Merchants")
+        st.subheader(t("Top 15 Merchants", "Top 15 Merchantow"))
         merch = analysis["top_merchants"][:15]
         df_me = pd.DataFrame(merch)
         fig = px.bar(df_me, y="mrch_nm_raw", x="tx_count", orientation="h", color_discrete_sequence=[ACCENT[3]])
@@ -289,7 +304,7 @@ elif page == "📊 Transaction Overview":
     # Payment channels
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.subheader("Payment Channels")
+        st.subheader(t("Payment Channels", "Kanały Płatności"))
         ch = analysis["channel"]
         df_ch = pd.DataFrame(ch)
         fig = px.pie(df_ch, names="channel_flg", values="tx_count", color_discrete_sequence=ACCENT, hole=0.35)
@@ -297,7 +312,7 @@ elif page == "📊 Transaction Overview":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Physical vs Online")
+        st.subheader(t("Physical vs Online", "Fizyczne vs Online"))
         cp = analysis["cp_flag"]
         labels = ["Physical (88.8%)", "Online (11.2%)"]
         fig = px.pie(names=labels, values=[cp[0]["tx_count"], cp[1]["tx_count"]], color_discrete_sequence=[VISA_BLUE, ACCENT[1]], hole=0.35)
@@ -305,7 +320,7 @@ elif page == "📊 Transaction Overview":
         st.plotly_chart(fig, use_container_width=True)
 
     with col3:
-        st.subheader("Card Types")
+        st.subheader(t("Card Types", "Typy Kart"))
         ct = analysis["card_types"][:6]
         df_ct = pd.DataFrame(ct)
         fig = px.pie(df_ct, names="crd_typ_nm", values="tx_count", color_discrete_sequence=ACCENT, hole=0.35)
@@ -316,23 +331,23 @@ elif page == "📊 Transaction Overview":
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: E-COMMERCE DEEP DIVE
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "🛒 E-Commerce Deep Dive":
-    st.header("E-Commerce Deep Dive")
+elif current_page == "ecom":
+    st.header(t("E-Commerce Deep Dive", "Analiza E-Commerce"))
 
     overall = ecommerce["ecommerce_overall"]
     phys = [r for r in overall if r["cp_flag"] == 1][0]
     onl = [r for r in overall if r["cp_flag"] == 0][0]
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Online Transactions", f"{onl['tx_count']/1e6:.1f}M", f"{onl['tx_count']/sum(r['tx_count'] for r in overall)*100:.1f}% of total")
-    c2.metric("Online Value", f"{onl['total_amount']/1e9:.1f}B", f"{onl['total_amount']/sum(r['total_amount'] for r in overall)*100:.1f}% of total")
-    c3.metric("Online Avg TX", f"{onl['avg_amount']:.0f}", f"+{onl['avg_amount']-phys['avg_amount']:.0f} vs physical")
-    c4.metric("Online Cards", f"{onl['unique_cards']/1e6:.2f}M", f"{onl['unique_cards']/phys['unique_cards']*100:.0f}% of physical cards")
+    c1.metric(t("Online Transactions", "Transakcje Online"), f"{onl['tx_count']/1e6:.1f}M", f"{onl['tx_count']/sum(r['tx_count'] for r in overall)*100:.1f}% {t('of total', 'z całkowitych')}")
+    c2.metric(t("Online Value", "Wartość Online"), f"{onl['total_amount']/1e9:.1f}B", f"{onl['total_amount']/sum(r['total_amount'] for r in overall)*100:.1f}% {t('of total', 'z całkowitych')}")
+    c3.metric(t("Online Avg TX", "Średnia TX Online"), f"{onl['avg_amount']:.0f}", f"+{onl['avg_amount']-phys['avg_amount']:.0f} vs {t('physical', 'fizyczne')}")
+    c4.metric(t("Online Cards", "Karty Online"), f"{onl['unique_cards']/1e6:.2f}M", f"{onl['unique_cards']/phys['unique_cards']*100:.0f}% {t('of physical cards', 'kart fizycznych')}")
 
     st.divider()
 
     # Monthly trend
-    st.subheader("E-Commerce Growth Trend")
+    st.subheader(t("E-Commerce Growth Trend", "Trend Wzrostu E-Commerce"))
     trend = ecommerce["ecommerce_monthly_trend"]
     df_t = pd.DataFrame(trend)
     df_t["month"] = df_t["prch_mnth_id"].astype(str).apply(lambda x: x[:4]+"-"+x[4:])
@@ -359,7 +374,7 @@ elif page == "🛒 E-Commerce Deep Dive":
     # Top online categories
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Top Online Categories (by TX count)")
+        st.subheader(t("Top Online Categories (by TX count)", "Top Kategorie Online (wg liczby TX)"))
         top_ecom = ecommerce["ecommerce_top_categories"][:15]
         df_ec = pd.DataFrame(top_ecom)
         fig = px.bar(df_ec, y="mrch_catg_nm", x="tx_count", orientation="h", color_discrete_sequence=[VISA_BLUE])
@@ -367,7 +382,7 @@ elif page == "🛒 E-Commerce Deep Dive":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Top Online Merchants")
+        st.subheader(t("Top Online Merchants", "Top Merchanci Online"))
         top_merch = ecommerce["ecommerce_top_merchants"][:20]
         df_em = pd.DataFrame(top_merch)
         fig = px.bar(df_em, y="mrch_nm_raw", x="tx_count", orientation="h", color_discrete_sequence=[ACCENT[3]],
@@ -380,7 +395,7 @@ elif page == "🛒 E-Commerce Deep Dive":
     # Online channel breakdown
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Online Payment Channels")
+        st.subheader(t("Online Payment Channels", "Kanały Płatności Online"))
         ch = ecommerce["ecommerce_by_channel"]
         df_ech = pd.DataFrame(ch)
         fig = px.pie(df_ech, names="channel_flg", values="tx_count", color_discrete_sequence=ACCENT, hole=0.35)
@@ -388,7 +403,7 @@ elif page == "🛒 E-Commerce Deep Dive":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Online vs Physical: Avg Transaction Value")
+        st.subheader(t("Online vs Physical: Avg Transaction Value", "Online vs Fizyczne: Srednia Wartosc Transakcji"))
         cats_compare = [
             {"cat": "Family Clothing", "physical": 179, "online": 646},
             {"cat": "Grocery", "physical": 131, "online": 402},
@@ -406,12 +421,13 @@ elif page == "🛒 E-Commerce Deep Dive":
         fig.update_layout(height=350, margin=dict(t=10,b=30), barmode="group", xaxis_title="Avg transaction value", legend=dict(orientation="h",y=-0.15))
         st.plotly_chart(fig, use_container_width=True)
 
-    st.info("💡 **Key Insight:** Online transactions average **318** (1.9× physical at 165). In clothing the multiplier is **3.6×** (646 online vs 179 in-store). Every physical transaction converted to online generates ~2× the card revenue.")
+    st.info(t("💡 **Key Insight:** Online transactions average **318** (1.9× physical at 165). In clothing the multiplier is **3.6×** (646 online vs 179 in-store). Every physical transaction converted to online generates ~2× the card revenue.",
+               "💡 **Kluczowy Wniosek:** Transakcje online srednio **318** (1.9× fizyczne przy 165). W odziezi mnoznik to **3.6×** (646 online vs 179 w sklepie). Kazda fizyczna transakcja przekonwertowana na online generuje ~2× przychod kartowy."))
 
     st.divider()
 
     # Categories with lowest online penetration
-    st.subheader("Categories With Lowest Online Penetration (E-Commerce Desert)")
+    st.subheader(t("Categories With Lowest Online Penetration (E-Commerce Desert)", "Kategorie z Najniższą Penetracją Online (Pustynia E-Commerce)"))
     online_det = precise["online_detailed"][:15]
     df_od = pd.DataFrame(online_det)
     fig = px.bar(df_od, y="mrch_catg_nm", x="online_tx_pct", orientation="h",
@@ -421,26 +437,27 @@ elif page == "🛒 E-Commerce Deep Dive":
                       xaxis_title="% of transactions that are online", coloraxis_showscale=False)
     st.plotly_chart(fig, use_container_width=True)
 
-    st.error("🛒 **E-Grocery Gap:** Groceries = 26.3% of all card TX but only **0.12%** are online. E-pharmacy = **0.18%**. In mature markets, e-grocery is 10-15% of food retail. At just 5% penetration this would mean millions of new high-value online card transactions.")
+    st.error(t("🛒 **E-Grocery Gap:** Groceries = 26.3% of all card TX but only **0.12%** are online. E-pharmacy = **0.18%**. In mature markets, e-grocery is 10-15% of food retail. At just 5% penetration this would mean millions of new high-value online card transactions.",
+                "🛒 **Luka E-Grocery:** Spozywcze = 26.3% wszystkich TX kartowych, ale tylko **0.12%** online. E-apteka = **0.18%**. Na dojrzalych rynkach e-grocery to 10-15% handlu spozywczego. Przy zaledwie 5% penetracji to miliony nowych wysokowartościowych transakcji kartowych online."))
 
 
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: BLIK vs VISA
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "⚔️ BLIK vs Visa":
-    st.header("BLIK vs Visa: The Battle for Polish E-Commerce")
+elif current_page == "blik":
+    st.header(t("BLIK vs Visa: The Battle for Polish E-Commerce", "BLIK vs Visa: Bitwa o Polski E-Commerce"))
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("BLIK e-com share", "67%", "+5pp vs 2023", delta_color="inverse")
-    c2.metric("Card e-com share", "16%", "-2pp vs 2023", delta_color="inverse")
-    c3.metric("BLIK tx/year", "4.2B", "+45% YoY", delta_color="inverse")
-    c4.metric("Card tx/year (total)", "9.2B", "+8% YoY")
+    c1.metric(t("BLIK e-com share", "Udział BLIK e-com"), "67%", "+5pp vs 2023", delta_color="inverse")
+    c2.metric(t("Card e-com share", "Udział kart e-com"), "16%", "-2pp vs 2023", delta_color="inverse")
+    c3.metric(t("BLIK tx/year", "BLIK tx/rok"), "4.2B", "+45% YoY", delta_color="inverse")
+    c4.metric(t("Card tx/year (total)", "Tx kartowe/rok (lacznie)"), "9.2B", "+8% YoY")
 
     st.divider()
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("E-Commerce Payment Trends 2022–2024")
+        st.subheader(t("E-Commerce Payment Trends 2022–2024", "Trendy Platnosci E-Commerce 2022–2024"))
         years = ["2022", "2023", "2024"]
         fig = go.Figure()
         fig.add_trace(go.Bar(x=years, y=[55, 62, 67], name="BLIK", marker_color=BLIK_PINK))
@@ -452,7 +469,7 @@ elif page == "⚔️ BLIK vs Visa":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("BLIK Growth vs Card Decline")
+        st.subheader(t("BLIK Growth vs Card Decline", "Wzrost BLIK vs Spadek Kart"))
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         yrs = ["2019","2020","2021","2022","2023","2024"]
         fig.add_trace(go.Scatter(x=yrs, y=[0.5,0.9,1.5,2.1,2.9,4.2], name="BLIK tx (billions)",
@@ -465,7 +482,7 @@ elif page == "⚔️ BLIK vs Visa":
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
-    st.subheader("BLIK vs Visa — Strategic Comparison")
+    st.subheader(t("BLIK vs Visa — Strategic Comparison", "BLIK vs Visa — Porownanie Strategiczne"))
 
     comparison = pd.DataFrame([
         {"Dimension": "E-commerce share 2024", "BLIK": "67%", "Visa Card": "~9%", "Advantage": "🟣 BLIK"},
@@ -483,7 +500,7 @@ elif page == "⚔️ BLIK vs Visa":
 
     st.divider()
 
-    st.subheader("Where Visa Wins Despite BLIK Dominance")
+    st.subheader(t("Where Visa Wins Despite BLIK Dominance", "Gdzie Visa Wygrywa Pomimo Dominacji BLIK"))
     col1, col2 = st.columns(2)
     with col1:
         st.success("""
@@ -504,15 +521,17 @@ elif page == "⚔️ BLIK vs Visa":
         - **Trust factor:** Integrated in banking apps, feels "safer" than card number entry
         """)
 
-    st.warning("⚠️ **Projection:** At current trajectory (-2pp/year for cards), card share in Polish e-commerce could fall **below 10% by 2027**. Visa's strategy must focus on defending subscriptions, winning international shopping, and making card payment as frictionless as BLIK (Click to Pay, tokenization).")
+    st.warning(t("⚠️ **Projection:** At current trajectory (-2pp/year for cards), card share in Polish e-commerce could fall **below 10% by 2027**. Visa's strategy must focus on defending subscriptions, winning international shopping, and making card payment as frictionless as BLIK (Click to Pay, tokenization).",
+                  "⚠️ **Prognoza:** Przy obecnej trajektorii (-2pp/rok dla kart), udzial kart w polskim e-commerce moze spasc **ponizej 10% do 2027**. Strategia Visa musi skupic sie na obronie subskrypcji, wygrywaniu zakupow miedzynarodowych i uczynieniu platnosci karta tak bezproblemowa jak BLIK (Click to Pay, tokenizacja)."))
 
 
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: CARD-FREE ZONES
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "🔴 Card-Free Zones":
-    st.header("Card-Free Zones: Where Cards Are Not Used")
-    st.caption("Cross-referencing GUS household spending structure with Visa transaction data")
+elif current_page == "cardfree":
+    st.header(t("Card-Free Zones: Where Cards Are Not Used", "Strefy bez Kart: Gdzie Karty Nie Są Używane"))
+    st.caption(t("Cross-referencing GUS household spending structure with Visa transaction data",
+                  "Analiza krzyzowa struktury wydatkow gospodarstw domowych GUS z danymi transakcyjnymi Visa"))
 
     gap_data = [
         {"Category": "Housing & Utilities", "GUS %": 20.6, "Visa Value %": 0.3, "Gap Index": 2, "Status": "🔴 Card-Free Zone", "Barrier": "Bank transfers, direct debit"},
@@ -535,7 +554,7 @@ elif page == "🔴 Card-Free Zones":
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Gap Index by Category")
+        st.subheader(t("Gap Index by Category", "Indeks Luki wg Kategorii"))
         df_gap_sorted = df_gap.sort_values("Gap Index")
         colors = df_gap_sorted["Gap Index"].apply(lambda x: "#E85D75" if x <= 10 else ("#F39C12" if x < 70 else ("#4A90D9" if x <= 100 else "#2ECC71")))
         fig = go.Figure(go.Bar(y=df_gap_sorted["Category"], x=df_gap_sorted["Gap Index"], orientation="h",
@@ -545,7 +564,7 @@ elif page == "🔴 Card-Free Zones":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("GUS Spending vs Visa Card Value")
+        st.subheader(t("GUS Spending vs Visa Card Value", "Wydatki GUS vs Wartosc Kart Visa"))
         fig = go.Figure()
         fig.add_trace(go.Bar(name="GUS Spending %", y=df_gap["Category"], x=df_gap["GUS %"], orientation="h", marker_color=VISA_BLUE, opacity=0.6))
         fig.add_trace(go.Bar(name="Visa Value %", y=df_gap["Category"], x=df_gap["Visa Value %"], orientation="h", marker_color=ACCENT[1]))
@@ -554,9 +573,11 @@ elif page == "🔴 Card-Free Zones":
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
-    st.subheader("The 3 Biggest Card-Free Zones Explained")
+    st.subheader(t("The 3 Biggest Card-Free Zones Explained", "3 Najwieksze Strefy bez Kart"))
 
-    tab1, tab2, tab3 = st.tabs(["🏠 Housing & Utilities (20.6%)", "📱 Communications (4.0%)", "🏥 Healthcare (5.5%)"])
+    tab1, tab2, tab3 = st.tabs([t("🏠 Housing & Utilities (20.6%)", "🏠 Mieszkanie i Media (20.6%)"),
+                                 t("📱 Communications (4.0%)", "📱 Komunikacja (4.0%)"),
+                                 t("🏥 Healthcare (5.5%)", "🏥 Opieka Zdrowotna (5.5%)")])
 
     with tab1:
         st.markdown("""
@@ -607,22 +628,22 @@ elif page == "🔴 Card-Free Zones":
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: SUBSCRIPTION ECONOMY
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "🔄 Subscription Economy":
-    st.header("The Subscription Economy: Visa's Competitive Moat")
+elif current_page == "subs":
+    st.header(t("The Subscription Economy: Visa's Competitive Moat", "Ekonomia Subskrypcji: Fosa Konkurencyjna Visa"))
 
     subs = ecommerce["subscription_merchants"]
     df_s = pd.DataFrame(subs)
 
     c1, c2, c3 = st.columns(3)
-    c1.metric("Subscription merchants", f"{len(df_s)}", "with >1K cards & 3+ TX/card")
+    c1.metric(t("Subscription merchants", "Merchanci subskrypcyjni"), f"{len(df_s)}", t("with >1K cards & 3+ TX/card", "z >1K kart i 3+ TX/karte"))
     c2.metric("Top: Apple.com", "240K cards", "10.3 TX/card avg")
-    c3.metric("Recurring pairs (12+/period)", "4.1M", "= 42.8% of all TX")
+    c3.metric(t("Recurring pairs (12+/period)", "Pary cykliczne (12+/okres)"), "4.1M", "= 42.8% TX")
 
     st.divider()
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Top Subscription Services (by unique cardholders)")
+        st.subheader(t("Top Subscription Services (by unique cardholders)", "Top Uslugi Subskrypcyjne (wg unikalnych posiadaczy kart)"))
         fig = go.Figure()
         fig.add_trace(go.Bar(y=df_s["mrch_nm_raw"][:20], x=df_s["unique_cards"][:20]/1e3, orientation="h",
                              name="Unique cards (K)", marker_color=VISA_BLUE))
@@ -631,7 +652,7 @@ elif page == "🔄 Subscription Economy":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Transaction Frequency (TX per card)")
+        st.subheader(t("Transaction Frequency (TX per card)", "Czestotliwosc Transakcji (TX na karte)"))
         fig = go.Figure()
         fig.add_trace(go.Bar(y=df_s["mrch_nm_raw"][:20], x=df_s["tx_per_card"][:20], orientation="h",
                              name="TX per card", marker_color=VISA_GOLD))
@@ -641,7 +662,7 @@ elif page == "🔄 Subscription Economy":
 
     st.divider()
 
-    st.subheader("Recurring vs One-Time: Value Distribution")
+    st.subheader(t("Recurring vs One-Time: Value Distribution", "Cykliczne vs Jednorazowe: Rozklad Wartosci"))
     recur = precise["recurring_vs_onetime"]
     df_r = pd.DataFrame(recur)
 
@@ -658,17 +679,24 @@ elif page == "🔄 Subscription Economy":
         fig.update_layout(height=350, margin=dict(t=40,b=30))
         st.plotly_chart(fig, use_container_width=True)
 
-    st.success("""
+    st.success(t("""
     **Key Insight:** Just **4.1% of card-merchant relationships** (those with 12+ transactions in 18 months) generate:
     - **42.8%** of all transactions (130.9M)
     - **36.5%** of all value (20.3B)
 
     These are the grocery regulars, subscription services, and habitual merchants.
     **Protecting and growing these recurring relationships is Visa's #1 strategic priority.**
-    """)
+    """, """
+    **Kluczowy Wniosek:** Zaledwie **4.1% relacji karta-merchant** (z 12+ transakcjami w 18 miesiecy) generuje:
+    - **42.8%** wszystkich transakcji (130.9M)
+    - **36.5%** calej wartości (20.3B)
+
+    To stali klienci spozywczy, uslugi subskrypcyjne i ulubieni merchanci.
+    **Ochrona i rozwijanie tych cyklicznych relacji to priorytet strategiczny nr 1 Visa.**
+    """))
 
     st.divider()
-    st.subheader("Subscription Categories Breakdown")
+    st.subheader(t("Subscription Categories Breakdown", "Podzial Kategorii Subskrypcyjnych"))
 
     sub_cats = {
         "Streaming & Media": ["APPLE.COM/BILL", "NETFLIX.COM", "Netflix.com", "Disney Plus", "SPOTIFY",
@@ -692,20 +720,20 @@ elif page == "🔄 Subscription Economy":
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: CASH DESERTS
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "💵 Cash Deserts & Infrastructure":
-    st.header("Cash Deserts & Payment Infrastructure Gaps")
+elif current_page == "cash":
+    st.header(t("Cash Deserts & Payment Infrastructure Gaps", "Pustynie Gotówkowe i Luki Infrastruktury Płatniczej"))
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("POS Terminals", "1.25M", "+8% YoY")
-    c2.metric("Terminals/1000 pop", "33.3", "EU avg ~35")
-    c3.metric("Cash at POS", "35%", "-2pp YoY")
-    c4.metric("ATM avg withdrawal", "1,521", "8.3× avg card TX")
+    c1.metric(t("POS Terminals", "Terminale POS"), "1.25M", "+8% YoY")
+    c2.metric(t("Terminals/1000 pop", "Terminale/1000 mieszk."), "33.3", t("EU avg ~35", "Średnia UE ~35"))
+    c3.metric(t("Cash at POS", "Gotowka w POS"), "35%", "-2pp YoY")
+    c4.metric(t("ATM avg withdrawal", "Średnia wypłata ATM"), "1,521", t("8.3× avg card TX", "8.3× średnia TX kartowa"))
 
     st.divider()
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Sectors with Lowest Terminal Coverage")
+        st.subheader(t("Sectors with Lowest Terminal Coverage", "Sektory z Najnizsza Pokryciem Terminali"))
         sectors = [
             {"Sector": "Tutoring / education services", "Terminal %": 5},
             {"Sector": "Home repair / tradesmen", "Terminal %": 10},
@@ -728,7 +756,7 @@ elif page == "💵 Cash Deserts & Infrastructure":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Cash Usage by Transaction Size")
+        st.subheader(t("Cash Usage by Transaction Size", "Uzycie Gotowki wg Wielkosci Transakcji"))
         sizes = ["Under 10 PLN", "10-50 PLN", "50-100 PLN", "100-500 PLN", "Over 500 PLN"]
         fig = go.Figure()
         fig.add_trace(go.Bar(name="Cash", x=sizes, y=[65,40,30,25,20], marker_color=ACCENT[1]))
@@ -741,7 +769,7 @@ elif page == "💵 Cash Deserts & Infrastructure":
 
     st.divider()
 
-    st.subheader("Transaction Size Distribution in Visa Data")
+    st.subheader(t("Transaction Size Distribution in Visa Data", "Rozkład Wielkości Transakcji w Danych Visa"))
     small = precise["small_transactions"]
     df_sm = pd.DataFrame(small)
     fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -752,14 +780,18 @@ elif page == "💵 Cash Deserts & Infrastructure":
     fig.update_layout(height=400, margin=dict(t=10,b=30), legend=dict(orientation="h",y=-0.15))
     st.plotly_chart(fig, use_container_width=True)
 
-    st.info("""
+    st.info(t("""
     💡 **Micro-payments:** 19.3M transactions are under 5 units (avg 2.86). These exist because contactless payments
     removed the friction of small amounts. But per NBP data, 65% of sub-10 PLN transactions in Poland are still cash.
     **Opportunity:** "Tap for everything" campaigns + zero-fee micro-transactions for merchants.
-    """)
+    """, """
+    💡 **Mikroplatnosci:** 19.3M transakcji jest ponizej 5 jednostek (srednia 2.86). Istnieja, bo platnosci zblizeniowe
+    usunely tarcie malych kwot. Ale wg danych NBP, 65% transakcji ponizej 10 PLN w Polsce to nadal gotowka.
+    **Szansa:** Kampanie "Przykładaj za wszystko" + zerowe oplaty za mikroplatnosci dla merchantow.
+    """))
 
     st.divider()
-    st.subheader("The ATM Cash Flow")
+    st.subheader(t("The ATM Cash Flow", "Przeplyw Gotowki ATM"))
     st.markdown("""
     | Metric | Value |
     |---|---|
@@ -776,72 +808,116 @@ elif page == "💵 Cash Deserts & Infrastructure":
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: VISA QR PAY — OUR SOLUTION
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "💡 Visa QR Pay — Our Solution":
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 44px 36px; border-radius: 18px; color: #FFFFFF; margin-bottom: 28px;">
-        <h1 style="margin:0; font-size:2.4em; color:#FFFFFF;">Visa QR Pay</h1>
-        <p style="color:#D0D8F0; font-size:1.15em; margin-top:8px;">Your card is your identity. One scan — and the payment comes to you.</p>
-        <p style="color:#A0AAC0; font-size:0.95em; margin-top:4px;">A new payment paradigm: instead of entering card details, you scan a QR code on your physical card. The payment request comes to your phone. You approve or decline — that's it.</p>
-        <span style="background:#F7B600; color:#0D1137; padding:5px 20px; border-radius:16px; font-weight:700; font-size:0.85em;">OUR PROPOSED SOLUTION</span>
-    </div>
-    """, unsafe_allow_html=True)
+elif current_page == "qrpay":
+    if lang == "EN":
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 44px 36px; border-radius: 18px; color: #1A1F71; margin-bottom: 28px; border: 2px solid #B0BDE0;">
+            <h1 style="margin:0; font-size:2.4em; color:#0D1137;">Visa QR Pay</h1>
+            <p style="color:#333; font-size:1.15em; margin-top:8px;">Your card is your identity. One scan — and the payment comes to you.</p>
+            <p style="color:#555; font-size:0.95em; margin-top:4px;">A new payment paradigm: instead of entering card details, you scan a QR code on your physical card. The payment request comes to your phone. You approve or decline — that's it.</p>
+            <span style="background:#F7B600; color:#0D1137; padding:5px 20px; border-radius:16px; font-weight:700; font-size:0.85em;">OUR PROPOSED SOLUTION</span>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 44px 36px; border-radius: 18px; color: #1A1F71; margin-bottom: 28px; border: 2px solid #B0BDE0;">
+            <h1 style="margin:0; font-size:2.4em; color:#0D1137;">Visa QR Pay</h1>
+            <p style="color:#333; font-size:1.15em; margin-top:8px;">Twoja karta to Twoja tożsamość. Jedno skanowanie — i płatność przychodzi do Ciebie.</p>
+            <p style="color:#555; font-size:0.95em; margin-top:4px;">Nowy paradygmat płatności: zamiast wpisywać dane karty, skanujesz kod QR na fizycznej karcie. Zadanie platnosci pojawia sie na Twoim telefonie. Zatwierdzasz lub odrzucasz — to wszystko.</p>
+            <span style="background:#F7B600; color:#0D1137; padding:5px 20px; border-radius:16px; font-weight:700; font-size:0.85em;">NASZE ROZWIĄZANIE</span>
+        </div>
+        """, unsafe_allow_html=True)
 
     # ── THE PROBLEM ──
-    st.header("The Problem We're Solving")
+    st.header(t("The Problem We're Solving", "Problem Który Rozwiązujemy"))
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.error("""
+        st.error(t("""
         **🛒 Online Checkout Friction**
 
         Typing a 16-digit card number, expiry date, and CVV is the #1 reason people abandon cards online.
         In Poland, **67% choose BLIK** instead — because it's one code, one tap.
 
         *Cards lose not on trust, but on convenience.*
-        """)
+        """, """
+        **🛒 Tarcie przy Platnosci Online**
+
+        Wpisywanie 16-cyfrowego numeru karty, daty waznosci i CVV to powod nr 1, dla ktorego ludzie rezygnuja z kart online.
+        W Polsce **67% wybiera BLIK** — bo to jeden kod, jedno klikniecie.
+
+        *Karty przegrywaja nie na zaufaniu, lecz na wygodzie.*
+        """))
     with col2:
-        st.error("""
+        st.error(t("""
         **🤝 P2P Payments: Cards Don't Exist**
 
         Splitting a dinner bill, paying for a marketplace item, collecting for a group gift —
         cards are invisible here. **BLIK P2P owns 55%**, bank transfers 40%, cards ~2%.
 
         *There's no card-native way to request money from someone.*
-        """)
+        """, """
+        **🤝 Platnosci P2P: Karty Nie Istnieja**
+
+        Dzielenie rachunku za kolacje, platnosc za przedmiot z marketplace, zbiorka na prezent —
+        karty sa tu niewidoczne. **BLIK P2P ma 55%**, przelewy 40%, karty ~2%.
+
+        *Nie ma natywnego sposobu, by karta poprosic kogos o pieniadze.*
+        """))
     with col3:
-        st.error("""
+        st.error(t("""
         **🔢 The Number Problem**
 
         Your card number is sensitive data. Every time you type it, there's a risk.
         Every time you share it, you worry. Every new website = another place your card data lives.
 
         *What if you never had to type your card number again?*
-        """)
+        """, """
+        **🔢 Problem Numeru Karty**
+
+        Numer Twojej karty to wrazliwe dane. Za kazdym razem, gdy go wpisujesz, ryzykujesz.
+        Za kazdym razem, gdy go udostepniasz, martwisz sie. Kazda nowa strona = kolejne miejsce z danymi Twojej karty.
+
+        *A gdybys nigdy wiecej nie musial wpisywac numeru karty?*
+        """))
 
     st.divider()
 
     # ── THE SOLUTION ──
-    st.header("The Solution: Visa QR Pay")
-    st.markdown("""
+    st.header(t("The Solution: Visa QR Pay", "Rozwiązanie: Visa QR Pay"))
+    st.markdown(t("""
     > **Every Visa card gets a unique QR code** — printed on the card, available in the banking app, or on a sticker.
     > Scanning this QR code doesn't reveal the card number. It creates a **secure payment request channel**
     > between the payer and the cardholder.
-    """)
+    """, """
+    > **Kazda karta Visa otrzymuje unikalny kod QR** — wydrukowany na karcie, dostepny w aplikacji bankowej lub jako naklejka.
+    > Skanowanie tego kodu QR nie ujawnia numeru karty. Tworzy **bezpieczny kanal zadania platnosci**
+    > miedzy placacy a posiadaczem karty.
+    """))
 
     st.divider()
 
     # ── TWO MODES ──
-    tab1, tab2 = st.tabs(["💰 Mode 1: P2P — Request Payment", "🛒 Mode 2: E-Commerce — Scan to Pay"])
+    tab1, tab2 = st.tabs([t("💰 Mode 1: P2P — Request Payment", "💰 Tryb 1: P2P — Zadanie Platnosci"),
+                           t("🛒 Mode 2: E-Commerce — Scan to Pay", "🛒 Tryb 2: E-Commerce — Skanuj i Plac")])
 
     with tab1:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #E8F0FE, #D0E0FF); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
-            <h2 style="color: #1A1F71; margin:0;">Mode 1: P2P Payment Request</h2>
-            <p style="color: #333; margin-top:8px; font-size:1.05em;">Someone owes you money? They scan your card's QR code and send you a payment — instantly, by card.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        if lang == "EN":
+            st.markdown("""
+            <div style="background: linear-gradient(135deg, #E8F0FE, #D0E0FF); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
+                <h2 style="color: #1A1F71; margin:0;">Mode 1: P2P Payment Request</h2>
+                <p style="color: #333; margin-top:8px; font-size:1.05em;">Someone owes you money? They scan your card's QR code and send you a payment — instantly, by card.</p>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div style="background: linear-gradient(135deg, #E8F0FE, #D0E0FF); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
+                <h2 style="color: #1A1F71; margin:0;">Tryb 1: Zadanie Platnosci P2P</h2>
+                <p style="color: #333; margin-top:8px; font-size:1.05em;">Ktos jest Ci winien pieniadze? Skanuje kod QR Twojej karty i wysyla Ci platnosc — natychmiast, karta.</p>
+            </div>
+            """, unsafe_allow_html=True)
 
-        st.subheader("How It Works")
+        st.subheader(t("How It Works", "Jak To Działa"))
 
         col1, col2, col3, col4 = st.columns(4)
         with col1:
@@ -879,35 +955,54 @@ elif page == "💡 Visa QR Pay — Our Solution":
 
         st.markdown("")
 
-        st.subheader("Use Cases")
+        st.subheader(t("Use Cases", "Przypadki Użycia"))
         uc1, uc2, uc3, uc4 = st.columns(4)
         with uc1:
-            st.info("**🍕 Split the bill**\n\nScan the card of whoever paid, enter your share. No IBAN, no phone number needed.")
+            st.info(t("**🍕 Split the bill**\n\nScan the card of whoever paid, enter your share. No IBAN, no phone number needed.",
+                       "**🍕 Podziel rachunek**\n\nZeskanuj karte osoby, ktora placila, wpisz swoja czesc. Bez IBAN, bez numeru telefonu."))
         with uc2:
-            st.info("**🏪 Marketplace sale**\n\nSelling on OLX? Buyer scans your card QR at meetup. Instant card-to-card payment.")
+            st.info(t("**🏪 Marketplace sale**\n\nSelling on OLX? Buyer scans your card QR at meetup. Instant card-to-card payment.",
+                       "**🏪 Sprzedaz na marketplace**\n\nSprzedajesz na OLX? Kupujacy skanuje Twoj QR przy spotkaniu. Natychmiastowa platnosc karta-do-karty."))
         with uc3:
-            st.info("**🎁 Group collection**\n\nOrganizing a gift? Share your card QR in the group chat. Everyone scans & pays.")
+            st.info(t("**🎁 Group collection**\n\nOrganizing a gift? Share your card QR in the group chat. Everyone scans & pays.",
+                       "**🎁 Zbiorka grupowa**\n\nOrganizujesz prezent? Udostepnij QR karty na czacie grupowym. Kazdy skanuje i placi."))
         with uc4:
-            st.info("**🔧 Pay the plumber**\n\nNo terminal needed. The tradesman shows their card, you scan and pay. Done.")
+            st.info(t("**🔧 Pay the plumber**\n\nNo terminal needed. The tradesman shows their card, you scan and pay. Done.",
+                       "**🔧 Zaplac hydraulikowi**\n\nBez terminala. Fachowiec pokazuje swoja karte, skanujesz i placisz. Gotowe."))
 
-        st.success("""
+        st.success(t("""
         **Why this changes the game:**
         - **No card number shared** — the QR contains a tokenized identifier, not the actual card number
         - **Works offline** — the QR is printed on the physical card, no internet needed to initiate
         - **Pull → Push model** — the *receiver* doesn't pull money; the *sender* pushes a request that must be approved
         - **Powered by Visa Direct** — instant settlement, 24/7, to any Visa card globally
         - **Directly competes with BLIK P2P** — but works across borders and doesn't require the same bank
-        """)
+        """, """
+        **Dlaczego to zmienia gre:**
+        - **Brak udostepniania numeru karty** — QR zawiera tokenizowany identyfikator, nie rzeczywisty numer karty
+        - **Dziala offline** — QR jest wydrukowany na fizycznej karcie, nie potrzeba internetu do rozpoczecia
+        - **Model Pull → Push** — *odbiorca* nie sciaga pieniedzy; *nadawca* wysyla zadanie, ktore musi byc zatwierdzone
+        - **Napedzane przez Visa Direct** — natychmiastowe rozliczenie, 24/7, na dowolna karte Visa na swiecie
+        - **Bezposrednia konkurencja z BLIK P2P** — ale dziala transgranicznie i nie wymaga tego samego banku
+        """))
 
     with tab2:
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
-            <h2 style="color: #1A1F71; margin:0;">Mode 2: E-Commerce — Scan Your Card to Pay</h2>
-            <p style="color: #333; margin-top:8px; font-size:1.05em;">Instead of typing your card number at checkout, scan your own card's QR with your phone or laptop webcam. The payment request appears on your phone — approve it and you're done.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        if lang == "EN":
+            st.markdown("""
+            <div style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
+                <h2 style="color: #1A1F71; margin:0;">Mode 2: E-Commerce — Scan Your Card to Pay</h2>
+                <p style="color: #333; margin-top:8px; font-size:1.05em;">Instead of typing your card number at checkout, scan your own card's QR with your phone or laptop webcam. The payment request appears on your phone — approve it and you're done.</p>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+            <div style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
+                <h2 style="color: #1A1F71; margin:0;">Tryb 2: E-Commerce — Zeskanuj Karte i Zaplac</h2>
+                <p style="color: #333; margin-top:8px; font-size:1.05em;">Zamiast wpisywac numer karty przy kasie, zeskanuj QR swojej karty telefonem lub kamerka laptopa. Zadanie platnosci pojawia sie na telefonie — zatwierdz i gotowe.</p>
+            </div>
+            """, unsafe_allow_html=True)
 
-        st.subheader("How It Works")
+        st.subheader(t("How It Works", "Jak To Działa"))
 
         col1, col2, col3, col4 = st.columns(4)
         with col1:
@@ -945,7 +1040,7 @@ elif page == "💡 Visa QR Pay — Our Solution":
 
         st.markdown("")
 
-        st.subheader("Why This Beats Current Methods")
+        st.subheader(t("Why This Beats Current Methods", "Dlaczego To Bije Obecne Metody"))
 
         comp = pd.DataFrame([
             {"Step": "Select payment method", "Traditional Card": "Choose 'card'", "BLIK": "Choose 'BLIK'", "Visa QR Pay": "Choose 'Visa QR Pay'"},
@@ -958,20 +1053,24 @@ elif page == "💡 Visa QR Pay — Our Solution":
         ])
         st.dataframe(comp, use_container_width=True, hide_index=True)
 
-        st.success("""
+        st.success(t("""
         **The key advantage over BLIK:** Visa QR Pay is **faster** (scan vs. type 6-digit code), **more secure**
         (no card data shared, tokenized), **global** (works on any Visa-accepting website worldwide), and uses
         **biometric approval** (Face ID / fingerprint) instead of manually confirming in the bank app.
-        """)
+        """, """
+        **Kluczowa przewaga nad BLIK:** Visa QR Pay jest **szybszy** (skan vs. wpisywanie 6-cyfrowego kodu), **bezpieczniejszy**
+        (brak udostepniania danych karty, tokenizacja), **globalny** (dziala na kazdej stronie akceptujacej Visa na swiecie) i korzysta z
+        **zatwierdzenia biometrycznego** (Face ID / odcisk palca) zamiast recznego potwierdzania w aplikacji bankowej.
+        """))
 
     st.divider()
 
     # ── DATA-BACKED OPPORTUNITY ──
-    st.header("Data-Backed: Why This Solution Addresses Real Gaps")
+    st.header(t("Data-Backed: Why This Solution Addresses Real Gaps", "Dane Potwierdzaja: Dlaczego To Rozwiazanie Adresuje Realne Luki"))
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Gaps Addressed by Visa QR Pay")
+        st.subheader(t("Gaps Addressed by Visa QR Pay", "Luki Adresowane przez Visa QR Pay"))
         gaps = pd.DataFrame([
             {"Gap": "P2P payments (cards = 2%)", "Current Winner": "BLIK (55%)", "QR Pay Impact": "Direct competitor — scan card to send money", "TAM": "~280B PLN/year"},
             {"Gap": "E-commerce checkout friction", "Current Winner": "BLIK (67%)", "QR Pay Impact": "Faster than BLIK: scan vs type code", "TAM": "~65B PLN/year"},
@@ -983,7 +1082,7 @@ elif page == "💡 Visa QR Pay — Our Solution":
         st.dataframe(gaps, use_container_width=True, hide_index=True)
 
     with col2:
-        st.subheader("Total Addressable Market")
+        st.subheader(t("Total Addressable Market", "Calkowity Rynek Docelowy"))
         fig = go.Figure(go.Funnel(
             y=["P2P Payments", "Domestic E-Commerce", "Cash Services", "International E-Com", "Marketplace P2P", "Group Collections"],
             x=[280, 65, 50, 20, 15, 5],
@@ -997,7 +1096,7 @@ elif page == "💡 Visa QR Pay — Our Solution":
     st.divider()
 
     # ── TECHNICAL ARCHITECTURE ──
-    st.header("Technical Concept")
+    st.header(t("Technical Concept", "Koncepcja Techniczna"))
 
     col1, col2 = st.columns(2)
     with col1:
@@ -1063,41 +1162,41 @@ elif page == "💡 Visa QR Pay — Our Solution":
     st.divider()
 
     # ── COMPETITIVE ADVANTAGE ──
-    st.header("Competitive Advantage vs BLIK")
+    st.header(t("Competitive Advantage vs BLIK", "Przewaga Konkurencyjna vs BLIK"))
 
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
-        <div style="background:linear-gradient(135deg, #E8F0FE, #D4E2F9); padding:24px; border-radius:14px; border:2px solid #A8C4E8;">
+        <div style="background:linear-gradient(135deg, #E8F0FE, #D4E2F9); padding:24px; border-radius:14px; border:2px solid #A8C4E8; color:#1F2937;">
             <h3 style="color:#1A1F71;">Why Visa QR Pay wins over BLIK:</h3>
-            <ul style="font-size:0.95em;">
-                <li><strong>No app needed to initiate</strong> — anyone with a camera can scan a QR code. BLIK requires the bank app open.</li>
-                <li><strong>Physical card = always available</strong> — dead phone? Low battery? Your card QR still works for P2P.</li>
-                <li><strong>Global reach</strong> — works on any Visa merchant worldwide. BLIK = Poland only.</li>
-                <li><strong>One identity across all channels</strong> — same QR for P2P, e-commerce, in-person services.</li>
-                <li><strong>No 6-digit code to mistype</strong> — scan is instant and error-free.</li>
-                <li><strong>Biometric approval</strong> — Face ID / fingerprint vs. manually opening the app and confirming.</li>
-                <li><strong>Works on laptop</strong> — webcam scans the QR for desktop e-commerce. BLIK always needs a phone.</li>
+            <ul style="font-size:0.95em; color:#1F2937;">
+                <li><strong style="color:#0D1137;">No app needed to initiate</strong> — anyone with a camera can scan a QR code. BLIK requires the bank app open.</li>
+                <li><strong style="color:#0D1137;">Physical card = always available</strong> — dead phone? Low battery? Your card QR still works for P2P.</li>
+                <li><strong style="color:#0D1137;">Global reach</strong> — works on any Visa merchant worldwide. BLIK = Poland only.</li>
+                <li><strong style="color:#0D1137;">One identity across all channels</strong> — same QR for P2P, e-commerce, in-person services.</li>
+                <li><strong style="color:#0D1137;">No 6-digit code to mistype</strong> — scan is instant and error-free.</li>
+                <li><strong style="color:#0D1137;">Biometric approval</strong> — Face ID / fingerprint vs. manually opening the app and confirming.</li>
+                <li><strong style="color:#0D1137;">Works on laptop</strong> — webcam scans the QR for desktop e-commerce. BLIK always needs a phone.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
 
     with col2:
         st.markdown("""
-        <div style="background:linear-gradient(135deg, #FFF3E0, #FFE8CC); padding:24px; border-radius:14px; border:2px solid #FFCC80;">
+        <div style="background:linear-gradient(135deg, #FFF3E0, #FFE8CC); padding:24px; border-radius:14px; border:2px solid #FFCC80; color:#3E2723;">
             <h3 style="color:#E65100;">What BLIK still does well:</h3>
-            <ul style="font-size:0.95em;">
-                <li><strong>Deeply integrated in Polish banks</strong> — 95% of mobile banking users have BLIK.</li>
-                <li><strong>No physical card needed at all</strong> — pure digital, works with phone only.</li>
-                <li><strong>ATM withdrawals</strong> — BLIK can withdraw cash without a card.</li>
-                <li><strong>Brand trust in Poland</strong> — "BLIK" is almost a verb ("I'll BLIK you").</li>
+            <ul style="font-size:0.95em; color:#3E2723;">
+                <li><strong style="color:#4E342E;">Deeply integrated in Polish banks</strong> — 95% of mobile banking users have BLIK.</li>
+                <li><strong style="color:#4E342E;">No physical card needed at all</strong> — pure digital, works with phone only.</li>
+                <li><strong style="color:#4E342E;">ATM withdrawals</strong> — BLIK can withdraw cash without a card.</li>
+                <li><strong style="color:#4E342E;">Brand trust in Poland</strong> — "BLIK" is almost a verb ("I'll BLIK you").</li>
             </ul>
             <br/>
             <h3 style="color:#E65100;">Visa QR Pay response:</h3>
-            <ul style="font-size:0.95em;">
-                <li>QR also available <strong>in banking app</strong> (digital card) — not just physical</li>
-                <li>Partner with Polish banks to add <strong>"Visa QR Pay" button</strong> next to BLIK</li>
-                <li>Leverage existing <strong>1.95M Visa cards</strong> in Poland — zero new issuance needed</li>
+            <ul style="font-size:0.95em; color:#3E2723;">
+                <li>QR also available <strong style="color:#4E342E;">in banking app</strong> (digital card) — not just physical</li>
+                <li>Partner with Polish banks to add <strong style="color:#4E342E;">"Visa QR Pay" button</strong> next to BLIK</li>
+                <li>Leverage existing <strong style="color:#4E342E;">1.95M Visa cards</strong> in Poland — zero new issuance needed</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -1105,7 +1204,7 @@ elif page == "💡 Visa QR Pay — Our Solution":
     st.divider()
 
     # ── ROLLOUT PLAN ──
-    st.header("Proposed Rollout")
+    st.header(t("Proposed Rollout", "Proponowany Plan Wdrozenia"))
 
     phases = pd.DataFrame([
         {"Phase": "Phase 1 (0-3 months)", "Action": "Pilot with 2-3 Polish banks — QR in mobile banking app", "Target": "P2P payments between bank customers", "KPI": "10K active QR payers"},
@@ -1119,130 +1218,47 @@ elif page == "💡 Visa QR Pay — Our Solution":
     st.divider()
 
     # ── IMPACT ESTIMATION ──
-    st.header("Projected Impact")
+    st.header(t("Projected Impact", "Prognozowany Wplyw"))
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("P2P market capture target", "10%", help="Of BLIK's 55% P2P share → ~28B PLN/year")
-        st.metric("New annual card P2P volume", "~28B PLN")
+        st.metric(t("P2P market capture target", "Cel przejecia rynku P2P"), "10%", help=t("Of BLIK's 55% P2P share → ~28B PLN/year", "Z 55% udzialu BLIK P2P → ~28B PLN/rok"))
+        st.metric(t("New annual card P2P volume", "Nowy roczny wolumen P2P kart"), "~28B PLN")
     with col2:
-        st.metric("E-commerce share gain", "+3-5pp", help="From ~9% to 12-14% of e-commerce")
-        st.metric("New annual e-com volume", "~3-4B PLN")
+        st.metric(t("E-commerce share gain", "Wzrost udzialu e-commerce"), "+3-5pp", help=t("From ~9% to 12-14% of e-commerce", "Z ~9% do 12-14% e-commerce"))
+        st.metric(t("New annual e-com volume", "Nowy roczny wolumen e-com"), "~3-4B PLN")
     with col3:
-        st.metric("Cash services converted", "5-10%", help="Of ~50B PLN cash service economy")
-        st.metric("New annual service volume", "~3-5B PLN")
+        st.metric(t("Cash services converted", "Konwersja uslug gotowkowych"), "5-10%", help=t("Of ~50B PLN cash service economy", "Z ~50B PLN gospodarki uslug gotowkowych"))
+        st.metric(t("New annual service volume", "Nowy roczny wolumen uslug"), "~3-5B PLN")
 
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8F8F0, #D5F5E3); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #2ECC71; margin-top: 20px;">
-        <h3 style="color:#1B7A3D; margin:0 0 8px 0;">Combined Potential: ~35B PLN in new annual card transaction volume</h3>
-        <p style="margin:0;">By turning every Visa card into a payment acceptance point (via QR), we transform cards from a "spending tool"
-        into a <strong>universal payment platform</strong> — competing with BLIK on convenience while leveraging Visa's global infrastructure,
-        security, and buyer protection that BLIK cannot match.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    if lang == "EN":
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #E8F8F0, #D5F5E3); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #2ECC71; margin-top: 20px; color: #1A3C2A;">
+            <h3 style="color:#1B7A3D; margin:0 0 8px 0;">Combined Potential: ~35B PLN in new annual card transaction volume</h3>
+            <p style="margin:0; color:#1A3C2A;">By turning every Visa card into a payment acceptance point (via QR), we transform cards from a "spending tool"
+            into a <strong style="color:#145A24;">universal payment platform</strong> — competing with BLIK on convenience while leveraging Visa's global infrastructure,
+            security, and buyer protection that BLIK cannot match.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #E8F8F0, #D5F5E3); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #2ECC71; margin-top: 20px; color: #1A3C2A;">
+            <h3 style="color:#1B7A3D; margin:0 0 8px 0;">Laczny Potencjal: ~35B PLN nowego rocznego wolumenu transakcji kartowych</h3>
+            <p style="margin:0; color:#1A3C2A;">Zamieniajac kazda karte Visa w punkt akceptacji platnosci (przez QR), transformujemy karty z "narzedzia wydatkow"
+            w <strong style="color:#145A24;">uniwersalna platforme platnicza</strong> — konkurujac z BLIK na wygodzie, jednoczesnie wykorzystujac globalna infrastrukture Visa,
+            bezpieczenstwo i ochrone kupujacego, ktorych BLIK nie moze zapewnic.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: INNOVATION PORTFOLIO
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "🚀 Innovation Portfolio":
-    st.header("Innovation Portfolio — Beyond QR Pay")
-    st.caption("Four additional product concepts backed by data gaps identified in our analysis")
-
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #EDE7F6, #D1C4E9); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #7E57C2; margin-bottom: 20px;">
-        <h4 style="color:#4A148C; margin:0;">Each concept below is directly linked to a specific gap found in our Visa x GUS x NBP cross-analysis.
-        Together with Visa QR Pay, they form a complete strategy to reclaim card share in every segment where cards are losing ground.</h4>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.divider()
-
-    # ── INNOVATION 1: VISA BILL HUB ──
-    st.subheader("1. Visa Bill Hub — Recurring Bill Aggregator")
-
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.markdown("""
-        **The Gap:** Housing & utilities = **20.6%** of household spending, Communications = **4.0%** — combined **24.6%**
-        of all spending is invisible to cards (Gap Index: 1-2). These are paid by bank transfer or direct debit.
-
-        **The Solution:** A single platform where ALL recurring bills can be paid by card:
-        - Rent / mortgage
-        - Electricity, gas, water
-        - Mobile phone, internet
-        - Insurance premiums
-        - Streaming subscriptions
-
-        **How it works:**
-        1. User links their Visa card in the Visa Bill Hub app
-        2. Adds billers (utility companies, landlord, telecom) via account number or QR scan
-        3. Each month, bills are charged to the card automatically
-        4. User gets **2% cashback** for the first 6 months, then 0.5% ongoing
-        5. All bills visible in one dashboard with spending trends
-
-        **Revenue model:** 0.3-0.5% processing fee from billers (lower than bank transfer costs they pay today)
-        """)
-
-    with col2:
-        st.markdown("""
-        <div style="background:#F3E5F5; padding:20px; border-radius:12px; border:2px solid #CE93D8;">
-            <h4 style="color:#6A1B9A; margin:0 0 12px 0;">Impact Estimate</h4>
-            <p style="margin:4px 0;"><strong>TAM:</strong> 14.5M households</p>
-            <p style="margin:4px 0;"><strong>Avg monthly bills:</strong> 484 PLN</p>
-            <p style="margin:4px 0;"><strong>Annual market:</strong> ~84B PLN</p>
-            <p style="margin:4px 0;"><strong>Target capture:</strong> 5-10%</p>
-            <p style="margin:4px 0;"><strong>New card volume:</strong> 4-8B PLN/yr</p>
-            <hr style="border-color:#CE93D8;"/>
-            <p style="margin:4px 0;"><strong>Data source:</strong></p>
-            <p style="margin:2px 0; font-size:0.85em; color:#555;">GUS COICOP: Housing 20.6% + Telecom 4.0% = 24.6% of 1,690 PLN/month per capita</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.divider()
-
-    # ── INNOVATION 2: VISA INVISIBLE CARD ──
-    st.subheader("2. Visa Invisible Card — Numberless Physical Card")
-
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.markdown("""
-        **The Gap:** Card number entry is the #1 friction point online. Typing 16 digits + expiry + CVV is why
-        **67% of Polish e-commerce users choose BLIK** instead. Plus, visible card numbers create fraud risk at physical POS.
-
-        **The Solution:** A physical Visa card with **no printed number**:
-        - Front: Cardholder name + chip + contactless symbol
-        - Back: **QR code only** (links to Visa QR Pay) — no number, no CVV, no expiry printed
-        - Card number exists **only in the banking app** (shown on demand with biometric unlock)
-
-        **Benefits:**
-        - **Zero visual fraud risk** — waiter, shop assistant, or camera can't steal your number
-        - **Forces digital-first behavior** — users must use QR Pay or app for online purchases
-        - **Works with existing infrastructure** — chip & contactless work unchanged at POS
-        - **Premium positioning** — "numberless" = modern, secure, exclusive
-        - **Synergy with QR Pay** — the QR on the back IS the payment method for online & P2P
-
-        **Pairs with:** Visa QR Pay (Mode 2 — scan your card to pay online)
-        """)
-
-    with col2:
-        st.markdown("""
-        <div style="background:#E3F2FD; padding:20px; border-radius:12px; border:2px solid #90CAF9;">
-            <h4 style="color:#1565C0; margin:0 0 12px 0;">Impact Estimate</h4>
-            <p style="margin:4px 0;"><strong>Target:</strong> Premium segment</p>
-            <p style="margin:4px 0;"><strong>Fraud reduction:</strong> -30-50% visual theft</p>
-            <p style="margin:4px 0;"><strong>Online card usage:</strong> +15-25% per user</p>
-            <p style="margin:4px 0;"><strong>QR Pay adoption boost:</strong> 3-5x</p>
-            <hr style="border-color:#90CAF9;"/>
-            <p style="margin:4px 0;"><strong>Data source:</strong></p>
-            <p style="margin:2px 0; font-size:0.85em; color:#555;">Visa data: online avg 318 vs physical 165 (1.9x). Users who go online = higher value. Invisible Card forces this transition.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.divider()
-
-    # ── INNOVATION 3: VISA MARKETPLACE SHIELD ──
-    st.subheader("3. Visa Marketplace Shield — Escrow for P2P Commerce")
+elif current_page == "innov":
+    st.header(t("Visa Marketplace Shield — Escrow for P2P Commerce", "Visa Marketplace Shield — Escrow dla Handlu P2P"))
+    st.caption(t("Card-powered escrow for marketplace transactions — backed by data gaps in our analysis",
+                  "Escrow napedzany kartami dla transakcji marketplace — poparty lukami w naszej analizie"))
+    st.subheader(t("3. Visa Marketplace Shield — Escrow for P2P Commerce", "3. Visa Marketplace Shield — Escrow dla Handlu P2P"))
 
     col1, col2 = st.columns([2, 1])
     with col1:
@@ -1271,147 +1287,47 @@ elif page == "🚀 Innovation Portfolio":
 
     with col2:
         st.markdown("""
-        <div style="background:#E8F5E9; padding:20px; border-radius:12px; border:2px solid #A5D6A7;">
+        <div style="background:#E8F5E9; padding:20px; border-radius:12px; border:2px solid #A5D6A7; color:#1A3C2A;">
             <h4 style="color:#2E7D32; margin:0 0 12px 0;">Impact Estimate</h4>
-            <p style="margin:4px 0;"><strong>TAM:</strong> ~15B PLN/year</p>
-            <p style="margin:4px 0;"><strong>OLX users:</strong> ~14M in Poland</p>
-            <p style="margin:4px 0;"><strong>Vinted users:</strong> ~5M in Poland</p>
-            <p style="margin:4px 0;"><strong>Avg marketplace tx:</strong> 120 PLN</p>
-            <p style="margin:4px 0;"><strong>Target capture:</strong> 10-15%</p>
-            <p style="margin:4px 0;"><strong>New card volume:</strong> 1.5-2.3B PLN/yr</p>
-            <p style="margin:4px 0;"><strong>Escrow fee:</strong> 1-2% (paid by buyer for protection)</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">TAM:</strong> ~15B PLN/year</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">OLX users:</strong> ~14M in Poland</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">Vinted users:</strong> ~5M in Poland</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">Avg marketplace tx:</strong> 120 PLN</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">Target capture:</strong> 10-15%</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">New card volume:</strong> 1.5-2.3B PLN/yr</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">Escrow fee:</strong> 1-2% (paid by buyer for protection)</p>
             <hr style="border-color:#A5D6A7;"/>
-            <p style="margin:4px 0;"><strong>Data source:</strong></p>
-            <p style="margin:2px 0; font-size:0.85em; color:#555;">Visa data: Vinted 352K tx, Allegro 1.8M tx already on cards. Massive untapped OLX/FB Marketplace volume.</p>
+            <p style="margin:4px 0; color:#1A3C2A;"><strong style="color:#145A24;">Data source:</strong></p>
+            <p style="margin:2px 0; font-size:0.85em; color:#2E5A3A;">Visa data: Vinted 352K tx, Allegro 1.8M tx already on cards. Massive untapped OLX/FB Marketplace volume.</p>
         </div>
         """, unsafe_allow_html=True)
 
     st.divider()
 
-    # ── INNOVATION 4: VISA TAP-TO-PHONE FOR SERVICES ──
-    st.subheader("4. Visa Tap-to-Phone — Every Phone is a Terminal")
-
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.markdown("""
-        **The Gap:** Our analysis identified severe **terminal coverage gaps** in service sectors:
-        - Tutoring/education: **5%** have terminals
-        - Home repair/plumbers: **10%**
-        - Open-air markets: **15%**
-        - Childcare/nurseries: **30%**
-        - Private doctors: **55%**
-        - Beauty/hairdressers: **60%**
-
-        These sectors process ~50B PLN/year, mostly in cash. The barrier isn't demand — it's infrastructure.
-
-        **The Solution:** Any NFC-enabled Android phone becomes a Visa payment terminal:
-
-        1. Service provider downloads **Visa Tap-to-Phone** app
-        2. Quick onboarding (ID + bank account, 10 minutes)
-        3. Customer taps their Visa card on the provider's phone
-        4. Payment processed via Visa network
-        5. **Zero hardware cost** — no POS terminal needed
-
-        **Target verticals (from our data):**
-        - Medical clinics & dental offices (255K + 76K card tx vs millions of cash visits)
-        - Beauty salons (1.3M tx — 60% terminal coverage = 40% untapped)
-        - Tutors & educators (virtually 0 card transactions today)
-        - Market vendors (15% coverage — massive gap)
-        - Plumbers, electricians, handymen (10% coverage)
-        """)
-
-    with col2:
-        st.markdown("""
-        <div style="background:#FFF3E0; padding:20px; border-radius:12px; border:2px solid #FFCC80;">
-            <h4 style="color:#E65100; margin:0 0 12px 0;">Impact Estimate</h4>
-            <p style="margin:4px 0;"><strong>TAM:</strong> ~50B PLN/year (cash services)</p>
-            <p style="margin:4px 0;"><strong>Target sectors:</strong> 6 underserved</p>
-            <p style="margin:4px 0;"><strong>Potential new merchants:</strong> 500K+</p>
-            <p style="margin:4px 0;"><strong>Target conversion:</strong> 5-10%</p>
-            <p style="margin:4px 0;"><strong>New card volume:</strong> 2.5-5B PLN/yr</p>
-            <p style="margin:4px 0;"><strong>Cost per merchant:</strong> 0 PLN hardware</p>
-            <hr style="border-color:#FFCC80;"/>
-            <p style="margin:4px 0;"><strong>Data source:</strong></p>
-            <p style="margin:2px 0; font-size:0.85em; color:#555;">NBP terminal survey 2024 + Visa data: Doctors 255K tx, Dentists 76K tx, Beauty 1.3M tx — tiny vs total visits. ATM avg withdrawal 1,521 confirms cash-for-services behavior.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.divider()
-
-    # ── COMBINED IMPACT ──
-    st.subheader("Combined Innovation Portfolio Impact")
-
-    portfolio = pd.DataFrame([
-        {"Innovation": "Visa QR Pay", "Category": "P2P + E-Commerce", "TAM (B PLN/yr)": 360, "Target Capture": "5-10%", "New Volume (B PLN/yr)": "18-36", "Timeline": "0-24 months"},
-        {"Innovation": "Visa Bill Hub", "Category": "Recurring Bills", "TAM (B PLN/yr)": 84, "Target Capture": "5-10%", "New Volume (B PLN/yr)": "4-8", "Timeline": "6-18 months"},
-        {"Innovation": "Visa Invisible Card", "Category": "Security + Online Adoption", "TAM (B PLN/yr)": "N/A", "Target Capture": "Enabler", "New Volume (B PLN/yr)": "Multiplier", "Timeline": "12-18 months"},
-        {"Innovation": "Visa Marketplace Shield", "Category": "P2P Commerce", "TAM (B PLN/yr)": 15, "Target Capture": "10-15%", "New Volume (B PLN/yr)": "1.5-2.3", "Timeline": "6-12 months"},
-        {"Innovation": "Visa Tap-to-Phone", "Category": "Cash Services", "TAM (B PLN/yr)": 50, "Target Capture": "5-10%", "New Volume (B PLN/yr)": "2.5-5", "Timeline": "3-12 months"},
-    ])
-    st.dataframe(portfolio, use_container_width=True, hide_index=True)
-
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Combined TAM", "~510B PLN/yr", "addressable market")
-    col2.metric("Conservative estimate", "~26B PLN/yr", "new card volume")
-    col3.metric("Optimistic estimate", "~51B PLN/yr", "new card volume")
+    st.subheader(t("Synergy: QR Pay + Marketplace Shield", "Synergia: QR Pay + Marketplace Shield"))
 
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #43A047;">
-        <h4 style="color:#1B5E20; margin:0 0 8px 0;">Portfolio Strategy</h4>
-        <p style="color:#333; margin:0;">These five innovations work as a <strong>system</strong>, not individual products:
-        <strong>QR Pay</strong> provides the foundation (identity via QR). <strong>Invisible Card</strong> forces adoption of QR Pay.
-        <strong>Bill Hub</strong> captures recurring payments. <strong>Marketplace Shield</strong> adds trust-based P2P commerce.
-        <strong>Tap-to-Phone</strong> brings the physical service economy onto card rails.
-        Together, they transform Visa from a "store payment tool" into a <strong>universal payment platform</strong>
-        competing with BLIK across every segment.</p>
+    <div style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #43A047; color:#1A3C2A;">
+        <h4 style="color:#1B5E20; margin:0 0 8px 0;">Two solutions, one ecosystem</h4>
+        <p style="color:#1A3C2A; margin:0;"><strong style="color:#145A24;">Visa QR Pay</strong> provides the identity layer (scan a card to initiate payment).
+        <strong style="color:#145A24;">Marketplace Shield</strong> adds the trust layer (escrow + buyer protection).
+        Together they create a complete P2P commerce solution that BLIK cannot match:
+        instant identification via QR + guaranteed safe transaction via escrow + full Visa chargeback protection.
+        This transforms every Visa card into both a <strong style="color:#145A24;">payment tool</strong> and a <strong style="color:#145A24;">trust badge</strong>.</p>
     </div>
     """, unsafe_allow_html=True)
-
-    # ── PORTFOLIO VISUALIZATION ──
-    st.divider()
-    st.subheader("Innovation Portfolio: Impact vs Effort Matrix")
-
-    fig = go.Figure()
-    innovations = [
-        {"name": "Visa QR Pay", "impact": 9, "effort": 8, "size": 36, "color": VISA_BLUE},
-        {"name": "Visa Bill Hub", "impact": 8, "effort": 6, "size": 28, "color": ACCENT[4]},
-        {"name": "Invisible Card", "impact": 6, "effort": 4, "size": 18, "color": ACCENT[0]},
-        {"name": "Marketplace Shield", "impact": 7, "effort": 5, "size": 22, "color": ACCENT[2]},
-        {"name": "Tap-to-Phone", "impact": 8, "effort": 3, "size": 25, "color": ACCENT[3]},
-    ]
-    for inn in innovations:
-        fig.add_trace(go.Scatter(
-            x=[inn["effort"]], y=[inn["impact"]], mode="markers+text",
-            marker=dict(size=inn["size"]*2.5, color=inn["color"], opacity=0.7, line=dict(width=2, color="#333")),
-            text=[inn["name"]], textposition="top center", textfont=dict(size=11, color="#333"),
-            name=inn["name"], showlegend=False,
-        ))
-    fig.update_layout(
-        height=450, xaxis_title="Implementation Effort (1=easy, 10=hard)",
-        yaxis_title="Potential Impact (1=low, 10=high)",
-        xaxis=dict(range=[0, 10.5]), yaxis=dict(range=[4, 10.5]),
-        margin=dict(t=10, b=40),
-    )
-    # Quadrant labels
-    fig.add_annotation(x=2, y=9.5, text="QUICK WINS", showarrow=False, font=dict(size=12, color="#2E7D32"))
-    fig.add_annotation(x=8.5, y=9.5, text="BIG BETS", showarrow=False, font=dict(size=12, color="#1565C0"))
-    fig.add_annotation(x=2, y=4.5, text="FILL-INS", showarrow=False, font=dict(size=12, color="#999"))
-    fig.add_annotation(x=8.5, y=4.5, text="RECONSIDER", showarrow=False, font=dict(size=12, color="#999"))
-    fig.add_hline(y=7, line_dash="dot", line_color="#ccc")
-    fig.add_vline(x=5, line_dash="dot", line_color="#ccc")
-
-    st.plotly_chart(fig, use_container_width=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: PREDICTIVE MODELS & SIMULATIONS
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "📈 Predictive Models & Simulations":
+elif current_page == "models":
     models = load_json("model_results.json")
-    st.header("Predictive Models & Simulations")
-    st.caption("6 models projecting Visa QR Pay adoption, transaction volume, BLIK cannibalization, ROI, and market share impact over 36 months")
+    st.header(t("Predictive Models & Simulations", "Modele Predykcyjne i Symulacje"))
+    st.caption(t("6 models projecting Visa QR Pay adoption, transaction volume, BLIK cannibalization, ROI, and market share impact over 36 months",
+                  "6 modeli prognozujacych adopcje Visa QR Pay, wolumen transakcji, kanibalizacje BLIK, ROI i wplyw na udzial rynkowy w ciagu 36 miesiecy"))
 
-    scenario = st.radio("Select scenario:", ["Conservative", "Base", "Optimistic"], index=1, horizontal=True)
+    scenario = st.radio(t("Select scenario:", "Wybierz scenariusz:"), ["Conservative", "Base", "Optimistic"], index=1, horizontal=True)
 
     months_labels = [f"M{i+1}" for i in range(36)]
     year_labels = [""] * 36
@@ -1423,18 +1339,19 @@ elif page == "📈 Predictive Models & Simulations":
     a = models["adoption"][scenario]
     v = models["volume"][scenario]
     c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("3Y Adopters", f"{a['cumulative'][35]/1e6:.1f}M", f"{a['penetration_pct'][35]:.0f}% penetration")
-    c2.metric("3Y Total TX", f"{v['cumulative_tx'][35]/1e6:.0f}M")
-    c3.metric("3Y Total Value", f"{v['cumulative_val'][35]/1e9:.1f}B PLN")
-    c4.metric("3Y Revenue", f"{r['total_3yr_revenue']/1e6:.0f}M PLN", f"ROI: {r['roi_pct']:.0f}%")
+    c1.metric(t("3Y Adopters", "Uzytkownicy 3L"), f"{a['cumulative'][35]/1e6:.1f}M", f"{a['penetration_pct'][35]:.0f}% {t('penetration', 'penetracji')}")
+    c2.metric(t("3Y Total TX", "Lacznie TX 3L"), f"{v['cumulative_tx'][35]/1e6:.0f}M")
+    c3.metric(t("3Y Total Value", "Łączna Wartość 3L"), f"{v['cumulative_val'][35]/1e9:.1f}B PLN")
+    c4.metric(t("3Y Revenue", "Przychod 3L"), f"{r['total_3yr_revenue']/1e6:.0f}M PLN", f"ROI: {r['roi_pct']:.0f}%")
     be = r["breakeven_month"]
-    c5.metric("Break-even", f"Month {be}" if be else "Not reached", "within 3 years" if be else "needs more time")
+    c5.metric(t("Break-even", "Punkt Rentowności"), f"{t('Month', 'Miesiac')} {be}" if be else t("Not reached", "Nie osiagniety"), t("within 3 years", "w ciągu 3 lat") if be else t("needs more time", "potrzeba więcej czasu"))
 
     st.divider()
 
     # ── MODEL 1: ADOPTION S-CURVE ──
-    st.subheader("Model 1: Adoption S-Curve (Bass Diffusion)")
-    st.caption("Bass diffusion model: p = innovation coefficient (marketing), q = imitation coefficient (word-of-mouth)")
+    st.subheader(t("Model 1: Adoption S-Curve (Bass Diffusion)", "Model 1: Krzywa Adopcji S (Dyfuzja Bassa)"))
+    st.caption(t("Bass diffusion model: p = innovation coefficient (marketing), q = imitation coefficient (word-of-mouth)",
+                  "Model dyfuzji Bassa: p = wspolczynnik innowacji (marketing), q = wspolczynnik imitacji (marketing szeptany)"))
 
     col1, col2 = st.columns(2)
     with col1:
@@ -1460,13 +1377,13 @@ elif page == "📈 Predictive Models & Simulations":
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
-    with st.expander("Model assumptions"):
+    with st.expander(t("Model assumptions", "Zalozenia modelu")):
         st.json(models["assumptions"]["adoption_params"])
 
     st.divider()
 
     # ── MODEL 2: TRANSACTION VOLUME ──
-    st.subheader("Model 2: Transaction Volume Projection")
+    st.subheader(t("Model 2: Transaction Volume Projection", "Model 2: Prognoza Wolumenu Transakcji"))
 
     sv = models["volume"][scenario]
     col1, col2 = st.columns(2)
@@ -1494,14 +1411,15 @@ elif page == "📈 Predictive Models & Simulations":
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
-    with st.expander("Activity assumptions per user/month"):
+    with st.expander(t("Activity assumptions per user/month", "Zalozenia aktywnosci na uzytkownika/miesiac")):
         st.json(models["assumptions"]["activity_params"])
 
     st.divider()
 
     # ── MODEL 3: CANNIBALIZATION ──
-    st.subheader("Model 3: BLIK Cannibalization vs Net New Volume")
-    st.caption("How much QR Pay volume is taken from BLIK vs genuinely new card transaction volume?")
+    st.subheader(t("Model 3: BLIK Cannibalization vs Net New Volume", "Model 3: Kanibalizacja BLIK vs Nowy Wolumen Netto"))
+    st.caption(t("How much QR Pay volume is taken from BLIK vs genuinely new card transaction volume?",
+                  "Ile wolumenu QR Pay jest przejete od BLIK vs faktycznie nowy wolumen transakcji kartowych?"))
 
     cn = models["cannibalization"][scenario]
     col1, col2 = st.columns(2)
@@ -1535,7 +1453,7 @@ elif page == "📈 Predictive Models & Simulations":
     st.divider()
 
     # ── MODEL 4: REVENUE & ROI ──
-    st.subheader("Model 4: Revenue & ROI Projection")
+    st.subheader(t("Model 4: Revenue & ROI Projection", "Model 4: Prognoza Przychodu i ROI"))
 
     rv = models["revenue"][scenario]
     col1, col2 = st.columns(2)
@@ -1566,14 +1484,15 @@ elif page == "📈 Predictive Models & Simulations":
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
-    with st.expander("Cost breakdown"):
+    with st.expander(t("Cost breakdown", "Rozkład kosztów")):
         st.json(models["costs"])
 
     st.divider()
 
     # ── MODEL 5: E-COMMERCE MARKET SHARE ──
-    st.subheader("Model 5: E-Commerce Market Share Simulation")
-    st.caption("How QR Pay changes Visa's share of the Polish e-commerce payments market")
+    st.subheader(t("Model 5: E-Commerce Market Share Simulation", "Model 5: Symulacja Udzialu w Rynku E-Commerce"))
+    st.caption(t("How QR Pay changes Visa's share of the Polish e-commerce payments market",
+                  "Jak QR Pay zmienia udzial Visa w polskim rynku platnosci e-commerce"))
 
     es = models["ecom_share"][scenario]
     fig = go.Figure()
@@ -1598,13 +1517,14 @@ elif page == "📈 Predictive Models & Simulations":
     st.divider()
 
     # ── MODEL 6: SENSITIVITY ──
-    st.subheader("Model 6: Sensitivity Analysis")
-    st.caption("How 3-year revenue changes when we vary each key parameter ±50% from base")
+    st.subheader(t("Model 6: Sensitivity Analysis", "Model 6: Analiza Wrazliwosci"))
+    st.caption(t("How 3-year revenue changes when we vary each key parameter ±50% from base",
+                  "Jak zmienia sie 3-letni przychod gdy modyfikujemy kazdy kluczowy parametr ±50% od bazy"))
 
     sens = pd.DataFrame(models["sensitivity"])
     base_rev = sens[(sens["parameter"]==sens["parameter"].iloc[0]) & (sens["multiplier"]==1.0)]["revenue_3yr_mln"].values[0]
 
-    param_choice = st.selectbox("Select parameter:", sens["parameter"].unique())
+    param_choice = st.selectbox(t("Select parameter:", "Wybierz parametr:"), sens["parameter"].unique())
     df_p = sens[sens["parameter"] == param_choice]
 
     fig = go.Figure()
@@ -1619,7 +1539,7 @@ elif page == "📈 Predictive Models & Simulations":
     st.plotly_chart(fig, use_container_width=True)
 
     # Tornado chart
-    st.subheader("Tornado Chart: Revenue Sensitivity to All Parameters")
+    st.subheader(t("Tornado Chart: Revenue Sensitivity to All Parameters", "Wykres Tornado: Wrazliwosc Przychodu na Wszystkie Parametry"))
     tornado = []
     for param in sens["parameter"].unique():
         df_param = sens[sens["parameter"] == param]
@@ -1643,7 +1563,7 @@ elif page == "📈 Predictive Models & Simulations":
     st.divider()
 
     # ── SCENARIO COMPARISON TABLE ──
-    st.subheader("Scenario Comparison Summary")
+    st.subheader(t("Scenario Comparison Summary", "Porównanie Scenariuszy"))
     comp_data = []
     for name in ["Conservative", "Base", "Optimistic"]:
         a = models["adoption"][name]
@@ -1668,19 +1588,30 @@ elif page == "📈 Predictive Models & Simulations":
 # ══════════════════════════════════════════════════════════════════════════
 # PAGE: RECOMMENDATIONS
 # ══════════════════════════════════════════════════════════════════════════
-elif page == "🎯 Recommendations":
-    st.header("Strategic Recommendations")
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #0D1137, #1A1F71); padding: 24px 28px; border-radius: 14px; color: #FFFFFF; margin-bottom: 20px;">
-        <h3 style="margin:0; color:#F7B600;">CardFlow — From Cash & Transfer to Card</h3>
-        <p style="color:#D0D8F0; margin-top:6px;">We turn transaction data into concrete decisions. We show not just how people pay,
-        but what to do to make the card their most convenient choice — online and in private payments.</p>
-    </div>
-    """, unsafe_allow_html=True)
+elif current_page == "recs":
+    st.header(t("Strategic Recommendations", "Rekomendacje Strategiczne"))
+    if lang == "EN":
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 24px 28px; border-radius: 14px; color: #0D1137; margin-bottom: 20px; border: 2px solid #B0BDE0;">
+            <h3 style="margin:0; color:#1A1F71;">CardFlow — From Cash & Transfer to Card</h3>
+            <p style="color:#333; margin-top:6px;">We turn transaction data into concrete decisions. We show not just how people pay,
+            but what to do to make the card their most convenient choice — online and in private payments.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 24px 28px; border-radius: 14px; color: #0D1137; margin-bottom: 20px; border: 2px solid #B0BDE0;">
+            <h3 style="margin:0; color:#1A1F71;">CardFlow — Od Gotówki i Przelewów do Karty</h3>
+            <p style="color:#333; margin-top:6px;">Zamieniamy dane transakcyjne w konkretne decyzje. Pokazujemy nie tylko jak ludzie płacą,
+            ale co zrobic, by karta byla ich najwygodniejszym wyborem — online i w platnosci prywatnych.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.subheader("For Three Target Audiences")
+    st.subheader(t("For Three Target Audiences", "Dla Trzech Grup Docelowych"))
 
-    tab1, tab2, tab3 = st.tabs(["🛍️ Online Merchants", "🏦 Banks & Visa", "🏙️ Cities & Municipalities"])
+    tab1, tab2, tab3 = st.tabs([t("🛍️ Online Merchants", "🛍️ Dla Sklepów Internetowych"),
+                                 t("🏦 Banks & Visa", "🏦 Dla Banków i Visa"),
+                                 t("🏙️ Cities & Municipalities", "🏙️ Dla Miast i Samorządów")])
 
     with tab1:
         st.markdown("""
@@ -1736,7 +1667,7 @@ elif page == "🎯 Recommendations":
         """)
 
     st.divider()
-    st.subheader("Priority Matrix")
+    st.subheader(t("Priority Matrix", "Macierz Priorytetów"))
 
     priorities = pd.DataFrame([
         {"Initiative": "Visa Click to Pay at top merchants", "Impact": "High", "Effort": "Medium", "Timeline": "3-6 months", "Target": "Merchants"},
@@ -1751,20 +1682,36 @@ elif page == "🎯 Recommendations":
     st.dataframe(priorities, use_container_width=True, hide_index=True)
 
     st.divider()
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #FFF9E6, #FFF3CC); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #F7B600;">
-        <h3 style="color:#0D1137; margin:0 0 8px 0;">The Bottom Line</h3>
-        <p style="margin:0; font-size:1.05em;">
-        Cards already dominate physical POS (58% and growing). But <strong>~25% of household spending</strong> (housing, telecom, education)
-        is invisible to cards, and in e-commerce <strong>BLIK has captured 67%</strong>. The opportunity is not to fight BLIK head-on
-        in domestic one-click payments, but to <strong>own the niches where cards have structural advantages</strong>:
-        international commerce, subscriptions, high-value purchases with buyer protection, P2P via Visa Direct,
-        and the untapped recurring bills market. Combined, these represent <strong>tens of billions of PLN in annual payment volume</strong>
-        currently flowing through non-card channels.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    if lang == "EN":
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #FFF9E6, #FFF3CC); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #F7B600; color:#3D2E00;">
+            <h3 style="color:#0D1137; margin:0 0 8px 0;">The Bottom Line</h3>
+            <p style="margin:0; font-size:1.05em; color:#3D2E00;">
+            Cards already dominate physical POS (58% and growing). But <strong style="color:#1A1F71;">~25% of household spending</strong> (housing, telecom, education)
+            is invisible to cards, and in e-commerce <strong style="color:#1A1F71;">BLIK has captured 67%</strong>. The opportunity is not to fight BLIK head-on
+            in domestic one-click payments, but to <strong style="color:#1A1F71;">own the niches where cards have structural advantages</strong>:
+            international commerce, subscriptions, high-value purchases with buyer protection, P2P via Visa Direct,
+            and the untapped recurring bills market. Combined, these represent <strong style="color:#1A1F71;">tens of billions of PLN in annual payment volume</strong>
+            currently flowing through non-card channels.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #FFF9E6, #FFF3CC); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #F7B600; color:#3D2E00;">
+            <h3 style="color:#0D1137; margin:0 0 8px 0;">Podsumowanie</h3>
+            <p style="margin:0; font-size:1.05em; color:#3D2E00;">
+            Karty juz dominuja na fizycznych POS (58% i rosnie). Ale <strong style="color:#1A1F71;">~25% wydatkow gospodarstw domowych</strong> (mieszkanie, telekom, edukacja)
+            jest niewidoczne dla kart, a w e-commerce <strong style="color:#1A1F71;">BLIK przejal 67%</strong>. Szansa nie polega na walce z BLIK czolowo
+            w krajowych platnosci jednym kliknieciem, ale na <strong style="color:#1A1F71;">zajmowaniu nisz, gdzie karty maja strukturalne przewagi</strong>:
+            handel miedzynarodowy, subskrypcje, zakupy o wysokiej wartości z ochrona kupujacego, P2P przez Visa Direct
+            i niewykorzystany rynek rachunkow cyklicznych. Lacznie to <strong style="color:#1A1F71;">dziesiatki miliardow PLN rocznego wolumenu platnosci</strong>
+            plynacych obecnie przez kanaly nie-kartowe.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
 # Footer
 st.divider()
-st.caption("CardFlow — Visa DataSprint Hackathon 2026 | Data: Visa synthetic transactions (305.5M), GUS (2024), NBP (2024), Gemius (2024)")
+st.caption(t("CardFlow — Visa DataSprint Hackathon 2026 | Data: Visa synthetic transactions (305.5M), GUS (2024), NBP (2024), Gemius (2024)",
+              "CardFlow — Visa DataSprint Hackathon 2026 | Dane: Syntetyczne transakcje Visa (305.5M), GUS (2024), NBP (2024), Gemius (2024)"))
