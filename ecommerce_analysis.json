@@ -1,0 +1,1645 @@
+{
+  "ecommerce_overall": [
+    {
+      "cp_flag": 1,
+      "tx_count": 271216020,
+      "total_amount": 44803161973.19,
+      "avg_amount": 165.19,
+      "unique_cards": 1828891,
+      "unique_merchants": 3180872
+    },
+    {
+      "cp_flag": 0,
+      "tx_count": 34309084,
+      "total_amount": 10894500697.39,
+      "avg_amount": 317.54,
+      "unique_cards": 1208826,
+      "unique_merchants": 4228694
+    }
+  ],
+  "ecommerce_top_categories": [
+    {
+      "mrch_catg_nm": "TAXICABS/LIMOUSINES",
+      "tx_count": 3825069,
+      "total_amount": 204058650.94,
+      "avg_amount": 53.35,
+      "unique_cards": 312595,
+      "unique_merchants": 929120
+    },
+    {
+      "mrch_catg_nm": "LARGE DIGITAL GOODS MERCHANT",
+      "tx_count": 2924081,
+      "total_amount": 171608255.09,
+      "avg_amount": 58.69,
+      "unique_cards": 347863,
+      "unique_merchants": 24004
+    },
+    {
+      "mrch_catg_nm": "ONLINE MARKETPLACES",
+      "tx_count": 2247124,
+      "total_amount": 681825416.78,
+      "avg_amount": 303.42,
+      "unique_cards": 228199,
+      "unique_merchants": 87810
+    },
+    {
+      "mrch_catg_nm": "CABLE, SAT, PAY TV/RADIO SVCS",
+      "tx_count": 2014497,
+      "total_amount": 198140862.46,
+      "avg_amount": 98.36,
+      "unique_cards": 308633,
+      "unique_merchants": 112896
+    },
+    {
+      "mrch_catg_nm": "FINANCIAL INST/MERCHANDISE",
+      "tx_count": 1955034,
+      "total_amount": 2140766716.95,
+      "avg_amount": 1095.0,
+      "unique_cards": 205837,
+      "unique_merchants": 16651
+    },
+    {
+      "mrch_catg_nm": "DIGITAL GOODS BOOKSMOVIEMUSIC",
+      "tx_count": 1597303,
+      "total_amount": 108892519.47,
+      "avg_amount": 68.17,
+      "unique_cards": 270199,
+      "unique_merchants": 754545
+    },
+    {
+      "mrch_catg_nm": "DIGITAL GOODS GAMES",
+      "tx_count": 1478790,
+      "total_amount": 166501869.97,
+      "avg_amount": 112.59,
+      "unique_cards": 224305,
+      "unique_merchants": 44661
+    },
+    {
+      "mrch_catg_nm": "BETTING/TRACK/CASINO/LOTTO",
+      "tx_count": 1069297,
+      "total_amount": 204476503.86,
+      "avg_amount": 191.23,
+      "unique_cards": 47677,
+      "unique_merchants": 2731
+    },
+    {
+      "mrch_catg_nm": "DIGITAL GOODS APP(EXCL GAMES)",
+      "tx_count": 1060436,
+      "total_amount": 105496315.69,
+      "avg_amount": 99.48,
+      "unique_cards": 195313,
+      "unique_merchants": 23975
+    },
+    {
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 1049039,
+      "total_amount": 69889763.93,
+      "avg_amount": 66.62,
+      "unique_cards": 152679,
+      "unique_merchants": 27766
+    },
+    {
+      "mrch_catg_nm": "FAST FOOD RESTAURANTS",
+      "tx_count": 1023208,
+      "total_amount": 135772836.35,
+      "avg_amount": 132.69,
+      "unique_cards": 161548,
+      "unique_merchants": 546078
+    },
+    {
+      "mrch_catg_nm": "EATING PLACES AND RESTAURANTS",
+      "tx_count": 930406,
+      "total_amount": 141021698.27,
+      "avg_amount": 151.57,
+      "unique_cards": 154238,
+      "unique_merchants": 146662
+    },
+    {
+      "mrch_catg_nm": "TELECOMMUNICATION SERVICES",
+      "tx_count": 792100,
+      "total_amount": 105310540.54,
+      "avg_amount": 132.95,
+      "unique_cards": 150323,
+      "unique_merchants": 7945
+    },
+    {
+      "mrch_catg_nm": "MISC GENERAL MERCHANDISE",
+      "tx_count": 718513,
+      "total_amount": 173133201.01,
+      "avg_amount": 240.96,
+      "unique_cards": 163517,
+      "unique_merchants": 76301
+    },
+    {
+      "mrch_catg_nm": "WIRE TRANSFER MONEY ORDER",
+      "tx_count": 591038,
+      "total_amount": 671182068.68,
+      "avg_amount": 1135.6,
+      "unique_cards": 66802,
+      "unique_merchants": 2161
+    },
+    {
+      "mrch_catg_nm": "COMPUTER SOFTWARE STORES",
+      "tx_count": 585282,
+      "total_amount": 136223347.2,
+      "avg_amount": 232.75,
+      "unique_cards": 155608,
+      "unique_merchants": 27427
+    },
+    {
+      "mrch_catg_nm": "MISC SPECIALTY RETAIL",
+      "tx_count": 490038,
+      "total_amount": 155219548.71,
+      "avg_amount": 316.75,
+      "unique_cards": 144101,
+      "unique_merchants": 205437
+    },
+    {
+      "mrch_catg_nm": "TRANSPORTATION SVCS - DEFAULT",
+      "tx_count": 488396,
+      "total_amount": 46915313.08,
+      "avg_amount": 96.06,
+      "unique_cards": 105118,
+      "unique_merchants": 48447
+    },
+    {
+      "mrch_catg_nm": "DEPARTMENT STORES",
+      "tx_count": 419951,
+      "total_amount": 175390919.42,
+      "avg_amount": 417.65,
+      "unique_cards": 124823,
+      "unique_merchants": 49287
+    },
+    {
+      "mrch_catg_nm": "ADVERTISING SERVICES",
+      "tx_count": 418480,
+      "total_amount": 244397861.01,
+      "avg_amount": 584.01,
+      "unique_cards": 73302,
+      "unique_merchants": 146136
+    },
+    {
+      "mrch_catg_nm": "TOLLS AND BRIDGE FEES",
+      "tx_count": 405775,
+      "total_amount": 85762580.35,
+      "avg_amount": 211.36,
+      "unique_cards": 53167,
+      "unique_merchants": 751
+    },
+    {
+      "mrch_catg_nm": "USED MERCHANDISE STORES",
+      "tx_count": 373800,
+      "total_amount": 45371550.96,
+      "avg_amount": 121.38,
+      "unique_cards": 59555,
+      "unique_merchants": 812
+    },
+    {
+      "mrch_catg_nm": "TRAVEL AGENCIES",
+      "tx_count": 316478,
+      "total_amount": 688826353.34,
+      "avg_amount": 2176.54,
+      "unique_cards": 155232,
+      "unique_merchants": 51050
+    },
+    {
+      "mrch_catg_nm": "ELECTRONICS STORES",
+      "tx_count": 301322,
+      "total_amount": 166866572.05,
+      "avg_amount": 553.78,
+      "unique_cards": 96477,
+      "unique_merchants": 9536
+    },
+    {
+      "mrch_catg_nm": "MENS/WOMENS CLOTHING STORES",
+      "tx_count": 270291,
+      "total_amount": 152085485.79,
+      "avg_amount": 562.67,
+      "unique_cards": 85256,
+      "unique_merchants": 9192
+    },
+    {
+      "mrch_catg_nm": "MISC FOOD STORES - DEFAULT",
+      "tx_count": 260036,
+      "total_amount": 67337253.64,
+      "avg_amount": 258.95,
+      "unique_cards": 69848,
+      "unique_merchants": 13370
+    },
+    {
+      "mrch_catg_nm": "COURIER SERVICES",
+      "tx_count": 259691,
+      "total_amount": 43643284.91,
+      "avg_amount": 168.06,
+      "unique_cards": 80267,
+      "unique_merchants": 2521
+    },
+    {
+      "mrch_catg_nm": "COSMETIC STORES",
+      "tx_count": 250913,
+      "total_amount": 98837778.6,
+      "avg_amount": 393.91,
+      "unique_cards": 97033,
+      "unique_merchants": 16815
+    },
+    {
+      "mrch_catg_nm": "FAMILY CLOTHING STORES",
+      "tx_count": 248198,
+      "total_amount": 160314874.57,
+      "avg_amount": 645.92,
+      "unique_cards": 86060,
+      "unique_merchants": 8231
+    },
+    {
+      "mrch_catg_nm": "PASSENGER RAILWAYS",
+      "tx_count": 236721,
+      "total_amount": 41514544.7,
+      "avg_amount": 175.37,
+      "unique_cards": 67477,
+      "unique_merchants": 2165
+    },
+    {
+      "mrch_catg_nm": "COMPUTER PROGRAM/SYS DESIGN",
+      "tx_count": 230459,
+      "total_amount": 33737921.93,
+      "avg_amount": 146.39,
+      "unique_cards": 87247,
+      "unique_merchants": 13127
+    },
+    {
+      "mrch_catg_nm": "MEMBER CLUBS/SPORT/REC/GOLF",
+      "tx_count": 211626,
+      "total_amount": 56788509.03,
+      "avg_amount": 268.34,
+      "unique_cards": 52242,
+      "unique_merchants": 15299
+    },
+    {
+      "mrch_catg_nm": "CONTINUITY/SUBSCRIPTION MERCHT",
+      "tx_count": 204129,
+      "total_amount": 20383304.1,
+      "avg_amount": 99.86,
+      "unique_cards": 66013,
+      "unique_merchants": 38959
+    },
+    {
+      "mrch_catg_nm": "PARKING LOTS,METERS,GARAGES",
+      "tx_count": 201374,
+      "total_amount": 15089729.75,
+      "avg_amount": 74.93,
+      "unique_cards": 62137,
+      "unique_merchants": 18790
+    },
+    {
+      "mrch_catg_nm": "UTILITIES/ELEC/GAS/H2O/SANI",
+      "tx_count": 183449,
+      "total_amount": 115133814.46,
+      "avg_amount": 627.61,
+      "unique_cards": 46780,
+      "unique_merchants": 1628
+    },
+    {
+      "mrch_catg_nm": "HOTELS/MOTELS/RESORTS",
+      "tx_count": 183050,
+      "total_amount": 365485640.23,
+      "avg_amount": 1996.64,
+      "unique_cards": 108546,
+      "unique_merchants": 24278
+    },
+    {
+      "mrch_catg_nm": "BOOK STORES",
+      "tx_count": 175490,
+      "total_amount": 42365068.08,
+      "avg_amount": 241.41,
+      "unique_cards": 62966,
+      "unique_merchants": 44161
+    },
+    {
+      "mrch_catg_nm": "NON-FIN INST/FC/MO/TC",
+      "tx_count": 152679,
+      "total_amount": 120523110.26,
+      "avg_amount": 789.39,
+      "unique_cards": 25947,
+      "unique_merchants": 6478
+    },
+    {
+      "mrch_catg_nm": "RYANAIR",
+      "tx_count": 149646,
+      "total_amount": 167203429.94,
+      "avg_amount": 1117.33,
+      "unique_cards": 73028,
+      "unique_merchants": 139416
+    },
+    {
+      "mrch_catg_nm": "BUS LINES",
+      "tx_count": 131165,
+      "total_amount": 28052328.64,
+      "avg_amount": 213.87,
+      "unique_cards": 57048,
+      "unique_merchants": 1050
+    }
+  ],
+  "ecommerce_top_merchants": [
+    {
+      "mrch_nm_raw": "APPLE.COM/BILL",
+      "mrch_catg_nm": "LARGE DIGITAL GOODS MERCHANT",
+      "tx_count": 2470371,
+      "total_amount": 127104045.15,
+      "avg_amount": 51.45,
+      "unique_cards": 239850
+    },
+    {
+      "mrch_nm_raw": "Allegro",
+      "mrch_catg_nm": "ONLINE MARKETPLACES",
+      "tx_count": 1819940,
+      "total_amount": 550746865.24,
+      "avg_amount": 302.62,
+      "unique_cards": 159898
+    },
+    {
+      "mrch_nm_raw": "Revolut*VISA MONEY TRANSF",
+      "mrch_catg_nm": "FINANCIAL INST/MERCHANDISE",
+      "tx_count": 1220702,
+      "total_amount": 1579172829.9,
+      "avg_amount": 1293.66,
+      "unique_cards": 124784
+    },
+    {
+      "mrch_nm_raw": "UBER   *TRIP",
+      "mrch_catg_nm": "TAXICABS/LIMOUSINES",
+      "tx_count": 812242,
+      "total_amount": 43994797.03,
+      "avg_amount": 54.16,
+      "unique_cards": 107391
+    },
+    {
+      "mrch_nm_raw": "UBR* PENDING.UBER.COM",
+      "mrch_catg_nm": "TAXICABS/LIMOUSINES",
+      "tx_count": 643964,
+      "total_amount": 35367214.52,
+      "avg_amount": 54.92,
+      "unique_cards": 86273
+    },
+    {
+      "mrch_nm_raw": "NETFLIX.COM",
+      "mrch_catg_nm": "CABLE, SAT, PAY TV/RADIO SVCS",
+      "tx_count": 581795,
+      "total_amount": 61292628.77,
+      "avg_amount": 105.35,
+      "unique_cards": 148348
+    },
+    {
+      "mrch_nm_raw": "Google Play Apps",
+      "mrch_catg_nm": "DIGITAL GOODS APP(EXCL GAMES)",
+      "tx_count": 556607,
+      "total_amount": 34942643.29,
+      "avg_amount": 62.78,
+      "unique_cards": 74400
+    },
+    {
+      "mrch_nm_raw": "Netflix.com",
+      "mrch_catg_nm": "CABLE, SAT, PAY TV/RADIO SVCS",
+      "tx_count": 433182,
+      "total_amount": 46565215.09,
+      "avg_amount": 107.5,
+      "unique_cards": 133408
+    },
+    {
+      "mrch_nm_raw": "Temu.com",
+      "mrch_catg_nm": "MISC GENERAL MERCHANDISE",
+      "tx_count": 363855,
+      "total_amount": 65343252.88,
+      "avg_amount": 179.59,
+      "unique_cards": 80617
+    },
+    {
+      "mrch_nm_raw": "jakdojade.pl",
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 297729,
+      "total_amount": 11362779.66,
+      "avg_amount": 38.16,
+      "unique_cards": 46997
+    },
+    {
+      "mrch_nm_raw": "Google Play Apps",
+      "mrch_catg_nm": "DIGITAL GOODS GAMES",
+      "tx_count": 297285,
+      "total_amount": 18992946.04,
+      "avg_amount": 63.89,
+      "unique_cards": 55512
+    },
+    {
+      "mrch_nm_raw": "Autopay Mobility",
+      "mrch_catg_nm": "TOLLS AND BRIDGE FEES",
+      "tx_count": 257725,
+      "total_amount": 10154878.16,
+      "avg_amount": 39.4,
+      "unique_cards": 15585
+    },
+    {
+      "mrch_nm_raw": "PAYSEND",
+      "mrch_catg_nm": "WIRE TRANSFER MONEY ORDER",
+      "tx_count": 237439,
+      "total_amount": 262411337.49,
+      "avg_amount": 1105.17,
+      "unique_cards": 19085
+    },
+    {
+      "mrch_nm_raw": "KOLEO bilety kolejowe",
+      "mrch_catg_nm": "TRANSPORTATION SVCS - DEFAULT",
+      "tx_count": 232684,
+      "total_amount": 19072406.74,
+      "avg_amount": 81.97,
+      "unique_cards": 40154
+    },
+    {
+      "mrch_nm_raw": "AllegroPay",
+      "mrch_catg_nm": "FINANCIAL INST/MERCHANDISE",
+      "tx_count": 221878,
+      "total_amount": 147487430.55,
+      "avg_amount": 664.72,
+      "unique_cards": 27951
+    },
+    {
+      "mrch_nm_raw": "www.bilet.intercity.pl",
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 220054,
+      "total_amount": 25756799.24,
+      "avg_amount": 117.05,
+      "unique_cards": 39726
+    },
+    {
+      "mrch_nm_raw": "BETCLIC",
+      "mrch_catg_nm": "BETTING/TRACK/CASINO/LOTTO",
+      "tx_count": 183196,
+      "total_amount": 18914977.86,
+      "avg_amount": 103.25,
+      "unique_cards": 11569
+    },
+    {
+      "mrch_nm_raw": "VINTED, UAB",
+      "mrch_catg_nm": "USED MERCHANDISE STORES",
+      "tx_count": 181369,
+      "total_amount": 15355213.96,
+      "avg_amount": 84.66,
+      "unique_cards": 34258
+    },
+    {
+      "mrch_nm_raw": "UBER   * EATS PENDING",
+      "mrch_catg_nm": "EATING PLACES AND RESTAURANTS",
+      "tx_count": 177990,
+      "total_amount": 30607731.32,
+      "avg_amount": 171.96,
+      "unique_cards": 35866
+    },
+    {
+      "mrch_nm_raw": "Wolt",
+      "mrch_catg_nm": "EATING PLACES AND RESTAURANTS",
+      "tx_count": 177581,
+      "total_amount": 24586596.2,
+      "avg_amount": 138.45,
+      "unique_cards": 30315
+    },
+    {
+      "mrch_nm_raw": "UBER   *EATS",
+      "mrch_catg_nm": "EATING PLACES AND RESTAURANTS",
+      "tx_count": 172794,
+      "total_amount": 26321669.38,
+      "avg_amount": 152.33,
+      "unique_cards": 30103
+    },
+    {
+      "mrch_nm_raw": "Vinted",
+      "mrch_catg_nm": "USED MERCHANDISE STORES",
+      "tx_count": 170298,
+      "total_amount": 23577502.96,
+      "avg_amount": 138.45,
+      "unique_cards": 36274
+    },
+    {
+      "mrch_nm_raw": "doladowania.play.pl",
+      "mrch_catg_nm": "TELECOMMUNICATION SERVICES",
+      "tx_count": 163252,
+      "total_amount": 9337799.26,
+      "avg_amount": 57.2,
+      "unique_cards": 27548
+    },
+    {
+      "mrch_nm_raw": "RTVEUROAGD POLISA",
+      "mrch_catg_nm": "ELECTRONICS STORES",
+      "tx_count": 161201,
+      "total_amount": 8691037.27,
+      "avg_amount": 53.91,
+      "unique_cards": 22056
+    },
+    {
+      "mrch_nm_raw": "Superbet Poland",
+      "mrch_catg_nm": "BETTING/TRACK/CASINO/LOTTO",
+      "tx_count": 158333,
+      "total_amount": 16295699.56,
+      "avg_amount": 102.92,
+      "unique_cards": 5748
+    },
+    {
+      "mrch_nm_raw": "PP*TOTALCASINO.PL",
+      "mrch_catg_nm": "BETTING/TRACK/CASINO/LOTTO",
+      "tx_count": 151756,
+      "total_amount": 27979277.05,
+      "avg_amount": 184.37,
+      "unique_cards": 6826
+    },
+    {
+      "mrch_nm_raw": "T-MOBILE POLSKA",
+      "mrch_catg_nm": "TELECOMMUNICATION SERVICES",
+      "tx_count": 150537,
+      "total_amount": 39968903.54,
+      "avg_amount": 265.51,
+      "unique_cards": 29213
+    },
+    {
+      "mrch_nm_raw": "Disney Plus",
+      "mrch_catg_nm": "CABLE, SAT, PAY TV/RADIO SVCS",
+      "tx_count": 150028,
+      "total_amount": 10106778.0,
+      "avg_amount": 67.37,
+      "unique_cards": 42105
+    },
+    {
+      "mrch_nm_raw": "SPOTIFY",
+      "mrch_catg_nm": "DIGITAL GOODS BOOKSMOVIEMUSIC",
+      "tx_count": 146914,
+      "total_amount": 6338594.32,
+      "avg_amount": 43.14,
+      "unique_cards": 36123
+    },
+    {
+      "mrch_nm_raw": "GOOGLE *Google Play Ap",
+      "mrch_catg_nm": "DIGITAL GOODS GAMES",
+      "tx_count": 136477,
+      "total_amount": 8574743.11,
+      "avg_amount": 62.83,
+      "unique_cards": 28833
+    },
+    {
+      "mrch_nm_raw": "PayPro SA   *ALLEGRO SP.",
+      "mrch_catg_nm": "ONLINE MARKETPLACES",
+      "tx_count": 117084,
+      "total_amount": 39213259.27,
+      "avg_amount": 334.92,
+      "unique_cards": 43864
+    },
+    {
+      "mrch_nm_raw": "aliexpress",
+      "mrch_catg_nm": "DEPARTMENT STORES",
+      "tx_count": 114276,
+      "total_amount": 27759171.58,
+      "avg_amount": 242.91,
+      "unique_cards": 36668
+    },
+    {
+      "mrch_nm_raw": "Zara.com",
+      "mrch_catg_nm": "MENS/WOMENS CLOTHING STORES",
+      "tx_count": 113017,
+      "total_amount": 48250882.86,
+      "avg_amount": 426.93,
+      "unique_cards": 23766
+    },
+    {
+      "mrch_nm_raw": "UBER *TRIP HELP.UBER.COM",
+      "mrch_catg_nm": "TAXICABS/LIMOUSINES",
+      "tx_count": 111308,
+      "total_amount": 7623471.53,
+      "avg_amount": 68.49,
+      "unique_cards": 44856
+    },
+    {
+      "mrch_nm_raw": "Sklep Prime Video",
+      "mrch_catg_nm": "DIGITAL GOODS BOOKSMOVIEMUSIC",
+      "tx_count": 108634,
+      "total_amount": 3375069.05,
+      "avg_amount": 31.07,
+      "unique_cards": 33444
+    },
+    {
+      "mrch_nm_raw": "skycash.com",
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 107293,
+      "total_amount": 3073638.01,
+      "avg_amount": 28.65,
+      "unique_cards": 11445
+    },
+    {
+      "mrch_nm_raw": "shein.com",
+      "mrch_catg_nm": "MISC GENERAL MERCHANDISE",
+      "tx_count": 105639,
+      "total_amount": 17766881.7,
+      "avg_amount": 168.18,
+      "unique_cards": 29584
+    },
+    {
+      "mrch_nm_raw": "Google Play Apps",
+      "mrch_catg_nm": "LARGE DIGITAL GOODS MERCHANT",
+      "tx_count": 102867,
+      "total_amount": 6820818.62,
+      "avg_amount": 66.31,
+      "unique_cards": 30347
+    },
+    {
+      "mrch_nm_raw": "PlayStation Network",
+      "mrch_catg_nm": "DIGITAL GOODS GAMES",
+      "tx_count": 102109,
+      "total_amount": 15821728.14,
+      "avg_amount": 154.95,
+      "unique_cards": 28235
+    },
+    {
+      "mrch_nm_raw": "OPENAI *CHATGPT SUBSCR",
+      "mrch_catg_nm": "COMPUTER SOFTWARE STORES",
+      "tx_count": 96838,
+      "total_amount": 15365143.61,
+      "avg_amount": 158.67,
+      "unique_cards": 26243
+    },
+    {
+      "mrch_nm_raw": "Google One",
+      "mrch_catg_nm": "DIGITAL GOODS APP(EXCL GAMES)",
+      "tx_count": 95071,
+      "total_amount": 3453525.75,
+      "avg_amount": 36.33,
+      "unique_cards": 36523
+    },
+    {
+      "mrch_nm_raw": "Hotel at Booking.com",
+      "mrch_catg_nm": "HOTELS/MOTELS/RESORTS",
+      "tx_count": 87663,
+      "total_amount": 149865686.37,
+      "avg_amount": 1709.57,
+      "unique_cards": 55070
+    },
+    {
+      "mrch_nm_raw": "Dott scooter ride",
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 84656,
+      "total_amount": 1443855.5,
+      "avg_amount": 17.06,
+      "unique_cards": 10122
+    },
+    {
+      "mrch_nm_raw": "Google Play Apps",
+      "mrch_catg_nm": "COMPUTER PROGRAM/SYS DESIGN",
+      "tx_count": 79198,
+      "total_amount": 5400083.85,
+      "avg_amount": 68.18,
+      "unique_cards": 28658
+    },
+    {
+      "mrch_nm_raw": "PlayStation Network",
+      "mrch_catg_nm": "LARGE DIGITAL GOODS MERCHANT",
+      "tx_count": 78913,
+      "total_amount": 12445440.63,
+      "avg_amount": 157.71,
+      "unique_cards": 26485
+    },
+    {
+      "mrch_nm_raw": "zbiletem.pl",
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 78895,
+      "total_amount": 1115543.8,
+      "avg_amount": 14.14,
+      "unique_cards": 5057
+    },
+    {
+      "mrch_nm_raw": "PayPro SA   *ALLEGRO",
+      "mrch_catg_nm": "ONLINE MARKETPLACES",
+      "tx_count": 78715,
+      "total_amount": 29218546.5,
+      "avg_amount": 371.19,
+      "unique_cards": 40309
+    },
+    {
+      "mrch_nm_raw": "Pyszne.pl",
+      "mrch_catg_nm": "FAST FOOD RESTAURANTS",
+      "tx_count": 76836,
+      "total_amount": 6124002.45,
+      "avg_amount": 79.7,
+      "unique_cards": 28235
+    },
+    {
+      "mrch_nm_raw": "TEMU.COM",
+      "mrch_catg_nm": "MISC GENERAL MERCHANDISE",
+      "tx_count": 75810,
+      "total_amount": 15422900.66,
+      "avg_amount": 203.44,
+      "unique_cards": 17148
+    },
+    {
+      "mrch_nm_raw": "UBER RIDES",
+      "mrch_catg_nm": "TAXICABS/LIMOUSINES",
+      "tx_count": 75305,
+      "total_amount": 3424098.61,
+      "avg_amount": 45.47,
+      "unique_cards": 26318
+    }
+  ],
+  "ecommerce_monthly_trend": [
+    {
+      "prch_mnth_id": 202501,
+      "online_tx": 1596204,
+      "physical_tx": 13286654,
+      "online_amount": 510365473.99,
+      "physical_amount": 2130238174.61,
+      "online_tx_pct": 10.73,
+      "online_val_pct": 19.33
+    },
+    {
+      "prch_mnth_id": 202502,
+      "online_tx": 1504314,
+      "physical_tx": 12446196,
+      "online_amount": 431740316.05,
+      "physical_amount": 2030133388.28,
+      "online_tx_pct": 10.78,
+      "online_val_pct": 17.54
+    },
+    {
+      "prch_mnth_id": 202503,
+      "online_tx": 1667054,
+      "physical_tx": 14828771,
+      "online_amount": 564597598.89,
+      "physical_amount": 2378003429.9,
+      "online_tx_pct": 10.11,
+      "online_val_pct": 19.19
+    },
+    {
+      "prch_mnth_id": 202504,
+      "online_tx": 1636206,
+      "physical_tx": 15599109,
+      "online_amount": 512140227.42,
+      "physical_amount": 2567581683.0,
+      "online_tx_pct": 9.49,
+      "online_val_pct": 16.63
+    },
+    {
+      "prch_mnth_id": 202505,
+      "online_tx": 1826258,
+      "physical_tx": 15569948,
+      "online_amount": 639094403.67,
+      "physical_amount": 2521093469.58,
+      "online_tx_pct": 10.5,
+      "online_val_pct": 20.22
+    },
+    {
+      "prch_mnth_id": 202506,
+      "online_tx": 1793463,
+      "physical_tx": 15889309,
+      "online_amount": 577354233.15,
+      "physical_amount": 2553590977.28,
+      "online_tx_pct": 10.14,
+      "online_val_pct": 18.44
+    },
+    {
+      "prch_mnth_id": 202507,
+      "online_tx": 1859077,
+      "physical_tx": 16963415,
+      "online_amount": 673238489.29,
+      "physical_amount": 2730942599.57,
+      "online_tx_pct": 9.88,
+      "online_val_pct": 19.78
+    },
+    {
+      "prch_mnth_id": 202508,
+      "online_tx": 1994787,
+      "physical_tx": 16642396,
+      "online_amount": 600473180.83,
+      "physical_amount": 2811691531.43,
+      "online_tx_pct": 10.7,
+      "online_val_pct": 17.6
+    },
+    {
+      "prch_mnth_id": 202509,
+      "online_tx": 1840353,
+      "physical_tx": 15474917,
+      "online_amount": 488156027.67,
+      "physical_amount": 2516944249.49,
+      "online_tx_pct": 10.63,
+      "online_val_pct": 16.24
+    },
+    {
+      "prch_mnth_id": 202510,
+      "online_tx": 2034882,
+      "physical_tx": 15140902,
+      "online_amount": 666706631.54,
+      "physical_amount": 2486981969.21,
+      "online_tx_pct": 11.85,
+      "online_val_pct": 21.14
+    },
+    {
+      "prch_mnth_id": 202511,
+      "online_tx": 1983130,
+      "physical_tx": 13725408,
+      "online_amount": 702601233.0,
+      "physical_amount": 2306288238.36,
+      "online_tx_pct": 12.62,
+      "online_val_pct": 23.35
+    },
+    {
+      "prch_mnth_id": 202512,
+      "online_tx": 2029540,
+      "physical_tx": 15120379,
+      "online_amount": 676330595.36,
+      "physical_amount": 2672455722.46,
+      "online_tx_pct": 11.83,
+      "online_val_pct": 20.2
+    },
+    {
+      "prch_mnth_id": 202601,
+      "online_tx": 2012029,
+      "physical_tx": 13079386,
+      "online_amount": 713576426.2,
+      "physical_amount": 2196659174.45,
+      "online_tx_pct": 13.33,
+      "online_val_pct": 24.52
+    },
+    {
+      "prch_mnth_id": 202602,
+      "online_tx": 1856657,
+      "physical_tx": 12999077,
+      "online_amount": 589344785.91,
+      "physical_amount": 2103491089.65,
+      "online_tx_pct": 12.5,
+      "online_val_pct": 21.89
+    },
+    {
+      "prch_mnth_id": 202603,
+      "online_tx": 2088803,
+      "physical_tx": 15604362,
+      "online_amount": 513441697.65,
+      "physical_amount": 2643990176.42,
+      "online_tx_pct": 11.81,
+      "online_val_pct": 16.26
+    },
+    {
+      "prch_mnth_id": 202604,
+      "online_tx": 2065930,
+      "physical_tx": 15583487,
+      "online_amount": 702810491.38,
+      "physical_amount": 2629374338.93,
+      "online_tx_pct": 11.71,
+      "online_val_pct": 21.09
+    },
+    {
+      "prch_mnth_id": 202605,
+      "online_tx": 2302498,
+      "physical_tx": 16727335,
+      "online_amount": 696593684.16,
+      "physical_amount": 2790220597.62,
+      "online_tx_pct": 12.1,
+      "online_val_pct": 19.98
+    },
+    {
+      "prch_mnth_id": 202606,
+      "online_tx": 2217899,
+      "physical_tx": 16534969,
+      "online_amount": 635935201.21,
+      "physical_amount": 2733481162.96,
+      "online_tx_pct": 11.83,
+      "online_val_pct": 18.87
+    }
+  ],
+  "ecommerce_by_channel": [
+    {
+      "channel_flg": "mobile",
+      "tx_count": 23767085,
+      "total_amount": 6685372341.79,
+      "avg_amount": 281.29,
+      "unique_cards": 929546
+    },
+    {
+      "channel_flg": "eci",
+      "tx_count": 8825260,
+      "total_amount": 3704305004.28,
+      "avg_amount": 419.74,
+      "unique_cards": 920410
+    },
+    {
+      "channel_flg": "recur",
+      "tx_count": 1337564,
+      "total_amount": 176461009.12,
+      "avg_amount": 131.93,
+      "unique_cards": 267249
+    },
+    {
+      "channel_flg": "other",
+      "tx_count": 253287,
+      "total_amount": 154192298.86,
+      "avg_amount": 608.77,
+      "unique_cards": 73686
+    },
+    {
+      "channel_flg": "moto",
+      "tx_count": 124027,
+      "total_amount": 169632665.97,
+      "avg_amount": 1367.71,
+      "unique_cards": 58775
+    },
+    {
+      "channel_flg": "cash",
+      "tx_count": 1861,
+      "total_amount": 4537377.36,
+      "avg_amount": 2438.14,
+      "unique_cards": 557
+    }
+  ],
+  "ecommerce_amount_distribution": [
+    {
+      "bucket": "a) 0-10",
+      "cp_flag": 0,
+      "tx_count": 3408783,
+      "total_amount": 18255305.9
+    },
+    {
+      "bucket": "a) 0-10",
+      "cp_flag": 1,
+      "tx_count": 38338556,
+      "total_amount": 204767924.67
+    },
+    {
+      "bucket": "b) 10-30",
+      "cp_flag": 0,
+      "tx_count": 6345422,
+      "total_amount": 122586728.19
+    },
+    {
+      "bucket": "b) 10-30",
+      "cp_flag": 1,
+      "tx_count": 57511954,
+      "total_amount": 1091392232.0
+    },
+    {
+      "bucket": "c) 30-50",
+      "cp_flag": 0,
+      "tx_count": 4476486,
+      "total_amount": 176025279.19
+    },
+    {
+      "bucket": "c) 30-50",
+      "cp_flag": 1,
+      "tx_count": 35612655,
+      "total_amount": 1401980368.63
+    },
+    {
+      "bucket": "d) 50-100",
+      "cp_flag": 0,
+      "tx_count": 6223773,
+      "total_amount": 448231553.88
+    },
+    {
+      "bucket": "d) 50-100",
+      "cp_flag": 1,
+      "tx_count": 50196918,
+      "total_amount": 3604253784.96
+    },
+    {
+      "bucket": "e) 100-200",
+      "cp_flag": 0,
+      "tx_count": 5542418,
+      "total_amount": 787874547.23
+    },
+    {
+      "bucket": "e) 100-200",
+      "cp_flag": 1,
+      "tx_count": 41071150,
+      "total_amount": 5812642045.09
+    },
+    {
+      "bucket": "f) 200-500",
+      "cp_flag": 0,
+      "tx_count": 4499524,
+      "total_amount": 1398203734.8
+    },
+    {
+      "bucket": "f) 200-500",
+      "cp_flag": 1,
+      "tx_count": 32278474,
+      "total_amount": 9968494613.92
+    },
+    {
+      "bucket": "g) 500-1000",
+      "cp_flag": 0,
+      "tx_count": 1850206,
+      "total_amount": 1289737291.27
+    },
+    {
+      "bucket": "g) 500-1000",
+      "cp_flag": 1,
+      "tx_count": 10274553,
+      "total_amount": 7018816620.3
+    },
+    {
+      "bucket": "h) 1000+",
+      "cp_flag": 0,
+      "tx_count": 1962472,
+      "total_amount": 6653586256.93
+    },
+    {
+      "bucket": "h) 1000+",
+      "cp_flag": 1,
+      "tx_count": 5931760,
+      "total_amount": 15700814383.61
+    }
+  ],
+  "ecommerce_card_types": [
+    {
+      "crd_typ_nm": "BUSINESS",
+      "cp_flag": 0,
+      "tx_count": 1305076,
+      "total_amount": 995514204.14,
+      "avg_amount": 762.8
+    },
+    {
+      "crd_typ_nm": "BUSINESS",
+      "cp_flag": 1,
+      "tx_count": 8042614,
+      "total_amount": 4186261594.47,
+      "avg_amount": 520.51
+    },
+    {
+      "crd_typ_nm": "CLASSIC",
+      "cp_flag": 0,
+      "tx_count": 27775660,
+      "total_amount": 7795044826.51,
+      "avg_amount": 280.64
+    },
+    {
+      "crd_typ_nm": "CLASSIC",
+      "cp_flag": 1,
+      "tx_count": 242725092,
+      "total_amount": 36662562641.5,
+      "avg_amount": 151.05
+    },
+    {
+      "crd_typ_nm": "CORPORATE T&E CARD",
+      "cp_flag": 0,
+      "tx_count": 36189,
+      "total_amount": 43520480.65,
+      "avg_amount": 1202.59
+    },
+    {
+      "crd_typ_nm": "CORPORATE T&E CARD",
+      "cp_flag": 1,
+      "tx_count": 90468,
+      "total_amount": 62394977.97,
+      "avg_amount": 689.69
+    },
+    {
+      "crd_typ_nm": "ELECTRON",
+      "cp_flag": 0,
+      "tx_count": 2468,
+      "total_amount": 627828.86,
+      "avg_amount": 254.39
+    },
+    {
+      "crd_typ_nm": "ELECTRON",
+      "cp_flag": 1,
+      "tx_count": 10235,
+      "total_amount": 1801722.37,
+      "avg_amount": 176.04
+    },
+    {
+      "crd_typ_nm": "INFINITE",
+      "cp_flag": 0,
+      "tx_count": 3319288,
+      "total_amount": 1204375789.7,
+      "avg_amount": 362.84
+    },
+    {
+      "crd_typ_nm": "INFINITE",
+      "cp_flag": 1,
+      "tx_count": 11681521,
+      "total_amount": 1976451880.23,
+      "avg_amount": 169.19
+    },
+    {
+      "crd_typ_nm": "Not Applicable",
+      "cp_flag": 0,
+      "tx_count": 85,
+      "total_amount": 89046.13,
+      "avg_amount": 1047.6
+    },
+    {
+      "crd_typ_nm": "Not Applicable",
+      "cp_flag": 1,
+      "tx_count": 534,
+      "total_amount": 99543.01,
+      "avg_amount": 186.41
+    },
+    {
+      "crd_typ_nm": "PLATINUM",
+      "cp_flag": 0,
+      "tx_count": 1192512,
+      "total_amount": 513122299.11,
+      "avg_amount": 430.29
+    },
+    {
+      "crd_typ_nm": "PLATINUM",
+      "cp_flag": 1,
+      "tx_count": 4485472,
+      "total_amount": 907814136.8,
+      "avg_amount": 202.39
+    },
+    {
+      "crd_typ_nm": "PREMIER",
+      "cp_flag": 0,
+      "tx_count": 514298,
+      "total_amount": 257708216.9,
+      "avg_amount": 501.09
+    },
+    {
+      "crd_typ_nm": "PREMIER",
+      "cp_flag": 1,
+      "tx_count": 3095532,
+      "total_amount": 670550894.18,
+      "avg_amount": 216.62
+    },
+    {
+      "crd_typ_nm": "PURCHASING CARD",
+      "cp_flag": 0,
+      "tx_count": 5571,
+      "total_amount": 6624062.01,
+      "avg_amount": 1189.03
+    },
+    {
+      "crd_typ_nm": "PURCHASING CARD",
+      "cp_flag": 1,
+      "tx_count": 10288,
+      "total_amount": 8140834.68,
+      "avg_amount": 791.29
+    },
+    {
+      "crd_typ_nm": "VISA SIGNATURE BUSINESS",
+      "cp_flag": 0,
+      "tx_count": 4385,
+      "total_amount": 3449132.24,
+      "avg_amount": 786.58
+    },
+    {
+      "crd_typ_nm": "VISA SIGNATURE BUSINESS",
+      "cp_flag": 1,
+      "tx_count": 14613,
+      "total_amount": 6808950.92,
+      "avg_amount": 465.95
+    },
+    {
+      "crd_typ_nm": "VISA SIGNATURE CARD",
+      "cp_flag": 0,
+      "tx_count": 151951,
+      "total_amount": 73992562.23,
+      "avg_amount": 486.95
+    },
+    {
+      "crd_typ_nm": "VISA SIGNATURE CARD",
+      "cp_flag": 1,
+      "tx_count": 540798,
+      "total_amount": 143289932.58,
+      "avg_amount": 264.96
+    },
+    {
+      "crd_typ_nm": "VPAY",
+      "cp_flag": 0,
+      "tx_count": 1601,
+      "total_amount": 432248.9,
+      "avg_amount": 269.99
+    },
+    {
+      "crd_typ_nm": "VPAY",
+      "cp_flag": 1,
+      "tx_count": 518853,
+      "total_amount": 176984864.47,
+      "avg_amount": 341.11
+    }
+  ],
+  "ecommerce_domestic_foreign": [
+    {
+      "issr_jurn": "Domestic",
+      "cp_flag": 0,
+      "tx_count": 14136561,
+      "total_amount": 4185909666.87,
+      "avg_amount": 296.11
+    },
+    {
+      "issr_jurn": "Domestic",
+      "cp_flag": 1,
+      "tx_count": 252222360,
+      "total_amount": 40414280315.14,
+      "avg_amount": 160.23
+    },
+    {
+      "issr_jurn": "Inter",
+      "cp_flag": 0,
+      "tx_count": 2266002,
+      "total_amount": 767489447.92,
+      "avg_amount": 338.7
+    },
+    {
+      "issr_jurn": "Inter",
+      "cp_flag": 1,
+      "tx_count": 5679421,
+      "total_amount": 1170873331.57,
+      "avg_amount": 206.16
+    },
+    {
+      "issr_jurn": "Intra",
+      "cp_flag": 0,
+      "tx_count": 17906521,
+      "total_amount": 5941101582.61,
+      "avg_amount": 331.78
+    },
+    {
+      "issr_jurn": "Intra",
+      "cp_flag": 1,
+      "tx_count": 13314239,
+      "total_amount": 3218008326.48,
+      "avg_amount": 241.7
+    }
+  ],
+  "ecommerce_entry_mode": [
+    {
+      "transaction_pos_entry_mode": "COF",
+      "cp_flag": 0,
+      "tx_count": 18275632,
+      "total_amount": 4056295802.8,
+      "avg_amount": 221.95
+    },
+    {
+      "transaction_pos_entry_mode": "Manual key entry",
+      "cp_flag": 0,
+      "tx_count": 16009183,
+      "total_amount": 6822643566.59,
+      "avg_amount": 426.17
+    },
+    {
+      "transaction_pos_entry_mode": "Other",
+      "cp_flag": 0,
+      "tx_count": 24269,
+      "total_amount": 15561328.01,
+      "avg_amount": 641.2
+    },
+    {
+      "transaction_pos_entry_mode": "Tap to pay",
+      "cp_flag": 1,
+      "tx_count": 261586826,
+      "total_amount": 36255398465.93,
+      "avg_amount": 138.6
+    },
+    {
+      "transaction_pos_entry_mode": "Chip",
+      "cp_flag": 1,
+      "tx_count": 9595168,
+      "total_amount": 8532397156.99,
+      "avg_amount": 889.24
+    },
+    {
+      "transaction_pos_entry_mode": "Magstripe",
+      "cp_flag": 1,
+      "tx_count": 33565,
+      "total_amount": 15283267.81,
+      "avg_amount": 455.33
+    },
+    {
+      "transaction_pos_entry_mode": "Other",
+      "cp_flag": 1,
+      "tx_count": 461,
+      "total_amount": 83082.47,
+      "avg_amount": 180.22
+    }
+  ],
+  "subscription_merchants": [
+    {
+      "mrch_nm_raw": "APPLE.COM/BILL",
+      "mrch_catg_nm": "LARGE DIGITAL GOODS MERCHANT",
+      "tx_count": 2470371,
+      "total_amount": 127104045.15,
+      "avg_amount": 51.45,
+      "unique_cards": 239850,
+      "tx_per_card": 10.3
+    },
+    {
+      "mrch_nm_raw": "Allegro",
+      "mrch_catg_nm": "ONLINE MARKETPLACES",
+      "tx_count": 1819940,
+      "total_amount": 550746865.24,
+      "avg_amount": 302.62,
+      "unique_cards": 159898,
+      "tx_per_card": 11.4
+    },
+    {
+      "mrch_nm_raw": "NETFLIX.COM",
+      "mrch_catg_nm": "CABLE, SAT, PAY TV/RADIO SVCS",
+      "tx_count": 581795,
+      "total_amount": 61292628.77,
+      "avg_amount": 105.35,
+      "unique_cards": 148348,
+      "tx_per_card": 3.9
+    },
+    {
+      "mrch_nm_raw": "Netflix.com",
+      "mrch_catg_nm": "CABLE, SAT, PAY TV/RADIO SVCS",
+      "tx_count": 433182,
+      "total_amount": 46565215.09,
+      "avg_amount": 107.5,
+      "unique_cards": 133408,
+      "tx_per_card": 3.2
+    },
+    {
+      "mrch_nm_raw": "Revolut*VISA MONEY TRANSF",
+      "mrch_catg_nm": "FINANCIAL INST/MERCHANDISE",
+      "tx_count": 1220702,
+      "total_amount": 1579172829.9,
+      "avg_amount": 1293.66,
+      "unique_cards": 124784,
+      "tx_per_card": 9.8
+    },
+    {
+      "mrch_nm_raw": "UBER   *TRIP",
+      "mrch_catg_nm": "TAXICABS/LIMOUSINES",
+      "tx_count": 812242,
+      "total_amount": 43994797.03,
+      "avg_amount": 54.16,
+      "unique_cards": 107391,
+      "tx_per_card": 7.6
+    },
+    {
+      "mrch_nm_raw": "UBR* PENDING.UBER.COM",
+      "mrch_catg_nm": "TAXICABS/LIMOUSINES",
+      "tx_count": 643964,
+      "total_amount": 35367214.52,
+      "avg_amount": 54.92,
+      "unique_cards": 86273,
+      "tx_per_card": 7.5
+    },
+    {
+      "mrch_nm_raw": "Temu.com",
+      "mrch_catg_nm": "MISC GENERAL MERCHANDISE",
+      "tx_count": 363855,
+      "total_amount": 65343252.88,
+      "avg_amount": 179.59,
+      "unique_cards": 80617,
+      "tx_per_card": 4.5
+    },
+    {
+      "mrch_nm_raw": "Google Play Apps",
+      "mrch_catg_nm": "DIGITAL GOODS APP(EXCL GAMES)",
+      "tx_count": 556607,
+      "total_amount": 34942643.29,
+      "avg_amount": 62.78,
+      "unique_cards": 74400,
+      "tx_per_card": 7.5
+    },
+    {
+      "mrch_nm_raw": "Google Play Apps",
+      "mrch_catg_nm": "DIGITAL GOODS GAMES",
+      "tx_count": 297285,
+      "total_amount": 18992946.04,
+      "avg_amount": 63.89,
+      "unique_cards": 55512,
+      "tx_per_card": 5.4
+    },
+    {
+      "mrch_nm_raw": "jakdojade.pl",
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 297729,
+      "total_amount": 11362779.66,
+      "avg_amount": 38.16,
+      "unique_cards": 46997,
+      "tx_per_card": 6.3
+    },
+    {
+      "mrch_nm_raw": "Disney Plus",
+      "mrch_catg_nm": "CABLE, SAT, PAY TV/RADIO SVCS",
+      "tx_count": 150028,
+      "total_amount": 10106778.0,
+      "avg_amount": 67.37,
+      "unique_cards": 42105,
+      "tx_per_card": 3.6
+    },
+    {
+      "mrch_nm_raw": "KOLEO bilety kolejowe",
+      "mrch_catg_nm": "TRANSPORTATION SVCS - DEFAULT",
+      "tx_count": 232684,
+      "total_amount": 19072406.74,
+      "avg_amount": 81.97,
+      "unique_cards": 40154,
+      "tx_per_card": 5.8
+    },
+    {
+      "mrch_nm_raw": "www.bilet.intercity.pl",
+      "mrch_catg_nm": "LOCAL COMMUTER TRANSPORT",
+      "tx_count": 220054,
+      "total_amount": 25756799.24,
+      "avg_amount": 117.05,
+      "unique_cards": 39726,
+      "tx_per_card": 5.5
+    },
+    {
+      "mrch_nm_raw": "aliexpress",
+      "mrch_catg_nm": "DEPARTMENT STORES",
+      "tx_count": 114276,
+      "total_amount": 27759171.58,
+      "avg_amount": 242.91,
+      "unique_cards": 36668,
+      "tx_per_card": 3.1
+    },
+    {
+      "mrch_nm_raw": "Vinted",
+      "mrch_catg_nm": "USED MERCHANDISE STORES",
+      "tx_count": 170298,
+      "total_amount": 23577502.96,
+      "avg_amount": 138.45,
+      "unique_cards": 36274,
+      "tx_per_card": 4.7
+    },
+    {
+      "mrch_nm_raw": "SPOTIFY",
+      "mrch_catg_nm": "DIGITAL GOODS BOOKSMOVIEMUSIC",
+      "tx_count": 146914,
+      "total_amount": 6338594.32,
+      "avg_amount": 43.14,
+      "unique_cards": 36123,
+      "tx_per_card": 4.1
+    },
+    {
+      "mrch_nm_raw": "UBER   * EATS PENDING",
+      "mrch_catg_nm": "EATING PLACES AND RESTAURANTS",
+      "tx_count": 177990,
+      "total_amount": 30607731.32,
+      "avg_amount": 171.96,
+      "unique_cards": 35866,
+      "tx_per_card": 5.0
+    },
+    {
+      "mrch_nm_raw": "VINTED, UAB",
+      "mrch_catg_nm": "USED MERCHANDISE STORES",
+      "tx_count": 181369,
+      "total_amount": 15355213.96,
+      "avg_amount": 84.66,
+      "unique_cards": 34258,
+      "tx_per_card": 5.3
+    },
+    {
+      "mrch_nm_raw": "Sklep Prime Video",
+      "mrch_catg_nm": "DIGITAL GOODS BOOKSMOVIEMUSIC",
+      "tx_count": 108634,
+      "total_amount": 3375069.05,
+      "avg_amount": 31.07,
+      "unique_cards": 33444,
+      "tx_per_card": 3.2
+    },
+    {
+      "mrch_nm_raw": "Google Play Apps",
+      "mrch_catg_nm": "LARGE DIGITAL GOODS MERCHANT",
+      "tx_count": 102867,
+      "total_amount": 6820818.62,
+      "avg_amount": 66.31,
+      "unique_cards": 30347,
+      "tx_per_card": 3.4
+    },
+    {
+      "mrch_nm_raw": "Wolt",
+      "mrch_catg_nm": "EATING PLACES AND RESTAURANTS",
+      "tx_count": 177581,
+      "total_amount": 24586596.2,
+      "avg_amount": 138.45,
+      "unique_cards": 30315,
+      "tx_per_card": 5.9
+    },
+    {
+      "mrch_nm_raw": "UBER   *EATS",
+      "mrch_catg_nm": "EATING PLACES AND RESTAURANTS",
+      "tx_count": 172794,
+      "total_amount": 26321669.38,
+      "avg_amount": 152.33,
+      "unique_cards": 30103,
+      "tx_per_card": 5.7
+    },
+    {
+      "mrch_nm_raw": "shein.com",
+      "mrch_catg_nm": "MISC GENERAL MERCHANDISE",
+      "tx_count": 105639,
+      "total_amount": 17766881.7,
+      "avg_amount": 168.18,
+      "unique_cards": 29584,
+      "tx_per_card": 3.6
+    },
+    {
+      "mrch_nm_raw": "T-MOBILE POLSKA",
+      "mrch_catg_nm": "TELECOMMUNICATION SERVICES",
+      "tx_count": 150537,
+      "total_amount": 39968903.54,
+      "avg_amount": 265.51,
+      "unique_cards": 29213,
+      "tx_per_card": 5.2
+    },
+    {
+      "mrch_nm_raw": "GOOGLE *Google Play Ap",
+      "mrch_catg_nm": "DIGITAL GOODS GAMES",
+      "tx_count": 136477,
+      "total_amount": 8574743.11,
+      "avg_amount": 62.83,
+      "unique_cards": 28833,
+      "tx_per_card": 4.7
+    },
+    {
+      "mrch_nm_raw": "PlayStation Network",
+      "mrch_catg_nm": "DIGITAL GOODS GAMES",
+      "tx_count": 102109,
+      "total_amount": 15821728.14,
+      "avg_amount": 154.95,
+      "unique_cards": 28235,
+      "tx_per_card": 3.6
+    },
+    {
+      "mrch_nm_raw": "AllegroPay",
+      "mrch_catg_nm": "FINANCIAL INST/MERCHANDISE",
+      "tx_count": 221878,
+      "total_amount": 147487430.55,
+      "avg_amount": 664.72,
+      "unique_cards": 27951,
+      "tx_per_card": 7.9
+    },
+    {
+      "mrch_nm_raw": "doladowania.play.pl",
+      "mrch_catg_nm": "TELECOMMUNICATION SERVICES",
+      "tx_count": 163252,
+      "total_amount": 9337799.26,
+      "avg_amount": 57.2,
+      "unique_cards": 27548,
+      "tx_per_card": 5.9
+    },
+    {
+      "mrch_nm_raw": "OPENAI *CHATGPT SUBSCR",
+      "mrch_catg_nm": "COMPUTER SOFTWARE STORES",
+      "tx_count": 96838,
+      "total_amount": 15365143.61,
+      "avg_amount": 158.67,
+      "unique_cards": 26243,
+      "tx_per_card": 3.7
+    }
+  ],
+  "ecommerce_consumer_vs_business": [
+    {
+      "prod_id_pltfrm_cd_vcis": "BZ",
+      "cp_flag": 0,
+      "tx_count": 1309485,
+      "total_amount": 998582527.04,
+      "avg_amount": 762.58
+    },
+    {
+      "prod_id_pltfrm_cd_vcis": "BZ",
+      "cp_flag": 1,
+      "tx_count": 8057331,
+      "total_amount": 4192835929.31,
+      "avg_amount": 520.38
+    },
+    {
+      "prod_id_pltfrm_cd_vcis": "CN",
+      "cp_flag": 0,
+      "tx_count": 32957890,
+      "total_amount": 9845798799.03,
+      "avg_amount": 298.74
+    },
+    {
+      "prod_id_pltfrm_cd_vcis": "CN",
+      "cp_flag": 1,
+      "tx_count": 263058004,
+      "total_amount": 40539809714.39,
+      "avg_amount": 154.11
+    },
+    {
+      "prod_id_pltfrm_cd_vcis": "CO",
+      "cp_flag": 0,
+      "tx_count": 40742,
+      "total_amount": 46624182.69,
+      "avg_amount": 1144.38
+    },
+    {
+      "prod_id_pltfrm_cd_vcis": "CO",
+      "cp_flag": 1,
+      "tx_count": 96286,
+      "total_amount": 63841133.12,
+      "avg_amount": 663.04
+    },
+    {
+      "prod_id_pltfrm_cd_vcis": "GV",
+      "cp_flag": 0,
+      "tx_count": 967,
+      "total_amount": 3495188.63,
+      "avg_amount": 3614.47
+    },
+    {
+      "prod_id_pltfrm_cd_vcis": "GV",
+      "cp_flag": 1,
+      "tx_count": 4399,
+      "total_amount": 6675196.38,
+      "avg_amount": 1517.43
+    }
+  ]
+}

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa DataSprint - E-Commerce & Card Payment Gap Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+        :root { --vb:#1A1F71; --vg:#F7B600; --vl:#F0F4FF; --vd:#0D1137; --red:#E85D75; --grn:#2ECC71; --org:#F39C12; --prp:#9B59B6; --g1:#F7F8FA; --g2:#E8ECF1; --g6:#6B7280; --g8:#1F2937; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--g1);color:var(--g8);line-height:1.6}
+        .hdr{background:linear-gradient(135deg,#0D1137,var(--vb),#2A3090);color:#fff;padding:44px 0;text-align:center;position:relative;overflow:hidden}
+        .hdr::before{content:'';position:absolute;top:-60%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(247,182,0,.12) 0%,transparent 70%);border-radius:50%}
+        .hdr h1{font-size:2.1em;font-weight:700;margin-bottom:8px;position:relative}
+        .hdr .sub{font-size:1em;opacity:.85;position:relative;max-width:850px;margin:0 auto}
+        .hdr .badge{display:inline-block;background:var(--vg);color:var(--vd);padding:4px 18px;border-radius:20px;font-weight:700;font-size:.82em;margin-top:14px;position:relative}
+        .ctn{max-width:1400px;margin:0 auto;padding:0 24px}
+        .kpi-s{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:-36px 0 28px;position:relative;z-index:10}
+        .kpi{background:#fff;border-radius:14px;padding:18px;box-shadow:0 4px 20px rgba(0,0,0,.06);text-align:center;transition:transform .2s}
+        .kpi:hover{transform:translateY(-3px)}
+        .kpi .v{font-size:1.65em;font-weight:800;color:var(--vb);line-height:1.2}
+        .kpi .l{font-size:.76em;color:var(--g6);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+        .kpi .s{font-size:.73em;color:var(--org);margin-top:2px}
+        .sec{margin-bottom:32px}
+        .sec-t{font-size:1.35em;font-weight:700;color:var(--vb);margin-bottom:14px;padding-left:12px;border-left:4px solid var(--vg)}
+        .g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:20px}
+        .g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:20px}
+        .cd{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 14px rgba(0,0,0,.04)}
+        .cd-t{font-size:1em;font-weight:600;margin-bottom:14px}
+        .cc{position:relative;width:100%}
+        .dt{width:100%;border-collapse:collapse;font-size:.84em}
+        .dt th{background:var(--vl);color:var(--vb);padding:9px 10px;text-align:left;font-weight:600;border-bottom:2px solid var(--g2);white-space:nowrap}
+        .dt td{padding:7px 10px;border-bottom:1px solid var(--g2)}
+        .dt tr:hover td{background:var(--g1)}
+        .dt .n{text-align:right;font-variant-numeric:tabular-nums}
+        .dt .bad{color:var(--red);font-weight:600}
+        .dt .good{color:var(--grn);font-weight:600}
+        .dt .warn{color:var(--org);font-weight:600}
+        .ib{background:linear-gradient(135deg,#FFF9E6,#FFF3CC);border-left:4px solid var(--vg);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:.9em}
+        .ib strong{color:var(--vd)}
+        .ab{background:linear-gradient(135deg,#FDE8EC,#FCDDE3);border-left:4px solid var(--red);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:.9em}
+        .ab strong{color:#8B1A2B}
+        .gb{background:linear-gradient(135deg,#E8F8F0,#D5F5E3);border-left:4px solid var(--grn);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:.9em}
+        .gb strong{color:#1B7A3D}
+        .bb{background:linear-gradient(135deg,#EDE7F6,#D1C4E9);border-left:4px solid var(--prp);border-radius:8px;padding:14px 18px;margin:16px 0;font-size:.9em}
+        .bb strong{color:#4A148C}
+        .gi{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.78em;font-weight:600}
+        .gi-h{background:#FDE8EC;color:#C0392B} .gi-m{background:#FFF3CC;color:#E67E22} .gi-l{background:#E8F8F0;color:#27AE60} .gi-b{background:#EDE7F6;color:#6A1B9A}
+        .ccr{background:#fff;border-radius:14px;padding:22px;box-shadow:0 2px 14px rgba(0,0,0,.04);border-top:4px solid var(--vg)}
+        .ccr h3{color:var(--vb);margin-bottom:10px;font-size:1.02em}
+        .ccr ul{list-style:none;padding:0}
+        .ccr li{padding:4px 0 4px 18px;position:relative;font-size:.88em}
+        .ccr li::before{content:'\25B8';position:absolute;left:0;color:var(--vg);font-weight:bold}
+        .mth{background:var(--vl);border-radius:14px;padding:20px 24px;margin-bottom:28px;font-size:.88em}
+        .mth h3{color:var(--vb);margin-bottom:8px}
+        .ftr{background:var(--vd);color:rgba(255,255,255,.6);text-align:center;padding:20px;margin-top:40px;font-size:.82em}
+        .blik-tag{background:#D40E6A;color:#fff;padding:2px 8px;border-radius:8px;font-size:.8em;font-weight:700}
+        .visa-tag{background:var(--vb);color:#fff;padding:2px 8px;border-radius:8px;font-size:.8em;font-weight:700}
+        @media(max-width:768px){.g2,.g3{grid-template-columns:1fr}.kpi-s{grid-template-columns:repeat(2,1fr)}}
+    </style>
+</head>
+<body>
+
+<div class="hdr">
+    <div class="ctn">
+        <h1>E-Commerce & Card Payment Gap Analysis</h1>
+        <div class="sub">Where are cards not being used? Deep dive into online vs offline, BLIK vs Visa, subscription economy, and the cash deserts in Polish consumer spending</div>
+        <div class="badge">VISA DATASPRINT HACKATHON 2026</div>
+    </div>
+</div>
+
+<div class="ctn">
+
+<div class="mth" style="margin-top:28px">
+    <h3>Methodology &amp; Data Sources</h3>
+    <p>This report cross-references <strong>Visa transaction sample data</strong> (305.5M transactions, Jan 2025 &ndash; Jun 2026) with <strong>GUS household expenditure</strong> (COICOP 2024), <strong>NBP payment statistics</strong> (2024), <strong>Gemius e-commerce reports</strong>, and <strong>BLIK annual data</strong>. Since Visa data is a sample, we focus on <em>proportional distribution</em> and <em>structural patterns</em>, not absolute numbers.</p>
+</div>
+
+<!-- KPI -->
+<div class="kpi-s">
+    <div class="kpi"><div class="v">34.3M</div><div class="l">Online Visa transactions</div><div class="s">11.2% of sample volume</div></div>
+    <div class="kpi"><div class="v">10.9B</div><div class="l">Online Visa value</div><div class="s">19.6% of sample value</div></div>
+    <div class="kpi"><div class="v">318</div><div class="l">Avg online transaction</div><div class="s">1.9x higher than physical (165)</div></div>
+    <div class="kpi"><div class="v">67%</div><div class="l">BLIK share of e-commerce</div><div class="s">NBP/Gemius 2024</div></div>
+    <div class="kpi"><div class="v">16%</div><div class="l">Card share of e-commerce</div><div class="s">Visa ~55% of that = ~9%</div></div>
+    <div class="kpi"><div class="v">4.2B</div><div class="l">BLIK transactions/year</div><div class="s">growing 45% YoY</div></div>
+    <div class="kpi"><div class="v">9.5%</div><div class="l">E-commerce share of retail</div><div class="s">GUS 2024</div></div>
+</div>
+
+<!-- SECTION 1: BLIK vs VISA -->
+<div class="sec">
+    <h2 class="sec-t">BLIK vs Visa: The Battle for Polish E-Commerce</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">E-commerce payment method share in Poland (2022-2024)</div>
+            <div class="cc"><canvas id="blikTrend"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t">2024 e-commerce payment breakdown</div>
+            <div class="cc"><canvas id="ecomPie"></canvas></div>
+        </div>
+    </div>
+    <div class="g2" style="margin-top:20px">
+        <div class="cd">
+            <div class="cd-t">BLIK growth trajectory vs card payment trends</div>
+            <div class="cc"><canvas id="blikGrowth"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t"><span class="blik-tag">BLIK</span> vs <span class="visa-tag">Visa</span> &mdash; Strengths &amp; Weaknesses</div>
+            <table class="dt">
+                <thead><tr><th>Dimension</th><th>BLIK</th><th>Visa Card</th><th>Winner</th></tr></thead>
+                <tbody>
+                    <tr><td>E-commerce share 2024</td><td class="n">67%</td><td class="n">~9%</td><td><span class="blik-tag">BLIK</span></td></tr>
+                    <tr><td>One-click checkout</td><td>BLIK OneClick</td><td>Card-on-file / tokenized</td><td>Tie</td></tr>
+                    <tr><td>Recurring / subscriptions</td><td>BLIK recurring (new)</td><td>Well established (COF)</td><td><span class="visa-tag">Visa</span></td></tr>
+                    <tr><td>International e-commerce</td><td>Poland only</td><td>Global acceptance</td><td><span class="visa-tag">Visa</span></td></tr>
+                    <tr><td>In-app purchases</td><td>Limited</td><td>Apple/Google native</td><td><span class="visa-tag">Visa</span></td></tr>
+                    <tr><td>P2P transfers</td><td>55% share</td><td>~2% share</td><td><span class="blik-tag">BLIK</span></td></tr>
+                    <tr><td>Physical POS</td><td>5% (BLIK tap)</td><td>58% (contactless)</td><td><span class="visa-tag">Visa</span></td></tr>
+                    <tr><td>User trust (Poland)</td><td>Very high (bank app)</td><td>High</td><td><span class="blik-tag">BLIK</span></td></tr>
+                    <tr><td>Cross-border travel</td><td>Not available</td><td>Universal</td><td><span class="visa-tag">Visa</span></td></tr>
+                    <tr><td>Chargeback protection</td><td>Limited</td><td>Full Visa protection</td><td><span class="visa-tag">Visa</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="ab">
+        <strong>KEY THREAT:</strong> BLIK has grown from 55% to 67% of e-commerce payments in just 2 years (2022-2024), while cards dropped from 20% to 16%. At this rate, cards could fall below 10% of Polish e-commerce by 2027. Visa's strongholds are international merchants, subscriptions, and in-app purchases &mdash; areas where BLIK has structural limitations.
+    </div>
+</div>
+
+<!-- SECTION 2: VISA ONLINE STRONGHOLDS -->
+<div class="sec">
+    <h2 class="sec-t">Where Visa Wins Online: The Subscription &amp; Platform Economy</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">Top 20 online Visa merchants (by transactions)</div>
+            <table class="dt">
+                <thead><tr><th>#</th><th>Merchant</th><th>Category</th><th class="n">TX</th><th class="n">Avg</th><th class="n">Cards</th><th class="n">TX/Card</th></tr></thead>
+                <tbody id="topMerchants"></tbody>
+            </table>
+        </div>
+        <div class="cd">
+            <div class="cd-t">Top subscription services on Visa (recurring patterns)</div>
+            <div class="cc"><canvas id="subsChart"></canvas></div>
+        </div>
+    </div>
+    <div class="gb" style="margin-top:16px">
+        <strong>VISA'S MOAT:</strong> Apple (2.5M tx, 240K cards), Netflix (1.0M tx, 282K cards), Google Play (1.2M tx combined), Spotify (148K cards), Disney+ (42K cards), Amazon Prime Video (33K cards), ChatGPT (26K cards) &mdash; these <strong>international subscription platforms use card-on-file by default</strong> and BLIK cannot easily displace them. This is ~8M transactions/period locked into card rails.
+    </div>
+</div>
+
+<!-- SECTION 3: E-COMMERCE CATEGORIES -->
+<div class="sec">
+    <h2 class="sec-t">Online Visa Transactions by Category</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">Top 15 categories in Visa e-commerce (cp_flag=0)</div>
+            <div class="cc"><canvas id="ecomCats"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t">E-commerce channel breakdown (within online transactions)</div>
+            <div class="cc"><canvas id="ecomChannels"></canvas></div>
+        </div>
+    </div>
+    <div class="ib">
+        <strong>Insight:</strong> 69.3% of Visa's online transactions go through mobile wallets (Google/Apple Pay tokenized as Visa), 25.7% through traditional e-commerce (3DS), and 3.9% are recurring card-on-file. Ride-hailing (Uber, Bolt) + food delivery (Uber Eats, Wolt) = 5.6M online transactions &mdash; these are mobile-first payments where Visa is embedded in-app.
+    </div>
+</div>
+
+<!-- SECTION 4: THE CARD-FREE ZONES -->
+<div class="sec">
+    <h2 class="sec-t">The Card-Free Zones: Categories With Near-Zero Online Presence</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">Categories with lowest online transaction share</div>
+            <div class="cc"><canvas id="offlineCats"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t">E-commerce potential: Physical-only categories that could go online</div>
+            <table class="dt">
+                <thead><tr><th>Category</th><th class="n">Total TX</th><th class="n">Online %</th><th>E-commerce Potential</th><th>Barrier</th></tr></thead>
+                <tbody>
+                    <tr style="background:#FFF0F2"><td>Grocery / Supermarket</td><td class="n">80.4M</td><td class="n bad">0.12%</td><td><span class="gi gi-h">Massive</span></td><td>Logistics, freshness, habit</td></tr>
+                    <tr style="background:#FFF0F2"><td>Drug Store / Pharmacy</td><td class="n">8.8M</td><td class="n bad">0.18%</td><td><span class="gi gi-h">Large</span></td><td>Prescription rules, trust</td></tr>
+                    <tr style="background:#FFF0F2"><td>Bakeries</td><td class="n">8.7M</td><td class="n bad">0.02%</td><td><span class="gi gi-m">Medium</span></td><td>Perishable, impulse buy</td></tr>
+                    <tr style="background:#FFF6F0"><td>Cosmetic Stores</td><td class="n">9.1M</td><td class="n warn">2.76%</td><td><span class="gi gi-h">Large</span></td><td>Try-before-buy, growing fast</td></tr>
+                    <tr style="background:#FFF6F0"><td>Beauty / Barber Shops</td><td class="n">1.3M</td><td class="n warn">0.36%</td><td><span class="gi gi-m">Medium</span></td><td>In-person service, cash habit</td></tr>
+                    <tr><td>Liquor / Wine Stores</td><td class="n">1.6M</td><td class="n">0.34%</td><td><span class="gi gi-m">Medium</span></td><td>Age verification, delivery</td></tr>
+                    <tr><td>Building Supply</td><td class="n">1.7M</td><td class="n">0.32%</td><td><span class="gi gi-m">Medium</span></td><td>Heavy goods, B2B habit</td></tr>
+                    <tr><td>Veterinary</td><td class="n">332K</td><td class="n">0.34%</td><td><span class="gi gi-m">Medium</span></td><td>In-person service</td></tr>
+                    <tr><td>Dentists</td><td class="n">392K</td><td class="n">0.19%</td><td><span class="gi gi-l">Low</span></td><td>In-person only, cash habit</td></tr>
+                    <tr><td>Service Stations</td><td class="n">16.1M</td><td class="n">0.47%</td><td><span class="gi gi-m">Medium</span></td><td>In-car pay apps emerging</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="ab">
+        <strong>E-GROCERY GAP:</strong> Groceries are 26.3% of all Visa transactions but only 0.12% are online. In mature markets (UK, South Korea), e-grocery is 10-15% of food retail. Poland's e-grocery market (Frisco, Barbora, Glovo, Allegro Grocery) is still under 1%. At even 5% penetration, this would generate millions of new online card transactions &mdash; each with a higher average value (402 online vs 131 in-store).
+    </div>
+</div>
+
+<!-- SECTION 5: ONLINE VS PHYSICAL VALUE -->
+<div class="sec">
+    <h2 class="sec-t">Online vs Physical: Value Multiplier Effect</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">Average transaction value: Online vs Physical by category</div>
+            <div class="cc"><canvas id="avgCompare"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t">Transaction amount distribution: Online vs Physical</div>
+            <div class="cc"><canvas id="amountDist"></canvas></div>
+        </div>
+    </div>
+    <div class="ib">
+        <strong>Insight:</strong> Online transactions average 318 (1.9x physical at 165). In clothing, the multiplier is 3.6x (646 online vs 179 in-store). In groceries it's 3.1x (402 vs 131). Online shoppers buy more per transaction. This means every physical transaction converted to online generates ~2x the card revenue for Visa.
+    </div>
+</div>
+
+<!-- SECTION 6: MONTHLY TREND -->
+<div class="sec">
+    <h2 class="sec-t">E-Commerce Growth Trend in Visa Data</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">Online share of Visa transactions &amp; value (monthly)</div>
+            <div class="cc"><canvas id="monthlyEcom"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t">Online transaction volume trend</div>
+            <div class="cc"><canvas id="monthlyVol"></canvas></div>
+        </div>
+    </div>
+    <div class="ib">
+        <strong>Insight:</strong> Online's share of Visa transactions grew from ~10.7% (Jan 2025) to ~12.1% (Jun 2026) &mdash; a +1.4pp increase in 18 months. By value, online peaked at 24.5% in Jan 2026. November shows seasonal e-commerce spikes (Black Friday). The upward trend is clear: online is taking a bigger slice of card spending each quarter.
+    </div>
+</div>
+
+<!-- SECTION 7: CASH DESERTS -->
+<div class="sec">
+    <h2 class="sec-t">Cash Deserts: Where Cards Don't Reach (Online or Offline)</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">Sectors with lowest card terminal coverage (NBP 2024)</div>
+            <div class="cc"><canvas id="terminalGaps"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t">Cash dominance by transaction size (NBP consumer survey)</div>
+            <div class="cc"><canvas id="cashBySize"></canvas></div>
+        </div>
+    </div>
+    <div class="g2" style="margin-top:20px">
+        <div class="cd">
+            <div class="cd-t">The cash economy: where ATM withdrawals end up</div>
+            <table class="dt">
+                <thead><tr><th>Spending Area</th><th class="n">Est. Cash Share</th><th>Card Alternative Exists?</th><th>Conversion Difficulty</th></tr></thead>
+                <tbody>
+                    <tr style="background:#FFF0F2"><td>Rent / housing deposits</td><td class="n bad">~95% transfer/cash</td><td>Card-linked rent payment platforms</td><td><span class="gi gi-h">Very Hard</span></td></tr>
+                    <tr style="background:#FFF0F2"><td>Private doctor / dentist visits</td><td class="n bad">~60% cash</td><td>POS terminals, Booksy-style platforms</td><td><span class="gi gi-m">Medium</span></td></tr>
+                    <tr style="background:#FFF0F2"><td>Home repair / tradesmen</td><td class="n bad">~90% cash</td><td>Tap-to-Phone, Fixly integration</td><td><span class="gi gi-h">Hard</span></td></tr>
+                    <tr style="background:#FFF0F2"><td>Tutoring / private lessons</td><td class="n bad">~95% cash</td><td>EdTech platforms with card pay</td><td><span class="gi gi-h">Hard</span></td></tr>
+                    <tr style="background:#FFF6F0"><td>Open-air markets / bazaars</td><td class="n warn">~85% cash</td><td>Tap-to-Phone, SumUp, mobile POS</td><td><span class="gi gi-m">Medium</span></td></tr>
+                    <tr style="background:#FFF6F0"><td>Street food / food trucks</td><td class="n warn">~50% cash</td><td>Mobile POS improving rapidly</td><td><span class="gi gi-l">Easier</span></td></tr>
+                    <tr style="background:#FFF6F0"><td>Childcare / nursery fees</td><td class="n warn">~70% transfer</td><td>Card-on-file for monthly fees</td><td><span class="gi gi-m">Medium</span></td></tr>
+                    <tr><td>Vending machines</td><td class="n">~55% cash</td><td>Contactless retrofit kits</td><td><span class="gi gi-l">Easier</span></td></tr>
+                    <tr><td>Hairdresser / beauty salon</td><td class="n">~40% cash</td><td>Booksy/Fresha with card pay</td><td><span class="gi gi-l">Easier</span></td></tr>
+                    <tr><td>Micro-transactions (&lt;10 PLN)</td><td class="n">~65% cash</td><td>Contactless tap (no PIN needed)</td><td><span class="gi gi-m">Medium</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cd">
+            <div class="cd-t">Card payment trends 2019-2024 (NBP)</div>
+            <div class="cc"><canvas id="trendsChart"></canvas></div>
+        </div>
+    </div>
+</div>
+
+<!-- SECTION 8: RECURRING PATTERNS -->
+<div class="sec">
+    <h2 class="sec-t">Recurring vs One-Time: The Subscription Economy on Visa</h2>
+    <div class="g2">
+        <div class="cd">
+            <div class="cd-t">Card-merchant relationship frequency</div>
+            <div class="cc"><canvas id="recurChart"></canvas></div>
+        </div>
+        <div class="cd">
+            <div class="cd-t">Recurring card-on-file relationships drive disproportionate value</div>
+            <table class="dt">
+                <thead><tr><th>Frequency</th><th class="n">Card-Merchant Pairs</th><th class="n">% of Pairs</th><th class="n">Transactions</th><th class="n">% of TX</th><th class="n">Value</th><th class="n">% of Value</th></tr></thead>
+                <tbody>
+                    <tr><td>One-time</td><td class="n">66.2M</td><td class="n">66.2%</td><td class="n">66.2M</td><td class="n">21.7%</td><td class="n">15.0B</td><td class="n">26.9%</td></tr>
+                    <tr><td>2 visits</td><td class="n">13.6M</td><td class="n">13.6%</td><td class="n">27.3M</td><td class="n">8.9%</td><td class="n">5.7B</td><td class="n">10.3%</td></tr>
+                    <tr><td>3-5 visits</td><td class="n">11.1M</td><td class="n">11.1%</td><td class="n">40.9M</td><td class="n">13.4%</td><td class="n">7.7B</td><td class="n">13.8%</td></tr>
+                    <tr><td>6-11 visits</td><td class="n">5.1M</td><td class="n">5.2%</td><td class="n">40.3M</td><td class="n">13.2%</td><td class="n">7.0B</td><td class="n">12.6%</td></tr>
+                    <tr style="background:#F0F4FF;font-weight:600"><td>12+ (monthly recurring)</td><td class="n">4.1M</td><td class="n">4.1%</td><td class="n">130.9M</td><td class="n good">42.8%</td><td class="n good">20.3B</td><td class="n good">36.5%</td></tr>
+                </tbody>
+            </table>
+            <div class="gb" style="margin-top:12px">
+                <strong>KEY INSIGHT:</strong> Just 4.1% of card-merchant relationships (monthly+ recurring) generate <strong>42.8% of all transactions and 36.5% of all value</strong>. These are grocery regulars, subscription services, and habitual merchants. Protecting and growing these recurring relationships is Visa's most important strategic priority.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONCLUSIONS -->
+<div class="sec">
+    <h2 class="sec-t">Strategic Conclusions &amp; Recommendations</h2>
+    <div class="g3">
+        <div class="ccr">
+            <h3>1. Defend the Subscription Fortress</h3>
+            <ul>
+                <li>Apple, Netflix, Google, Spotify, Disney+, ChatGPT = ~8M tx locked on card rails</li>
+                <li>BLIK Recurring is a growing threat but still nascent</li>
+                <li>International platforms default to card-on-file &mdash; Visa's structural advantage</li>
+                <li><strong>Action:</strong> Deepen partnerships with global platforms; offer better card-on-file UX; promote Visa tokenization for seamless recurring</li>
+            </ul>
+        </div>
+        <div class="ccr">
+            <h3>2. Win the E-Grocery Revolution</h3>
+            <ul>
+                <li>Grocery = 26% of all card tx but only 0.12% is online</li>
+                <li>Online grocery avg is 402 vs 131 in-store (3.1x multiplier)</li>
+                <li>E-grocery at even 5% penetration = millions of high-value new online tx</li>
+                <li><strong>Action:</strong> Partner with Frisco, Barbora, Allegro Grocery, Glovo to be preferred payment; offer cashback on e-grocery card payments</li>
+            </ul>
+        </div>
+        <div class="ccr">
+            <h3>3. Counter BLIK in Domestic E-Commerce</h3>
+            <ul>
+                <li>BLIK: 67% and growing +5pp/year in e-commerce</li>
+                <li>Cards: 16% and declining -2pp/year</li>
+                <li>BLIK weakness: no cross-border, no chargeback, limited in-app</li>
+                <li><strong>Action:</strong> Promote Visa Click to Pay as BLIK-like one-click UX; leverage Visa Secure for trust; target international shopping (AliExpress, Temu, Shein) where BLIK doesn't work</li>
+            </ul>
+        </div>
+        <div class="ccr">
+            <h3>4. Capture the Service Economy Cash</h3>
+            <ul>
+                <li>Doctors (255K tx), dentists (76K), repairs (31K) = cash-heavy</li>
+                <li>5-15% terminal coverage in tutoring, home repair, markets</li>
+                <li>Tap-to-Phone can turn any Android phone into a terminal</li>
+                <li><strong>Action:</strong> Visa Tap-to-Phone rollout targeting: medical clinics, beauty salons, tradesmen, market vendors. Zero upfront cost, instant onboarding</li>
+            </ul>
+        </div>
+        <div class="ccr">
+            <h3>5. Own the Micro-Payment Space</h3>
+            <ul>
+                <li>65% of transactions under 10 PLN are still cash (NBP)</li>
+                <li>But in Visa data: 19.3M micro-transactions under 5 units exist (contactless enabled this)</li>
+                <li>Bakeries, parking, vending = high-frequency, low-value = habit formation</li>
+                <li><strong>Action:</strong> "Tap for everything" campaign; zero merchant fees for under-10 PLN transactions; gamification of contactless micro-payments</li>
+            </ul>
+        </div>
+        <div class="ccr">
+            <h3>6. E-Pharmacy &amp; E-Health Opportunity</h3>
+            <ul>
+                <li>Pharmacy: 8.8M tx but only 0.18% online</li>
+                <li>E-prescription (e-recepta) is already universal in Poland</li>
+                <li>Telemedicine growing post-COVID (but payment is via transfer)</li>
+                <li><strong>Action:</strong> Partner with e-pharmacy platforms (apteka.pl, WaptekaPL) and telemedicine (Telemedi, Docplanner) for card-on-file integration</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="ftr">
+    Visa DataSprint Hackathon 2026 | E-Commerce &amp; Payment Gap Analysis | Sources: Visa sample (305.5M tx), GUS (2024), NBP payment statistics (2024), Gemius e-commerce report (2024), BLIK S.A. | Synthetic data
+</div>
+
+<script>
+const C={blue:'#1A1F71',gold:'#F7B600',red:'#E85D75',grn:'#2ECC71',org:'#F39C12',prp:'#9B59B6',blik:'#D40E6A',
+    a:['#4A90D9','#E85D75','#2ECC71','#F39C12','#9B59B6','#1ABC9C','#E74C3C','#3498DB','#E67E22','#8E44AD','#16A085','#C0392B','#2980B9','#D35400','#7D3C98']};
+Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
+Chart.defaults.font.size=11;
+
+function fmt(n){if(n>=1e9)return(n/1e9).toFixed(1)+'B';if(n>=1e6)return(n/1e6).toFixed(1)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return n.toFixed(0)}
+
+// BLIK Trend
+new Chart(document.getElementById('blikTrend'),{type:'bar',data:{
+    labels:['2022','2023','2024'],
+    datasets:[
+        {label:'BLIK',data:[55,62,67],backgroundColor:'rgba(212,14,106,0.8)'},
+        {label:'Card (Visa/MC)',data:[20,18,16],backgroundColor:'rgba(26,31,113,0.8)'},
+        {label:'Bank Transfer',data:[15,12,10],backgroundColor:'rgba(74,144,217,0.5)'},
+        {label:'Cash on Delivery',data:[8,6,5],backgroundColor:'rgba(155,89,182,0.5)'},
+        {label:'Other',data:[2,2,2],backgroundColor:'rgba(200,200,200,0.5)'}
+    ]
+},options:{responsive:true,scales:{x:{stacked:true},y:{stacked:true,max:100,title:{display:true,text:'% of e-commerce payments'}}},plugins:{legend:{position:'bottom'}}}});
+
+// E-com pie 2024
+new Chart(document.getElementById('ecomPie'),{type:'doughnut',data:{
+    labels:['BLIK (67%)','Card/Visa/MC (16%)','Bank Transfer (10%)','Cash on Delivery (5%)','Other (2%)'],
+    datasets:[{data:[67,16,10,5,2],backgroundColor:[C.blik,C.blue,'rgba(74,144,217,0.6)',C.org,'#ccc']}]
+},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:11}}}}}});
+
+// BLIK Growth
+new Chart(document.getElementById('blikGrowth'),{type:'line',data:{
+    labels:['2019','2020','2021','2022','2023','2024'],
+    datasets:[
+        {label:'BLIK tx (billions)',data:[0.5,0.9,1.5,2.1,2.9,4.2],borderColor:C.blik,backgroundColor:'rgba(212,14,106,0.1)',fill:true,tension:.3,pointRadius:5},
+        {label:'Card share in e-com (%)',data:[25,23,22,20,18,16],borderColor:C.blue,tension:.3,pointRadius:5,yAxisID:'y1'},
+        {label:'Cash share at POS (%)',data:[54,47,43,40,37,35],borderColor:C.org,borderDash:[5,3],tension:.3,pointRadius:4,yAxisID:'y1'}
+    ]
+},options:{responsive:true,interaction:{mode:'index',intersect:false},
+    scales:{y:{title:{display:true,text:'BLIK transactions (billions)'}},y1:{position:'right',title:{display:true,text:'Share (%)'},grid:{drawOnChartArea:false}}},
+    plugins:{legend:{position:'bottom'}}}});
+
+// Top merchants table
+const merch=[
+    ['Apple.com/Bill','Digital Goods',2470371,51.45,239850,10.3],
+    ['Allegro','Online Marketplace',1819940,302.62,159898,11.4],
+    ['Revolut*VISA','Financial',1220702,1293.66,124784,9.8],
+    ['Uber *Trip','Taxi',812242,54.16,107391,7.6],
+    ['UBR* Uber','Taxi',643964,54.92,86273,7.5],
+    ['Netflix.com','Streaming',581795,105.35,148348,3.9],
+    ['Google Play Apps','Digital Apps',556607,62.78,74400,7.5],
+    ['Netflix.com (2)','Streaming',433182,107.50,133408,3.2],
+    ['Temu.com','General Merch',363855,179.59,80617,4.5],
+    ['jakdojade.pl','Transport',297729,38.16,46997,6.3],
+    ['Google Play Games','Digital Games',297285,63.89,55512,5.4],
+    ['Autopay Mobility','Tolls',257725,39.40,15585,16.5],
+    ['Paysend','Wire Transfer',237439,1105.17,19085,12.4],
+    ['KOLEO','Rail Tickets',232684,81.97,40154,5.8],
+    ['AllegroPay','Financial',221878,664.72,27951,7.9],
+    ['Intercity.pl','Rail Tickets',220054,117.05,39726,5.5],
+    ['Betclic','Betting',183196,103.25,11569,15.8],
+    ['Vinted UAB','Used Goods',181369,84.66,34258,5.3],
+    ['Uber Eats','Food Delivery',177990,171.96,35866,5.0],
+    ['Wolt','Food Delivery',177581,138.45,30315,5.9]
+];
+document.getElementById('topMerchants').innerHTML=merch.map((m,i)=>`<tr><td>${i+1}</td><td><strong>${m[0]}</strong></td><td style="font-size:.8em">${m[1]}</td><td class="n">${fmt(m[2])}</td><td class="n">${m[3].toFixed(0)}</td><td class="n">${fmt(m[4])}</td><td class="n">${m[5].toFixed(1)}</td></tr>`).join('');
+
+// Subscriptions chart
+const subs=[
+    {n:'Apple.com/Bill',cards:239850,txpc:10.3},{n:'Allegro',cards:159898,txpc:11.4},{n:'Netflix',cards:282000,txpc:3.6},
+    {n:'Revolut',cards:124784,txpc:9.8},{n:'Uber',cards:107391,txpc:7.6},{n:'Temu',cards:80617,txpc:4.5},
+    {n:'Google Play',cards:74400,txpc:7.5},{n:'jakdojade.pl',cards:46997,txpc:6.3},{n:'Disney+',cards:42105,txpc:3.6},
+    {n:'KOLEO',cards:40154,txpc:5.8},{n:'aliexpress',cards:36668,txpc:3.1},{n:'Spotify',cards:36123,txpc:4.1},
+    {n:'Vinted',cards:36274,txpc:4.7},{n:'Amazon Prime',cards:33444,txpc:3.2},{n:'Wolt',cards:30315,txpc:5.9},
+    {n:'shein.com',cards:29584,txpc:3.6},{n:'PlayStation',cards:28235,txpc:3.6},{n:'ChatGPT',cards:26243,txpc:3.7}
+];
+new Chart(document.getElementById('subsChart'),{type:'bar',data:{
+    labels:subs.map(s=>s.n),
+    datasets:[
+        {label:'Unique cards (K)',data:subs.map(s=>s.cards/1e3),backgroundColor:'rgba(26,31,113,0.7)',yAxisID:'y'},
+        {label:'TX per card',data:subs.map(s=>s.txpc),type:'line',borderColor:C.gold,pointRadius:4,pointBackgroundColor:C.gold,yAxisID:'y1'}
+    ]
+},options:{responsive:true,indexAxis:'y',interaction:{mode:'index',intersect:false},
+    scales:{y:{},x:{title:{display:true,text:'Unique cards (thousands)'}},y1:{position:'top',title:{display:true,text:'TX/card'},grid:{drawOnChartArea:false}}},
+    plugins:{legend:{position:'bottom'}}}});
+
+// E-com categories
+const ecCats=[
+    {n:'Taxis/Ridesharing',tx:3825069},{n:'Digital Goods (Large)',tx:2924081},{n:'Online Marketplaces',tx:2247124},
+    {n:'Cable/Streaming',tx:2014497},{n:'Financial/Transfers',tx:1955034},{n:'Digital Books/Music',tx:1597303},
+    {n:'Digital Games',tx:1478790},{n:'Betting/Casino',tx:1069297},{n:'Digital Apps',tx:1060436},
+    {n:'Public Transport',tx:1049039},{n:'Fast Food (delivery)',tx:1023208},{n:'Restaurants (delivery)',tx:930406},
+    {n:'Telecom',tx:792100},{n:'General Merchandise',tx:718513},{n:'Wire Transfers',tx:591038}
+];
+new Chart(document.getElementById('ecomCats'),{type:'bar',data:{
+    labels:ecCats.map(c=>c.n),datasets:[{data:ecCats.map(c=>c.tx/1e6),backgroundColor:C.a}]
+},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Transactions (millions)'}}}}});
+
+// E-com channels
+new Chart(document.getElementById('ecomChannels'),{type:'doughnut',data:{
+    labels:['Mobile wallet (69.3%)','E-commerce/3DS (25.7%)','Recurring COF (3.9%)','Other (0.7%)','MOTO (0.4%)'],
+    datasets:[{data:[69.3,25.7,3.9,0.7,0.4],backgroundColor:[C.a[2],C.blue,C.gold,C.a[4],'#ccc']}]
+},options:{responsive:true,plugins:{legend:{position:'right',labels:{font:{size:10}}}}}});
+
+// Offline categories
+const offCats=[
+    {n:'Bakeries',pct:0.02},{n:'Grocery/Supermarket',pct:0.12},{n:'Drug Store/Pharmacy',pct:0.18},
+    {n:'Candy/Confection',pct:0.10},{n:'Car Washes',pct:0.13},{n:'Dentists',pct:0.19},
+    {n:'Newsstands',pct:0.27},{n:'Building Supply',pct:0.32},{n:'Liquor Stores',pct:0.34},
+    {n:'Beauty/Barber',pct:0.36},{n:'Veterinary',pct:0.34},{n:'Fuel Stations',pct:0.47}
+];
+new Chart(document.getElementById('offlineCats'),{type:'bar',data:{
+    labels:offCats.map(c=>c.n),datasets:[{label:'% transactions online',data:offCats.map(c=>c.pct),backgroundColor:'rgba(232,93,117,0.7)'}]
+},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'% of transactions that are online'},max:0.6}}}});
+
+// Avg compare
+const avgCmp=[
+    {n:'Family Clothing',phys:179,online:646},{n:'Grocery',phys:131,online:402},{n:'Cosmetics',phys:117,online:394},
+    {n:'Pharmacy',phys:143,online:479},{n:'Misc Food',phys:59,online:259},{n:'Service Stations',phys:216,online:344},
+    {n:'Fast Food',phys:64,online:133},{n:'Restaurants',phys:121,online:152}
+];
+new Chart(document.getElementById('avgCompare'),{type:'bar',data:{
+    labels:avgCmp.map(c=>c.n),
+    datasets:[
+        {label:'Physical avg',data:avgCmp.map(c=>c.phys),backgroundColor:'rgba(74,144,217,0.7)'},
+        {label:'Online avg',data:avgCmp.map(c=>c.online),backgroundColor:'rgba(232,93,117,0.7)'}
+    ]
+},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'Average transaction value'}}}}});
+
+// Amount distribution
+new Chart(document.getElementById('amountDist'),{type:'bar',data:{
+    labels:['0-10','10-30','30-50','50-100','100-200','200-500','500-1000','1000+'],
+    datasets:[
+        {label:'Physical (M)',data:[40.1,57.3,35.5,51.8,42.1,29.7,9.2,5.3],backgroundColor:'rgba(74,144,217,0.6)'},
+        {label:'Online (M)',data:[1.7,6.6,4.6,4.6,4.5,7.1,2.9,2.4],backgroundColor:'rgba(232,93,117,0.7)'}
+    ]
+},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:'Transactions (millions)'},stacked:false}}}});
+
+// Monthly e-com trend
+const ml=['01/25','02/25','03/25','04/25','05/25','06/25','07/25','08/25','09/25','10/25','11/25','12/25','01/26','02/26','03/26','04/26','05/26','06/26'];
+const otxPct=[10.73,10.78,10.11,9.49,10.50,10.14,9.88,10.70,10.63,11.85,12.62,11.83,13.33,12.50,11.81,11.71,12.10,11.83];
+const ovalPct=[19.33,17.54,19.19,16.63,20.22,18.44,19.78,17.60,16.24,21.14,23.35,20.20,24.52,21.89,16.26,21.09,19.98,18.87];
+
+new Chart(document.getElementById('monthlyEcom'),{type:'line',data:{
+    labels:ml,
+    datasets:[
+        {label:'Online % of TX',data:otxPct,borderColor:C.blue,tension:.3,pointRadius:4},
+        {label:'Online % of Value',data:ovalPct,borderColor:C.gold,tension:.3,pointRadius:4}
+    ]
+},options:{responsive:true,scales:{y:{title:{display:true,text:'Online share (%)'}}},plugins:{legend:{position:'bottom'}}}});
+
+const otxVol=[1596204,1504314,1667054,1636206,1826258,1793463,1859077,1994787,1840353,2034882,1983130,2029540,2012029,1856657,2088803,2065930,2302498,2217899];
+new Chart(document.getElementById('monthlyVol'),{type:'bar',data:{
+    labels:ml,datasets:[{label:'Online transactions',data:otxVol.map(v=>v/1e6),backgroundColor:'rgba(26,31,113,0.6)'}]
+},options:{responsive:true,scales:{y:{title:{display:true,text:'Transactions (millions)'}}},plugins:{legend:{display:false}}}});
+
+// Terminal gaps
+const tg=[
+    {s:'Tutoring/education',p:5},{s:'Home repair',p:10},{s:'Open-air markets',p:15},{s:'Childcare/nurseries',p:30},
+    {s:'Taxi (traditional)',p:40},{s:'Vending machines',p:45},{s:'Food trucks',p:50},{s:'Medical (private)',p:55},
+    {s:'Beauty/hairdressers',p:60},{s:'Public institutions',p:60},{s:'Small kiosks',p:65},{s:'Street parking',p:70}
+];
+new Chart(document.getElementById('terminalGaps'),{type:'bar',data:{
+    labels:tg.map(t=>t.s),datasets:[{label:'% with card terminal',data:tg.map(t=>t.p),backgroundColor:tg.map(t=>t.p<30?'rgba(232,93,117,0.8)':(t.p<50?'rgba(243,156,18,0.7)':'rgba(74,144,217,0.6)'))}]
+},options:{responsive:true,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'% of establishments with POS terminal'},max:100}}}});
+
+// Cash by size
+new Chart(document.getElementById('cashBySize'),{type:'bar',data:{
+    labels:['Under 10 PLN','10-50 PLN','50-100 PLN','100-500 PLN','Over 500 PLN'],
+    datasets:[
+        {label:'Cash %',data:[65,40,30,25,20],backgroundColor:'rgba(232,93,117,0.7)'},
+        {label:'Card %',data:[30,50,55,55,50],backgroundColor:'rgba(26,31,113,0.7)'},
+        {label:'BLIK %',data:[5,10,15,20,15],backgroundColor:'rgba(212,14,106,0.6)'},
+        {label:'Transfer %',data:[0,0,0,0,15],backgroundColor:'rgba(155,89,182,0.4)'}
+    ]
+},options:{responsive:true,scales:{x:{stacked:true},y:{stacked:true,max:100,title:{display:true,text:'% of payments'}}},plugins:{legend:{position:'bottom'}}}});
+
+// Trends
+new Chart(document.getElementById('trendsChart'),{type:'line',data:{
+    labels:['2019','2020','2021','2022','2023','2024'],
+    datasets:[
+        {label:'Card share at POS (%)',data:[44,50,53,55,57,58],borderColor:C.blue,tension:.3,pointRadius:5,fill:false},
+        {label:'Cash share at POS (%)',data:[54,47,43,40,37,35],borderColor:C.red,borderDash:[5,3],tension:.3,pointRadius:5,fill:false},
+        {label:'POS terminals (K)',data:[756,850,950,1060,1155,1250],borderColor:C.grn,tension:.3,pointRadius:4,yAxisID:'y1'},
+        {label:'Contactless % of card',data:[82,87,90,92,93,95],borderColor:C.org,tension:.3,pointRadius:4,yAxisID:'y1'}
+    ]
+},options:{responsive:true,interaction:{mode:'index',intersect:false},
+    scales:{y:{title:{display:true,text:'Payment share (%)'},max:65},y1:{position:'right',title:{display:true,text:'Terminals (K) / Contactless (%)'},grid:{drawOnChartArea:false}}},
+    plugins:{legend:{position:'bottom'}}}});
+
+// Recurring chart
+new Chart(document.getElementById('recurChart'),{type:'bar',data:{
+    labels:['One-time','2 visits','3-5 visits','6-11 visits','12+ (monthly)'],
+    datasets:[
+        {label:'Card-merchant pairs (M)',data:[66.2,13.6,11.1,5.1,4.1],backgroundColor:'rgba(74,144,217,0.6)',yAxisID:'y'},
+        {label:'% of total transactions',data:[21.7,8.9,13.4,13.2,42.8],type:'line',borderColor:C.gold,pointRadius:6,pointBackgroundColor:C.gold,yAxisID:'y1'}
+    ]
+},options:{responsive:true,interaction:{mode:'index',intersect:false},
+    scales:{y:{title:{display:true,text:'Pairs (millions)'}},y1:{position:'right',title:{display:true,text:'% of total TX'},grid:{drawOnChartArea:false}}},
+    plugins:{legend:{position:'bottom'}}}});
+</script>
+</body>
+</html>

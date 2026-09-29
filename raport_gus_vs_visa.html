@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa DataSprint - Card Payment Gap Analysis: Visa Transactions vs GUS Household Spending</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --visa-blue: #1A1F71; --visa-gold: #F7B600; --visa-light: #F0F4FF; --visa-dark: #0D1137;
+            --red: #E85D75; --green: #2ECC71; --orange: #F39C12; --purple: #9B59B6;
+            --gray100: #F7F8FA; --gray200: #E8ECF1; --gray600: #6B7280; --gray800: #1F2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--gray100); color: var(--gray800); line-height: 1.6; }
+
+        .header { background: linear-gradient(135deg, #0D1137, var(--visa-blue), #2A3090); color: white; padding: 44px 0; text-align: center; position: relative; overflow: hidden; }
+        .header::before { content: ''; position: absolute; top: -80%; right: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(247,182,0,0.12) 0%, transparent 70%); border-radius: 50%; }
+        .header h1 { font-size: 2.1em; font-weight: 700; margin-bottom: 8px; position: relative; }
+        .header .subtitle { font-size: 1em; opacity: 0.85; position: relative; max-width: 800px; margin: 0 auto; }
+        .header .badge { display: inline-block; background: var(--visa-gold); color: var(--visa-dark); padding: 4px 18px; border-radius: 20px; font-weight: 700; font-size: 0.82em; margin-top: 14px; position: relative; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+        .kpi-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: -36px 0 28px; position: relative; z-index: 10; }
+        .kpi-card { background: white; border-radius: 14px; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center; transition: transform 0.2s; }
+        .kpi-card:hover { transform: translateY(-3px); }
+        .kpi-card .val { font-size: 1.7em; font-weight: 800; color: var(--visa-blue); line-height: 1.2; }
+        .kpi-card .label { font-size: 0.78em; color: var(--gray600); text-transform: uppercase; letter-spacing: 0.4px; margin-top: 3px; }
+        .kpi-card .sub { font-size: 0.75em; color: var(--orange); margin-top: 2px; }
+
+        .section { margin-bottom: 32px; }
+        .section-title { font-size: 1.35em; font-weight: 700; color: var(--visa-blue); margin-bottom: 14px; padding-left: 12px; border-left: 4px solid var(--visa-gold); }
+
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 2px 14px rgba(0,0,0,0.04); }
+        .card-title { font-size: 1em; font-weight: 600; margin-bottom: 14px; }
+        .chart-container { position: relative; width: 100%; }
+
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.84em; }
+        .data-table th { background: var(--visa-light); color: var(--visa-blue); padding: 9px 10px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--gray200); white-space: nowrap; }
+        .data-table td { padding: 7px 10px; border-bottom: 1px solid var(--gray200); }
+        .data-table tr:hover td { background: var(--gray100); }
+        .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+        .data-table .bad { color: var(--red); font-weight: 600; }
+        .data-table .good { color: var(--green); font-weight: 600; }
+        .data-table .warn { color: var(--orange); font-weight: 600; }
+
+        .insight-box { background: linear-gradient(135deg, #FFF9E6, #FFF3CC); border-left: 4px solid var(--visa-gold); border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 0.9em; }
+        .insight-box strong { color: var(--visa-dark); }
+        .alert-box { background: linear-gradient(135deg, #FDE8EC, #FCDDE3); border-left: 4px solid var(--red); border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 0.9em; }
+        .alert-box strong { color: #8B1A2B; }
+        .green-box { background: linear-gradient(135deg, #E8F8F0, #D5F5E3); border-left: 4px solid var(--green); border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 0.9em; }
+        .green-box strong { color: #1B7A3D; }
+
+        .gap-indicator { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78em; font-weight: 600; }
+        .gap-high { background: #FDE8EC; color: #C0392B; }
+        .gap-med { background: #FFF3CC; color: #E67E22; }
+        .gap-low { background: #E8F8F0; color: #27AE60; }
+
+        .conclusion-card { background: white; border-radius: 14px; padding: 22px; box-shadow: 0 2px 14px rgba(0,0,0,0.04); border-top: 4px solid var(--visa-gold); }
+        .conclusion-card h3 { color: var(--visa-blue); margin-bottom: 10px; font-size: 1.02em; }
+        .conclusion-card ul { list-style: none; padding: 0; }
+        .conclusion-card li { padding: 4px 0 4px 18px; position: relative; font-size: 0.88em; }
+        .conclusion-card li::before { content: '\25B8'; position: absolute; left: 0; color: var(--visa-gold); font-weight: bold; }
+
+        .methodology { background: var(--visa-light); border-radius: 14px; padding: 20px 24px; margin-bottom: 28px; font-size: 0.88em; }
+        .methodology h3 { color: var(--visa-blue); margin-bottom: 8px; }
+
+        .footer { background: var(--visa-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 20px; margin-top: 40px; font-size: 0.82em; }
+        @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .kpi-section { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <h1>Card Payment Gap Analysis</h1>
+        <div class="subtitle">Cross-referencing Visa transaction data (305M transactions sample) with GUS household expenditure structure to identify spending categories where card payments are underutilized in Poland</div>
+        <div class="badge">VISA DATASPRINT HACKATHON 2026</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- METHODOLOGY -->
+    <div class="methodology" style="margin-top: 28px;">
+        <h3>Methodology</h3>
+        <p><strong>Approach:</strong> We compare the <em>structure</em> (% share) of real household spending from GUS Household Budget Survey (COICOP classification, 2024) with the <em>structure</em> of Visa card transactions by merchant category (MCC codes). The Visa data is a <strong>sample</strong> &mdash; absolute numbers don't represent total market size, but the <strong>proportional distribution</strong> across categories reveals where cards are over- or under-represented relative to actual consumer spending.</p>
+        <p><strong>Data sources:</strong> Visa synthetic transaction data (305.5M tx, Jan 2025 &ndash; Jun 2026) | GUS Household Budget Survey 2024 (avg 1,690 PLN/month per capita) | NBP payment statistics 2024</p>
+    </div>
+
+    <!-- KPI -->
+    <div class="kpi-section">
+        <div class="kpi-card">
+            <div class="val">1,690 PLN</div>
+            <div class="label">Monthly spend per capita</div>
+            <div class="sub">GUS 2024</div>
+        </div>
+        <div class="kpi-card">
+            <div class="val">55% / 45%</div>
+            <div class="label">Card vs Cash (by tx count)</div>
+            <div class="sub">NBP 2024</div>
+        </div>
+        <div class="kpi-card">
+            <div class="val">62% / 38%</div>
+            <div class="label">Card vs Cash (by value)</div>
+            <div class="sub">NBP 2024</div>
+        </div>
+        <div class="kpi-card">
+            <div class="val">9.5%</div>
+            <div class="label">E-commerce share of retail</div>
+            <div class="sub">GUS/Gemius 2024</div>
+        </div>
+        <div class="kpi-card">
+            <div class="val">4.2B</div>
+            <div class="label">BLIK transactions/year</div>
+            <div class="sub">competing with Visa</div>
+        </div>
+        <div class="kpi-card">
+            <div class="val">88.8%</div>
+            <div class="label">Physical card transactions</div>
+            <div class="sub">in Visa sample</div>
+        </div>
+    </div>
+
+    <!-- MAIN GAP TABLE -->
+    <div class="section">
+        <h2 class="section-title">COICOP vs MCC: The Spending Gap Map</h2>
+        <p style="color:var(--gray600);font-size:0.88em;margin-bottom:14px;">
+            Each row maps a GUS household spending category (COICOP) to the corresponding Visa merchant categories (MCC). The <strong>Gap Index</strong> shows how much card usage deviates from the expected spending share: &lt;100 = cards underused, &gt;100 = cards overused relative to total household spending.
+        </p>
+        <div class="card" style="overflow-x:auto;">
+            <table class="data-table" id="gapTable">
+                <thead>
+                    <tr>
+                        <th>COICOP Category</th>
+                        <th class="num">GUS Share (%)</th>
+                        <th class="num">Visa TX Share (%)</th>
+                        <th class="num">Visa Value Share (%)</th>
+                        <th class="num">Gap Index (value)</th>
+                        <th>Card Usage</th>
+                        <th>Key Barrier</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="alert-box" style="margin-top:16px;">
+            <strong>KEY FINDING:</strong> Housing/utilities (20.6% of spending) and Communications (4.0%) are nearly invisible in card data &mdash; together they represent ~25% of household budgets but less than 1% of card transactions. These payments flow through bank transfers and direct debits, representing the single largest "card-free zone" in Polish consumer spending.
+        </div>
+    </div>
+
+    <!-- VISUAL COMPARISON -->
+    <div class="section">
+        <h2 class="section-title">Visual: Where People Spend vs Where Cards Are Used</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">GUS Household Spending Structure (% of budget)</div>
+                <div class="chart-container"><canvas id="gusChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Visa Card Transaction Structure (% of value)</div>
+                <div class="chart-container"><canvas id="visaChart"></canvas></div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top:20px;">
+            <div class="card full-width">
+                <div class="card-title">Gap Index by Category (100 = proportional card usage; below 100 = underused)</div>
+                <div class="chart-container"><canvas id="gapIndexChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ONLINE VS OFFLINE -->
+    <div class="section">
+        <h2 class="section-title">Online vs Physical: Channel Gaps Within Categories</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Online share of transactions by category (top 15)</div>
+                <div class="chart-container"><canvas id="onlineShareChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Average transaction value: Online vs Physical</div>
+                <div class="chart-container"><canvas id="onlineAvgChart"></canvas></div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Insight:</strong> Groceries are 99.9% physical &mdash; online grocery (e.g. Frisco, Barbora) accounts for only 0.1% of food transactions by card. Similarly, pharmacies are 99.8% physical. Meanwhile, family clothing shows 16% of VALUE going through online channels (avg online order: 646 vs 179 in-store). The e-grocery and e-pharmacy markets represent massive untapped card transaction potential.
+        </div>
+    </div>
+
+    <!-- PAYMENT METHODS -->
+    <div class="section">
+        <h2 class="section-title">Payment Method Mix by Category</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Channel breakdown for top categories</div>
+                <div class="chart-container"><canvas id="channelMixChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Cash (ATM) withdrawals: where the cash goes</div>
+                <div class="chart-container"><canvas id="cashChart"></canvas></div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Insight:</strong> ATM/Cash withdrawals (FINANCIAL INST/AUTO CASH) have the highest average transaction value at 1,521 &mdash; 8.3x the overall average of 182. This cash is likely used for: rent payments, private medical services, informal economy, markets/bazaars, and small vendors without terminals. The 5.4M ATM transactions represent ~8.2 billion in value (14.7% of total) that flows into the cash economy.
+        </div>
+    </div>
+
+    <!-- DEEP DIVE: BIGGEST GAPS -->
+    <div class="section">
+        <h2 class="section-title">Deep Dive: The 5 Biggest Card-Free Zones</h2>
+        <div class="grid-3">
+            <div class="conclusion-card">
+                <h3>1. Housing &amp; Utilities</h3>
+                <ul>
+                    <li><strong>20.6% of spending</strong> but &lt;0.5% of card transactions</li>
+                    <li>Rent: paid by bank transfer (standing orders)</li>
+                    <li>Electricity, gas, water: direct debit or transfer</li>
+                    <li>Mortgage payments: automated bank deductions</li>
+                    <li>Only 469K utility card transactions found in entire dataset</li>
+                    <li><strong>Gap Index: 2</strong> (virtually zero card penetration)</li>
+                    <li><strong>Opportunity:</strong> Card-linked bill payment, utility autopay via card</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>2. Healthcare Services</h3>
+                <ul>
+                    <li><strong>5.5% of spending</strong> but ~2.5% of card value</li>
+                    <li>Pharmacies (Drug Stores): well covered (8.8M tx)</li>
+                    <li>Doctor visits: only 255K tx (0.08%) &mdash; cash dominates</li>
+                    <li>Hospitals: only 99K tx (0.03%)</li>
+                    <li>Dental: 76K tx + 35K lab tx</li>
+                    <li><strong>Gap Index: 46</strong> (half the expected card usage)</li>
+                    <li><strong>Opportunity:</strong> Terminal deployment in clinics, dental offices, physiotherapy</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>3. Communications / Telecom</h3>
+                <ul>
+                    <li><strong>4.0% of spending</strong> but &lt;0.1% of card transactions</li>
+                    <li>Phone bills: direct debit / bank transfer</li>
+                    <li>Internet subscriptions: same pattern</li>
+                    <li>Prepaid top-ups: BLIK or transfer</li>
+                    <li>Only 16 "Visaphone" transactions in entire dataset</li>
+                    <li><strong>Gap Index: ~1</strong> (effectively zero)</li>
+                    <li><strong>Opportunity:</strong> Card-on-file for recurring telecom payments</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>4. Education</h3>
+                <ul>
+                    <li><strong>1.1% of spending</strong> but &lt;0.03% of card transactions</li>
+                    <li>Schools/universities: 25K tx (tuition by transfer)</li>
+                    <li>Tutoring/private lessons: mostly cash</li>
+                    <li>Nurseries/childcare: 16.6K tx total</li>
+                    <li>Books/school supplies: 957K tx (better covered)</li>
+                    <li><strong>Gap Index: 3</strong></li>
+                    <li><strong>Opportunity:</strong> School fee payment platforms, edtech card integration</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>5. Home Furnishings &amp; Maintenance</h3>
+                <ul>
+                    <li><strong>4.4% of spending</strong> but ~2.6% of card value</li>
+                    <li>Home supply stores: 2.7M tx (Castorama, Leroy Merlin)</li>
+                    <li>Furniture stores: 656K tx</li>
+                    <li>But: home repair/plumber/electrician = cash</li>
+                    <li>Cleaning services: 27K tx only</li>
+                    <li>Household repair services: 31K tx</li>
+                    <li><strong>Gap Index: 59</strong></li>
+                    <li><strong>Opportunity:</strong> Service marketplace with card payments (like TaskRabbit)</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>6. Alcohol &amp; Tobacco</h3>
+                <ul>
+                    <li><strong>2.5% of spending</strong> but ~0.8% of card value</li>
+                    <li>Package stores (beer/wine/liquor): 1.6M tx</li>
+                    <li>Cigar stores: 880K tx</li>
+                    <li>But: kiosks, small vendors, corner shops = cash-heavy</li>
+                    <li>Nightclub/bar cash payments not captured</li>
+                    <li><strong>Gap Index: 32</strong></li>
+                    <li><strong>Opportunity:</strong> Terminal rollout to small kiosks and tobacco shops</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- WELL-COVERED CATEGORIES -->
+    <div class="section">
+        <h2 class="section-title">Where Cards ARE Well Used (Overrepresented)</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Categories with Gap Index &gt; 100 (card overrepresentation)</div>
+                <div class="chart-container"><canvas id="overrepChart"></canvas></div>
+            </div>
+            <div class="card" style="font-size:0.9em;">
+                <div class="card-title">Key observations on well-covered categories</div>
+                <div class="green-box">
+                    <strong>Food &amp; Groceries (GUS: 27.1% | Visa value: 25.3%)</strong><br>
+                    Near-perfect match. 80M supermarket + 47M convenience store transactions. Cards are the default payment method for grocery shopping in Poland. Gap Index: 93 (slightly under due to small shops/markets using cash).
+                </div>
+                <div class="green-box">
+                    <strong>Restaurants &amp; Hotels (GUS: 5.7% | Visa value: 9.6%)</strong><br>
+                    Overrepresented &mdash; Gap Index: 168. Card usage in gastronomy exceeds the GUS spending share. Possible reasons: business meals, tourist spending, higher-value dining tends to use cards. 30.2M restaurant + fast food transactions.
+                </div>
+                <div class="green-box">
+                    <strong>Transport (GUS: 9.1% | Visa value: 7.6%)</strong><br>
+                    Well covered. 16.1M fuel station + 4.2M taxi + 3.8M public transit + 2.8M parking transactions. Gap Index: 84. The gap comes from car purchases (financed separately) and car insurance (bank transfer).
+                </div>
+                <div class="green-box">
+                    <strong>Clothing (GUS: 4.4% | Visa value: 5.6%)</strong><br>
+                    Overrepresented &mdash; Gap Index: 127. Fashion retail has fully adopted card payments. Online fashion (Allegro, Zalando) drives up the card share. 9.9M clothing-related transactions.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUMMARY TABLE -->
+    <div class="section">
+        <h2 class="section-title">Summary: Card Payment Penetration by Spending Category</h2>
+        <div class="card" style="overflow-x:auto;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th class="num">GUS %</th>
+                        <th class="num">Visa %</th>
+                        <th class="num">Gap Index</th>
+                        <th>Status</th>
+                        <th>Primary Barrier</th>
+                        <th>Opportunity Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#FFF0F2"><td>Housing &amp; Utilities</td><td class="num">20.6%</td><td class="num">0.3%</td><td class="num bad">2</td><td><span class="gap-indicator gap-high">Card-Free Zone</span></td><td>Bank transfers, direct debit</td><td>Massive</td></tr>
+                    <tr style="background:#FFF0F2"><td>Communications</td><td class="num">4.0%</td><td class="num">~0%</td><td class="num bad">~1</td><td><span class="gap-indicator gap-high">Card-Free Zone</span></td><td>Direct debit, BLIK</td><td>Large</td></tr>
+                    <tr style="background:#FFF0F2"><td>Education</td><td class="num">1.1%</td><td class="num">0.03%</td><td class="num bad">3</td><td><span class="gap-indicator gap-high">Card-Free Zone</span></td><td>Bank transfers, cash</td><td>Small (1.1% base)</td></tr>
+                    <tr style="background:#FFF6F0"><td>Alcohol &amp; Tobacco</td><td class="num">2.5%</td><td class="num">0.8%</td><td class="num warn">32</td><td><span class="gap-indicator gap-med">Very Underused</span></td><td>Cash-only kiosks, small vendors</td><td>Medium</td></tr>
+                    <tr style="background:#FFF6F0"><td>Healthcare</td><td class="num">5.5%</td><td class="num">2.5%</td><td class="num warn">46</td><td><span class="gap-indicator gap-med">Underused</span></td><td>Cash at doctors, dentists</td><td>Large</td></tr>
+                    <tr style="background:#FFF6F0"><td>Home Furnishings</td><td class="num">4.4%</td><td class="num">2.6%</td><td class="num warn">59</td><td><span class="gap-indicator gap-med">Underused</span></td><td>Cash for services/repairs</td><td>Medium</td></tr>
+                    <tr><td>Recreation &amp; Culture</td><td class="num">6.9%</td><td class="num">5.1%</td><td class="num">74</td><td><span class="gap-indicator gap-med">Slightly Under</span></td><td>Cash at events, cinemas</td><td>Medium</td></tr>
+                    <tr><td>Transport</td><td class="num">9.1%</td><td class="num">7.6%</td><td class="num">84</td><td><span class="gap-indicator gap-low">Well Covered</span></td><td>Insurance by transfer</td><td>Small</td></tr>
+                    <tr style="background:#F0FFF5"><td>Food &amp; Groceries</td><td class="num">27.1%</td><td class="num">25.3%</td><td class="num good">93</td><td><span class="gap-indicator gap-low">Well Covered</span></td><td>Small shops, markets</td><td>Small</td></tr>
+                    <tr style="background:#F0FFF5"><td>Other Goods &amp; Services</td><td class="num">8.7%</td><td class="num">9.5%</td><td class="num good">109</td><td><span class="gap-indicator gap-low">Well Covered</span></td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr style="background:#F0FFF5"><td>Clothing &amp; Footwear</td><td class="num">4.4%</td><td class="num">5.6%</td><td class="num good">127</td><td><span class="gap-indicator gap-low">Overrepresented</span></td><td>&mdash;</td><td>&mdash;</td></tr>
+                    <tr style="background:#F0FFF5"><td>Restaurants &amp; Hotels</td><td class="num">5.7%</td><td class="num">9.6%</td><td class="num good">168</td><td><span class="gap-indicator gap-low">Overrepresented</span></td><td>&mdash;</td><td>&mdash;</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CONCLUSIONS -->
+    <div class="section">
+        <h2 class="section-title">Strategic Conclusions</h2>
+        <div class="grid-2">
+            <div class="conclusion-card">
+                <h3>The Recurring Payments Opportunity</h3>
+                <ul>
+                    <li>Housing (20.6%) + Communications (4.0%) = <strong>24.6% of all spending is invisible to cards</strong></li>
+                    <li>These are recurring, predictable payments &mdash; ideal for card-on-file</li>
+                    <li>In markets like UK/US, utility and telecom payments on card are common</li>
+                    <li>Poland's bank transfer infrastructure is excellent, creating a high switching cost</li>
+                    <li><strong>Strategy:</strong> Partner with utility providers for card-on-file autopay with cashback incentives. Target the ~14.5M households each paying ~416 PLN/month on housing + 68 PLN on telecom</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>The Cash Economy in Services</h3>
+                <ul>
+                    <li>Doctor visits (255K tx), dental (76K tx), home repairs (31K tx) are disproportionately low</li>
+                    <li>These are high-value, in-person transactions &mdash; exactly where cash persists</li>
+                    <li>Private medical sector in Poland is large (~40% of healthcare spending)</li>
+                    <li>Plumbers, electricians, tutors = gray economy + cash preference</li>
+                    <li><strong>Strategy:</strong> Terminal deployment programs for medical clinics, dental offices. Partner with service platforms (Fixly, Oferteo) for card payment integration</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>The E-Commerce Card Gap</h3>
+                <ul>
+                    <li>E-commerce is 9.5% of retail but BLIK dominates online payments in Poland</li>
+                    <li>Groceries: 99.9% physical, 0.1% online &mdash; e-grocery is nascent</li>
+                    <li>Pharmacies: 99.8% physical &mdash; e-pharmacy growing but tiny</li>
+                    <li>Online clothing avg transaction: 646 vs 179 in-store (3.6x higher)</li>
+                    <li><strong>Strategy:</strong> Position Visa as preferred payment for e-grocery and e-pharmacy growth. Online transactions have higher average value = more revenue per transaction</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>The ATM Indicator</h3>
+                <ul>
+                    <li>5.4M ATM transactions with avg withdrawal of 1,521 (8.3x avg card tx)</li>
+                    <li>ATM cash = 14.7% of all transaction value in the dataset</li>
+                    <li>This cash flows into card-free zones: rent, doctors, markets, services</li>
+                    <li>High ATM avg suggests deliberate cash-for-purpose withdrawals, not pocket money</li>
+                    <li><strong>Strategy:</strong> Track ATM usage patterns to identify where cash is flowing. Correlate high-ATM areas with low-terminal-density areas. Target these zones for merchant acquisition</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    Visa DataSprint Hackathon 2026 | Cross-analysis: Visa transaction sample (305.5M tx) x GUS Household Budget Survey 2024 x NBP Payment Statistics | Synthetic data
+</div>
+
+<script>
+const C = {
+    blue: '#1A1F71', gold: '#F7B600', red: '#E85D75', green: '#2ECC71', orange: '#F39C12', purple: '#9B59B6',
+    accent: ['#4A90D9','#E85D75','#2ECC71','#F39C12','#9B59B6','#1ABC9C','#E74C3C','#3498DB','#E67E22','#8E44AD','#16A085','#C0392B']
+};
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+Chart.defaults.font.size = 11;
+
+// Data
+const categories = [
+    {name:"Food & Groceries",gus:27.1,visa_tx:41.73,visa_val:25.33,gap:93,online_pct:0.1},
+    {name:"Housing & Utilities",gus:20.6,visa_tx:0.15,visa_val:0.30,gap:2,online_pct:0},
+    {name:"Transport",gus:9.1,visa_tx:8.88,visa_val:7.62,gap:84,online_pct:0.5},
+    {name:"Other Goods & Services",gus:8.7,visa_tx:8.2,visa_val:9.5,gap:109,online_pct:5},
+    {name:"Recreation & Culture",gus:6.9,visa_tx:5.8,visa_val:5.1,gap:74,online_pct:12},
+    {name:"Restaurants & Hotels",gus:5.7,visa_tx:10.52,visa_val:9.55,gap:168,online_pct:5.5},
+    {name:"Health",gus:5.5,visa_tx:3.01,visa_val:2.54,gap:46,online_pct:0.2},
+    {name:"Clothing & Footwear",gus:4.4,visa_tx:3.62,visa_val:5.55,gap:127,online_pct:5},
+    {name:"Home Furnishings",gus:4.4,visa_tx:1.48,visa_val:2.59,gap:59,online_pct:3},
+    {name:"Communications",gus:4.0,visa_tx:0.01,visa_val:0.01,gap:1,online_pct:0},
+    {name:"Alcohol & Tobacco",gus:2.5,visa_tx:0.82,visa_val:0.78,gap:32,online_pct:1},
+    {name:"Education",gus:1.1,visa_tx:0.02,visa_val:0.03,gap:3,online_pct:10}
+];
+
+// Gap Table
+const gapTbody = document.querySelector('#gapTable tbody');
+const barriers = {
+    "Food & Groceries": "Small shops, open-air markets (cash)",
+    "Housing & Utilities": "Bank transfers, direct debit standard",
+    "Transport": "Car insurance/purchase via transfer",
+    "Other Goods & Services": "Mixed",
+    "Recreation & Culture": "Cash at venues, events, cinemas",
+    "Restaurants & Hotels": "Well adopted",
+    "Health": "Cash at private doctors, dentists",
+    "Clothing & Footwear": "Well adopted + online growth",
+    "Home Furnishings": "Cash for services/repairs/tradesmen",
+    "Communications": "Direct debit, BLIK, bank transfer",
+    "Alcohol & Tobacco": "Cash-only kiosks, small vendors",
+    "Education": "Bank transfers for tuition, cash for tutoring"
+};
+
+categories.sort((a,b) => a.gap - b.gap);
+categories.forEach(c => {
+    const cls = c.gap <= 10 ? 'bad' : (c.gap < 70 ? 'warn' : 'good');
+    const label = c.gap <= 10 ? 'gap-high' : (c.gap < 70 ? 'gap-med' : 'gap-low');
+    const text = c.gap <= 10 ? 'Card-Free Zone' : (c.gap < 70 ? 'Underused' : (c.gap <= 100 ? 'Well Covered' : 'Overrepresented'));
+    const bg = c.gap <= 10 ? 'background:#FFF0F2;' : (c.gap < 70 ? 'background:#FFF8F0;' : '');
+    gapTbody.innerHTML += `<tr style="${bg}">
+        <td><strong>${c.name}</strong></td>
+        <td class="num">${c.gus.toFixed(1)}%</td>
+        <td class="num">${c.visa_tx.toFixed(2)}%</td>
+        <td class="num">${c.visa_val.toFixed(2)}%</td>
+        <td class="num ${cls}">${c.gap}</td>
+        <td><span class="gap-indicator ${label}">${text}</span></td>
+        <td style="font-size:0.85em;">${barriers[c.name] || ''}</td>
+    </tr>`;
+});
+
+// GUS pie chart
+const gusSorted = [...categories].sort((a,b) => b.gus - a.gus);
+new Chart(document.getElementById('gusChart'), {
+    type: 'doughnut',
+    data: {
+        labels: gusSorted.map(c => c.name + ' (' + c.gus + '%)'),
+        datasets: [{ data: gusSorted.map(c => c.gus), backgroundColor: C.accent }]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } } }
+});
+
+// Visa pie chart
+const visaSorted = [...categories].sort((a,b) => b.visa_val - a.visa_val);
+new Chart(document.getElementById('visaChart'), {
+    type: 'doughnut',
+    data: {
+        labels: visaSorted.map(c => c.name + ' (' + c.visa_val.toFixed(1) + '%)'),
+        datasets: [{ data: visaSorted.map(c => c.visa_val), backgroundColor: C.accent }]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'right', labels: { font: { size: 10 } } } } }
+});
+
+// Gap Index chart
+const gapSorted = [...categories].sort((a,b) => a.gap - b.gap);
+new Chart(document.getElementById('gapIndexChart'), {
+    type: 'bar',
+    data: {
+        labels: gapSorted.map(c => c.name),
+        datasets: [{
+            label: 'Gap Index (100 = proportional)',
+            data: gapSorted.map(c => c.gap),
+            backgroundColor: gapSorted.map(c => c.gap <= 10 ? 'rgba(232,93,117,0.8)' : (c.gap < 70 ? 'rgba(243,156,18,0.7)' : (c.gap <= 100 ? 'rgba(74,144,217,0.6)' : 'rgba(46,204,113,0.7)')))
+        }]
+    },
+    options: {
+        responsive: true, indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Gap Index (100 = expected card share matches spending share)' } } }
+    }
+});
+
+// Online share chart
+const onlineData = [
+    {cat:"Family Clothing", online_tx_pct: 5.0, online_val_pct: 16.0},
+    {cat:"Fast Food", online_tx_pct: 7.7, online_val_pct: 14.8},
+    {cat:"Restaurants", online_tx_pct: 5.5, online_val_pct: 6.8},
+    {cat:"Online Marketplaces", online_tx_pct: 99.5, online_val_pct: 99.8},
+    {cat:"Large Digital Goods", online_tx_pct: 98.0, online_val_pct: 97.5},
+    {cat:"Cosmetic Stores", online_tx_pct: 2.8, online_val_pct: 8.7},
+    {cat:"Misc Food Stores", online_tx_pct: 0.6, online_val_pct: 2.4},
+    {cat:"Grocery/Supermarket", online_tx_pct: 0.12, online_val_pct: 0.35},
+    {cat:"Drug Stores/Pharmacy", online_tx_pct: 0.18, online_val_pct: 0.60},
+    {cat:"Bakeries", online_tx_pct: 0.02, online_val_pct: 0.18},
+    {cat:"Service Stations", online_tx_pct: 0.47, online_val_pct: 0.75},
+    {cat:"ATM/Financial", online_tx_pct: 0.03, online_val_pct: 0.05}
+].sort((a,b) => b.online_val_pct - a.online_val_pct);
+
+new Chart(document.getElementById('onlineShareChart'), {
+    type: 'bar',
+    data: {
+        labels: onlineData.map(d => d.cat),
+        datasets: [
+            { label: '% of TX online', data: onlineData.map(d => d.online_tx_pct), backgroundColor: 'rgba(74,144,217,0.7)' },
+            { label: '% of Value online', data: onlineData.map(d => d.online_val_pct), backgroundColor: 'rgba(247,182,0,0.7)' }
+        ]
+    },
+    options: {
+        responsive: true, indexAxis: 'y',
+        scales: { x: { title: { display: true, text: '% online' }, max: 100 } },
+        plugins: { legend: { position: 'bottom' } }
+    }
+});
+
+// Online vs Physical avg
+const avgData = [
+    {cat:"Family Clothing", phys: 179, online: 646},
+    {cat:"Cosmetic Stores", phys: 117, online: 394},
+    {cat:"Grocery", phys: 131, online: 402},
+    {cat:"Drug Store/Pharmacy", phys: 143, online: 479},
+    {cat:"Misc Food Stores", phys: 59, online: 259},
+    {cat:"Fast Food", phys: 64, online: 133},
+    {cat:"Restaurants", phys: 121, online: 152},
+    {cat:"Service Stations", phys: 216, online: 344}
+];
+
+new Chart(document.getElementById('onlineAvgChart'), {
+    type: 'bar',
+    data: {
+        labels: avgData.map(d => d.cat),
+        datasets: [
+            { label: 'Physical avg', data: avgData.map(d => d.phys), backgroundColor: 'rgba(74,144,217,0.7)' },
+            { label: 'Online avg', data: avgData.map(d => d.online), backgroundColor: 'rgba(232,93,117,0.7)' }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: { title: { display: true, text: 'Average transaction value' } } }
+    }
+});
+
+// Channel mix chart
+const channelCats = ['Grocery','Fast Food','Restaurants','Fuel Stations','Pharmacies','Clothing','Bakeries','Taxis','Parking','Cosmetics'];
+const contactless = [55.2, 48.5, 41.3, 38.5, 52.1, 40.2, 60.1, 12.5, 45.8, 53.2];
+const mobile =      [43.8, 42.8, 47.5, 52.0, 46.1, 48.3, 39.2, 82.1, 48.5, 43.8];
+const eci =         [0.1,  7.7,  5.5,  0.5,  0.2,  5.0,  0.0,  0.1,  0.1,  2.8];
+const otherCh =     [0.9,  1.0,  5.7,  9.0,  1.6,  6.5,  0.7,  5.3,  5.6,  0.2];
+
+new Chart(document.getElementById('channelMixChart'), {
+    type: 'bar',
+    data: {
+        labels: channelCats,
+        datasets: [
+            { label: 'Contactless', data: contactless, backgroundColor: 'rgba(74,144,217,0.8)' },
+            { label: 'Mobile', data: mobile, backgroundColor: 'rgba(46,204,113,0.8)' },
+            { label: 'E-commerce', data: eci, backgroundColor: 'rgba(243,156,18,0.8)' },
+            { label: 'Other (chip/cash/moto)', data: otherCh, backgroundColor: 'rgba(155,89,182,0.5)' }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: { x: { stacked: true }, y: { stacked: true, max: 100, title: { display: true, text: '% of transactions' } } },
+        plugins: { legend: { position: 'bottom' } }
+    }
+});
+
+// Cash flow chart
+new Chart(document.getElementById('cashChart'), {
+    type: 'bar',
+    data: {
+        labels: ['ATM Withdrawals','Average ATM Amount','Estimated Cash Economy Value'],
+        datasets: [{
+            data: [5.4, 1521, 8157],
+            backgroundColor: [C.accent[0], C.gold, C.red]
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+            y: { title: { display: true, text: 'Value' } },
+            x: {}
+        }
+    }
+});
+
+// Overrepresented chart
+const overrep = categories.filter(c => c.gap >= 80).sort((a,b) => b.gap - a.gap);
+new Chart(document.getElementById('overrepChart'), {
+    type: 'bar',
+    data: {
+        labels: overrep.map(c => c.name),
+        datasets: [
+            { label: 'GUS spending share (%)', data: overrep.map(c => c.gus), backgroundColor: 'rgba(74,144,217,0.6)' },
+            { label: 'Visa value share (%)', data: overrep.map(c => c.visa_val), backgroundColor: 'rgba(46,204,113,0.7)' }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: { title: { display: true, text: '% share' } } }
+    }
+});
+</script>
+
+</body>
+</html>

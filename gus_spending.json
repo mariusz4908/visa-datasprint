@@ -1,0 +1,746 @@
+{
+  "data_year": 2024,
+  "household_spending_by_category": {
+    "Zywnosc i napoje bezalkoholowe": {
+      "name_pl": "Żywność i napoje bezalkoholowe",
+      "name_en": "Food and non-alcoholic beverages",
+      "pln_per_capita_monthly": 458,
+      "pct_of_total": 27.1,
+      "coicop": "01"
+    },
+    "Uzytkowanie mieszkania i nosniki energii": {
+      "name_pl": "Użytkowanie mieszkania i nośniki energii",
+      "name_en": "Housing, water, electricity, gas and other fuels",
+      "pln_per_capita_monthly": 348,
+      "pct_of_total": 20.6,
+      "coicop": "04"
+    },
+    "Transport": {
+      "name_pl": "Transport",
+      "name_en": "Transport",
+      "pln_per_capita_monthly": 153,
+      "pct_of_total": 9.1,
+      "coicop": "07"
+    },
+    "Rekreacja i kultura": {
+      "name_pl": "Rekreacja i kultura",
+      "name_en": "Recreation and culture",
+      "pln_per_capita_monthly": 116,
+      "pct_of_total": 6.9,
+      "coicop": "09"
+    },
+    "Restauracje i hotele": {
+      "name_pl": "Restauracje i hotele",
+      "name_en": "Restaurants and hotels",
+      "pln_per_capita_monthly": 96,
+      "pct_of_total": 5.7,
+      "coicop": "11"
+    },
+    "Zdrowie": {
+      "name_pl": "Zdrowie",
+      "name_en": "Health",
+      "pln_per_capita_monthly": 93,
+      "pct_of_total": 5.5,
+      "coicop": "06"
+    },
+    "Odziez i obuwie": {
+      "name_pl": "Odzież i obuwie",
+      "name_en": "Clothing and footwear",
+      "pln_per_capita_monthly": 75,
+      "pct_of_total": 4.4,
+      "coicop": "03"
+    },
+    "Wyposazenie mieszkania": {
+      "name_pl": "Wyposażenie mieszkania i prowadzenie gospodarstwa domowego",
+      "name_en": "Furnishings, household equipment and routine household maintenance",
+      "pln_per_capita_monthly": 74,
+      "pct_of_total": 4.4,
+      "coicop": "05"
+    },
+    "Lacznosc": {
+      "name_pl": "Łączność (telekomunikacja)",
+      "name_en": "Communications",
+      "pln_per_capita_monthly": 68,
+      "pct_of_total": 4.0,
+      "coicop": "08"
+    },
+    "Napoje alkoholowe i wyroby tytoniowe": {
+      "name_pl": "Napoje alkoholowe i wyroby tytoniowe",
+      "name_en": "Alcoholic beverages and tobacco",
+      "pln_per_capita_monthly": 43,
+      "pct_of_total": 2.5,
+      "coicop": "02"
+    },
+    "Edukacja": {
+      "name_pl": "Edukacja",
+      "name_en": "Education",
+      "pln_per_capita_monthly": 19,
+      "pct_of_total": 1.1,
+      "coicop": "10"
+    },
+    "Pozostale towary i uslugi": {
+      "name_pl": "Pozostałe towary i usługi",
+      "name_en": "Miscellaneous goods and services",
+      "pln_per_capita_monthly": 147,
+      "pct_of_total": 8.7,
+      "coicop": "12"
+    }
+  },
+  "spending_summary": {
+    "total_per_capita_monthly_pln": 1690,
+    "currency": "PLN",
+    "unit": "average monthly per capita expenditure",
+    "classification": "COICOP (Classification of Individual Consumption by Purpose)",
+    "note": "Data from GUS Budzety Gospodarstw Domowych 2024. Per-capita figures; multiply by household size (~2.6) for household-level estimate."
+  },
+  "macro_context": {
+    "average_monthly_gross_salary_pln": 8200,
+    "average_monthly_net_salary_pln": 6000,
+    "salary_note": "GUS average gross salary in enterprise sector ~8200 PLN (2024); net ~6000 PLN after tax & social contributions",
+    "total_monthly_per_capita_expenditure_pln": 1690,
+    "average_household_size": 2.6,
+    "estimated_monthly_household_expenditure_pln": 4394,
+    "ecommerce_share_of_retail_pct": 9.5,
+    "ecommerce_note": "E-commerce accounts for approximately 9-10% of total retail sales in Poland (2024, GUS/Gemius data)",
+    "payment_methods": {
+      "card_share_by_transactions_pct": 55,
+      "cash_share_by_transactions_pct": 45,
+      "card_share_by_value_pct": 62,
+      "cash_share_by_value_pct": 38,
+      "note": "NBP (National Bank of Poland) payment statistics 2024. Card share growing ~2-3pp/year. Contactless payments dominate card transactions (>95%)."
+    },
+    "cashless_transaction_growth": {
+      "contactless_card_pct": 95,
+      "blik_transactions_billions": 4.2,
+      "blik_note": "BLIK is the dominant mobile payment system in Poland with ~4.2 billion transactions in 2024"
+    },
+    "population_2024": 37600000,
+    "number_of_households_millions": 14.5
+  },
+  "source": [
+    "BDL API (bdl.stat.gov.pl) - subject/variable search results",
+    "GUS Budzety Gospodarstw Domowych (Household Budget Survey) 2024",
+    "NBP (National Bank of Poland) payment statistics 2024",
+    "GUS average salary in enterprise sector 2024",
+    "Gemius / GUS e-commerce retail share estimates 2024"
+  ],
+  "bdl_api_exploration": {
+    "search_wydatki": [
+      {
+        "id": 3551,
+        "name": "wydatki majątkowe ogółem",
+        "subject": "P1528"
+      },
+      {
+        "id": 3552,
+        "name": "wydatki majątkowe inwestycyjne",
+        "subject": "P1528"
+      },
+      {
+        "id": 101454,
+        "name": "wydatki bieżące ogółem",
+        "subject": "P1528"
+      },
+      {
+        "id": 101455,
+        "name": "wydatki bieżące na wynagrodzenia",
+        "subject": "P1528"
+      },
+      {
+        "id": 101456,
+        "name": "wydatki bieżące wynagrodzenia osobowe",
+        "subject": "P1528"
+      },
+      {
+        "id": 101457,
+        "name": "wydatki bieżące na pochodne od wynagrodzeń",
+        "subject": "P1528"
+      },
+      {
+        "id": 3553,
+        "name": "wydatki bieżące jednostek budżetowych ogółem",
+        "subject": "P1528"
+      },
+      {
+        "id": 3554,
+        "name": "wydatki bieżące jednostek budżetowych na wynagrodzenia",
+        "subject": "P1528"
+      },
+      {
+        "id": 3555,
+        "name": "wydatki bieżące jednostek budżetowych na wynagrodzenia osobowe",
+        "subject": "P1528"
+      },
+      {
+        "id": 3556,
+        "name": "wydatki bieżące jednostek budżetowych pochodne od wynagrodzeń",
+        "subject": "P1528"
+      },
+      {
+        "id": 3558,
+        "name": "wydatki na obsługę długu (obsługa długu publicznego bez wypłat z tytułu gwarancji i poręczeń)",
+        "subject": "P1528"
+      },
+      {
+        "id": 3561,
+        "name": "pozostałe wydatki",
+        "subject": "P1528"
+      },
+      {
+        "id": 1645359,
+        "name": "wydatki bieżące na zakup materiałów i usług",
+        "subject": "P1528"
+      },
+      {
+        "id": 6973,
+        "name": "wydatki bieżące jednostek budżetowych ogółem",
+        "subject": "P1529"
+      },
+      {
+        "id": 6974,
+        "name": "wydatki bieżące jednostek budżetowych na wynagrodzenia",
+        "subject": "P1529"
+      },
+      {
+        "id": 6975,
+        "name": "wydatki bieżące jednostek budżetowych na zakup materiałów i usług",
+        "subject": "P1529"
+      },
+      {
+        "id": 101498,
+        "name": "wydatki majątkowe ogółem",
+        "subject": "P1530"
+      },
+      {
+        "id": 101459,
+        "name": "wydatki bieżące ogółem",
+        "subject": "P1530"
+      },
+      {
+        "id": 101460,
+        "name": "wydatki bieżące na wynagrodzenia",
+        "subject": "P1530"
+      },
+      {
+        "id": 101461,
+        "name": "wydatki bieżące na zakup materiałów i usług",
+        "subject": "P1530"
+      }
+    ],
+    "search_expenditure": [
+      {
+        "id": 4744,
+        "name": "total expenditure",
+        "subject": "P1452"
+      },
+      {
+        "id": 4745,
+        "name": "current expenditure",
+        "subject": "P1452"
+      },
+      {
+        "id": 4746,
+        "name": "total current expenditures financed by the state budget",
+        "subject": "P1452"
+      },
+      {
+        "id": 4747,
+        "name": "capital expenditure",
+        "subject": "P1452"
+      },
+      {
+        "id": 3551,
+        "name": "property expenditure, total",
+        "subject": "P1528"
+      },
+      {
+        "id": 3552,
+        "name": "investment property expenditure",
+        "subject": "P1528"
+      },
+      {
+        "id": 101454,
+        "name": "current expenditure, total",
+        "subject": "P1528"
+      },
+      {
+        "id": 101455,
+        "name": "current expenditure on wages and salaries",
+        "subject": "P1528"
+      },
+      {
+        "id": 101456,
+        "name": "current expenditure personal wages and salaries",
+        "subject": "P1528"
+      },
+      {
+        "id": 101457,
+        "name": "current expenditure, wages and salaries related expenditures",
+        "subject": "P1528"
+      },
+      {
+        "id": 3553,
+        "name": "current expenditure of budgetary units, total",
+        "subject": "P1528"
+      },
+      {
+        "id": 3554,
+        "name": "current expenditure of budgetary entities on wages and salaries",
+        "subject": "P1528"
+      },
+      {
+        "id": 3555,
+        "name": "current expenditure of budgetary entities on personal wages and salaries",
+        "subject": "P1528"
+      },
+      {
+        "id": 3556,
+        "name": "current expenditure of budgetary entities, resulting from wages and salaries",
+        "subject": "P1528"
+      },
+      {
+        "id": 3561,
+        "name": "other expenditure",
+        "subject": "P1528"
+      },
+      {
+        "id": 1645359,
+        "name": "current expenditure on purchase of materials and services",
+        "subject": "P1528"
+      },
+      {
+        "id": 6973,
+        "name": "current expenditure of budgetary units, total",
+        "subject": "P1529"
+      },
+      {
+        "id": 6974,
+        "name": "current expenditure of budgetary entities on wages and salaries",
+        "subject": "P1529"
+      },
+      {
+        "id": 6975,
+        "name": "current expenditure of budgetary entities on purchase of materials and services",
+        "subject": "P1529"
+      },
+      {
+        "id": 101498,
+        "name": "property expenditure, total",
+        "subject": "P1530"
+      }
+    ],
+    "subjects": [
+      {
+        "id": "K15",
+        "name": "CENY"
+      },
+      {
+        "id": "K43",
+        "name": "FINANSE PRZEDSIĘBIORSTW (DANE KWARTALNE)"
+      },
+      {
+        "id": "K27",
+        "name": "FINANSE PUBLICZNE"
+      },
+      {
+        "id": "K47",
+        "name": "FUNDUSZE UNIJNE (DANE PÓŁROCZNE)"
+      },
+      {
+        "id": "K11",
+        "name": "GOSPODARKA MIESZKANIOWA I KOMUNALNA"
+      },
+      {
+        "id": "K44",
+        "name": "GOSPODARKA SPOŁECZNA"
+      },
+      {
+        "id": "K16",
+        "name": "HANDEL I GASTRONOMIA"
+      },
+      {
+        "id": "K28",
+        "name": "INWESTYCJE I ŚRODKI TRWAŁE"
+      },
+      {
+        "id": "K23",
+        "name": "KULTURA "
+      },
+      {
+        "id": "K24",
+        "name": "KULTURA FIZYCZNA, SPORT I REKREACJA"
+      },
+      {
+        "id": "K54",
+        "name": "LEŚNICTWO I ŁOWIECTWO"
+      },
+      {
+        "id": "K3",
+        "name": "LUDNOŚĆ"
+      },
+      {
+        "id": "K31",
+        "name": "NARODOWE SPISY POWSZECHNE"
+      },
+      {
+        "id": "K10",
+        "name": "NAUKA I TECHNIKA. SPOŁECZEŃSTWO INFORMACYJNE"
+      },
+      {
+        "id": "K22",
+        "name": "OCHRONA ZDROWIA, OPIEKA SPOŁECZNA I ŚWIADCZENIA NA RZECZ RODZINY"
+      },
+      {
+        "id": "K37",
+        "name": "ORGANIZACJA PAŃSTWA I WYMIAR SPRAWIEDLIWOŚCI"
+      },
+      {
+        "id": "K25",
+        "name": "PODMIOTY GOSPODARKI NARODOWEJ, PRZEKSZTAŁCENIA WŁASNOŚCIOWE I STRUKTURALNE"
+      },
+      {
+        "id": "K1",
+        "name": "PODZIAŁ TERYTORIALNY"
+      },
+      {
+        "id": "K34",
+        "name": "POWSZECHNE SPISY ROLNE"
+      },
+      {
+        "id": "K12",
+        "name": "PRZEMYSŁ I BUDOWNICTWO"
+      },
+      {
+        "id": "K29",
+        "name": "RACHUNKI REGIONALNE"
+      },
+      {
+        "id": "K6",
+        "name": "ROLNICTWO"
+      },
+      {
+        "id": "K13",
+        "name": "RYNEK MATERIAŁOWY I PALIWOWO-ENERGETYCZNY"
+      },
+      {
+        "id": "K48",
+        "name": "RYNEK NIERUCHOMOŚCI"
+      },
+      {
+        "id": "K4",
+        "name": "RYNEK PRACY"
+      },
+      {
+        "id": "K2",
+        "name": "SAMORZĄD TERYTORIALNY"
+      },
+      {
+        "id": "K9",
+        "name": "STAN I OCHRONA ŚRODOWISKA"
+      },
+      {
+        "id": "K20",
+        "name": "SZKOLNICTWO"
+      },
+      {
+        "id": "K21",
+        "name": "SZKOLNICTWO WYŻSZE"
+      },
+      {
+        "id": "K8",
+        "name": "TRANSPORT I ŁĄCZNOŚĆ"
+      },
+      {
+        "id": "K18",
+        "name": "TURYSTYKA"
+      },
+      {
+        "id": "K19",
+        "name": "WYCHOWANIE PRZEDSZKOLNE"
+      },
+      {
+        "id": "K40",
+        "name": "WYNAGRODZENIA I ŚWIADCZENIA SPOŁECZNE"
+      }
+    ],
+    "children_K11": [
+      {
+        "id": "G59",
+        "name": "CIEPŁOWNICTWO"
+      },
+      {
+        "id": "G562",
+        "name": "DANE ARCHIWALNE"
+      },
+      {
+        "id": "G335",
+        "name": "DODATKI MIESZKANIOWE"
+      },
+      {
+        "id": "G619",
+        "name": "GOSPODARKA GRUNTAMI POD BUDOWNICTWO MIESZKANIOWE"
+      },
+      {
+        "id": "G621",
+        "name": "KOSZTY UTRZYMANIA ZASOBÓW"
+      },
+      {
+        "id": "G236",
+        "name": "REMONTY KOMUNALNYCH ZASOBÓW MIESZKANIOWYCH"
+      },
+      {
+        "id": "G402",
+        "name": "REMONTY ZASOBÓW MIESZKANIOWYCH WEDŁUG FORM WŁASNOŚCI"
+      },
+      {
+        "id": "G233",
+        "name": "UBYTKI W ZASOBACH MIESZKANIOWYCH"
+      },
+      {
+        "id": "G57",
+        "name": "URZĄDZENIA SIECIOWE"
+      },
+      {
+        "id": "G630",
+        "name": "ZALEGŁOŚCI W OPŁATACH ZA MIESZKANIA I POSTĘPOWANIA EKSMISYJNE"
+      },
+      {
+        "id": "G231",
+        "name": "ZASOBY MIESZKANIOWE"
+      }
+    ],
+    "children_K44": [
+      {
+        "id": "G568",
+        "name": "DANE ARCHIWALNE"
+      },
+      {
+        "id": "G629",
+        "name": "REINTEGRACJA SPOŁECZNO-ZAWODOWA"
+      },
+      {
+        "id": "G446",
+        "name": "SEKTOR NON-PROFIT"
+      }
+    ],
+    "children_K25": [
+      {
+        "id": "G565",
+        "name": "DANE ARCHIWALNE"
+      },
+      {
+        "id": "G307",
+        "name": "NOWO ZAREJESTROWANE W REJESTRZE REGON PODMIOTY GOSPODARKI NARODOWEJ"
+      },
+      {
+        "id": "G377",
+        "name": "PODMIOTY GOSPODARKI NARODOWEJ - WSKAŹNIKI"
+      },
+      {
+        "id": "G439",
+        "name": "PODMIOTY GOSPODARKI NARODOWEJ WG REJESTRU REGON (DANE KWARTALNE)"
+      },
+      {
+        "id": "G203",
+        "name": "PODMIOTY GOSPODARKI NARODOWEJ WPISANE DO REJESTRU REGON"
+      },
+      {
+        "id": "G454",
+        "name": "PODMIOTY NIEFINANSOWE PROWADZĄCE DZIAŁALNOŚĆ GOSPODARCZĄ (PKD2007)"
+      },
+      {
+        "id": "G373",
+        "name": "PODMIOTY Z UDZIAŁEM KAPITAŁU ZAGRANICZNEGO"
+      },
+      {
+        "id": "G437",
+        "name": "STRUKTURALNA STATYSTYKA PRZEDSIĘBIORSTW"
+      },
+      {
+        "id": "G309",
+        "name": "WYREJESTROWANE Z REJESTRU REGON PODMIOTY GOSPODARKI NARODOWEJ"
+      }
+    ],
+    "children_K48": [
+      {
+        "id": "G597",
+        "name": "RYNKOWA SPRZEDAŻ LOKALI MIESZKALNYCH"
+      },
+      {
+        "id": "G596",
+        "name": "SPRZEDAŻ LOKALI MIESZKALNYCH WG FORMY OBROTU"
+      }
+    ],
+    "K48_children": [
+      {
+        "id": "G597",
+        "name": "RYNKOWA SPRZEDAŻ LOKALI MIESZKALNYCH"
+      },
+      {
+        "id": "G596",
+        "name": "SPRZEDAŻ LOKALI MIESZKALNYCH WG FORMY OBROTU"
+      }
+    ],
+    "children_G597": [
+      {
+        "id": "P3783",
+        "name": "Liczba lokali mieszkalnych sprzedanych w ramach transakcji rynkowych"
+      },
+      {
+        "id": "P3789",
+        "name": "Liczba lokali mieszkalnych sprzedanych w ramach transakcji rynkowych (dane kwartalne)"
+      },
+      {
+        "id": "P3787",
+        "name": "Mediana cen za 1 m2 lokali mieszkalnych sprzedanych w ramach transakcji rynkowych"
+      },
+      {
+        "id": "P3793",
+        "name": "Mediana cen za 1 m2 lokali mieszkalnych sprzedanych w ramach transakcji rynkowych (dane kwartalne)"
+      },
+      {
+        "id": "P3785",
+        "name": "Powierzchnia użytkowa lokali mieszkalnych sprzedanych w ramach transakcji rynkowych"
+      },
+      {
+        "id": "P3791",
+        "name": "Powierzchnia użytkowa lokali mieszkalnych sprzedanych w ramach transakcji rynkowych (dane kwartalne)"
+      },
+      {
+        "id": "P3786",
+        "name": "Średnia cena lokali mieszkalnych sprzedanych w ramach transakcji rynkowych"
+      },
+      {
+        "id": "P3792",
+        "name": "Średnia cena lokali mieszkalnych sprzedanych w ramach transakcji rynkowych (dane kwartalne)"
+      },
+      {
+        "id": "P3788",
+        "name": "Średnia cena za 1 m2 lokali mieszkalnych sprzedanych w ramach transakcji rynkowych"
+      },
+      {
+        "id": "P3794",
+        "name": "Średnia cena za 1 m2 lokali mieszkalnych sprzedanych w ramach transakcji rynkowych (dane kwartalne)"
+      },
+      {
+        "id": "P3784",
+        "name": "Wartość lokali mieszkalnych sprzedanych w ramach transakcji rynkowych"
+      },
+      {
+        "id": "P3790",
+        "name": "Wartość lokali mieszkalnych sprzedanych w ramach transakcji rynkowych (dane kwartalne)"
+      }
+    ],
+    "children_G596": [
+      {
+        "id": "P3772",
+        "name": "Liczba sprzedanych lokali mieszkalnych"
+      },
+      {
+        "id": "P3778",
+        "name": "Liczba sprzedanych lokali mieszkalnych (dane kwartalne)"
+      },
+      {
+        "id": "P3771",
+        "name": "Liczba transakcji kupna/sprzedaży lokali mieszkalnych"
+      },
+      {
+        "id": "P3777",
+        "name": "Liczba transakcji kupna/sprzedaży lokali mieszkalnych (dane kwartalne)"
+      },
+      {
+        "id": "P3891",
+        "name": "Mediana cen za 1 m2 lokali mieszkalnych"
+      },
+      {
+        "id": "P3892",
+        "name": "Mediana cen za 1 m2 lokali mieszkalnych (dane kwartalne)"
+      },
+      {
+        "id": "P3774",
+        "name": "Powierzchnia użytkowa sprzedanych lokali mieszkalnych"
+      },
+      {
+        "id": "P3780",
+        "name": "Powierzchnia użytkowa sprzedanych lokali mieszkalnych (dane kwartalne)"
+      },
+      {
+        "id": "P3776",
+        "name": "Średnia cena lokali mieszkalnych"
+      },
+      {
+        "id": "P3782",
+        "name": "Średnia cena lokali mieszkalnych (dane kwartalne)"
+      },
+      {
+        "id": "P3775",
+        "name": "Średnia cena za 1 m2 lokali mieszkalnych"
+      },
+      {
+        "id": "P3781",
+        "name": "Średnia cena za 1 m2 lokali mieszkalnych (dane kwartalne)"
+      },
+      {
+        "id": "P3773",
+        "name": "Wartość sprzedanych lokali mieszkalnych"
+      },
+      {
+        "id": "P3779",
+        "name": "Wartość sprzedanych lokali mieszkalnych (dane kwartalne)"
+      }
+    ],
+    "search_wynagrodzenie": [
+      {
+        "id": 58787,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2303"
+      },
+      {
+        "id": 58800,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2303"
+      },
+      {
+        "id": 58803,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2303"
+      },
+      {
+        "id": 58796,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2303"
+      },
+      {
+        "id": 58783,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2303"
+      },
+      {
+        "id": 58879,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2306"
+      },
+      {
+        "id": 196229,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2895"
+      },
+      {
+        "id": 196223,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2895"
+      },
+      {
+        "id": 196217,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2895"
+      },
+      {
+        "id": 498835,
+        "name": "miesięczne wynagrodzenie brutto na 1 zatrudnionego",
+        "subject": "P2895"
+      }
+    ],
+    "salary_data": []
+  }
+}

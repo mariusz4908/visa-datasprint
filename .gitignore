@@ -1,0 +1,7 @@
+*.parquet
+credentials/
+*.credential*
+.claude/
+__pycache__/
+*.pyc
+.env

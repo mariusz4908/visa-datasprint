@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa DataSprint - Analiza Danych Transakcyjnych</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --visa-blue: #1A1F71;
+            --visa-gold: #F7B600;
+            --visa-light: #F0F4FF;
+            --visa-dark: #0D1137;
+            --accent1: #4A90D9;
+            --accent2: #E85D75;
+            --accent3: #2ECC71;
+            --accent4: #F39C12;
+            --accent5: #9B59B6;
+            --gray100: #F7F8FA;
+            --gray200: #E8ECF1;
+            --gray600: #6B7280;
+            --gray800: #1F2937;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--gray100);
+            color: var(--gray800);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--visa-dark), var(--visa-blue));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(247,182,0,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.85;
+            position: relative;
+        }
+
+        .header .visa-badge {
+            display: inline-block;
+            background: var(--visa-gold);
+            color: var(--visa-dark);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-top: 12px;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* KPI Cards */
+        .kpi-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: -40px 0 32px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .kpi-card:hover { transform: translateY(-4px); }
+
+        .kpi-card .kpi-value {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--visa-blue);
+            line-height: 1.2;
+        }
+
+        .kpi-card .kpi-label {
+            font-size: 0.85em;
+            color: var(--gray600);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .kpi-card .kpi-sub {
+            font-size: 0.8em;
+            color: var(--accent1);
+            margin-top: 4px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--visa-blue);
+            margin-bottom: 16px;
+            padding-left: 12px;
+            border-left: 4px solid var(--visa-gold);
+        }
+
+        .section-desc {
+            color: var(--gray600);
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        /* Cards Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+        }
+
+        .card-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--gray800);
+            margin-bottom: 16px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-height: 400px;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88em;
+        }
+
+        .data-table th {
+            background: var(--visa-light);
+            color: var(--visa-blue);
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid var(--gray200);
+        }
+
+        .data-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--gray200);
+        }
+
+        .data-table tr:hover td {
+            background: var(--gray100);
+        }
+
+        .data-table .num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Insight boxes */
+        .insight-box {
+            background: linear-gradient(135deg, #FFF9E6, #FFF3CC);
+            border-left: 4px solid var(--visa-gold);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            font-size: 0.92em;
+        }
+
+        .insight-box strong {
+            color: var(--visa-dark);
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        /* Conclusions */
+        .conclusion-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            border-top: 4px solid var(--visa-gold);
+        }
+
+        .conclusion-card h3 {
+            color: var(--visa-blue);
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .conclusion-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .conclusion-card li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+            font-size: 0.93em;
+        }
+
+        .conclusion-card li::before {
+            content: '\25B8';
+            position: absolute;
+            left: 0;
+            color: var(--visa-gold);
+            font-weight: bold;
+        }
+
+        .footer {
+            background: var(--visa-dark);
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 24px;
+            margin-top: 48px;
+            font-size: 0.85em;
+        }
+
+        .full-width { grid-column: 1 / -1; }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .kpi-section { grid-template-columns: repeat(2, 1fr); }
+            .header h1 { font-size: 1.6em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <h1>Visa DataSprint - Analiza Danych Transakcyjnych</h1>
+        <div class="subtitle">Kompleksowa analiza 305.5 mln transakcji kartowych | Styczen 2025 - Czerwiec 2026</div>
+        <div class="visa-badge">DATASPRINT HACKATHON 2026</div>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- KPI CARDS -->
+    <div class="kpi-section">
+        <div class="kpi-card">
+            <div class="kpi-value">305.5M</div>
+            <div class="kpi-label">Transakcji</div>
+            <div class="kpi-sub">18 miesiecy danych</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">1.95M</div>
+            <div class="kpi-label">Unikalnych kart</div>
+            <div class="kpi-sub">95.3% consumer</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">55.7 mld</div>
+            <div class="kpi-label">Laczna wartosc</div>
+            <div class="kpi-sub">waluta fikcyjna</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">182.30</div>
+            <div class="kpi-label">Srednia transakcja</div>
+            <div class="kpi-sub">mediana w przedziale 10-50</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">7.4M</div>
+            <div class="kpi-label">Unikalnych merchantow</div>
+            <div class="kpi-sub">362K miast</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">85.6%</div>
+            <div class="kpi-label">Tap to Pay</div>
+            <div class="kpi-sub">dominacja platnosci zblizeniowych</div>
+        </div>
+    </div>
+
+    <!-- TRENDY MIESIĘCZNE -->
+    <div class="section">
+        <h2 class="section-title">Trendy Miesiczne</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Liczba transakcji i wartosc w czasie</div>
+                <div class="chart-container"><canvas id="monthlyTrends"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Srednia wartosc transakcji w czasie</div>
+                <div class="chart-container"><canvas id="monthlyAvg"></canvas></div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Wniosek:</strong> Widoczna wyrazna sezonowosc - miesiace letnie (lipiec-sierpien) generuja najwiecej transakcji. Grudzien wyroznia sie najwyzsza srednia wartoscia (195.27) - efekt zakupow swiatecznych. Rok do roku (YoY) widoczny wzrost wolumenu o ~7-8%.
+        </div>
+    </div>
+
+    <!-- WZORCE CZASOWE -->
+    <div class="section">
+        <h2 class="section-title">Wzorce Czasowe</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Rozklad godzinowy transakcji (GMT+1 ~ czas polski)</div>
+                <div class="chart-container"><canvas id="hourlyChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Rozklad dzienny transakcji</div>
+                <div class="chart-container"><canvas id="dailyChart"></canvas></div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Wniosek:</strong> Szczyt transakcji przypada na godziny 13-15 GMT (14-16 czasu polskiego). Piatek jest najaktywniejszym dniem tygodnia (50.9M tx, +11% vs poniedzialek). Niedziela ma najnizszy wolumen (-55% vs piatek), co odzwierciedla polskie ograniczenia handlowe w niedziele.
+        </div>
+    </div>
+
+    <!-- KATEGORIE -->
+    <div class="section">
+        <h2 class="section-title">Kategorie Merchantow (MCC)</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Top 10 kategorii wg liczby transakcji</div>
+                <div class="chart-container"><canvas id="categoriesChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Top 10 kategorii wg wartosci</div>
+                <div class="chart-container"><canvas id="categoriesValueChart"></canvas></div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top: 24px;">
+            <div class="card">
+                <div class="card-title">Top 15 merchantow wg liczby transakcji</div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>#</th><th>Merchant</th><th>Kategoria</th><th class="num">Transakcje</th><th class="num">Avg</th></tr>
+                    </thead>
+                    <tbody id="merchantTable"></tbody>
+                </table>
+            </div>
+            <div class="card">
+                <div class="card-title">Trendy Top 5 kategorii w czasie</div>
+                <div class="chart-container"><canvas id="categoryTrendsChart"></canvas></div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Wniosek:</strong> Sklepy spozywcze dominuja (26.3% transakcji), ale to instytucje finansowe (ATM) generuja najwyzsza wartosc (8.16 mld, avg 1521). Dino Polska S.A. jest najczesciej odwiedzanym merchantem (2.5M tx). Allegro to glowny gracz e-commerce (1.8M tx, avg 303).
+        </div>
+    </div>
+
+    <!-- GEOGRAFIA -->
+    <div class="section">
+        <h2 class="section-title">Analiza Geograficzna</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Top 15 miast wg liczby transakcji (skonsolidowane)</div>
+                <div class="chart-container"><canvas id="citiesChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Regiony FUA (Functional Urban Area) posiadaczy kart</div>
+                <div class="chart-container"><canvas id="fuaChart"></canvas></div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top: 24px;">
+            <div class="card">
+                <div class="card-title">Kraje wydawcow kart (Top 15)</div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>#</th><th>Kraj</th><th class="num">Transakcje</th><th class="num">Wartosc</th><th class="num">Karty</th></tr>
+                    </thead>
+                    <tbody id="issuerTable"></tbody>
+                </table>
+            </div>
+            <div class="card">
+                <div class="card-title">Transakcje krajowe vs zagraniczne</div>
+                <div class="chart-container"><canvas id="domesticChart"></canvas></div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Wniosek:</strong> Warszawa generuje ponad 26.9M transakcji (z roznymi wariantami nazw). 87.2% transakcji to Domestic. Glowni turyści: Czechy (4.3M tx), UK (4.2M tx), Ukraina (3.3M tx), Niemcy (2.9M tx). Dublin pojawia sie wysoko ze wzgledu na siedziby firm technologicznych (transakcje e-commerce).
+        </div>
+    </div>
+
+    <!-- KANALY PLATNOSCI -->
+    <div class="section">
+        <h2 class="section-title">Kanaly i Metody Platnosci</h2>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-title">Metody platnosci (channel)</div>
+                <div class="chart-container"><canvas id="channelChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Fizyczne vs Online (cp_flag)</div>
+                <div class="chart-container"><canvas id="cpChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">POS Entry Mode</div>
+                <div class="chart-container"><canvas id="posEntryChart"></canvas></div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top: 24px;">
+            <div class="card">
+                <div class="card-title">Online vs Fizyczne - trend miesieczny</div>
+                <div class="chart-container"><canvas id="onlinePhysicalTrend"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Typy transakcji</div>
+                <div class="chart-container"><canvas id="txTypeChart"></canvas></div>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Wniosek:</strong> Platnosci zblizeniowe (contactless + mobile) stanowia 93.1% transakcji fizycznych. Mobile payments to 40.7% calkowitego wolumenu - Polska jest jednym z liderow platnosci mobilnych. Transakcje online (cp_flag=0) to 11.2% wolumenu, ale generuja 19.6% wartosci (wyzsza srednia: 318 vs 165).
+        </div>
+    </div>
+
+    <!-- SEGMENTACJA KART -->
+    <div class="section">
+        <h2 class="section-title">Segmentacja Kart</h2>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Segmenty kart (Consumer/Business/Commercial/Gov)</div>
+                <div class="chart-container"><canvas id="segmentChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Typy kart</div>
+                <div class="chart-container"><canvas id="cardTypeChart"></canvas></div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top: 24px;">
+            <div class="card">
+                <div class="card-title">Rozklad kwot transakcji</div>
+                <div class="chart-container"><canvas id="amountDistChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Srednia wartosc wg segmentu i typu</div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Segment/Typ</th><th class="num">Transakcje</th><th class="num">Avg kwota</th><th class="num">Udzial %</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#F0F4FF;font-weight:600"><td colspan="4">Segment karty</td></tr>
+                        <tr><td>Consumer (CN)</td><td class="num">296.0M</td><td class="num">170.21</td><td class="num">96.9%</td></tr>
+                        <tr><td>Business (BZ)</td><td class="num">9.4M</td><td class="num">554.24</td><td class="num">3.1%</td></tr>
+                        <tr><td>Commercial (CO)</td><td class="num">137K</td><td class="num">806.15</td><td class="num">0.04%</td></tr>
+                        <tr><td>Government (GV)</td><td class="num">5.4K</td><td class="num">1,895.34</td><td class="num">&lt;0.01%</td></tr>
+                        <tr style="background:#F0F4FF;font-weight:600"><td colspan="4">Typ karty (Top 5)</td></tr>
+                        <tr><td>Classic</td><td class="num">270.5M</td><td class="num">164.35</td><td class="num">88.5%</td></tr>
+                        <tr><td>Infinite</td><td class="num">15.0M</td><td class="num">212.04</td><td class="num">4.9%</td></tr>
+                        <tr><td>Business</td><td class="num">9.3M</td><td class="num">554.34</td><td class="num">3.1%</td></tr>
+                        <tr><td>Platinum</td><td class="num">5.7M</td><td class="num">250.25</td><td class="num">1.9%</td></tr>
+                        <tr><td>Premier</td><td class="num">3.6M</td><td class="num">257.15</td><td class="num">1.2%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="insight-box">
+            <strong>Wniosek:</strong> Classic dominuje (88.5%), ale karty premium (Infinite, Platinum, Premier) generuja o 30-55% wyzsza srednia kwote. Karty biznesowe maja 3.3x wyzsza srednia niz consumer. 34% transakcji ma kwote ponizej 50 jednostek - mikro-platnosci to kluczowy segment.
+        </div>
+    </div>
+
+    <!-- WNIOSKI -->
+    <div class="section">
+        <h2 class="section-title">Kluczowe Wnioski i Rekomendacje</h2>
+        <div class="insight-grid">
+            <div class="conclusion-card">
+                <h3>1. Dominacja platnosci cyfrowych</h3>
+                <ul>
+                    <li>93% transakcji fizycznych to platnosci zblizeniowe</li>
+                    <li>Mobile payments stanowia 40.7% calkowitego wolumenu</li>
+                    <li>Tap to Pay obejmuje 85.6% wszystkich transakcji</li>
+                    <li>Gotowka (ATM) to tylko 1.8% transakcji, ale 14.7% wartosci</li>
+                    <li><strong>Rekomendacja:</strong> Polska moze sluzyc jako benchmark cashless economy</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>2. Wyrazna sezonowosc</h3>
+                <ul>
+                    <li>Lato (VII-VIII): szczyt wolumenu transakcji (+26% vs luty)</li>
+                    <li>Grudzien: najwyzsza srednia kwota (195.27, +10.6% vs srednia)</li>
+                    <li>Piatek: najaktywniejszy dzien (+11% vs pon-czw)</li>
+                    <li>Niedziela: -55% transakcji (ograniczenia handlowe)</li>
+                    <li><strong>Rekomendacja:</strong> planowanie zasobow i kampanii wg kalendarza</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>3. Koncentracja geograficzna</h3>
+                <ul>
+                    <li>Warszawa: 26.9M tx (8.8% calkowity)</li>
+                    <li>Top 5 miast: ~45% calkowitego wolumenu</li>
+                    <li>91.1% transakcji z polskich kart (Domestic)</li>
+                    <li>Kluczowi turysci: CZ, UK, UA, DE</li>
+                    <li><strong>Rekomendacja:</strong> Rozwiazania lokalizacyjne dla miast i retailu</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>4. Wzorce wydatkow konsumentow</h3>
+                <ul>
+                    <li>Groceries: 26.3% transakcji (codzienne zakupy)</li>
+                    <li>Dino Polska: #1 merchant (2.5M tx/18msc)</li>
+                    <li>34% transakcji ponizej 50 jedn. (mikro-platnosci)</li>
+                    <li>ATM: avg 1,521 - duze wyplaty gotowkowe nadal istotne</li>
+                    <li><strong>Rekomendacja:</strong> analiza koszyka zakupow i customer journey</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>5. Potencjal e-commerce</h3>
+                <ul>
+                    <li>Online: 11.2% wolumenu, ale 19.6% wartosci</li>
+                    <li>Allegro: 1.8M tx, srednia 303 (vs 182 ogolna)</li>
+                    <li>Apple.com/Bill: 2.5M tx (subskrypcje cyfrowe)</li>
+                    <li>Rosnacy trend online m/m (szczeg. w 2026)</li>
+                    <li><strong>Rekomendacja:</strong> monitorowanie przesuwania sie wydatkow do kanalu online</li>
+                </ul>
+            </div>
+            <div class="conclusion-card">
+                <h3>6. Segmentacja i premium</h3>
+                <ul>
+                    <li>96.9% wolumenu z kart Consumer</li>
+                    <li>Business avg 554 vs Consumer avg 170 (3.3x)</li>
+                    <li>Karty premium: +30-55% wyzsza srednia kwota</li>
+                    <li>Corporate T&E: avg 836 (koszty sluzbowe)</li>
+                    <li><strong>Rekomendacja:</strong> segmentacja ofert wg typu karty/klienta</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    Visa DataSprint Hackathon 2026 | Analiza wygenerowana automatycznie | Dane syntetyczne Visa | 305,525,104 transakcji
+</div>
+
+<script>
+// Color palette
+const colors = {
+    blue: '#1A1F71',
+    gold: '#F7B600',
+    accent: ['#4A90D9','#E85D75','#2ECC71','#F39C12','#9B59B6','#1ABC9C','#E74C3C','#3498DB','#E67E22','#8E44AD','#16A085','#C0392B','#2980B9','#D35400','#7D3C98'],
+    blueAlpha: 'rgba(74,144,217,0.7)',
+    goldAlpha: 'rgba(247,182,0,0.7)',
+};
+
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+Chart.defaults.font.size = 12;
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+
+function fmt(n) {
+    if (n >= 1e9) return (n/1e9).toFixed(1) + ' mld';
+    if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+    return n.toFixed(0);
+}
+
+// Monthly Trends
+const monthLabels = ['01/25','02/25','03/25','04/25','05/25','06/25','07/25','08/25','09/25','10/25','11/25','12/25','01/26','02/26','03/26','04/26','05/26','06/26'];
+const monthTxCount = [14882858,13950510,16495825,17235315,17396206,17682772,18822492,18637183,17315270,17175784,15708538,17149919,15091415,14855734,17693165,17649417,19029833,18752868];
+const monthTotalAmt = [2640603648.61,2461873704.34,2942601028.79,3079721910.41,3160187873.25,3130945210.42,3404181088.86,3412164712.26,3005100277.17,3153688600.75,3008889471.36,3348786317.82,2910235600.65,2692835875.56,3157431874.07,3332184830.32,3486814281.79,3369416364.16];
+const monthAvgAmt = [177.43,176.47,178.38,178.69,181.66,177.06,180.86,183.08,173.55,183.61,191.54,195.27,192.84,181.27,178.45,188.80,183.23,179.67];
+
+new Chart(document.getElementById('monthlyTrends'), {
+    type: 'bar',
+    data: {
+        labels: monthLabels,
+        datasets: [{
+            label: 'Transakcje (M)',
+            data: monthTxCount.map(v => v/1e6),
+            backgroundColor: colors.blueAlpha,
+            yAxisID: 'y',
+            order: 2
+        },{
+            label: 'Wartosc (mld)',
+            data: monthTotalAmt.map(v => v/1e9),
+            type: 'line',
+            borderColor: colors.gold,
+            backgroundColor: 'rgba(247,182,0,0.1)',
+            fill: true,
+            tension: 0.3,
+            yAxisID: 'y1',
+            order: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+            y: { title: { display: true, text: 'Transakcje (mln)' }, beginAtZero: false },
+            y1: { position: 'right', title: { display: true, text: 'Wartosc (mld)' }, grid: { drawOnChartArea: false }, beginAtZero: false }
+        }
+    }
+});
+
+new Chart(document.getElementById('monthlyAvg'), {
+    type: 'line',
+    data: {
+        labels: monthLabels,
+        datasets: [{
+            label: 'Srednia kwota transakcji',
+            data: monthAvgAmt,
+            borderColor: colors.accent[0],
+            backgroundColor: 'rgba(74,144,217,0.1)',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 5,
+            pointBackgroundColor: colors.accent[0]
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { title: { display: true, text: 'Srednia kwota' }, min: 170, max: 200 }
+        }
+    }
+});
+
+// Hourly Chart
+const hours = Array.from({length:24}, (_,i) => i);
+const hourlyTx = [34044987,1135953,1137623,1585055,3906601,7220377,10548430,13584604,16589880,19055105,20439763,20662916,20835347,22080363,21054258,20259168,19116867,17068753,13597301,9350955,5822507,3224927,1878806,1324558];
+const hourlyAvg = [237.85,155.23,153.93,139.26,120.09,124.71,145.59,168.17,180.60,184.22,182.17,178.79,177.51,180.70,178.46,177.90,176.53,175.74,176.22,178.51,187.38,206.00,216.85,197.08];
+
+new Chart(document.getElementById('hourlyChart'), {
+    type: 'bar',
+    data: {
+        labels: hours.map(h => (h+1) + ':00'),
+        datasets: [{
+            label: 'Transakcje (M)',
+            data: hourlyTx.map(v => v/1e6),
+            backgroundColor: hours.map(h => h >= 5 && h <= 16 ? colors.blueAlpha : 'rgba(74,144,217,0.3)'),
+            yAxisID: 'y'
+        },{
+            label: 'Srednia kwota',
+            data: hourlyAvg,
+            type: 'line',
+            borderColor: colors.gold,
+            tension: 0.3,
+            yAxisID: 'y1',
+            pointRadius: 3
+        }]
+    },
+    options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+            y: { title: { display: true, text: 'Transakcje (mln)' } },
+            y1: { position: 'right', title: { display: true, text: 'Avg kwota' }, grid: { drawOnChartArea: false } }
+        },
+        plugins: {
+            annotation: {
+                annotations: {
+                    note: { type: 'label', content: 'Godziny GMT -> czas PL = GMT+1 (zima) / GMT+2 (lato)', position: 'start' }
+                }
+            }
+        }
+    }
+});
+
+// Daily Chart
+const dayLabels = ['Niedziela','Poniedzialek','Wtorek','Sroda','Czwartek','Piatek','Sobota'];
+const dayTx = [22863898,45305307,45511958,45634445,45876089,50889526,49443881];
+const dayAvg = [173.60,183.42,181.85,180.63,183.32,188.79,179.63];
+
+new Chart(document.getElementById('dailyChart'), {
+    type: 'bar',
+    data: {
+        labels: dayLabels,
+        datasets: [{
+            label: 'Transakcje (M)',
+            data: dayTx.map(v => v/1e6),
+            backgroundColor: dayLabels.map((d,i) => i === 5 ? colors.gold : (i === 0 ? 'rgba(232,93,117,0.6)' : colors.blueAlpha)),
+            yAxisID: 'y'
+        },{
+            label: 'Srednia kwota',
+            data: dayAvg,
+            type: 'line',
+            borderColor: '#E85D75',
+            tension: 0.3,
+            yAxisID: 'y1',
+            pointRadius: 5
+        }]
+    },
+    options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+            y: { title: { display: true, text: 'Transakcje (mln)' } },
+            y1: { position: 'right', title: { display: true, text: 'Avg kwota' }, grid: { drawOnChartArea: false } }
+        }
+    }
+});
+
+// Categories Chart
+const catLabels = ['Grocery','Misc Food','Restaurants','Stacje benzynowe','Fast Food','Kosmetyki','Apteki','Piekarnie','ATM/Banki','Odziez'];
+const catTx = [80443697,47044691,16911744,16145093,13327880,9094362,8798405,8653907,5363932,4949501];
+const catAmt = [10597460960,2828361699,2077835514,3495281453,918564357,1132294807,1263391200,334971177,8157051255,999508886];
+
+new Chart(document.getElementById('categoriesChart'), {
+    type: 'bar',
+    data: {
+        labels: catLabels,
+        datasets: [{
+            data: catTx.map(v => v/1e6),
+            backgroundColor: colors.accent.slice(0,10)
+        }]
+    },
+    options: {
+        responsive: true,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Transakcje (mln)' } } }
+    }
+});
+
+new Chart(document.getElementById('categoriesValueChart'), {
+    type: 'bar',
+    data: {
+        labels: catLabels,
+        datasets: [{
+            data: catAmt.map(v => v/1e9),
+            backgroundColor: colors.accent.slice(0,10)
+        }]
+    },
+    options: {
+        responsive: true,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Wartosc (mld)' } } }
+    }
+});
+
+// Merchants Table
+const merchants = [
+    ['Dino Polska S.A.','Grocery',2541192,166.49],
+    ['Apple.com/Bill','Digital Goods',2470371,51.45],
+    ['Allegro','Online Marketplace',1819940,302.62],
+    ['Rossmann','Cosmetic',1515962,97.43],
+    ['Kaufland','Grocery',1367325,152.90],
+    ['Revolut*VISA','Financial',1220702,1293.66],
+    ['Rossmann 01','Cosmetic',1040325,146.97],
+    ['Uber *Trip','Taxi',812242,54.16],
+    ['Carrefour','Grocery',755073,152.10],
+    ['DOZ Apteka','Pharmacy',735317,136.03],
+    ['UBR* Uber','Taxi',643964,54.92],
+    ['Polomarket','Grocery',638230,105.34],
+    ['Dino Polska 01','Grocery',632697,149.97],
+    ['Rossmann 02','Cosmetic',631249,91.31],
+    ['Lidl','Grocery',621706,205.42]
+];
+
+document.getElementById('merchantTable').innerHTML = merchants.map((m,i) =>
+    `<tr><td>${i+1}</td><td><strong>${m[0]}</strong></td><td>${m[1]}</td><td class="num">${fmt(m[2])}</td><td class="num">${m[3].toFixed(2)}</td></tr>`
+).join('');
+
+// Category Trends
+const catTrendLabels = monthLabels;
+const groceryTrend = [4225154,3705933,4493708,4807257,4710911,4382327,4919466,4865811,4517099,4274303,3869310,4479456,3968761,3946083,4774464,4842033,4913725,4747896];
+const miscFoodTrend = [2110808,1948888,2631644,2792084,2565740,3094551,3066462,2658713,2891854,2624466,2451312,2346954,2164074,2146783,2727063,2685316,3088067,3049912];
+const restaurantTrend = [749732,715219,875760,839520,989628,1058463,1146588,1200825,984193,949574,865151,839832,793496,794724,957205,924592,1105931,1121311];
+const stationTrend = [772334,747837,892028,886557,915121,981696,995462,1120011,926439,905075,873210,841988,821601,728344,889920,892387,976938,978145];
+const fastFoodTrend = [664949,603848,689186,714633,821614,815582,828146,843853,722458,782630,709781,733753,649232,642964,710716,707356,841668,845511];
+
+new Chart(document.getElementById('categoryTrendsChart'), {
+    type: 'line',
+    data: {
+        labels: catTrendLabels,
+        datasets: [
+            { label: 'Grocery', data: groceryTrend.map(v=>v/1e6), borderColor: colors.accent[0], tension: 0.3, pointRadius: 2 },
+            { label: 'Misc Food', data: miscFoodTrend.map(v=>v/1e6), borderColor: colors.accent[1], tension: 0.3, pointRadius: 2 },
+            { label: 'Restaurants', data: restaurantTrend.map(v=>v/1e6), borderColor: colors.accent[2], tension: 0.3, pointRadius: 2 },
+            { label: 'Stacje', data: stationTrend.map(v=>v/1e6), borderColor: colors.accent[3], tension: 0.3, pointRadius: 2 },
+            { label: 'Fast Food', data: fastFoodTrend.map(v=>v/1e6), borderColor: colors.accent[4], tension: 0.3, pointRadius: 2 }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: { y: { title: { display: true, text: 'Transakcje (mln)' } } }
+    }
+});
+
+// Cities Chart (consolidated)
+const cityData = [
+    {name: 'Warszawa', tx: 17849014+7289147+1796033},
+    {name: 'Krakow', tx: 6824518+2620110},
+    {name: 'Wroclaw', tx: 6715697+2750758},
+    {name: 'Poznan', tx: 5634350+4570185},
+    {name: 'Lodz', tx: 3985295+2383123},
+    {name: 'Gdansk', tx: 3967168+1996254},
+    {name: 'Dublin', tx: 2839215},
+    {name: 'Katowice', tx: 2478011},
+    {name: 'Szczecin', tx: 2448851},
+    {name: 'Bydgoszcz', tx: 2205172},
+    {name: 'Lublin', tx: 2005610},
+    {name: 'Bialystok', tx: 1779299}
+];
+
+new Chart(document.getElementById('citiesChart'), {
+    type: 'bar',
+    data: {
+        labels: cityData.map(c => c.name),
+        datasets: [{
+            data: cityData.map(c => c.tx/1e6),
+            backgroundColor: colors.accent
+        }]
+    },
+    options: {
+        responsive: true,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Transakcje (mln)' } } }
+    }
+});
+
+// FUA Chart
+const fuaLabels = ['Warszawa','Katowice','Krakow','Poznan','Wroclaw','Gdansk','Lodz','Rzeszow','Szczecin','Lublin','Bydgoszcz','Opole','Bielsko-Biala','Olsztyn'];
+const fuaTx = [31704431,19684359,13074324,12163313,11424975,11224507,7215094,4563656,4555627,4541740,4345782,4305526,4041610,4037009];
+
+new Chart(document.getElementById('fuaChart'), {
+    type: 'bar',
+    data: {
+        labels: fuaLabels,
+        datasets: [{
+            data: fuaTx.map(v => v/1e6),
+            backgroundColor: colors.accent
+        }]
+    },
+    options: {
+        responsive: true,
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: { x: { title: { display: true, text: 'Transakcje (mln)' } } }
+    }
+});
+
+// Issuer Countries Table
+const issuers = [
+    ['Polska',278386079,48134778186.89,1320213],
+    ['Czechy',4323567,1196152477.88,59192],
+    ['Wlk. Brytania',4153648,1082756295.47,67930],
+    ['Ukraina',3297819,501626223.60,102822],
+    ['Niemcy',2930562,1031022193.35,102261],
+    ['Slowacja',1981318,644066973.85,29995],
+    ['Norwegia',1016530,299057153.03,20936],
+    ['USA',855013,292041767.30,31981],
+    ['Irlandia',769089,253883122.81,13204],
+    ['Litwa',751636,211748123.84,11272],
+    ['Holandia',603877,159887928.55,11610],
+    ['Francja',518019,160296350.53,17011],
+    ['Dania',494850,148160468.22,10217],
+    ['Rumunia',456217,133540688.59,9507],
+    ['Finlandia',447918,105536910.29,8912]
+];
+
+document.getElementById('issuerTable').innerHTML = issuers.map((r,i) =>
+    `<tr><td>${i+1}</td><td><strong>${r[0]}</strong></td><td class="num">${fmt(r[1])}</td><td class="num">${fmt(r[2])}</td><td class="num">${fmt(r[3])}</td></tr>`
+).join('');
+
+// Domestic Chart
+new Chart(document.getElementById('domesticChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Domestic (87.2%)','Intra-EU (10.2%)','Inter (2.6%)'],
+        datasets: [{
+            data: [266358921,31220760,7945423],
+            backgroundColor: [colors.accent[0], colors.gold, colors.accent[1]]
+        }]
+    },
+    options: { responsive: true }
+});
+
+// Channel Chart
+new Chart(document.getElementById('channelChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Contactless','Mobile','E-commerce','Cash/ATM','Non-contactless','Recurring','Other','MOTO'],
+        datasets: [{
+            data: [160244137,124405732,8825260,5379976,4955121,1337564,253287,124027],
+            backgroundColor: colors.accent
+        }]
+    },
+    options: { responsive: true }
+});
+
+// CP Flag
+new Chart(document.getElementById('cpChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Fizyczne (88.8%)','Online (11.2%)'],
+        datasets: [{
+            data: [271216020,34309084],
+            backgroundColor: [colors.accent[0], colors.accent[1]]
+        }]
+    },
+    options: { responsive: true }
+});
+
+// POS Entry Mode
+new Chart(document.getElementById('posEntryChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Tap to Pay','COF (Card on File)','Manual Key','Chip','Magstripe','Other'],
+        datasets: [{
+            data: [261586826,18275632,16009183,9595168,33565,24730],
+            backgroundColor: colors.accent
+        }]
+    },
+    options: { responsive: true }
+});
+
+// Online vs Physical Trend
+const onlineTx = [1596204,1504314,1667054,1636206,1826258,1793463,1859077,1994787,1840353,2034882,1983130,2029540,2012029,1856657,2088803,2065930,2302498,2217899];
+const physicalTx = [13286654,12446196,14828771,15599109,15569948,15889309,16963415,16642396,15474917,15140902,13725408,15120379,13079386,12999077,15604362,15583487,16727335,16534969];
+
+new Chart(document.getElementById('onlinePhysicalTrend'), {
+    type: 'line',
+    data: {
+        labels: monthLabels,
+        datasets: [
+            { label: 'Fizyczne (M)', data: physicalTx.map(v=>v/1e6), borderColor: colors.accent[0], tension: 0.3, fill: false },
+            { label: 'Online (M)', data: onlineTx.map(v=>v/1e6), borderColor: colors.accent[1], tension: 0.3, fill: false }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: { y: { title: { display: true, text: 'Transakcje (mln)' } } }
+    }
+});
+
+// Transaction Type
+new Chart(document.getElementById('txTypeChart'), {
+    type: 'bar',
+    data: {
+        labels: ['POS','ATM','N/A'],
+        datasets: [{
+            label: 'Transakcje (M)',
+            data: [298204527/1e6, 5379976/1e6, 1940601/1e6],
+            backgroundColor: [colors.accent[0], colors.accent[3], colors.accent[6]],
+            yAxisID: 'y'
+        },{
+            label: 'Avg kwota',
+            data: [156.42, 1519.10, 453.01],
+            type: 'line',
+            borderColor: colors.gold,
+            yAxisID: 'y1',
+            pointRadius: 8,
+            pointBackgroundColor: colors.gold
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { title: { display: true, text: 'Transakcje (mln)' } },
+            y1: { position: 'right', title: { display: true, text: 'Avg kwota' }, grid: { drawOnChartArea: false } }
+        }
+    }
+});
+
+// Segment Chart
+new Chart(document.getElementById('segmentChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Consumer','Business','Commercial','Government'],
+        datasets: [{
+            label: 'Transakcje (M)',
+            data: [296015894/1e6, 9366816/1e6, 137028/1e6, 5366/1e6],
+            backgroundColor: [colors.accent[0], colors.accent[3], colors.accent[4], colors.accent[2]],
+            yAxisID: 'y'
+        },{
+            label: 'Avg kwota',
+            data: [170.21, 554.24, 806.15, 1895.34],
+            type: 'line',
+            borderColor: colors.accent[1],
+            yAxisID: 'y1',
+            pointRadius: 8,
+            pointBackgroundColor: colors.accent[1]
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { title: { display: true, text: 'Transakcje (mln)' } },
+            y1: { position: 'right', title: { display: true, text: 'Avg kwota' }, grid: { drawOnChartArea: false } }
+        }
+    }
+});
+
+// Card Type Chart
+const cardTypes = ['Classic','Infinite','Business','Platinum','Premier','Visa Signature','VPAY','Corporate T&E'];
+const cardTypeTx = [270500752,15000809,9347690,5677984,3609830,692749,520454,126657];
+const cardTypeAvg = [164.35,212.04,554.34,250.25,257.15,313.65,340.89,836.24];
+
+new Chart(document.getElementById('cardTypeChart'), {
+    type: 'bar',
+    data: {
+        labels: cardTypes,
+        datasets: [{
+            label: 'Transakcje (M)',
+            data: cardTypeTx.map(v => v/1e6),
+            backgroundColor: colors.accent.slice(0,8),
+            yAxisID: 'y'
+        },{
+            label: 'Avg kwota',
+            data: cardTypeAvg,
+            type: 'line',
+            borderColor: colors.accent[1],
+            yAxisID: 'y1',
+            pointRadius: 6,
+            pointBackgroundColor: colors.accent[1]
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { title: { display: true, text: 'Transakcje (mln)' } },
+            y1: { position: 'right', title: { display: true, text: 'Avg kwota' }, grid: { drawOnChartArea: false } }
+        }
+    }
+});
+
+// Amount Distribution
+new Chart(document.getElementById('amountDistChart'), {
+    type: 'bar',
+    data: {
+        labels: ['0-10','10-50','50-100','100-200','200-500','500-1000','1000+'],
+        datasets: [{
+            label: 'Transakcje (M)',
+            data: [41747339,103946517,56420691,46613568,36777998,12124759,7894232].map(v=>v/1e6),
+            backgroundColor: colors.accent.slice(0,7),
+            yAxisID: 'y'
+        },{
+            label: 'Wartosc (mld)',
+            data: [0.22,2.79,4.05,6.60,11.37,8.31,22.35],
+            type: 'line',
+            borderColor: colors.gold,
+            yAxisID: 'y1',
+            pointRadius: 6,
+            pointBackgroundColor: colors.gold
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { title: { display: true, text: 'Transakcje (mln)' } },
+            y1: { position: 'right', title: { display: true, text: 'Wartosc (mld)' }, grid: { drawOnChartArea: false } }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,784 @@
+{
+  "woj_analysis": [
+    {
+      "name": "Małopolskie",
+      "population": 3429084,
+      "unique_cards": 238649,
+      "cards_per_1000": 69.6,
+      "tx_count": 20547502,
+      "tx_per_capita": 5.99,
+      "total_amount": 3462395170.6,
+      "spend_per_capita": 1009.71,
+      "merch_tx_count": 22511838,
+      "merch_tx_per_capita": 6.56,
+      "unique_merchants": 93195,
+      "merch_per_10k": 271.78
+    },
+    {
+      "name": "Mazowieckie",
+      "population": 5508322,
+      "unique_cards": 382411,
+      "cards_per_1000": 69.42,
+      "tx_count": 35140589,
+      "tx_per_capita": 6.38,
+      "total_amount": 6067016376.42,
+      "spend_per_capita": 1101.43,
+      "merch_tx_count": 40571284,
+      "merch_tx_per_capita": 7.37,
+      "unique_merchants": 913796,
+      "merch_per_10k": 1658.94
+    },
+    {
+      "name": "Dolnośląskie",
+      "population": 2868242,
+      "unique_cards": 182231,
+      "cards_per_1000": 63.53,
+      "tx_count": 19337796,
+      "tx_per_capita": 6.74,
+      "total_amount": 2969619513.35,
+      "spend_per_capita": 1035.34,
+      "merch_tx_count": 21769402,
+      "merch_tx_per_capita": 7.59,
+      "unique_merchants": 203940,
+      "merch_per_10k": 711.03
+    },
+    {
+      "name": "Wielkopolskie",
+      "population": 3479986,
+      "unique_cards": 195168,
+      "cards_per_1000": 56.08,
+      "tx_count": 22775407,
+      "tx_per_capita": 6.54,
+      "total_amount": 3650436516.58,
+      "spend_per_capita": 1048.98,
+      "merch_tx_count": 25669965,
+      "merch_tx_per_capita": 7.38,
+      "unique_merchants": 82393,
+      "merch_per_10k": 236.76
+    },
+    {
+      "name": "Łódzkie",
+      "population": 2345924,
+      "unique_cards": 130325,
+      "cards_per_1000": 55.55,
+      "tx_count": 13043997,
+      "tx_per_capita": 5.56,
+      "total_amount": 2115435054.0100002,
+      "spend_per_capita": 901.75,
+      "merch_tx_count": 14291919,
+      "merch_tx_per_capita": 6.09,
+      "unique_merchants": 438170,
+      "merch_per_10k": 1867.79
+    },
+    {
+      "name": "Zachodniopomorskie",
+      "population": 1622760,
+      "unique_cards": 87679,
+      "cards_per_1000": 54.03,
+      "tx_count": 10289147,
+      "tx_per_capita": 6.34,
+      "total_amount": 1646900589.7699997,
+      "spend_per_capita": 1014.88,
+      "merch_tx_count": 11930979,
+      "merch_tx_per_capita": 7.35,
+      "unique_merchants": 55144,
+      "merch_per_10k": 339.82
+    },
+    {
+      "name": "Świętokrzyskie",
+      "population": 1157991,
+      "unique_cards": 60655,
+      "cards_per_1000": 52.38,
+      "tx_count": 6958427,
+      "tx_per_capita": 6.01,
+      "total_amount": 1213309936.9499998,
+      "spend_per_capita": 1047.77,
+      "merch_tx_count": 7541882,
+      "merch_tx_per_capita": 6.51,
+      "unique_merchants": 36855,
+      "merch_per_10k": 318.27
+    },
+    {
+      "name": "Lubuskie",
+      "population": 969819,
+      "unique_cards": 42546,
+      "cards_per_1000": 43.87,
+      "tx_count": 5745182,
+      "tx_per_capita": 5.92,
+      "total_amount": 903934409.27,
+      "spend_per_capita": 932.07,
+      "merch_tx_count": 6451277,
+      "merch_tx_per_capita": 6.65,
+      "unique_merchants": 21281,
+      "merch_per_10k": 219.43
+    },
+    {
+      "name": "Opolskie",
+      "population": 930296,
+      "unique_cards": 40733,
+      "cards_per_1000": 43.78,
+      "tx_count": 5676652,
+      "tx_per_capita": 6.1,
+      "total_amount": 885662321.9699999,
+      "spend_per_capita": 952.02,
+      "merch_tx_count": 6304139,
+      "merch_tx_per_capita": 6.78,
+      "unique_merchants": 20352,
+      "merch_per_10k": 218.77
+    },
+    {
+      "name": "Pomorskie",
+      "population": 2359493,
+      "unique_cards": 102734,
+      "cards_per_1000": 43.54,
+      "tx_count": 14404245,
+      "tx_per_capita": 6.1,
+      "total_amount": 2308258113.6200004,
+      "spend_per_capita": 978.29,
+      "merch_tx_count": 19639575,
+      "merch_tx_per_capita": 8.32,
+      "unique_merchants": 117990,
+      "merch_per_10k": 500.07
+    },
+    {
+      "name": "Śląskie",
+      "population": 4291441,
+      "unique_cards": 172009,
+      "cards_per_1000": 40.08,
+      "tx_count": 28213121,
+      "tx_per_capita": 6.57,
+      "total_amount": 4269011657.8199997,
+      "spend_per_capita": 994.77,
+      "merch_tx_count": 30790887,
+      "merch_tx_per_capita": 7.17,
+      "unique_merchants": 99283,
+      "merch_per_10k": 231.35
+    },
+    {
+      "name": "Kujawsko-Pomorskie",
+      "population": 1984479,
+      "unique_cards": 76552,
+      "cards_per_1000": 38.58,
+      "tx_count": 11400607,
+      "tx_per_capita": 5.74,
+      "total_amount": 1806561673.04,
+      "spend_per_capita": 910.35,
+      "merch_tx_count": 12654298,
+      "merch_tx_per_capita": 6.38,
+      "unique_merchants": 43049,
+      "merch_per_10k": 216.93
+    },
+    {
+      "name": "Podlaskie",
+      "population": 1132641,
+      "unique_cards": 40534,
+      "cards_per_1000": 35.79,
+      "tx_count": 5416894,
+      "tx_per_capita": 4.78,
+      "total_amount": 905388532.91,
+      "spend_per_capita": 799.36,
+      "merch_tx_count": 6122560,
+      "merch_tx_per_capita": 5.41,
+      "unique_merchants": 23121,
+      "merch_per_10k": 204.13
+    },
+    {
+      "name": "Lubelskie",
+      "population": 1996440,
+      "unique_cards": 60506,
+      "cards_per_1000": 30.31,
+      "tx_count": 7643111,
+      "tx_per_capita": 3.83,
+      "total_amount": 1306808152.37,
+      "spend_per_capita": 654.57,
+      "merch_tx_count": 8193971,
+      "merch_tx_per_capita": 4.1,
+      "unique_merchants": 34064,
+      "merch_per_10k": 170.62
+    },
+    {
+      "name": "Warmińsko-Mazurskie",
+      "population": 1349172,
+      "unique_cards": 40009,
+      "cards_per_1000": 29.65,
+      "tx_count": 5158610,
+      "tx_per_capita": 3.82,
+      "total_amount": 823904785.8,
+      "spend_per_capita": 610.67,
+      "merch_tx_count": 5921160,
+      "merch_tx_per_capita": 4.39,
+      "unique_merchants": 20765,
+      "merch_per_10k": 153.91
+    },
+    {
+      "name": "Podkarpackie",
+      "population": 2062997,
+      "unique_cards": 59635,
+      "cards_per_1000": 28.91,
+      "tx_count": 7610675,
+      "tx_per_capita": 3.69,
+      "total_amount": 1272398365.88,
+      "spend_per_capita": 616.77,
+      "merch_tx_count": 8556631,
+      "merch_tx_per_capita": 4.15,
+      "unique_merchants": 35512,
+      "merch_per_10k": 172.14
+    }
+  ],
+  "national_avg": {
+    "cards_per_1000": 51.01,
+    "tx_per_capita": 5.85,
+    "spend_per_capita": 949.8,
+    "merch_per_10k": 597.22,
+    "total_pop": 37489087,
+    "total_cards": 1912376
+  },
+  "fua_data": [
+    {
+      "fua_enr": "WARSZAWA",
+      "tx_count": 31704406,
+      "unique_cards": 183296,
+      "total_amount": 5459076450.4,
+      "avg_amount": 172.19
+    },
+    {
+      "fua_enr": "KRAKOW",
+      "tx_count": 13074323,
+      "unique_cards": 113701,
+      "total_amount": 2184672957.24,
+      "avg_amount": 167.1
+    },
+    {
+      "fua_enr": "KATOWICE",
+      "tx_count": 19684354,
+      "unique_cards": 97911,
+      "total_amount": 2862319536.74,
+      "avg_amount": 145.41
+    },
+    {
+      "fua_enr": "POZNAN",
+      "tx_count": 12163313,
+      "unique_cards": 71968,
+      "total_amount": 1873259841.83,
+      "avg_amount": 154.01
+    },
+    {
+      "fua_enr": "GDANSK",
+      "tx_count": 11224507,
+      "unique_cards": 61868,
+      "total_amount": 1810123394.72,
+      "avg_amount": 161.27
+    },
+    {
+      "fua_enr": "WROCLAW",
+      "tx_count": 11424975,
+      "unique_cards": 60190,
+      "total_amount": 1720036418.92,
+      "avg_amount": 150.55
+    },
+    {
+      "fua_enr": "LODZ",
+      "tx_count": 7215094,
+      "unique_cards": 41861,
+      "total_amount": 1114530947.34,
+      "avg_amount": 154.47
+    },
+    {
+      "fua_enr": "RZESZOW",
+      "tx_count": 4563656,
+      "unique_cards": 30443,
+      "total_amount": 758377841.78,
+      "avg_amount": 166.18
+    },
+    {
+      "fua_enr": "CZESTOCHOWA",
+      "tx_count": 3945436,
+      "unique_cards": 29834,
+      "total_amount": 655150628.94,
+      "avg_amount": 166.05
+    },
+    {
+      "fua_enr": "SZCZECIN",
+      "tx_count": 4555627,
+      "unique_cards": 27534,
+      "total_amount": 731474879.49,
+      "avg_amount": 160.57
+    },
+    {
+      "fua_enr": "LUBLIN",
+      "tx_count": 4541740,
+      "unique_cards": 26897,
+      "total_amount": 740955659.57,
+      "avg_amount": 163.14
+    },
+    {
+      "fua_enr": "OLSZTYN",
+      "tx_count": 4037009,
+      "unique_cards": 26368,
+      "total_amount": 647471175.07,
+      "avg_amount": 160.38
+    },
+    {
+      "fua_enr": "BIELSKO-BIALA",
+      "tx_count": 4041610,
+      "unique_cards": 25458,
+      "total_amount": 666242903.38,
+      "avg_amount": 164.85
+    },
+    {
+      "fua_enr": "OPOLE",
+      "tx_count": 4305526,
+      "unique_cards": 25156,
+      "total_amount": 680214526.81,
+      "avg_amount": 157.99
+    },
+    {
+      "fua_enr": "ZIELONA GORA",
+      "tx_count": 3711215,
+      "unique_cards": 24493,
+      "total_amount": 588405552.61,
+      "avg_amount": 158.55
+    },
+    {
+      "fua_enr": "BYDGOSZCZ",
+      "tx_count": 4345782,
+      "unique_cards": 24361,
+      "total_amount": 668988519.88,
+      "avg_amount": 153.94
+    },
+    {
+      "fua_enr": "KIELCE",
+      "tx_count": 3235704,
+      "unique_cards": 24089,
+      "total_amount": 552528484.46,
+      "avg_amount": 170.76
+    },
+    {
+      "fua_enr": "RYBNIK",
+      "tx_count": 3513600,
+      "unique_cards": 21496,
+      "total_amount": 557389864.44,
+      "avg_amount": 158.64
+    },
+    {
+      "fua_enr": "PLOCK",
+      "tx_count": 2451558,
+      "unique_cards": 20501,
+      "total_amount": 435736372.88,
+      "avg_amount": 177.74
+    },
+    {
+      "fua_enr": "NOWY SACZ",
+      "tx_count": 2367291,
+      "unique_cards": 18816,
+      "total_amount": 446465068.04,
+      "avg_amount": 188.6
+    },
+    {
+      "fua_enr": "BIALYSTOK",
+      "tx_count": 3212196,
+      "unique_cards": 18608,
+      "total_amount": 504309388.22,
+      "avg_amount": 157.0
+    },
+    {
+      "fua_enr": "SIEDLCE",
+      "tx_count": 2355806,
+      "unique_cards": 18479,
+      "total_amount": 435933630.89,
+      "avg_amount": 185.05
+    },
+    {
+      "fua_enr": "TARNOW",
+      "tx_count": 2707467,
+      "unique_cards": 17857,
+      "total_amount": 437758600.32,
+      "avg_amount": 161.69
+    },
+    {
+      "fua_enr": "GRUDZIADZ",
+      "tx_count": 2630282,
+      "unique_cards": 17067,
+      "total_amount": 413489316.32,
+      "avg_amount": 157.2
+    },
+    {
+      "fua_enr": "TORUN",
+      "tx_count": 2601388,
+      "unique_cards": 16546,
+      "total_amount": 399294117.71,
+      "avg_amount": 153.49
+    },
+    {
+      "fua_enr": "OSTROW WIELKOPOLSKI",
+      "tx_count": 2281962,
+      "unique_cards": 16267,
+      "total_amount": 385948207.75,
+      "avg_amount": 169.13
+    },
+    {
+      "fua_enr": "JASTRZEBIE-ZDROJ",
+      "tx_count": 2188626,
+      "unique_cards": 16195,
+      "total_amount": 355005421.7,
+      "avg_amount": 162.2
+    },
+    {
+      "fua_enr": "JELENIA GORA",
+      "tx_count": 2231441,
+      "unique_cards": 15584,
+      "total_amount": 371243237.83,
+      "avg_amount": 166.37
+    },
+    {
+      "fua_enr": "RADOM",
+      "tx_count": 2347474,
+      "unique_cards": 15346,
+      "total_amount": 421112855.87,
+      "avg_amount": 179.39
+    },
+    {
+      "fua_enr": "GORZOW WIELKOPOLSKI",
+      "tx_count": 2251574,
+      "unique_cards": 15099,
+      "total_amount": 360649153.32,
+      "avg_amount": 160.18
+    },
+    {
+      "fua_enr": "PABIANICE",
+      "tx_count": 1551610,
+      "unique_cards": 14834,
+      "total_amount": 253686152.89,
+      "avg_amount": 163.5
+    },
+    {
+      "fua_enr": "KOSZALIN",
+      "tx_count": 2161104,
+      "unique_cards": 14587,
+      "total_amount": 340441086.71,
+      "avg_amount": 157.53
+    },
+    {
+      "fua_enr": "LESZNO",
+      "tx_count": 2127209,
+      "unique_cards": 13933,
+      "total_amount": 358156106.2,
+      "avg_amount": 168.37
+    },
+    {
+      "fua_enr": "PILA",
+      "tx_count": 2173590,
+      "unique_cards": 13892,
+      "total_amount": 348265707.32,
+      "avg_amount": 160.23
+    },
+    {
+      "fua_enr": "KALISZ",
+      "tx_count": 1494567,
+      "unique_cards": 13806,
+      "total_amount": 281044945.55,
+      "avg_amount": 188.04
+    },
+    {
+      "fua_enr": "TCZEW",
+      "tx_count": 1965913,
+      "unique_cards": 13392,
+      "total_amount": 314038257.55,
+      "avg_amount": 159.74
+    },
+    {
+      "fua_enr": "WALBRZYCH",
+      "tx_count": 1947798,
+      "unique_cards": 13388,
+      "total_amount": 302386714.43,
+      "avg_amount": 155.25
+    },
+    {
+      "fua_enr": "KONIN",
+      "tx_count": 1938124,
+      "unique_cards": 13037,
+      "total_amount": 330426073.01,
+      "avg_amount": 170.49
+    },
+    {
+      "fua_enr": "LOMZA",
+      "tx_count": 1374469,
+      "unique_cards": 11600,
+      "total_amount": 263638823.94,
+      "avg_amount": 191.81
+    },
+    {
+      "fua_enr": "ZAMOSC",
+      "tx_count": 1171433,
+      "unique_cards": 11118,
+      "total_amount": 207581614.18,
+      "avg_amount": 177.2
+    },
+    {
+      "fua_enr": "PRZEMYSL",
+      "tx_count": 1373987,
+      "unique_cards": 10719,
+      "total_amount": 230585909.67,
+      "avg_amount": 167.82
+    },
+    {
+      "fua_enr": "SLUPSK",
+      "tx_count": 1514060,
+      "unique_cards": 10515,
+      "total_amount": 240746201.44,
+      "avg_amount": 159.01
+    },
+    {
+      "fua_enr": "ELBLAG",
+      "tx_count": 1374467,
+      "unique_cards": 9715,
+      "total_amount": 213841647.89,
+      "avg_amount": 155.58
+    },
+    {
+      "fua_enr": "STALOWA WOLA",
+      "tx_count": 1219219,
+      "unique_cards": 9667,
+      "total_amount": 206523039.26,
+      "avg_amount": 169.39
+    },
+    {
+      "fua_enr": "GNIEZNO",
+      "tx_count": 1363712,
+      "unique_cards": 8718,
+      "total_amount": 218830389.48,
+      "avg_amount": 160.47
+    },
+    {
+      "fua_enr": "OSTROWIEC SWIETOKRZYSKI",
+      "tx_count": 1136289,
+      "unique_cards": 8700,
+      "total_amount": 197636704.89,
+      "avg_amount": 173.93
+    },
+    {
+      "fua_enr": "INOWROCLAW",
+      "tx_count": 1235618,
+      "unique_cards": 8597,
+      "total_amount": 205761071.55,
+      "avg_amount": 166.52
+    },
+    {
+      "fua_enr": "SWIDNICA",
+      "tx_count": 1302799,
+      "unique_cards": 8528,
+      "total_amount": 202301250.09,
+      "avg_amount": 155.28
+    },
+    {
+      "fua_enr": "PIOTRKOW TRYBUNALSKI",
+      "tx_count": 1275624,
+      "unique_cards": 8505,
+      "total_amount": 212804016.89,
+      "avg_amount": 166.82
+    },
+    {
+      "fua_enr": "WLOCLAWEK",
+      "tx_count": 1206894,
+      "unique_cards": 8206,
+      "total_amount": 210071026.34,
+      "avg_amount": 174.06
+    },
+    {
+      "fua_enr": "STARGARD",
+      "tx_count": 1078130,
+      "unique_cards": 7729,
+      "total_amount": 174810256.4,
+      "avg_amount": 162.14
+    },
+    {
+      "fua_enr": "LEGNICA",
+      "tx_count": 1262688,
+      "unique_cards": 7471,
+      "total_amount": 192719511.52,
+      "avg_amount": 152.63
+    },
+    {
+      "fua_enr": "ELK",
+      "tx_count": 1060991,
+      "unique_cards": 7135,
+      "total_amount": 176151374.36,
+      "avg_amount": 166.03
+    },
+    {
+      "fua_enr": "LUBIN",
+      "tx_count": 1055424,
+      "unique_cards": 6614,
+      "total_amount": 159992891.57,
+      "avg_amount": 151.59
+    },
+    {
+      "fua_enr": "TOMASZOW MAZOWIECKI",
+      "tx_count": 902165,
+      "unique_cards": 6545,
+      "total_amount": 153011803.02,
+      "avg_amount": 169.61
+    },
+    {
+      "fua_enr": "CHELM",
+      "tx_count": 787756,
+      "unique_cards": 5717,
+      "total_amount": 136521864.15,
+      "avg_amount": 173.3
+    },
+    {
+      "fua_enr": "SUWALKI",
+      "tx_count": 749354,
+      "unique_cards": 5526,
+      "total_amount": 136082987.6,
+      "avg_amount": 181.6
+    },
+    {
+      "fua_enr": "GLOGOW",
+      "tx_count": 642189,
+      "unique_cards": 4273,
+      "total_amount": 100840174.87,
+      "avg_amount": 157.03
+    },
+    {
+      "fua_enr": "TALLINN",
+      "tx_count": 19,
+      "unique_cards": 1,
+      "total_amount": 1006.66,
+      "avg_amount": 52.98
+    }
+  ],
+  "woj_mobility": {
+    "Mazowieckie": {
+      "local": 25358262,
+      "outgoing": 3013858,
+      "total": 28372120,
+      "local_pct": 89.4,
+      "outgoing_pct": 10.6
+    },
+    "Warmińsko-Mazurskie": {
+      "local": 3925393,
+      "outgoing": 251979,
+      "total": 4177372,
+      "local_pct": 94.0,
+      "outgoing_pct": 6.0
+    },
+    "Podlaskie": {
+      "local": 4144794,
+      "outgoing": 295475,
+      "total": 4440269,
+      "local_pct": 93.3,
+      "outgoing_pct": 6.7
+    },
+    "Lubelskie": {
+      "local": 5549188,
+      "outgoing": 545203,
+      "total": 6094391,
+      "local_pct": 91.1,
+      "outgoing_pct": 8.9
+    },
+    "Świętokrzyskie": {
+      "local": 4972338,
+      "outgoing": 577576,
+      "total": 5549914,
+      "local_pct": 89.6,
+      "outgoing_pct": 10.4
+    },
+    "Małopolskie": {
+      "local": 14172660,
+      "outgoing": 3054725,
+      "total": 17227385,
+      "local_pct": 82.3,
+      "outgoing_pct": 17.7
+    },
+    "Podkarpackie": {
+      "local": 5779593,
+      "outgoing": 482253,
+      "total": 6261846,
+      "local_pct": 92.3,
+      "outgoing_pct": 7.7
+    },
+    "Śląskie": {
+      "local": 22176098,
+      "outgoing": 2273452,
+      "total": 24449550,
+      "local_pct": 90.7,
+      "outgoing_pct": 9.3
+    },
+    "Opolskie": {
+      "local": 4219146,
+      "outgoing": 281816,
+      "total": 4500962,
+      "local_pct": 93.7,
+      "outgoing_pct": 6.3
+    },
+    "Dolnośląskie": {
+      "local": 14654478,
+      "outgoing": 1168264,
+      "total": 15822742,
+      "local_pct": 92.6,
+      "outgoing_pct": 7.4
+    },
+    "Wielkopolskie": {
+      "local": 16659531,
+      "outgoing": 2541343,
+      "total": 19200874,
+      "local_pct": 86.8,
+      "outgoing_pct": 13.2
+    },
+    "Lubuskie": {
+      "local": 4233746,
+      "outgoing": 381589,
+      "total": 4615335,
+      "local_pct": 91.7,
+      "outgoing_pct": 8.3
+    },
+    "Zachodniopomorskie": {
+      "local": 7771710,
+      "outgoing": 491075,
+      "total": 8262785,
+      "local_pct": 94.1,
+      "outgoing_pct": 5.9
+    },
+    "Pomorskie": {
+      "local": 10820794,
+      "outgoing": 1101295,
+      "total": 11922089,
+      "local_pct": 90.8,
+      "outgoing_pct": 9.2
+    },
+    "Kujawsko-Pomorskie": {
+      "local": 8654922,
+      "outgoing": 942898,
+      "total": 9597820,
+      "local_pct": 90.2,
+      "outgoing_pct": 9.8
+    },
+    "Łódzkie": {
+      "local": 9597028,
+      "outgoing": 788256,
+      "total": 10385284,
+      "local_pct": 92.4,
+      "outgoing_pct": 7.6
+    }
+  },
+  "top_inflows": [],
+  "woj_inflow": {
+    "Pomorskie": 3517227,
+    "Mazowieckie": 3480166,
+    "Wielkopolskie": 2451208,
+    "Małopolskie": 1941874,
+    "Śląskie": 1563431,
+    "Dolnośląskie": 867679,
+    "Kujawsko-Pomorskie": 789847,
+    "Łódzkie": 550723,
+    "Świętokrzyskie": 543742,
+    "Zachodniopomorskie": 480411,
+    "Podkarpackie": 449214,
+    "Lubelskie": 377119,
+    "Opolskie": 366276,
+    "Lubuskie": 351409,
+    "Podlaskie": 235878,
+    "Warmińsko-Mazurskie": 224853
+  }
+}

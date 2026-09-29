@@ -1,0 +1,2062 @@
+{
+  "population_woj": {
+    "Dolnośląskie": {
+      "population": 2868242,
+      "year": 2024,
+      "unit_id": "030200000000"
+    },
+    "Kujawsko-Pomorskie": {
+      "population": 1984479,
+      "year": 2024,
+      "unit_id": "040400000000"
+    },
+    "Lubelskie": {
+      "population": 1996440,
+      "year": 2024,
+      "unit_id": "060600000000"
+    },
+    "Lubuskie": {
+      "population": 969819,
+      "year": 2024,
+      "unit_id": "020800000000"
+    },
+    "Mazowieckie": {
+      "population": 5508322,
+      "year": 2024,
+      "unit_id": "071400000000"
+    },
+    "Małopolskie": {
+      "population": 3429084,
+      "year": 2024,
+      "unit_id": "011200000000"
+    },
+    "Opolskie": {
+      "population": 930296,
+      "year": 2024,
+      "unit_id": "031600000000"
+    },
+    "Podkarpackie": {
+      "population": 2062997,
+      "year": 2024,
+      "unit_id": "061800000000"
+    },
+    "Podlaskie": {
+      "population": 1132641,
+      "year": 2024,
+      "unit_id": "062000000000"
+    },
+    "Pomorskie": {
+      "population": 2359493,
+      "year": 2024,
+      "unit_id": "042200000000"
+    },
+    "Warmińsko-Mazurskie": {
+      "population": 1349172,
+      "year": 2024,
+      "unit_id": "042800000000"
+    },
+    "Wielkopolskie": {
+      "population": 3479986,
+      "year": 2024,
+      "unit_id": "023000000000"
+    },
+    "Zachodniopomorskie": {
+      "population": 1622760,
+      "year": 2024,
+      "unit_id": "023200000000"
+    },
+    "Łódzkie": {
+      "population": 2345924,
+      "year": 2024,
+      "unit_id": "051000000000"
+    },
+    "Śląskie": {
+      "population": 4291441,
+      "year": 2024,
+      "unit_id": "012400000000"
+    },
+    "Świętokrzyskie": {
+      "population": 1157991,
+      "year": 2024,
+      "unit_id": "052600000000"
+    }
+  },
+  "data_year_woj": 2024,
+  "source": "GUS BDL API (https://bdl.stat.gov.pl/api/v1/)",
+  "variable_id": 72305,
+  "variable_description": "Total population (ludność ogółem)",
+  "population_powiaty": {
+    "Powiat aleksandrowski": {
+      "population": 53086,
+      "year": 2024,
+      "unit_id": "040410801000"
+    },
+    "Powiat augustowski": {
+      "population": 54022,
+      "year": 2024,
+      "unit_id": "062013901000"
+    },
+    "Powiat bartoszycki": {
+      "population": 52001,
+      "year": 2024,
+      "unit_id": "042815601000"
+    },
+    "Powiat bełchatowski": {
+      "population": 108003,
+      "year": 2024,
+      "unit_id": "051011701000"
+    },
+    "Powiat bialski": {
+      "population": 104108,
+      "year": 2024,
+      "unit_id": "060610901000"
+    },
+    "Powiat białobrzeski": {
+      "population": 32350,
+      "year": 2024,
+      "unit_id": "071422701000"
+    },
+    "Powiat białogardzki": {
+      "population": 43964,
+      "year": 2024,
+      "unit_id": "023216301000"
+    },
+    "Powiat białostocki": {
+      "population": 159170,
+      "year": 2024,
+      "unit_id": "062013702000"
+    },
+    "Powiat bielski": {
+      "population": 49987,
+      "year": 2024,
+      "unit_id": "062013803000"
+    },
+    "Powiat bieruńsko-lędziński": {
+      "population": 59400,
+      "year": 2024,
+      "unit_id": "012415114000"
+    },
+    "Powiat bieszczadzki": {
+      "population": 20423,
+      "year": 2024,
+      "unit_id": "061813301000"
+    },
+    "Powiat biłgorajski": {
+      "population": 95219,
+      "year": 2024,
+      "unit_id": "060611002000"
+    },
+    "Powiat bocheński": {
+      "population": 106985,
+      "year": 2024,
+      "unit_id": "011212001000"
+    },
+    "Powiat bolesławiecki": {
+      "population": 87255,
+      "year": 2024,
+      "unit_id": "030210101000"
+    },
+    "Powiat braniewski": {
+      "population": 36812,
+      "year": 2024,
+      "unit_id": "042815402000"
+    },
+    "Powiat brodnicki": {
+      "population": 77345,
+      "year": 2024,
+      "unit_id": "040410702000"
+    },
+    "Powiat brzeski": {
+      "population": 85613,
+      "year": 2024,
+      "unit_id": "031613101000"
+    },
+    "Powiat brzeziński": {
+      "population": 30080,
+      "year": 2024,
+      "unit_id": "051011521000"
+    },
+    "Powiat brzozowski": {
+      "population": 62822,
+      "year": 2024,
+      "unit_id": "061813302000"
+    },
+    "Powiat buski": {
+      "population": 67157,
+      "year": 2024,
+      "unit_id": "052615301000"
+    },
+    "Powiat bydgoski": {
+      "population": 127915,
+      "year": 2024,
+      "unit_id": "040410603000"
+    },
+    "Powiat bytowski": {
+      "population": 76266,
+      "year": 2024,
+      "unit_id": "042214101000"
+    },
+    "Powiat będziński": {
+      "population": 143640,
+      "year": 2024,
+      "unit_id": "012415001000"
+    },
+    "Powiat chełmiński": {
+      "population": 48715,
+      "year": 2024,
+      "unit_id": "040410704000"
+    },
+    "Powiat chełmski": {
+      "population": 73117,
+      "year": 2024,
+      "unit_id": "060611003000"
+    },
+    "Powiat chodzieski": {
+      "population": 44876,
+      "year": 2024,
+      "unit_id": "023016001000"
+    },
+    "Powiat chojnicki": {
+      "population": 95536,
+      "year": 2024,
+      "unit_id": "042217202000"
+    },
+    "Powiat choszczeński": {
+      "population": 44105,
+      "year": 2024,
+      "unit_id": "023216402000"
+    },
+    "Powiat chrzanowski": {
+      "population": 117756,
+      "year": 2024,
+      "unit_id": "011212303000"
+    },
+    "Powiat ciechanowski": {
+      "population": 84565,
+      "year": 2024,
+      "unit_id": "071422502000"
+    },
+    "Powiat cieszyński": {
+      "population": 173694,
+      "year": 2024,
+      "unit_id": "012414403000"
+    },
+    "Powiat czarnkowsko-trzcianecki": {
+      "population": 82852,
+      "year": 2024,
+      "unit_id": "023016002000"
+    },
+    "Powiat częstochowski": {
+      "population": 131042,
+      "year": 2024,
+      "unit_id": "012414604000"
+    },
+    "Powiat człuchowski": {
+      "population": 52747,
+      "year": 2024,
+      "unit_id": "042217203000"
+    },
+    "Powiat drawski": {
+      "population": 53003,
+      "year": 2024,
+      "unit_id": "023216403000"
+    },
+    "Powiat działdowski": {
+      "population": 61003,
+      "year": 2024,
+      "unit_id": "042815403000"
+    },
+    "Powiat dzierżoniowski": {
+      "population": 93863,
+      "year": 2024,
+      "unit_id": "030210302000"
+    },
+    "Powiat dąbrowski": {
+      "population": 57253,
+      "year": 2024,
+      "unit_id": "011212404000"
+    },
+    "Powiat dębicki": {
+      "population": 131981,
+      "year": 2024,
+      "unit_id": "061813603000"
+    },
+    "Powiat elbląski": {
+      "population": 53765,
+      "year": 2024,
+      "unit_id": "042815404000"
+    },
+    "Powiat ełcki": {
+      "population": 87992,
+      "year": 2024,
+      "unit_id": "042815505000"
+    },
+    "Powiat garwoliński": {
+      "population": 105213,
+      "year": 2024,
+      "unit_id": "071427103000"
+    },
+    "Powiat gdański": {
+      "population": 133490,
+      "year": 2024,
+      "unit_id": "042214004000"
+    },
+    "Powiat giżycki": {
+      "population": 53165,
+      "year": 2024,
+      "unit_id": "042815506000"
+    },
+    "Powiat gliwicki": {
+      "population": 112952,
+      "year": 2024,
+      "unit_id": "012414705000"
+    },
+    "Powiat gnieźnieński": {
+      "population": 140653,
+      "year": 2024,
+      "unit_id": "023015803000"
+    },
+    "Powiat goleniowski": {
+      "population": 81118,
+      "year": 2024,
+      "unit_id": "023216604000"
+    },
+    "Powiat golubsko-dobrzyński": {
+      "population": 42998,
+      "year": 2024,
+      "unit_id": "040410705000"
+    },
+    "Powiat gorlicki": {
+      "population": 104592,
+      "year": 2024,
+      "unit_id": "011212205000"
+    },
+    "Powiat gorzowski": {
+      "population": 74079,
+      "year": 2024,
+      "unit_id": "020811301000"
+    },
+    "Powiat gostyniński": {
+      "population": 41756,
+      "year": 2024,
+      "unit_id": "071427004000"
+    },
+    "Powiat gostyński": {
+      "population": 72977,
+      "year": 2024,
+      "unit_id": "023015904000"
+    },
+    "Powiat gołdapski": {
+      "population": 24612,
+      "year": 2024,
+      "unit_id": "042815518000"
+    },
+    "Powiat grajewski": {
+      "population": 43756,
+      "year": 2024,
+      "unit_id": "062013904000"
+    },
+    "Powiat grodziski": {
+      "population": 106973,
+      "year": 2024,
+      "unit_id": "071413005000"
+    },
+    "Powiat grudziądzki": {
+      "population": 39123,
+      "year": 2024,
+      "unit_id": "040410706000"
+    },
+    "Powiat gryficki": {
+      "population": 56095,
+      "year": 2024,
+      "unit_id": "023216605000"
+    },
+    "Powiat gryfiński": {
+      "population": 76489,
+      "year": 2024,
+      "unit_id": "023216606000"
+    },
+    "Powiat grójecki": {
+      "population": 96662,
+      "year": 2024,
+      "unit_id": "071427306000"
+    },
+    "Powiat górowski": {
+      "population": 32054,
+      "year": 2024,
+      "unit_id": "030210204000"
+    },
+    "Powiat głogowski": {
+      "population": 84387,
+      "year": 2024,
+      "unit_id": "030210203000"
+    },
+    "Powiat głubczycki": {
+      "population": 42092,
+      "year": 2024,
+      "unit_id": "031613102000"
+    },
+    "Powiat hajnowski": {
+      "population": 38237,
+      "year": 2024,
+      "unit_id": "062013805000"
+    },
+    "Powiat hrubieszowski": {
+      "population": 55911,
+      "year": 2024,
+      "unit_id": "060611004000"
+    },
+    "Powiat inowrocławski": {
+      "population": 149000,
+      "year": 2024,
+      "unit_id": "040416707000"
+    },
+    "Powiat iławski": {
+      "population": 89540,
+      "year": 2024,
+      "unit_id": "042815407000"
+    },
+    "Powiat janowski": {
+      "population": 42260,
+      "year": 2024,
+      "unit_id": "060611205000"
+    },
+    "Powiat jarociński": {
+      "population": 69540,
+      "year": 2024,
+      "unit_id": "023015706000"
+    },
+    "Powiat jarosławski": {
+      "population": 115103,
+      "year": 2024,
+      "unit_id": "061813404000"
+    },
+    "Powiat jasielski": {
+      "population": 108084,
+      "year": 2024,
+      "unit_id": "061813305000"
+    },
+    "Powiat jaworski": {
+      "population": 46822,
+      "year": 2024,
+      "unit_id": "030210105000"
+    },
+    "Powiat jędrzejowski": {
+      "population": 80365,
+      "year": 2024,
+      "unit_id": "052615302000"
+    },
+    "Powiat kaliski": {
+      "population": 81950,
+      "year": 2024,
+      "unit_id": "023015707000"
+    },
+    "Powiat kamiennogórski": {
+      "population": 39875,
+      "year": 2024,
+      "unit_id": "030210107000"
+    },
+    "Powiat kamieński": {
+      "population": 43773,
+      "year": 2024,
+      "unit_id": "023216607000"
+    },
+    "Powiat karkonoski": {
+      "population": 59864,
+      "year": 2024,
+      "unit_id": "030210106000"
+    },
+    "Powiat kartuski": {
+      "population": 155382,
+      "year": 2024,
+      "unit_id": "042214005000"
+    },
+    "Powiat kazimierski": {
+      "population": 31373,
+      "year": 2024,
+      "unit_id": "052615303000"
+    },
+    "Powiat kielecki": {
+      "population": 211645,
+      "year": 2024,
+      "unit_id": "052615204000"
+    },
+    "Powiat kluczborski": {
+      "population": 60536,
+      "year": 2024,
+      "unit_id": "031613204000"
+    },
+    "Powiat kolbuszowski": {
+      "population": 60895,
+      "year": 2024,
+      "unit_id": "061813506000"
+    },
+    "Powiat kolneński": {
+      "population": 35440,
+      "year": 2024,
+      "unit_id": "062013806000"
+    },
+    "Powiat kolski": {
+      "population": 80743,
+      "year": 2024,
+      "unit_id": "023015809000"
+    },
+    "Powiat konecki": {
+      "population": 72810,
+      "year": 2024,
+      "unit_id": "052615205000"
+    },
+    "Powiat koniński": {
+      "population": 128469,
+      "year": 2024,
+      "unit_id": "023015810000"
+    },
+    "Powiat koszaliński": {
+      "population": 64359,
+      "year": 2024,
+      "unit_id": "023216309000"
+    },
+    "Powiat kozienicki": {
+      "population": 56754,
+      "year": 2024,
+      "unit_id": "071422707000"
+    },
+    "Powiat kołobrzeski": {
+      "population": 76390,
+      "year": 2024,
+      "unit_id": "023216308000"
+    },
+    "Powiat kościański": {
+      "population": 76875,
+      "year": 2024,
+      "unit_id": "023015911000"
+    },
+    "Powiat kościerski": {
+      "population": 72113,
+      "year": 2024,
+      "unit_id": "042217206000"
+    },
+    "Powiat krakowski": {
+      "population": 304278,
+      "year": 2024,
+      "unit_id": "011212006000"
+    },
+    "Powiat krapkowicki": {
+      "population": 59288,
+      "year": 2024,
+      "unit_id": "031613205000"
+    },
+    "Powiat krasnostawski": {
+      "population": 58307,
+      "year": 2024,
+      "unit_id": "060611006000"
+    },
+    "Powiat kraśnicki": {
+      "population": 88198,
+      "year": 2024,
+      "unit_id": "060611207000"
+    },
+    "Powiat krotoszyński": {
+      "population": 74463,
+      "year": 2024,
+      "unit_id": "023015712000"
+    },
+    "Powiat krośnieński": {
+      "population": 108034,
+      "year": 2024,
+      "unit_id": "061813307000"
+    },
+    "Powiat kutnowski": {
+      "population": 89709,
+      "year": 2024,
+      "unit_id": "051011902000"
+    },
+    "Powiat kwidzyński": {
+      "population": 79612,
+      "year": 2024,
+      "unit_id": "042214207000"
+    },
+    "Powiat kędzierzyńsko-kozielski": {
+      "population": 85435,
+      "year": 2024,
+      "unit_id": "031613203000"
+    },
+    "Powiat kępiński": {
+      "population": 55762,
+      "year": 2024,
+      "unit_id": "023015708000"
+    },
+    "Powiat kętrzyński": {
+      "population": 56262,
+      "year": 2024,
+      "unit_id": "042815608000"
+    },
+    "Powiat kłobucki": {
+      "population": 81495,
+      "year": 2024,
+      "unit_id": "012414606000"
+    },
+    "Powiat kłodzki": {
+      "population": 145243,
+      "year": 2024,
+      "unit_id": "030210308000"
+    },
+    "Powiat legionowski": {
+      "population": 133097,
+      "year": 2024,
+      "unit_id": "071412908000"
+    },
+    "Powiat legnicki": {
+      "population": 54967,
+      "year": 2024,
+      "unit_id": "030210209000"
+    },
+    "Powiat leski": {
+      "population": 25224,
+      "year": 2024,
+      "unit_id": "061813321000"
+    },
+    "Powiat leszczyński": {
+      "population": 60562,
+      "year": 2024,
+      "unit_id": "023015913000"
+    },
+    "Powiat leżajski": {
+      "population": 66263,
+      "year": 2024,
+      "unit_id": "061813608000"
+    },
+    "Powiat lidzbarski": {
+      "population": 37756,
+      "year": 2024,
+      "unit_id": "042815609000"
+    },
+    "Powiat limanowski": {
+      "population": 131626,
+      "year": 2024,
+      "unit_id": "011212207000"
+    },
+    "Powiat lipnowski": {
+      "population": 62058,
+      "year": 2024,
+      "unit_id": "040410808000"
+    },
+    "Powiat lipski": {
+      "population": 31251,
+      "year": 2024,
+      "unit_id": "071422709000"
+    },
+    "Powiat lubaczowski": {
+      "population": 51997,
+      "year": 2024,
+      "unit_id": "061813409000"
+    },
+    "Powiat lubartowski": {
+      "population": 83385,
+      "year": 2024,
+      "unit_id": "060611108000"
+    },
+    "Powiat lubański": {
+      "population": 50909,
+      "year": 2024,
+      "unit_id": "030210110000"
+    },
+    "Powiat lubelski": {
+      "population": 165359,
+      "year": 2024,
+      "unit_id": "060611109000"
+    },
+    "Powiat lubiński": {
+      "population": 102376,
+      "year": 2024,
+      "unit_id": "030210211000"
+    },
+    "Powiat lubliniecki": {
+      "population": 74419,
+      "year": 2024,
+      "unit_id": "012414507000"
+    },
+    "Powiat lwówecki": {
+      "population": 42465,
+      "year": 2024,
+      "unit_id": "030210112000"
+    },
+    "Powiat lęborski": {
+      "population": 63448,
+      "year": 2024,
+      "unit_id": "042214108000"
+    },
+    "Powiat m. Biała Podlaska": {
+      "population": 53888,
+      "year": 2024,
+      "unit_id": "060610961000"
+    },
+    "Powiat m. Białystok": {
+      "population": 290386,
+      "year": 2024,
+      "unit_id": "062013761000"
+    },
+    "Powiat m. Bielsko-Biała": {
+      "population": 164318,
+      "year": 2024,
+      "unit_id": "012414461000"
+    },
+    "Powiat m. Bydgoszcz": {
+      "population": 324043,
+      "year": 2024,
+      "unit_id": "040410661000"
+    },
+    "Powiat m. Bytom": {
+      "population": 146290,
+      "year": 2024,
+      "unit_id": "012414562000"
+    },
+    "Powiat m. Chełm": {
+      "population": 56434,
+      "year": 2024,
+      "unit_id": "060611062000"
+    },
+    "Powiat m. Chorzów": {
+      "population": 99420,
+      "year": 2024,
+      "unit_id": "012414863000"
+    },
+    "Powiat m. Częstochowa": {
+      "population": 203615,
+      "year": 2024,
+      "unit_id": "012414664000"
+    },
+    "Powiat m. Dąbrowa Górnicza": {
+      "population": 112408,
+      "year": 2024,
+      "unit_id": "012415065000"
+    },
+    "Powiat m. Elbląg": {
+      "population": 112052,
+      "year": 2024,
+      "unit_id": "042815461000"
+    },
+    "Powiat m. Gdańsk": {
+      "population": 488651,
+      "year": 2024,
+      "unit_id": "042214361000"
+    },
+    "Powiat m. Gdynia": {
+      "population": 240084,
+      "year": 2024,
+      "unit_id": "042214362000"
+    },
+    "Powiat m. Gliwice": {
+      "population": 168248,
+      "year": 2024,
+      "unit_id": "012414766000"
+    },
+    "Powiat m. Gorzów Wielkopolski": {
+      "population": 114700,
+      "year": 2024,
+      "unit_id": "020811361000"
+    },
+    "Powiat m. Grudziądz": {
+      "population": 87696,
+      "year": 2024,
+      "unit_id": "040410762000"
+    },
+    "Powiat m. Jastrzębie-Zdrój": {
+      "population": 81338,
+      "year": 2024,
+      "unit_id": "012414967000"
+    },
+    "Powiat m. Jaworzno": {
+      "population": 86075,
+      "year": 2024,
+      "unit_id": "012415068000"
+    },
+    "Powiat m. Jelenia Góra": {
+      "population": 74194,
+      "year": 2024,
+      "unit_id": "030210161000"
+    },
+    "Powiat m. Kalisz": {
+      "population": 91963,
+      "year": 2024,
+      "unit_id": "023015761000"
+    },
+    "Powiat m. Katowice": {
+      "population": 278885,
+      "year": 2024,
+      "unit_id": "012414869000"
+    },
+    "Powiat m. Kielce": {
+      "population": 180537,
+      "year": 2024,
+      "unit_id": "052615261000"
+    },
+    "Powiat m. Konin": {
+      "population": 66103,
+      "year": 2024,
+      "unit_id": "023015862000"
+    },
+    "Powiat m. Koszalin": {
+      "population": 105263,
+      "year": 2024,
+      "unit_id": "023216361000"
+    },
+    "Powiat m. Kraków": {
+      "population": 809168,
+      "year": 2024,
+      "unit_id": "011212161000"
+    },
+    "Powiat m. Krosno": {
+      "population": 43594,
+      "year": 2024,
+      "unit_id": "061813361000"
+    },
+    "Powiat m. Legnica": {
+      "population": 90823,
+      "year": 2024,
+      "unit_id": "030210262000"
+    },
+    "Powiat m. Leszno": {
+      "population": 59521,
+      "year": 2024,
+      "unit_id": "023015963000"
+    },
+    "Powiat m. Lublin": {
+      "population": 328305,
+      "year": 2024,
+      "unit_id": "060611163000"
+    },
+    "Powiat m. Mysłowice": {
+      "population": 70741,
+      "year": 2024,
+      "unit_id": "012414870000"
+    },
+    "Powiat m. Nowy Sącz": {
+      "population": 79821,
+      "year": 2024,
+      "unit_id": "011212262000"
+    },
+    "Powiat m. Olsztyn": {
+      "population": 166392,
+      "year": 2024,
+      "unit_id": "042815662000"
+    },
+    "Powiat m. Opole": {
+      "population": 125492,
+      "year": 2024,
+      "unit_id": "031613261000"
+    },
+    "Powiat m. Ostrołęka": {
+      "population": 47696,
+      "year": 2024,
+      "unit_id": "071422661000"
+    },
+    "Powiat m. Piekary Śląskie": {
+      "population": 51373,
+      "year": 2024,
+      "unit_id": "012414571000"
+    },
+    "Powiat m. Piotrków Trybunalski": {
+      "population": 66022,
+      "year": 2024,
+      "unit_id": "051011762000"
+    },
+    "Powiat m. Poznań": {
+      "population": 536151,
+      "year": 2024,
+      "unit_id": "023016264000"
+    },
+    "Powiat m. Przemyśl": {
+      "population": 55292,
+      "year": 2024,
+      "unit_id": "061813462000"
+    },
+    "Powiat m. Płock": {
+      "population": 110015,
+      "year": 2024,
+      "unit_id": "071427062000"
+    },
+    "Powiat m. Radom": {
+      "population": 193777,
+      "year": 2024,
+      "unit_id": "071422763000"
+    },
+    "Powiat m. Ruda Śląska": {
+      "population": 128793,
+      "year": 2024,
+      "unit_id": "012414872000"
+    },
+    "Powiat m. Rybnik": {
+      "population": 129817,
+      "year": 2024,
+      "unit_id": "012414973000"
+    },
+    "Powiat m. Rzeszów": {
+      "population": 198317,
+      "year": 2024,
+      "unit_id": "061813563000"
+    },
+    "Powiat m. Siedlce": {
+      "population": 74780,
+      "year": 2024,
+      "unit_id": "071427164000"
+    },
+    "Powiat m. Siemianowice Śląskie": {
+      "population": 62817,
+      "year": 2024,
+      "unit_id": "012414874000"
+    },
+    "Powiat m. Skierniewice": {
+      "population": 45121,
+      "year": 2024,
+      "unit_id": "051011963000"
+    },
+    "Powiat m. Sopot": {
+      "population": 31444,
+      "year": 2024,
+      "unit_id": "042214364000"
+    },
+    "Powiat m. Sosnowiec": {
+      "population": 184988,
+      "year": 2024,
+      "unit_id": "012415075000"
+    },
+    "Powiat m. Suwałki": {
+      "population": 68143,
+      "year": 2024,
+      "unit_id": "062013963000"
+    },
+    "Powiat m. Szczecin": {
+      "population": 386706,
+      "year": 2024,
+      "unit_id": "023216562000"
+    },
+    "Powiat m. Słupsk": {
+      "population": 84767,
+      "year": 2024,
+      "unit_id": "042214163000"
+    },
+    "Powiat m. Tarnobrzeg": {
+      "population": 43224,
+      "year": 2024,
+      "unit_id": "061813664000"
+    },
+    "Powiat m. Tarnów": {
+      "population": 102123,
+      "year": 2024,
+      "unit_id": "011212463000"
+    },
+    "Powiat m. Toruń": {
+      "population": 193717,
+      "year": 2024,
+      "unit_id": "040410663000"
+    },
+    "Powiat m. Tychy": {
+      "population": 121063,
+      "year": 2024,
+      "unit_id": "012415177000"
+    },
+    "Powiat m. Wałbrzych od 2013": {
+      "population": 98748,
+      "year": 2024,
+      "unit_id": "030210365000"
+    },
+    "Powiat m. Wrocław": {
+      "population": 672882,
+      "year": 2024,
+      "unit_id": "030210564000"
+    },
+    "Powiat m. Włocławek": {
+      "population": 99474,
+      "year": 2024,
+      "unit_id": "040410864000"
+    },
+    "Powiat m. Zabrze": {
+      "population": 152461,
+      "year": 2024,
+      "unit_id": "012414778000"
+    },
+    "Powiat m. Zamość": {
+      "population": 57516,
+      "year": 2024,
+      "unit_id": "060611064000"
+    },
+    "Powiat m. Zielona Góra": {
+      "population": 138869,
+      "year": 2024,
+      "unit_id": "020811462000"
+    },
+    "Powiat m. st. Warszawa": {
+      "population": 1863845,
+      "year": 2024,
+      "unit_id": "071412865000"
+    },
+    "Powiat m. Łomża": {
+      "population": 59263,
+      "year": 2024,
+      "unit_id": "062013862000"
+    },
+    "Powiat m. Łódź": {
+      "population": 645693,
+      "year": 2024,
+      "unit_id": "051011661000"
+    },
+    "Powiat m. Świnoujście": {
+      "population": 38541,
+      "year": 2024,
+      "unit_id": "023216663000"
+    },
+    "Powiat m. Świętochłowice": {
+      "population": 45021,
+      "year": 2024,
+      "unit_id": "012414876000"
+    },
+    "Powiat m. Żory": {
+      "population": 61923,
+      "year": 2024,
+      "unit_id": "012414979000"
+    },
+    "Powiat makowski": {
+      "population": 41254,
+      "year": 2024,
+      "unit_id": "071422611000"
+    },
+    "Powiat malborski": {
+      "population": 60351,
+      "year": 2024,
+      "unit_id": "042214209000"
+    },
+    "Powiat miechowski": {
+      "population": 46305,
+      "year": 2024,
+      "unit_id": "011212008000"
+    },
+    "Powiat mielecki": {
+      "population": 132484,
+      "year": 2024,
+      "unit_id": "061813611000"
+    },
+    "Powiat mikołowski": {
+      "population": 100019,
+      "year": 2024,
+      "unit_id": "012415108000"
+    },
+    "Powiat milicki": {
+      "population": 35396,
+      "year": 2024,
+      "unit_id": "030210413000"
+    },
+    "Powiat międzychodzki": {
+      "population": 35485,
+      "year": 2024,
+      "unit_id": "023015914000"
+    },
+    "Powiat międzyrzecki": {
+      "population": 54439,
+      "year": 2024,
+      "unit_id": "020811303000"
+    },
+    "Powiat miński": {
+      "population": 159535,
+      "year": 2024,
+      "unit_id": "071412912000"
+    },
+    "Powiat mogileński": {
+      "population": 43209,
+      "year": 2024,
+      "unit_id": "040416709000"
+    },
+    "Powiat moniecki": {
+      "population": 36975,
+      "year": 2024,
+      "unit_id": "062013908000"
+    },
+    "Powiat mrągowski": {
+      "population": 47074,
+      "year": 2024,
+      "unit_id": "042815610000"
+    },
+    "Powiat myszkowski": {
+      "population": 67049,
+      "year": 2024,
+      "unit_id": "012414609000"
+    },
+    "Powiat myślenicki": {
+      "population": 129984,
+      "year": 2024,
+      "unit_id": "011212009000"
+    },
+    "Powiat myśliborski": {
+      "population": 61756,
+      "year": 2024,
+      "unit_id": "023216410000"
+    },
+    "Powiat mławski": {
+      "population": 68556,
+      "year": 2024,
+      "unit_id": "071422513000"
+    },
+    "Powiat nakielski": {
+      "population": 82435,
+      "year": 2024,
+      "unit_id": "040416710000"
+    },
+    "Powiat namysłowski": {
+      "population": 41753,
+      "year": 2024,
+      "unit_id": "031613106000"
+    },
+    "Powiat nidzicki": {
+      "population": 30207,
+      "year": 2024,
+      "unit_id": "042815611000"
+    },
+    "Powiat niżański": {
+      "population": 63189,
+      "year": 2024,
+      "unit_id": "061813612000"
+    },
+    "Powiat nowodworski": {
+      "population": 79351,
+      "year": 2024,
+      "unit_id": "071413014000"
+    },
+    "Powiat nowomiejski": {
+      "population": 41726,
+      "year": 2024,
+      "unit_id": "042815412000"
+    },
+    "Powiat nowosolski": {
+      "population": 81809,
+      "year": 2024,
+      "unit_id": "020811404000"
+    },
+    "Powiat nowosądecki": {
+      "population": 214876,
+      "year": 2024,
+      "unit_id": "011212210000"
+    },
+    "Powiat nowotarski": {
+      "population": 189984,
+      "year": 2024,
+      "unit_id": "011216911000"
+    },
+    "Powiat nowotomyski": {
+      "population": 75015,
+      "year": 2024,
+      "unit_id": "023015915000"
+    },
+    "Powiat nyski": {
+      "population": 126897,
+      "year": 2024,
+      "unit_id": "031613107000"
+    },
+    "Powiat obornicki": {
+      "population": 58657,
+      "year": 2024,
+      "unit_id": "023016116000"
+    },
+    "Powiat olecki": {
+      "population": 31717,
+      "year": 2024,
+      "unit_id": "042815513000"
+    },
+    "Powiat oleski": {
+      "population": 60798,
+      "year": 2024,
+      "unit_id": "031613208000"
+    },
+    "Powiat oleśnicki": {
+      "population": 106706,
+      "year": 2024,
+      "unit_id": "030210414000"
+    },
+    "Powiat olkuski": {
+      "population": 105000,
+      "year": 2024,
+      "unit_id": "011212312000"
+    },
+    "Powiat olsztyński": {
+      "population": 130560,
+      "year": 2024,
+      "unit_id": "042815614000"
+    },
+    "Powiat opatowski": {
+      "population": 47876,
+      "year": 2024,
+      "unit_id": "052615306000"
+    },
+    "Powiat opoczyński": {
+      "population": 71234,
+      "year": 2024,
+      "unit_id": "051011707000"
+    },
+    "Powiat opolski": {
+      "population": 55078,
+      "year": 2024,
+      "unit_id": "060611212000"
+    },
+    "Powiat ostrowiecki": {
+      "population": 98766,
+      "year": 2024,
+      "unit_id": "052615207000"
+    },
+    "Powiat ostrowski": {
+      "population": 67854,
+      "year": 2024,
+      "unit_id": "071422616000"
+    },
+    "Powiat ostrołęcki": {
+      "population": 87397,
+      "year": 2024,
+      "unit_id": "071422615000"
+    },
+    "Powiat ostrzeszowski": {
+      "population": 54319,
+      "year": 2024,
+      "unit_id": "023015718000"
+    },
+    "Powiat ostródzki": {
+      "population": 98242,
+      "year": 2024,
+      "unit_id": "042815415000"
+    },
+    "Powiat otwocki": {
+      "population": 126669,
+      "year": 2024,
+      "unit_id": "071412917000"
+    },
+    "Powiat oławski": {
+      "population": 77387,
+      "year": 2024,
+      "unit_id": "030210415000"
+    },
+    "Powiat oświęcimski": {
+      "population": 147678,
+      "year": 2024,
+      "unit_id": "011212313000"
+    },
+    "Powiat pabianicki": {
+      "population": 118704,
+      "year": 2024,
+      "unit_id": "051011508000"
+    },
+    "Powiat pajęczański": {
+      "population": 48086,
+      "year": 2024,
+      "unit_id": "051011809000"
+    },
+    "Powiat parczewski": {
+      "population": 31832,
+      "year": 2024,
+      "unit_id": "060610913000"
+    },
+    "Powiat piaseczyński": {
+      "population": 217738,
+      "year": 2024,
+      "unit_id": "071413018000"
+    },
+    "Powiat pilski": {
+      "population": 129629,
+      "year": 2024,
+      "unit_id": "023016019000"
+    },
+    "Powiat piotrkowski": {
+      "population": 89717,
+      "year": 2024,
+      "unit_id": "051011710000"
+    },
+    "Powiat piski": {
+      "population": 51550,
+      "year": 2024,
+      "unit_id": "042815516000"
+    },
+    "Powiat pińczowski": {
+      "population": 36283,
+      "year": 2024,
+      "unit_id": "052615308000"
+    },
+    "Powiat pleszewski": {
+      "population": 60871,
+      "year": 2024,
+      "unit_id": "023015720000"
+    },
+    "Powiat poddębicki": {
+      "population": 39169,
+      "year": 2024,
+      "unit_id": "051011811000"
+    },
+    "Powiat policki": {
+      "population": 86834,
+      "year": 2024,
+      "unit_id": "023216611000"
+    },
+    "Powiat polkowicki": {
+      "population": 60913,
+      "year": 2024,
+      "unit_id": "030210216000"
+    },
+    "Powiat poznański": {
+      "population": 454283,
+      "year": 2024,
+      "unit_id": "023016121000"
+    },
+    "Powiat proszowicki": {
+      "population": 41929,
+      "year": 2024,
+      "unit_id": "011212014000"
+    },
+    "Powiat prudnicki": {
+      "population": 50875,
+      "year": 2024,
+      "unit_id": "031613110000"
+    },
+    "Powiat pruszkowski": {
+      "population": 181026,
+      "year": 2024,
+      "unit_id": "071413021000"
+    },
+    "Powiat przasnyski": {
+      "population": 48615,
+      "year": 2024,
+      "unit_id": "071422622000"
+    },
+    "Powiat przemyski": {
+      "population": 70688,
+      "year": 2024,
+      "unit_id": "061813413000"
+    },
+    "Powiat przeworski": {
+      "population": 75370,
+      "year": 2024,
+      "unit_id": "061813414000"
+    },
+    "Powiat przysuski": {
+      "population": 38291,
+      "year": 2024,
+      "unit_id": "071422723000"
+    },
+    "Powiat pszczyński": {
+      "population": 110722,
+      "year": 2024,
+      "unit_id": "012415110000"
+    },
+    "Powiat pucki": {
+      "population": 92383,
+      "year": 2024,
+      "unit_id": "042214011000"
+    },
+    "Powiat puławski": {
+      "population": 106181,
+      "year": 2024,
+      "unit_id": "060611214000"
+    },
+    "Powiat pułtuski": {
+      "population": 50163,
+      "year": 2024,
+      "unit_id": "071422524000"
+    },
+    "Powiat pyrzycki": {
+      "population": 35991,
+      "year": 2024,
+      "unit_id": "023216412000"
+    },
+    "Powiat płocki": {
+      "population": 109144,
+      "year": 2024,
+      "unit_id": "071427019000"
+    },
+    "Powiat płoński": {
+      "population": 83436,
+      "year": 2024,
+      "unit_id": "071422520000"
+    },
+    "Powiat raciborski": {
+      "population": 98665,
+      "year": 2024,
+      "unit_id": "012414911000"
+    },
+    "Powiat radomski": {
+      "population": 151367,
+      "year": 2024,
+      "unit_id": "071422725000"
+    },
+    "Powiat radomszczański": {
+      "population": 105623,
+      "year": 2024,
+      "unit_id": "051011712000"
+    },
+    "Powiat radziejowski": {
+      "population": 37331,
+      "year": 2024,
+      "unit_id": "040410811000"
+    },
+    "Powiat radzyński": {
+      "population": 54531,
+      "year": 2024,
+      "unit_id": "060610915000"
+    },
+    "Powiat rawicki": {
+      "population": 58338,
+      "year": 2024,
+      "unit_id": "023015922000"
+    },
+    "Powiat rawski": {
+      "population": 45664,
+      "year": 2024,
+      "unit_id": "051011913000"
+    },
+    "Powiat ropczycko-sędziszowski": {
+      "population": 74083,
+      "year": 2024,
+      "unit_id": "061813515000"
+    },
+    "Powiat rybnicki": {
+      "population": 76250,
+      "year": 2024,
+      "unit_id": "012414912000"
+    },
+    "Powiat rycki": {
+      "population": 50898,
+      "year": 2024,
+      "unit_id": "060611216000"
+    },
+    "Powiat rypiński": {
+      "population": 40798,
+      "year": 2024,
+      "unit_id": "040410712000"
+    },
+    "Powiat rzeszowski": {
+      "population": 176821,
+      "year": 2024,
+      "unit_id": "061813516000"
+    },
+    "Powiat sandomierski": {
+      "population": 70999,
+      "year": 2024,
+      "unit_id": "052615309000"
+    },
+    "Powiat sanocki": {
+      "population": 89001,
+      "year": 2024,
+      "unit_id": "061813317000"
+    },
+    "Powiat sejneński": {
+      "population": 18434,
+      "year": 2024,
+      "unit_id": "062013909000"
+    },
+    "Powiat siedlecki": {
+      "population": 80446,
+      "year": 2024,
+      "unit_id": "071427126000"
+    },
+    "Powiat siemiatycki": {
+      "population": 40212,
+      "year": 2024,
+      "unit_id": "062013810000"
+    },
+    "Powiat sieradzki": {
+      "population": 110665,
+      "year": 2024,
+      "unit_id": "051011814000"
+    },
+    "Powiat sierpecki": {
+      "population": 47742,
+      "year": 2024,
+      "unit_id": "071427027000"
+    },
+    "Powiat skarżyski": {
+      "population": 67152,
+      "year": 2024,
+      "unit_id": "052615210000"
+    },
+    "Powiat skierniewicki": {
+      "population": 37670,
+      "year": 2024,
+      "unit_id": "051011915000"
+    },
+    "Powiat sochaczewski": {
+      "population": 82854,
+      "year": 2024,
+      "unit_id": "071427328000"
+    },
+    "Powiat sokołowski": {
+      "population": 49551,
+      "year": 2024,
+      "unit_id": "071427129000"
+    },
+    "Powiat sokólski": {
+      "population": 60592,
+      "year": 2024,
+      "unit_id": "062013711000"
+    },
+    "Powiat stalowowolski": {
+      "population": 100034,
+      "year": 2024,
+      "unit_id": "061813618000"
+    },
+    "Powiat starachowicki": {
+      "population": 82681,
+      "year": 2024,
+      "unit_id": "052615211000"
+    },
+    "Powiat stargardzki": {
+      "population": 118844,
+      "year": 2024,
+      "unit_id": "023216614000"
+    },
+    "Powiat starogardzki": {
+      "population": 124774,
+      "year": 2024,
+      "unit_id": "042214213000"
+    },
+    "Powiat staszowski": {
+      "population": 67817,
+      "year": 2024,
+      "unit_id": "052615312000"
+    },
+    "Powiat strzelecki": {
+      "population": 70763,
+      "year": 2024,
+      "unit_id": "031613211000"
+    },
+    "Powiat strzelecko-drezdenecki": {
+      "population": 46204,
+      "year": 2024,
+      "unit_id": "020811306000"
+    },
+    "Powiat strzeliński": {
+      "population": 41473,
+      "year": 2024,
+      "unit_id": "030210417000"
+    },
+    "Powiat strzyżowski": {
+      "population": 58775,
+      "year": 2024,
+      "unit_id": "061813519000"
+    },
+    "Powiat sulęciński": {
+      "population": 33191,
+      "year": 2024,
+      "unit_id": "020811307000"
+    },
+    "Powiat suski": {
+      "population": 82546,
+      "year": 2024,
+      "unit_id": "011216915000"
+    },
+    "Powiat suwalski": {
+      "population": 34585,
+      "year": 2024,
+      "unit_id": "062013912000"
+    },
+    "Powiat szamotulski": {
+      "population": 91631,
+      "year": 2024,
+      "unit_id": "023016124000"
+    },
+    "Powiat szczecinecki": {
+      "population": 72023,
+      "year": 2024,
+      "unit_id": "023216415000"
+    },
+    "Powiat szczycieński": {
+      "population": 66133,
+      "year": 2024,
+      "unit_id": "042815617000"
+    },
+    "Powiat sztumski": {
+      "population": 37836,
+      "year": 2024,
+      "unit_id": "042214216000"
+    },
+    "Powiat szydłowiecki": {
+      "population": 37244,
+      "year": 2024,
+      "unit_id": "071422730000"
+    },
+    "Powiat sępoleński": {
+      "population": 38633,
+      "year": 2024,
+      "unit_id": "040416813000"
+    },
+    "Powiat sławieński": {
+      "population": 52394,
+      "year": 2024,
+      "unit_id": "023216313000"
+    },
+    "Powiat słubicki": {
+      "population": 45679,
+      "year": 2024,
+      "unit_id": "020811305000"
+    },
+    "Powiat słupecki": {
+      "population": 56994,
+      "year": 2024,
+      "unit_id": "023015823000"
+    },
+    "Powiat słupski": {
+      "population": 95888,
+      "year": 2024,
+      "unit_id": "042214112000"
+    },
+    "Powiat tarnobrzeski": {
+      "population": 50550,
+      "year": 2024,
+      "unit_id": "061813620000"
+    },
+    "Powiat tarnogórski": {
+      "population": 138856,
+      "year": 2024,
+      "unit_id": "012414513000"
+    },
+    "Powiat tarnowski": {
+      "population": 197119,
+      "year": 2024,
+      "unit_id": "011212416000"
+    },
+    "Powiat tatrzański": {
+      "population": 66346,
+      "year": 2024,
+      "unit_id": "011216917000"
+    },
+    "Powiat tczewski": {
+      "population": 110511,
+      "year": 2024,
+      "unit_id": "042214214000"
+    },
+    "Powiat tomaszowski": {
+      "population": 76155,
+      "year": 2024,
+      "unit_id": "060611018000"
+    },
+    "Powiat toruński": {
+      "population": 114956,
+      "year": 2024,
+      "unit_id": "040410615000"
+    },
+    "Powiat trzebnicki": {
+      "population": 87765,
+      "year": 2024,
+      "unit_id": "030210420000"
+    },
+    "Powiat tucholski": {
+      "population": 46763,
+      "year": 2024,
+      "unit_id": "040416816000"
+    },
+    "Powiat turecki": {
+      "population": 80513,
+      "year": 2024,
+      "unit_id": "023015827000"
+    },
+    "Powiat wadowicki": {
+      "population": 157099,
+      "year": 2024,
+      "unit_id": "011212318000"
+    },
+    "Powiat warszawski zachodni": {
+      "population": 136493,
+      "year": 2024,
+      "unit_id": "071413032000"
+    },
+    "Powiat wałbrzyski": {
+      "population": 52275,
+      "year": 2024,
+      "unit_id": "030210321000"
+    },
+    "Powiat wałecki": {
+      "population": 49384,
+      "year": 2024,
+      "unit_id": "023216417000"
+    },
+    "Powiat wejherowski": {
+      "population": 230818,
+      "year": 2024,
+      "unit_id": "042214015000"
+    },
+    "Powiat wielicki": {
+      "population": 145276,
+      "year": 2024,
+      "unit_id": "011212019000"
+    },
+    "Powiat wieluński": {
+      "population": 72013,
+      "year": 2024,
+      "unit_id": "051011817000"
+    },
+    "Powiat wieruszowski": {
+      "population": 41295,
+      "year": 2024,
+      "unit_id": "051011818000"
+    },
+    "Powiat wodzisławski": {
+      "population": 149463,
+      "year": 2024,
+      "unit_id": "012414915000"
+    },
+    "Powiat wolsztyński": {
+      "population": 56446,
+      "year": 2024,
+      "unit_id": "023015929000"
+    },
+    "Powiat wołomiński": {
+      "population": 277725,
+      "year": 2024,
+      "unit_id": "071412934000"
+    },
+    "Powiat wołowski": {
+      "population": 45112,
+      "year": 2024,
+      "unit_id": "030210422000"
+    },
+    "Powiat wrocławski": {
+      "population": 191110,
+      "year": 2024,
+      "unit_id": "030210423000"
+    },
+    "Powiat wrzesiński": {
+      "population": 78199,
+      "year": 2024,
+      "unit_id": "023015830000"
+    },
+    "Powiat wschowski": {
+      "population": 37002,
+      "year": 2024,
+      "unit_id": "020811412000"
+    },
+    "Powiat wysokomazowiecki": {
+      "population": 52834,
+      "year": 2024,
+      "unit_id": "062013813000"
+    },
+    "Powiat wyszkowski": {
+      "population": 73179,
+      "year": 2024,
+      "unit_id": "071422635000"
+    },
+    "Powiat wąbrzeski": {
+      "population": 32155,
+      "year": 2024,
+      "unit_id": "040410717000"
+    },
+    "Powiat wągrowiecki": {
+      "population": 68899,
+      "year": 2024,
+      "unit_id": "023016028000"
+    },
+    "Powiat węgorzewski": {
+      "population": 20611,
+      "year": 2024,
+      "unit_id": "042815519000"
+    },
+    "Powiat węgrowski": {
+      "population": 61472,
+      "year": 2024,
+      "unit_id": "071427133000"
+    },
+    "Powiat włocławski": {
+      "population": 81591,
+      "year": 2024,
+      "unit_id": "040410818000"
+    },
+    "Powiat włodawski": {
+      "population": 34989,
+      "year": 2024,
+      "unit_id": "060610919000"
+    },
+    "Powiat włoszczowski": {
+      "population": 42530,
+      "year": 2024,
+      "unit_id": "052615313000"
+    },
+    "Powiat zambrowski": {
+      "population": 41109,
+      "year": 2024,
+      "unit_id": "062013814000"
+    },
+    "Powiat zamojski": {
+      "population": 100017,
+      "year": 2024,
+      "unit_id": "060611020000"
+    },
+    "Powiat zawierciański": {
+      "population": 110383,
+      "year": 2024,
+      "unit_id": "012415016000"
+    },
+    "Powiat zduńskowolski": {
+      "population": 62876,
+      "year": 2024,
+      "unit_id": "051011819000"
+    },
+    "Powiat zgierski": {
+      "population": 165840,
+      "year": 2024,
+      "unit_id": "051011520000"
+    },
+    "Powiat zgorzelecki": {
+      "population": 84337,
+      "year": 2024,
+      "unit_id": "030210125000"
+    },
+    "Powiat zielonogórski": {
+      "population": 74754,
+      "year": 2024,
+      "unit_id": "020811409000"
+    },
+    "Powiat zwoleński": {
+      "population": 34091,
+      "year": 2024,
+      "unit_id": "071422736000"
+    },
+    "Powiat ząbkowicki": {
+      "population": 59803,
+      "year": 2024,
+      "unit_id": "030210324000"
+    },
+    "Powiat złotoryjski": {
+      "population": 40213,
+      "year": 2024,
+      "unit_id": "030210126000"
+    },
+    "Powiat złotowski": {
+      "population": 66975,
+      "year": 2024,
+      "unit_id": "023016031000"
+    },
+    "Powiat łaski": {
+      "population": 48498,
+      "year": 2024,
+      "unit_id": "051011803000"
+    },
+    "Powiat łańcucki": {
+      "population": 80749,
+      "year": 2024,
+      "unit_id": "061813510000"
+    },
+    "Powiat łobeski": {
+      "population": 32974,
+      "year": 2024,
+      "unit_id": "023216418000"
+    },
+    "Powiat łomżyński": {
+      "population": 49496,
+      "year": 2024,
+      "unit_id": "062013807000"
+    },
+    "Powiat łosicki": {
+      "population": 28338,
+      "year": 2024,
+      "unit_id": "071427110000"
+    },
+    "Powiat łowicki": {
+      "population": 73368,
+      "year": 2024,
+      "unit_id": "051011905000"
+    },
+    "Powiat łukowski": {
+      "population": 100230,
+      "year": 2024,
+      "unit_id": "060611211000"
+    },
+    "Powiat łódzki wschodni": {
+      "population": 75149,
+      "year": 2024,
+      "unit_id": "051011506000"
+    },
+    "Powiat łęczycki": {
+      "population": 46137,
+      "year": 2024,
+      "unit_id": "051011904000"
+    },
+    "Powiat łęczyński": {
+      "population": 55531,
+      "year": 2024,
+      "unit_id": "060611110000"
+    },
+    "Powiat średzki": {
+      "population": 59713,
+      "year": 2024,
+      "unit_id": "030210418000"
+    },
+    "Powiat śremski": {
+      "population": 60939,
+      "year": 2024,
+      "unit_id": "023016126000"
+    },
+    "Powiat świdnicki": {
+      "population": 68991,
+      "year": 2024,
+      "unit_id": "060611117000"
+    },
+    "Powiat świdwiński": {
+      "population": 42754,
+      "year": 2024,
+      "unit_id": "023216416000"
+    },
+    "Powiat świebodziński": {
+      "population": 53609,
+      "year": 2024,
+      "unit_id": "020811408000"
+    },
+    "Powiat świecki": {
+      "population": 94358,
+      "year": 2024,
+      "unit_id": "040416814000"
+    },
+    "Powiat żagański": {
+      "population": 72933,
+      "year": 2024,
+      "unit_id": "020811410000"
+    },
+    "Powiat żarski": {
+      "population": 90364,
+      "year": 2024,
+      "unit_id": "020811411000"
+    },
+    "Powiat żniński": {
+      "population": 67080,
+      "year": 2024,
+      "unit_id": "040416719000"
+    },
+    "Powiat żuromiński": {
+      "population": 35122,
+      "year": 2024,
+      "unit_id": "071422537000"
+    },
+    "Powiat żyrardowski": {
+      "population": 74935,
+      "year": 2024,
+      "unit_id": "071427338000"
+    },
+    "Powiat żywiecki": {
+      "population": 148090,
+      "year": 2024,
+      "unit_id": "012414417000"
+    }
+  },
+  "data_year_powiaty": 2024,
+  "powiaty_count": 370,
+  "postal_to_woj_mapping": {
+    "00": "Mazowieckie",
+    "01": "Mazowieckie",
+    "02": "Mazowieckie",
+    "03": "Mazowieckie",
+    "04": "Mazowieckie",
+    "05": "Mazowieckie",
+    "06": "Mazowieckie",
+    "07": "Mazowieckie",
+    "08": "Mazowieckie",
+    "09": "Mazowieckie",
+    "10": "Warmińsko-Mazurskie",
+    "11": "Warmińsko-Mazurskie",
+    "12": "Warmińsko-Mazurskie",
+    "13": "Warmińsko-Mazurskie",
+    "14": "Warmińsko-Mazurskie",
+    "15": "Podlaskie",
+    "16": "Podlaskie",
+    "17": "Podlaskie",
+    "18": "Podlaskie",
+    "19": "Podlaskie",
+    "20": "Lubelskie",
+    "21": "Lubelskie",
+    "22": "Lubelskie",
+    "23": "Lubelskie",
+    "24": "Lubelskie",
+    "25": "Świętokrzyskie",
+    "26": "Świętokrzyskie",
+    "27": "Świętokrzyskie",
+    "28": "Świętokrzyskie",
+    "29": "Świętokrzyskie",
+    "30": "Małopolskie",
+    "31": "Małopolskie",
+    "32": "Małopolskie",
+    "33": "Małopolskie",
+    "34": "Małopolskie",
+    "35": "Podkarpackie",
+    "36": "Podkarpackie",
+    "37": "Podkarpackie",
+    "38": "Podkarpackie",
+    "39": "Podkarpackie",
+    "40": "Śląskie",
+    "41": "Śląskie",
+    "42": "Śląskie",
+    "43": "Śląskie",
+    "44": "Śląskie",
+    "45": "Opolskie",
+    "46": "Opolskie",
+    "47": "Opolskie",
+    "48": "Opolskie",
+    "49": "Opolskie",
+    "50": "Dolnośląskie",
+    "51": "Dolnośląskie",
+    "52": "Dolnośląskie",
+    "53": "Dolnośląskie",
+    "54": "Dolnośląskie",
+    "55": "Dolnośląskie",
+    "56": "Dolnośląskie",
+    "57": "Dolnośląskie",
+    "58": "Dolnośląskie",
+    "59": "Dolnośląskie",
+    "60": "Wielkopolskie",
+    "61": "Wielkopolskie",
+    "62": "Wielkopolskie",
+    "63": "Wielkopolskie",
+    "64": "Wielkopolskie",
+    "65": "Lubuskie",
+    "66": "Lubuskie",
+    "67": "Lubuskie",
+    "68": "Lubuskie",
+    "69": "Lubuskie",
+    "70": "Zachodniopomorskie",
+    "71": "Zachodniopomorskie",
+    "72": "Zachodniopomorskie",
+    "73": "Zachodniopomorskie",
+    "74": "Zachodniopomorskie",
+    "75": "Zachodniopomorskie",
+    "76": "Zachodniopomorskie",
+    "77": "Zachodniopomorskie",
+    "78": "Zachodniopomorskie",
+    "79": "Zachodniopomorskie",
+    "80": "Pomorskie",
+    "81": "Pomorskie",
+    "82": "Pomorskie",
+    "83": "Pomorskie",
+    "84": "Pomorskie",
+    "85": "Kujawsko-Pomorskie",
+    "86": "Kujawsko-Pomorskie",
+    "87": "Kujawsko-Pomorskie",
+    "88": "Kujawsko-Pomorskie",
+    "89": "Kujawsko-Pomorskie",
+    "90": "Łódzkie",
+    "91": "Łódzkie",
+    "92": "Łódzkie",
+    "93": "Łódzkie",
+    "94": "Łódzkie",
+    "95": "Łódzkie",
+    "96": "Łódzkie",
+    "97": "Łódzkie",
+    "98": "Łódzkie",
+    "99": "Łódzkie"
+  },
+  "postal_ranges": {
+    "00-09": "Mazowieckie",
+    "10-14": "Warmińsko-Mazurskie",
+    "15-19": "Podlaskie",
+    "20-24": "Lubelskie",
+    "25-29": "Świętokrzyskie",
+    "30-34": "Małopolskie",
+    "35-39": "Podkarpackie",
+    "40-44": "Śląskie",
+    "45-49": "Opolskie",
+    "50-59": "Dolnośląskie",
+    "60-64": "Wielkopolskie",
+    "65-69": "Lubuskie",
+    "70-79": "Zachodniopomorskie",
+    "80-84": "Pomorskie",
+    "85-89": "Kujawsko-Pomorskie",
+    "90-99": "Łódzkie"
+  }
+}
