@@ -25,7 +25,7 @@ def render():
 
     st.markdown("""
     <div style="background: linear-gradient(135deg, #E8F0FE, #D0E0FF); padding: 20px 24px; border-radius: 14px; border-left: 5px solid #1A1F71;">
-        <p style="margin:0; font-size:1em;">
+        <p style="margin:0; font-size:1em; color:#0D1137;">
         QR Pay removes the typed card number. Three data-driven tools decide who gets it first:
         a <strong>data rule</strong> finds cards that type their number today,
         <strong>new cards</strong> get QR at issuance, and a <strong>machine-learning model</strong>
