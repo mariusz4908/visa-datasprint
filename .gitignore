@@ -5,3 +5,7 @@ credentials/
 __pycache__/
 *.pyc
 .env
+
+# ML readiness: local Visa data and cache (tens of GB, never commit)
+ml_readiness/data/
+.ipynb_checkpoints/
