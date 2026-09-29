@@ -1,7 +1,7 @@
 """Page: Innovation Portfolio."""
 import streamlit as st
 
-from app_pages.common import t, analysis
+from app_pages.common import t
 
 
 def render():
