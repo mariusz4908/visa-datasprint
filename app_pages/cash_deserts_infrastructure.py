@@ -4,23 +4,23 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
-from app_pages.common import precise, VISA_BLUE, VISA_GOLD, BLIK_PINK, ACCENT
+from app_pages.common import t, precise, VISA_BLUE, VISA_GOLD, BLIK_PINK, ACCENT
 
 
 def render():
-    st.header("Cash Deserts & Payment Infrastructure Gaps")
+    st.header(t("Cash Deserts & Payment Infrastructure Gaps", "Pustynie Gotówkowe i Luki Infrastruktury Płatniczej"))
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("POS Terminals", "1.25M", "+8% YoY")
-    c2.metric("Terminals/1000 pop", "33.3", "EU avg ~35")
-    c3.metric("Cash at POS", "35%", "-2pp YoY")
-    c4.metric("ATM avg withdrawal", "1,521", "8.3× avg card TX")
+    c1.metric(t("POS Terminals", "Terminale POS"), "1.25M", "+8% YoY")
+    c2.metric(t("Terminals/1000 pop", "Terminale/1000 mieszk."), "33.3", t("EU avg ~35", "Średnia UE ~35"))
+    c3.metric(t("Cash at POS", "Gotówka w POS"), "35%", "-2pp YoY")
+    c4.metric(t("ATM avg withdrawal", "Średnia wypłata ATM"), "1,521", t("8.3× avg card TX", "8.3× średnia TX kartowa"))
 
     st.divider()
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Sectors with Lowest Terminal Coverage")
+        st.subheader(t("Sectors with Lowest Terminal Coverage", "Sektory z Najniższym Pokryciem Terminali"))
         sectors = [
             {"Sector": "Tutoring / education services", "Terminal %": 5},
             {"Sector": "Home repair / tradesmen", "Terminal %": 10},
@@ -43,7 +43,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Cash Usage by Transaction Size")
+        st.subheader(t("Cash Usage by Transaction Size", "Użycie Gotówki wg Wielkości Transakcji"))
         sizes = ["Under 10 PLN", "10-50 PLN", "50-100 PLN", "100-500 PLN", "Over 500 PLN"]
         fig = go.Figure()
         fig.add_trace(go.Bar(name="Cash", x=sizes, y=[65,40,30,25,20], marker_color=ACCENT[1]))
@@ -56,7 +56,7 @@ def render():
 
     st.divider()
 
-    st.subheader("Transaction Size Distribution in Visa Data")
+    st.subheader(t("Transaction Size Distribution in Visa Data", "Rozkład Wielkości Transakcji w Danych Visa"))
     small = precise["small_transactions"]
     df_sm = pd.DataFrame(small)
     fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -67,14 +67,18 @@ def render():
     fig.update_layout(height=400, margin=dict(t=10,b=30), legend=dict(orientation="h",y=-0.15))
     st.plotly_chart(fig, use_container_width=True)
 
-    st.info("""
+    st.info(t("""
     💡 **Micro-payments:** 19.3M transactions are under 5 units (avg 2.86). These exist because contactless payments
     removed the friction of small amounts. But per NBP data, 65% of sub-10 PLN transactions in Poland are still cash.
     **Opportunity:** "Tap for everything" campaigns + zero-fee micro-transactions for merchants.
-    """)
+    """, """
+    💡 **Mikropłatności:** 19.3M transakcji jest poniżej 5 jednostek (średnia 2.86). Istnieją, bo płatności zbliżeniowe
+    usunęły tarcie małych kwot. Ale wg danych NBP, 65% transakcji poniżej 10 PLN w Polsce to nadal gotówka.
+    **Szansa:** Kampanie "Przykładaj za wszystko" + zerowe opłaty za mikropłatności dla merchantów.
+    """))
 
     st.divider()
-    st.subheader("The ATM Cash Flow")
+    st.subheader(t("The ATM Cash Flow", "Przepływ Gotówki ATM"))
     st.markdown("""
     | Metric | Value |
     |---|---|

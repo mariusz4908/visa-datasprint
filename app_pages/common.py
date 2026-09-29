@@ -28,3 +28,8 @@ VISA_GOLD = "#F7B600"
 BLIK_PINK = "#D40E6A"
 ACCENT = ["#4A90D9", "#E85D75", "#2ECC71", "#F39C12", "#9B59B6", "#1ABC9C",
           "#E74C3C", "#3498DB", "#E67E22", "#8E44AD", "#16A085", "#C0392B"]
+
+# ── TRANSLATION HELPER ──────────────────────────────────────────────────
+def t(en, pl):
+    """Return text in selected language."""
+    return en if st.session_state.get("lang", "EN") == "EN" else pl

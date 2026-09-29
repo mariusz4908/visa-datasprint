@@ -4,23 +4,23 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
-from app_pages.common import VISA_BLUE, BLIK_PINK, ACCENT
+from app_pages.common import t, VISA_BLUE, BLIK_PINK, ACCENT
 
 
 def render():
-    st.header("BLIK vs Visa: The Battle for Polish E-Commerce")
+    st.header(t("BLIK vs Visa: The Battle for Polish E-Commerce", "BLIK vs Visa: Bitwa o Polski E-Commerce"))
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("BLIK e-com share", "67%", "+5pp vs 2023", delta_color="inverse")
-    c2.metric("Card e-com share", "16%", "-2pp vs 2023", delta_color="inverse")
-    c3.metric("BLIK tx/year", "4.2B", "+45% YoY", delta_color="inverse")
-    c4.metric("Card tx/year (total)", "9.2B", "+8% YoY")
+    c1.metric(t("BLIK e-com share", "Udział BLIK e-com"), "67%", "+5pp vs 2023", delta_color="inverse")
+    c2.metric(t("Card e-com share", "Udział kart e-com"), "16%", "-2pp vs 2023", delta_color="inverse")
+    c3.metric(t("BLIK tx/year", "BLIK tx/rok"), "4.2B", "+45% YoY", delta_color="inverse")
+    c4.metric(t("Card tx/year (total)", "Tx kartowe/rok (lacznie)"), "9.2B", "+8% YoY")
 
     st.divider()
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("E-Commerce Payment Trends 2022–2024")
+        st.subheader(t("E-Commerce Payment Trends 2022–2024", "Trendy Płatności E-Commerce 2022–2024"))
         years = ["2022", "2023", "2024"]
         fig = go.Figure()
         fig.add_trace(go.Bar(x=years, y=[55, 62, 67], name="BLIK", marker_color=BLIK_PINK))
@@ -32,7 +32,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("BLIK Growth vs Card Decline")
+        st.subheader(t("BLIK Growth vs Card Decline", "Wzrost BLIK vs Spadek Kart"))
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         yrs = ["2019","2020","2021","2022","2023","2024"]
         fig.add_trace(go.Scatter(x=yrs, y=[0.5,0.9,1.5,2.1,2.9,4.2], name="BLIK tx (billions)",
@@ -45,7 +45,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
-    st.subheader("BLIK vs Visa — Strategic Comparison")
+    st.subheader(t("BLIK vs Visa — Strategic Comparison", "BLIK vs Visa — Porownanie Strategiczne"))
 
     comparison = pd.DataFrame([
         {"Dimension": "E-commerce share 2024", "BLIK": "67%", "Visa Card": "~9%", "Advantage": "🟣 BLIK"},
@@ -63,7 +63,7 @@ def render():
 
     st.divider()
 
-    st.subheader("Where Visa Wins Despite BLIK Dominance")
+    st.subheader(t("Where Visa Wins Despite BLIK Dominance", "Gdzie Visa Wygrywa Pomimo Dominacji BLIK"))
     col1, col2 = st.columns(2)
     with col1:
         st.success("""
@@ -84,4 +84,5 @@ def render():
         - **Trust factor:** Integrated in banking apps, feels "safer" than card number entry
         """)
 
-    st.warning("⚠️ **Projection:** At current trajectory (-2pp/year for cards), card share in Polish e-commerce could fall **below 10% by 2027**. Visa's strategy must focus on defending subscriptions, winning international shopping, and making card payment as frictionless as BLIK (Click to Pay, tokenization).")
+    st.warning(t("⚠️ **Projection:** At current trajectory (-2pp/year for cards), card share in Polish e-commerce could fall **below 10% by 2027**. Visa's strategy must focus on defending subscriptions, winning international shopping, and making card payment as frictionless as BLIK (Click to Pay, tokenization).",
+                  "⚠️ **Prognoza:** Przy obecnej trajektorii (-2pp/rok dla kart), udział kart w polskim e-commerce może spaść **poniżej 10% do 2027**. Strategia Visa musi skupić się na obronie subskrypcji, wygrywaniu zakupów międzynarodowych i uczynieniu płatności kartą tak bezproblemową jak BLIK (Click to Pay, tokenizacja)."))

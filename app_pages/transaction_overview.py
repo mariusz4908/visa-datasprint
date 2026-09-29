@@ -5,12 +5,13 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
 
-from app_pages.common import analysis, VISA_BLUE, VISA_GOLD, ACCENT
+from app_pages.common import t, analysis, VISA_BLUE, VISA_GOLD, ACCENT
 
 
 def render():
-    st.header("Transaction Overview")
-    st.caption("Sample dataset: 305.5M transactions, January 2025 – June 2026")
+    st.header(t("Transaction Overview", "Przegląd Transakcji"))
+    st.caption(t("Sample dataset: 305.5M transactions, January 2025 – June 2026",
+                  "Próbka danych: 305.5M transakcji, styczeń 2025 – czerwiec 2026"))
 
     # Monthly trends
     monthly = analysis["monthly_trends"]
@@ -19,7 +20,7 @@ def render():
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Monthly Transaction Volume & Value")
+        st.subheader(t("Monthly Transaction Volume & Value", "Miesięczny Wolumen i Wartość Transakcji"))
         fig = make_subplots(specs=[[{"secondary_y": True}]])
         fig.add_trace(go.Bar(x=df_m["month"], y=df_m["tx_count"]/1e6, name="Transactions (M)", marker_color=VISA_BLUE, opacity=0.7), secondary_y=False)
         fig.add_trace(go.Scatter(x=df_m["month"], y=df_m["total_amount"]/1e9, name="Value (B)", line=dict(color=VISA_GOLD, width=3)), secondary_y=True)
@@ -29,7 +30,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Average Transaction Value Over Time")
+        st.subheader(t("Average Transaction Value Over Time", "Średnia Wartość Transakcji w Czasie"))
         fig = px.line(df_m, x="month", y="avg_amount", markers=True)
         fig.update_traces(line_color=ACCENT[0], line_width=3)
         fig.update_layout(height=400, margin=dict(t=10,b=30), yaxis_title="Avg amount", yaxis_range=[170,200])
@@ -40,7 +41,7 @@ def render():
     # Hourly & Daily
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Hourly Pattern (GMT → Poland = +1/+2h)")
+        st.subheader(t("Hourly Pattern (GMT → Poland = +1/+2h)", "Rozkład Godzinowy (GMT → Polska = +1/+2h)"))
         hourly = analysis["hourly_pattern"]
         df_h = pd.DataFrame(hourly)
         df_h["hour_label"] = df_h["hour_gmt"].apply(lambda h: f"{(h+1)%24}:00")
@@ -51,7 +52,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Day of Week Pattern")
+        st.subheader(t("Day of Week Pattern", "Rozkład Dzienny"))
         daily = analysis["day_of_week"]
         df_d = pd.DataFrame(daily)
         colors = [VISA_BLUE]*7
@@ -66,7 +67,7 @@ def render():
     # Top categories & merchants
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Top 15 Merchant Categories")
+        st.subheader(t("Top 15 Merchant Categories", "Top 15 Kategorii Merchantow"))
         cats = analysis["top_categories"][:15]
         df_c = pd.DataFrame(cats)
         fig = px.bar(df_c, y="mrch_catg_nm", x="tx_count", orientation="h", color_discrete_sequence=[VISA_BLUE])
@@ -74,7 +75,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Top 15 Merchants")
+        st.subheader(t("Top 15 Merchants", "Top 15 Merchantow"))
         merch = analysis["top_merchants"][:15]
         df_me = pd.DataFrame(merch)
         fig = px.bar(df_me, y="mrch_nm_raw", x="tx_count", orientation="h", color_discrete_sequence=[ACCENT[3]])
@@ -86,7 +87,7 @@ def render():
     # Payment channels
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.subheader("Payment Channels")
+        st.subheader(t("Payment Channels", "Kanały Płatności"))
         ch = analysis["channel"]
         df_ch = pd.DataFrame(ch)
         fig = px.pie(df_ch, names="channel_flg", values="tx_count", color_discrete_sequence=ACCENT, hole=0.35)
@@ -94,7 +95,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Physical vs Online")
+        st.subheader(t("Physical vs Online", "Fizyczne vs Online"))
         cp = analysis["cp_flag"]
         labels = ["Physical (88.8%)", "Online (11.2%)"]
         fig = px.pie(names=labels, values=[cp[0]["tx_count"], cp[1]["tx_count"]], color_discrete_sequence=[VISA_BLUE, ACCENT[1]], hole=0.35)
@@ -102,7 +103,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col3:
-        st.subheader("Card Types")
+        st.subheader(t("Card Types", "Typy Kart"))
         ct = analysis["card_types"][:6]
         df_ct = pd.DataFrame(ct)
         fig = px.pie(df_ct, names="crd_typ_nm", values="tx_count", color_discrete_sequence=ACCENT, hole=0.35)

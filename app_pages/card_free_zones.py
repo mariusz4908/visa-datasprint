@@ -3,12 +3,13 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from app_pages.common import VISA_BLUE, VISA_GOLD, ACCENT
+from app_pages.common import t, VISA_BLUE, VISA_GOLD, ACCENT
 
 
 def render():
-    st.header("Card-Free Zones: Where Cards Are Not Used")
-    st.caption("Cross-referencing GUS household spending structure with Visa transaction data")
+    st.header(t("Card-Free Zones: Where Cards Are Not Used", "Strefy bez Kart: Gdzie Karty Nie Są Używane"))
+    st.caption(t("Cross-referencing GUS household spending structure with Visa transaction data",
+                  "Analiza krzyzowa struktury wydatkow gospodarstw domowych GUS z danymi transakcyjnymi Visa"))
 
     gap_data = [
         {"Category": "Housing & Utilities", "GUS %": 20.6, "Visa Value %": 0.3, "Gap Index": 2, "Status": "🔴 Card-Free Zone", "Barrier": "Bank transfers, direct debit"},
@@ -31,7 +32,7 @@ def render():
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Gap Index by Category")
+        st.subheader(t("Gap Index by Category", "Indeks Luki wg Kategorii"))
         df_gap_sorted = df_gap.sort_values("Gap Index")
         colors = df_gap_sorted["Gap Index"].apply(lambda x: "#E85D75" if x <= 10 else ("#F39C12" if x < 70 else ("#4A90D9" if x <= 100 else "#2ECC71")))
         fig = go.Figure(go.Bar(y=df_gap_sorted["Category"], x=df_gap_sorted["Gap Index"], orientation="h",
@@ -41,7 +42,7 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("GUS Spending vs Visa Card Value")
+        st.subheader(t("GUS Spending vs Visa Card Value", "Wydatki GUS vs Wartość Kart Visa"))
         fig = go.Figure()
         fig.add_trace(go.Bar(name="GUS Spending %", y=df_gap["Category"], x=df_gap["GUS %"], orientation="h", marker_color=VISA_BLUE, opacity=0.6))
         fig.add_trace(go.Bar(name="Visa Value %", y=df_gap["Category"], x=df_gap["Visa Value %"], orientation="h", marker_color=ACCENT[1]))
@@ -50,9 +51,11 @@ def render():
         st.plotly_chart(fig, use_container_width=True)
 
     st.divider()
-    st.subheader("The 3 Biggest Card-Free Zones Explained")
+    st.subheader(t("The 3 Biggest Card-Free Zones Explained", "3 Najwieksze Strefy bez Kart"))
 
-    tab1, tab2, tab3 = st.tabs(["🏠 Housing & Utilities (20.6%)", "📱 Communications (4.0%)", "🏥 Healthcare (5.5%)"])
+    tab1, tab2, tab3 = st.tabs([t("🏠 Housing & Utilities (20.6%)", "🏠 Mieszkanie i Media (20.6%)"),
+                                 t("📱 Communications (4.0%)", "📱 Komunikacja (4.0%)"),
+                                 t("🏥 Healthcare (5.5%)", "🏥 Opieka Zdrowotna (5.5%)")])
 
     with tab1:
         st.markdown("""

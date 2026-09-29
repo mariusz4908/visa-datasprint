@@ -5,15 +5,16 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from app_pages.common import load_json, VISA_BLUE, VISA_GOLD, BLIK_PINK, ACCENT
+from app_pages.common import load_json, t, VISA_BLUE, VISA_GOLD, BLIK_PINK, ACCENT
 
 
 def render():
     models = load_json("model_results.json")
-    st.header("Predictive Models & Simulations")
-    st.caption("6 models projecting Visa QR Pay adoption, transaction volume, BLIK cannibalization, ROI, and market share impact over 36 months")
+    st.header(t("Predictive Models & Simulations", "Modele Predykcyjne i Symulacje"))
+    st.caption(t("6 models projecting Visa QR Pay adoption, transaction volume, BLIK cannibalization, ROI, and market share impact over 36 months",
+                  "6 modeli prognozujacych adopcje Visa QR Pay, wolumen transakcji, kanibalizacje BLIK, ROI i wplyw na udzial rynkowy w ciagu 36 miesiecy"))
 
-    scenario = st.radio("Select scenario:", ["Conservative", "Base", "Optimistic"], index=1, horizontal=True)
+    scenario = st.radio(t("Select scenario:", "Wybierz scenariusz:"), ["Conservative", "Base", "Optimistic"], index=1, horizontal=True)
 
     months_labels = [f"M{i+1}" for i in range(36)]
     year_labels = [""] * 36
@@ -25,18 +26,19 @@ def render():
     a = models["adoption"][scenario]
     v = models["volume"][scenario]
     c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("3Y Adopters", f"{a['cumulative'][35]/1e6:.1f}M", f"{a['penetration_pct'][35]:.0f}% penetration")
-    c2.metric("3Y Total TX", f"{v['cumulative_tx'][35]/1e6:.0f}M")
-    c3.metric("3Y Total Value", f"{v['cumulative_val'][35]/1e9:.1f}B PLN")
-    c4.metric("3Y Revenue", f"{r['total_3yr_revenue']/1e6:.0f}M PLN", f"ROI: {r['roi_pct']:.0f}%")
+    c1.metric(t("3Y Adopters", "Uzytkownicy 3L"), f"{a['cumulative'][35]/1e6:.1f}M", f"{a['penetration_pct'][35]:.0f}% {t('penetration', 'penetracji')}")
+    c2.metric(t("3Y Total TX", "Lacznie TX 3L"), f"{v['cumulative_tx'][35]/1e6:.0f}M")
+    c3.metric(t("3Y Total Value", "Łączna Wartość 3L"), f"{v['cumulative_val'][35]/1e9:.1f}B PLN")
+    c4.metric(t("3Y Revenue", "Przychod 3L"), f"{r['total_3yr_revenue']/1e6:.0f}M PLN", f"ROI: {r['roi_pct']:.0f}%")
     be = r["breakeven_month"]
-    c5.metric("Break-even", f"Month {be}" if be else "Not reached", "within 3 years" if be else "needs more time")
+    c5.metric(t("Break-even", "Punkt Rentowności"), f"{t('Month', 'Miesiac')} {be}" if be else t("Not reached", "Nie osiagniety"), t("within 3 years", "w ciągu 3 lat") if be else t("needs more time", "potrzeba więcej czasu"))
 
     st.divider()
 
     # ── MODEL 1: ADOPTION S-CURVE ──
-    st.subheader("Model 1: Adoption S-Curve (Bass Diffusion)")
-    st.caption("Bass diffusion model: p = innovation coefficient (marketing), q = imitation coefficient (word-of-mouth)")
+    st.subheader(t("Model 1: Adoption S-Curve (Bass Diffusion)", "Model 1: Krzywa Adopcji S (Dyfuzja Bassa)"))
+    st.caption(t("Bass diffusion model: p = innovation coefficient (marketing), q = imitation coefficient (word-of-mouth)",
+                  "Model dyfuzji Bassa: p = wspolczynnik innowacji (marketing), q = wspolczynnik imitacji (marketing szeptany)"))
 
     col1, col2 = st.columns(2)
     with col1:
@@ -62,13 +64,13 @@ def render():
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
-    with st.expander("Model assumptions"):
+    with st.expander(t("Model assumptions", "Zalozenia modelu")):
         st.json(models["assumptions"]["adoption_params"])
 
     st.divider()
 
     # ── MODEL 2: TRANSACTION VOLUME ──
-    st.subheader("Model 2: Transaction Volume Projection")
+    st.subheader(t("Model 2: Transaction Volume Projection", "Model 2: Prognoza Wolumenu Transakcji"))
 
     sv = models["volume"][scenario]
     col1, col2 = st.columns(2)
@@ -96,14 +98,15 @@ def render():
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
-    with st.expander("Activity assumptions per user/month"):
+    with st.expander(t("Activity assumptions per user/month", "Zalozenia aktywnosci na uzytkownika/miesiac")):
         st.json(models["assumptions"]["activity_params"])
 
     st.divider()
 
     # ── MODEL 3: CANNIBALIZATION ──
-    st.subheader("Model 3: BLIK Cannibalization vs Net New Volume")
-    st.caption("How much QR Pay volume is taken from BLIK vs genuinely new card transaction volume?")
+    st.subheader(t("Model 3: BLIK Cannibalization vs Net New Volume", "Model 3: Kanibalizacja BLIK vs Nowy Wolumen Netto"))
+    st.caption(t("How much QR Pay volume is taken from BLIK vs genuinely new card transaction volume?",
+                  "Ile wolumenu QR Pay jest przejete od BLIK vs faktycznie nowy wolumen transakcji kartowych?"))
 
     cn = models["cannibalization"][scenario]
     col1, col2 = st.columns(2)
@@ -137,7 +140,7 @@ def render():
     st.divider()
 
     # ── MODEL 4: REVENUE & ROI ──
-    st.subheader("Model 4: Revenue & ROI Projection")
+    st.subheader(t("Model 4: Revenue & ROI Projection", "Model 4: Prognoza Przychodu i ROI"))
 
     rv = models["revenue"][scenario]
     col1, col2 = st.columns(2)
@@ -168,14 +171,15 @@ def render():
                           legend=dict(orientation="h",y=-0.15), margin=dict(t=40,b=40))
         st.plotly_chart(fig, use_container_width=True)
 
-    with st.expander("Cost breakdown"):
+    with st.expander(t("Cost breakdown", "Rozkład kosztów")):
         st.json(models["costs"])
 
     st.divider()
 
     # ── MODEL 5: E-COMMERCE MARKET SHARE ──
-    st.subheader("Model 5: E-Commerce Market Share Simulation")
-    st.caption("How QR Pay changes Visa's share of the Polish e-commerce payments market")
+    st.subheader(t("Model 5: E-Commerce Market Share Simulation", "Model 5: Symulacja Udzialu w Rynku E-Commerce"))
+    st.caption(t("How QR Pay changes Visa's share of the Polish e-commerce payments market",
+                  "Jak QR Pay zmienia udzial Visa w polskim rynku płatności e-commerce"))
 
     es = models["ecom_share"][scenario]
     fig = go.Figure()
@@ -200,13 +204,14 @@ def render():
     st.divider()
 
     # ── MODEL 6: SENSITIVITY ──
-    st.subheader("Model 6: Sensitivity Analysis")
-    st.caption("How 3-year revenue changes when we vary each key parameter ±50% from base")
+    st.subheader(t("Model 6: Sensitivity Analysis", "Model 6: Analiza Wrazliwosci"))
+    st.caption(t("How 3-year revenue changes when we vary each key parameter ±50% from base",
+                  "Jak zmienia sie 3-letni przychod gdy modyfikujemy kazdy kluczowy parametr ±50% od bazy"))
 
     sens = pd.DataFrame(models["sensitivity"])
     base_rev = sens[(sens["parameter"]==sens["parameter"].iloc[0]) & (sens["multiplier"]==1.0)]["revenue_3yr_mln"].values[0]
 
-    param_choice = st.selectbox("Select parameter:", sens["parameter"].unique())
+    param_choice = st.selectbox(t("Select parameter:", "Wybierz parametr:"), sens["parameter"].unique())
     df_p = sens[sens["parameter"] == param_choice]
 
     fig = go.Figure()
@@ -221,7 +226,7 @@ def render():
     st.plotly_chart(fig, use_container_width=True)
 
     # Tornado chart
-    st.subheader("Tornado Chart: Revenue Sensitivity to All Parameters")
+    st.subheader(t("Tornado Chart: Revenue Sensitivity to All Parameters", "Wykres Tornado: Wrazliwosc Przychodu na Wszystkie Parametry"))
     tornado = []
     for param in sens["parameter"].unique():
         df_param = sens[sens["parameter"] == param]
@@ -245,7 +250,7 @@ def render():
     st.divider()
 
     # ── SCENARIO COMPARISON TABLE ──
-    st.subheader("Scenario Comparison Summary")
+    st.subheader(t("Scenario Comparison Summary", "Porównanie Scenariuszy"))
     comp_data = []
     for name in ["Conservative", "Base", "Optimistic"]:
         a = models["adoption"][name]

@@ -18,43 +18,51 @@ from app_pages import (  # noqa: E402
     subscription_economy,
     cash_deserts_infrastructure,
     visa_qr_pay,
+    innovation_portfolio,
     who_first_ml_targeting,
     predictive_models_simulations,
     recommendations,
 )
+from app_pages.common import t  # noqa: E402
 
+# page key -> (EN label, PL label, render function)
 PAGES = {
-    "🏠 Executive Summary": executive_summary.render,
-    "📊 Transaction Overview": transaction_overview.render,
-    "🛒 E-Commerce Deep Dive": e_commerce_deep_dive.render,
-    "⚔️ BLIK vs Visa": blik_vs_visa.render,
-    "🔴 Card-Free Zones": card_free_zones.render,
-    "🔄 Subscription Economy": subscription_economy.render,
-    "💵 Cash Deserts & Infrastructure": cash_deserts_infrastructure.render,
-    "💡 Visa QR Pay — Our Solution": visa_qr_pay.render,
-    "🤖 Who First — ML Targeting": who_first_ml_targeting.render,
-    "📈 Predictive Models & Simulations": predictive_models_simulations.render,
-    "🎯 Recommendations": recommendations.render,
+    "summary": ("🏠 Executive Summary", "🏠 Podsumowanie", executive_summary.render),
+    "overview": ("📊 Transaction Overview", "📊 Przeglad Transakcji", transaction_overview.render),
+    "ecom": ("🛒 E-Commerce Deep Dive", "🛒 Analiza E-Commerce", e_commerce_deep_dive.render),
+    "blik": ("⚔️ BLIK vs Visa", "⚔️ BLIK vs Visa", blik_vs_visa.render),
+    "cardfree": ("🔴 Card-Free Zones", "🔴 Strefy bez Kart", card_free_zones.render),
+    "subs": ("🔄 Subscription Economy", "🔄 Ekonomia Subskrypcji", subscription_economy.render),
+    "cash": ("💵 Cash Deserts & Infrastructure", "💵 Pustynie Gotówkowe", cash_deserts_infrastructure.render),
+    "qrpay": ("💡 Visa QR Pay — Our Solution", "💡 Visa QR Pay — Nasze Rozwiązanie", visa_qr_pay.render),
+    "innov": ("🚀 Innovation Portfolio", "🚀 Portfolio Innowacji", innovation_portfolio.render),
+    "ml": ("🤖 Who First — ML Targeting", "🤖 Kto Pierwszy — Targetowanie ML", who_first_ml_targeting.render),
+    "models": ("📈 Predictive Models & Simulations", "📈 Modele Predykcyjne", predictive_models_simulations.render),
+    "recs": ("🎯 Recommendations", "🎯 Rekomendacje", recommendations.render),
 }
 
 # ── SIDEBAR ─────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown('<img src="https://cdn.visa.com/v2/assets/images/logos/visa/blue/logo.png" width="120" style="margin-bottom:4px">', unsafe_allow_html=True)
+    st.image("https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg", width=120)
     st.markdown("# CardFlow")
     st.caption("Visa DataSprint Hackathon 2026")
+    lang = st.radio("🌐 Language / Jezyk", ["EN", "PL"], horizontal=True)
+    st.session_state["lang"] = lang
     st.divider()
-    page = st.radio("Navigate", list(PAGES), label_visibility="collapsed")
+    page = st.radio(t("Navigate", "Nawigacja"), list(PAGES), format_func=lambda k: t(*PAGES[k][:2]),
+                    label_visibility="collapsed")
     st.divider()
-    st.markdown("**Data sources:**")
-    st.caption("• Visa synthetic tx (305.5M)")
-    st.caption("• GUS Household Budget 2024")
-    st.caption("• NBP Payment Statistics 2024")
-    st.caption("• Gemius E-commerce Report 2024")
-    st.caption("• ML readiness model (ml_readiness/)")
+    st.markdown(t("**Data sources:**", "**Źródła danych:**"))
+    st.caption(t("• Visa synthetic tx (305.5M)", "• Syntetyczne tx Visa (305.5M)"))
+    st.caption(t("• GUS Household Budget 2024", "• GUS Budżety Domowe 2024"))
+    st.caption(t("• NBP Payment Statistics 2024", "• NBP Statystyki Płatnicze 2024"))
+    st.caption(t("• Gemius E-commerce Report 2024", "• Gemius Raport E-commerce 2024"))
+    st.caption(t("• ML readiness model (ml_readiness/)", "• Model ML gotowości (ml_readiness/)"))
 
 # ── PAGE (one module per page in app_pages/) ────────────────────────────
-PAGES[page]()
+PAGES[page][2]()
 
 # Footer
 st.divider()
-st.caption("CardFlow — Visa DataSprint Hackathon 2026 | Data: Visa synthetic transactions (305.5M), GUS (2024), NBP (2024), Gemius (2024)")
+st.caption(t("CardFlow — Visa DataSprint Hackathon 2026 | Data: Visa synthetic transactions (305.5M), GUS (2024), NBP (2024), Gemius (2024)",
+              "CardFlow — Visa DataSprint Hackathon 2026 | Dane: Syntetyczne transakcje Visa (305.5M), GUS (2024), NBP (2024), Gemius (2024)"))
