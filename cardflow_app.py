@@ -104,7 +104,7 @@ if current_page == "summary":
         st.markdown("""
         <div style="background: linear-gradient(135deg, #0D1137, #1A1F71, #2A3090); padding: 40px 32px; border-radius: 16px; color: white; margin-bottom: 24px;">
             <h1 style="margin:0; font-size:2.2em;">CardFlow</h1>
-            <p style="opacity:0.9; font-size:1.1em; margin-top:4px;">Dane transakcyjne jako mapa drogowa adopcji kart w e-commerce i platnosci P2P</p>
+            <p style="opacity:0.9; font-size:1.1em; margin-top:4px;">Dane transakcyjne jako mapa drogowa adopcji kart w e-commerce i płatności P2P</p>
             <span style="background:#F7B600; color:#0D1137; padding:4px 16px; border-radius:16px; font-weight:700; font-size:0.85em;">VISA DATASPRINT HACKATHON 2026</span>
         </div>
         """, unsafe_allow_html=True)
@@ -122,14 +122,14 @@ if current_page == "summary":
         """)
     else:
         st.markdown("""
-        > **Karty płatnicze dominują w sklepach stacjonarnych, ale w e-commerce i platnosci peer-to-peer sa wypierane
-        > przez inne metody.** W Polsce BLIK, szybkie przelewy i gotowka to glowne alternatywy. Uzytkownicy wybieraja je,
+        > **Karty płatnicze dominują w sklepach stacjonarnych, ale w e-commerce i płatności peer-to-peer są wypierane
+        > przez inne metody.** W Polsce BLIK, szybkie przelewy i gotówka to główne alternatywy. Użytkownicy wybierają je,
         > bo są szybsze, nie wymagają wpisywania numeru karty i wydają się bezpieczniejsze. Ta sama osoba płaci kartą
-        > w sklepie osiedlowym, ale online lub placac znajomemu — wybiera inna metode.
+        > w sklepie osiedlowym, ale online lub płacąc znajomemu — wybiera inną metodę.
         >
         > **CardFlow** wykorzystuje zanonimizowane, zagregowane dane transakcyjne, by zrozumiec *kiedy, gdzie i dlaczego*
         > karta przestaje być pierwszym wyborem. Analizujemy wzorce zachowan wedlug kategorii merchantow, pory dnia,
-        > wartości koszyka i lokalizacji. Identyfikujemy **"punkty ucieczki"** — momenty, w ktorych klienci zmieniaja metode platnosci.
+        > wartości koszyka i lokalizacji. Identyfikujemy **"punkty ucieczki"** — momenty, w których klienci zmieniają metodę płatności.
         """)
 
     st.divider()
@@ -158,7 +158,7 @@ if current_page == "summary":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader(t("E-Commerce Payment Methods 2024", "Metody Platnosci E-Commerce 2024"))
+        st.subheader(t("E-Commerce Payment Methods 2024", "Metody Płatności E-Commerce 2024"))
         fig = px.pie(
             names=["BLIK (67%)", "Card (16%)", "Bank Transfer (10%)", "Cash on Delivery (5%)", "Other (2%)"],
             values=[67, 16, 10, 5, 2],
@@ -179,12 +179,12 @@ if current_page == "summary":
                       "**Strefy bez Kart:** Mieszkanie (20.6% wydatkow), telekom (4.0%), edukacja (1.1%) maja <1% penetracji kart."))
     with f3:
         st.success(t("**Visa's Moat:** Subscriptions (Apple, Netflix, Spotify) + international e-commerce = ~8M tx locked on card rails.",
-                      "**Fosa Visa:** Subskrypcje (Apple, Netflix, Spotify) + miedzynarodowy e-commerce = ~8M tx na szynach kart."))
+                      "**Fosa Visa:** Subskrypcje (Apple, Netflix, Spotify) + międzynarodowy e-commerce = ~8M tx na szynach kart."))
 
     f4, f5, f6 = st.columns(3)
     with f4:
         st.info(t("**E-Grocery Gap:** 26% of card tx are grocery but only 0.12% online. Online avg = 3.1x higher value.",
-                   "**Luka E-Grocery:** 26% tx kartowych to spozywcze, ale tylko 0.12% online. Srednia online = 3.1x wyzsza wartosc."))
+                   "**Luka E-Grocery:** 26% tx kartowych to spożywcze, ale tylko 0.12% online. Średnia online = 3.1x wyższa wartość."))
     with f5:
         st.error(t("**Cash Services:** Doctors (255K tx), dentists (76K), home repair (31K) — cash dominates services.",
                     "**Uslugi Gotowkowe:** Lekarze (255K tx), dentysci (76K), naprawy domowe (31K) — gotówka dominuje w usługach."))
@@ -212,10 +212,10 @@ if current_page == "summary":
         <div style="background: linear-gradient(135deg, #0D1137, #1A1F71); padding: 24px 28px; border-radius: 14px; color: white;">
             <h3 style="color:#F7B600; margin:0 0 8px 0;">💡 Nasze Rozwiązanie: Visa QR Pay</h3>
             <p style="margin:0; font-size:1em; color:#D0D8F0;">
-            Kod QR na kazdej karcie Visa umozliwia <strong style="color:white;">dwa nowe sposoby platnosci</strong>:
-            (1) <strong style="color:white;">Platnosci P2P</strong> — zeskanuj karte znajomego, by wyslac mu pieniadze, konkurujac bezposrednio z BLIK P2P;
-            (2) <strong style="color:white;">Platnosci e-commerce</strong> — zeskanuj wlasna karte zamiast wpisywac numer, szybciej i bezpieczniej niz jakakolwiek istniejaca metoda.
-            Bez udostepniania numeru karty, zatwierdzenie biometryczne, napedzane przez Visa Direct.
+            Kod QR na każdej karcie Visa umożliwia <strong style="color:white;">dwa nowe sposoby płatności</strong>:
+            (1) <strong style="color:white;">Płatności P2P</strong> — zeskanuj kartę znajomego, by wysłać mu pieniądze, konkurując bezpośrednio z BLIK P2P;
+            (2) <strong style="color:white;">Płatności e-commerce</strong> — zeskanuj własną kartę zamiast wpisywać numer, szybciej i bezpieczniej niż jakakolwiek istniejąca metoda.
+            Bez udostępniania numeru karty, zatwierdzenie biometryczne, napędzane przez Visa Direct.
             </p>
             <p style="margin:8px 0 0 0; font-size:0.9em; color:#A0AAC0;">👈 Przejdź do <strong style="color:#F7B600;">"Visa QR Pay — Nasze Rozwiązanie"</strong> w menu bocznym, by poznać pełną koncepcję.</p>
         </div>
@@ -403,7 +403,7 @@ elif current_page == "ecom":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader(t("Online vs Physical: Avg Transaction Value", "Online vs Fizyczne: Srednia Wartosc Transakcji"))
+        st.subheader(t("Online vs Physical: Avg Transaction Value", "Online vs Fizyczne: Średnia Wartosc Transakcji"))
         cats_compare = [
             {"cat": "Family Clothing", "physical": 179, "online": 646},
             {"cat": "Grocery", "physical": 131, "online": 402},
@@ -422,7 +422,7 @@ elif current_page == "ecom":
         st.plotly_chart(fig, use_container_width=True)
 
     st.info(t("💡 **Key Insight:** Online transactions average **318** (1.9× physical at 165). In clothing the multiplier is **3.6×** (646 online vs 179 in-store). Every physical transaction converted to online generates ~2× the card revenue.",
-               "💡 **Kluczowy Wniosek:** Transakcje online srednio **318** (1.9× fizyczne przy 165). W odziezi mnoznik to **3.6×** (646 online vs 179 w sklepie). Kazda fizyczna transakcja przekonwertowana na online generuje ~2× przychod kartowy."))
+               "💡 **Kluczowy Wniosek:** Transakcje online średnio **318** (1.9× fizyczne przy 165). W odzieży mnożnik to **3.6×** (646 online vs 179 w sklepie). Każda fizyczna transakcja przekonwertowana na online generuje ~2× przychód kartowy."))
 
     st.divider()
 
@@ -438,7 +438,7 @@ elif current_page == "ecom":
     st.plotly_chart(fig, use_container_width=True)
 
     st.error(t("🛒 **E-Grocery Gap:** Groceries = 26.3% of all card TX but only **0.12%** are online. E-pharmacy = **0.18%**. In mature markets, e-grocery is 10-15% of food retail. At just 5% penetration this would mean millions of new high-value online card transactions.",
-                "🛒 **Luka E-Grocery:** Spozywcze = 26.3% wszystkich TX kartowych, ale tylko **0.12%** online. E-apteka = **0.18%**. Na dojrzalych rynkach e-grocery to 10-15% handlu spozywczego. Przy zaledwie 5% penetracji to miliony nowych wysokowartościowych transakcji kartowych online."))
+                "🛒 **Luka E-Grocery:** Spozywcze = 26.3% wszystkich TX kartowych, ale tylko **0.12%** online. E-apteka = **0.18%**. Na dojrzalych rynkach e-grocery to 10-15% handlu spożywczego. Przy zaledwie 5% penetracji to miliony nowych wysokowartościowych transakcji kartowych online."))
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -457,7 +457,7 @@ elif current_page == "blik":
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader(t("E-Commerce Payment Trends 2022–2024", "Trendy Platnosci E-Commerce 2022–2024"))
+        st.subheader(t("E-Commerce Payment Trends 2022–2024", "Trendy Płatności E-Commerce 2022–2024"))
         years = ["2022", "2023", "2024"]
         fig = go.Figure()
         fig.add_trace(go.Bar(x=years, y=[55, 62, 67], name="BLIK", marker_color=BLIK_PINK))
@@ -522,7 +522,7 @@ elif current_page == "blik":
         """)
 
     st.warning(t("⚠️ **Projection:** At current trajectory (-2pp/year for cards), card share in Polish e-commerce could fall **below 10% by 2027**. Visa's strategy must focus on defending subscriptions, winning international shopping, and making card payment as frictionless as BLIK (Click to Pay, tokenization).",
-                  "⚠️ **Prognoza:** Przy obecnej trajektorii (-2pp/rok dla kart), udzial kart w polskim e-commerce moze spasc **ponizej 10% do 2027**. Strategia Visa musi skupic sie na obronie subskrypcji, wygrywaniu zakupow miedzynarodowych i uczynieniu platnosci karta tak bezproblemowa jak BLIK (Click to Pay, tokenizacja)."))
+                  "⚠️ **Prognoza:** Przy obecnej trajektorii (-2pp/rok dla kart), udział kart w polskim e-commerce może spaść **poniżej 10% do 2027**. Strategia Visa musi skupić się na obronie subskrypcji, wygrywaniu zakupów międzynarodowych i uczynieniu płatności kartą tak bezproblemową jak BLIK (Click to Pay, tokenizacja)."))
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -564,7 +564,7 @@ elif current_page == "cardfree":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader(t("GUS Spending vs Visa Card Value", "Wydatki GUS vs Wartosc Kart Visa"))
+        st.subheader(t("GUS Spending vs Visa Card Value", "Wydatki GUS vs Wartość Kart Visa"))
         fig = go.Figure()
         fig.add_trace(go.Bar(name="GUS Spending %", y=df_gap["Category"], x=df_gap["GUS %"], orientation="h", marker_color=VISA_BLUE, opacity=0.6))
         fig.add_trace(go.Bar(name="Visa Value %", y=df_gap["Category"], x=df_gap["Visa Value %"], orientation="h", marker_color=ACCENT[1]))
@@ -643,7 +643,7 @@ elif current_page == "subs":
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader(t("Top Subscription Services (by unique cardholders)", "Top Uslugi Subskrypcyjne (wg unikalnych posiadaczy kart)"))
+        st.subheader(t("Top Subscription Services (by unique cardholders)", "Top Usługi Subskrypcyjne (wg unikalnych posiadaczy kart)"))
         fig = go.Figure()
         fig.add_trace(go.Bar(y=df_s["mrch_nm_raw"][:20], x=df_s["unique_cards"][:20]/1e3, orientation="h",
                              name="Unique cards (K)", marker_color=VISA_BLUE))
@@ -662,7 +662,7 @@ elif current_page == "subs":
 
     st.divider()
 
-    st.subheader(t("Recurring vs One-Time: Value Distribution", "Cykliczne vs Jednorazowe: Rozklad Wartosci"))
+    st.subheader(t("Recurring vs One-Time: Value Distribution", "Cykliczne vs Jednorazowe: Rozkład Wartosci"))
     recur = precise["recurring_vs_onetime"]
     df_r = pd.DataFrame(recur)
 
@@ -691,7 +691,7 @@ elif current_page == "subs":
     - **42.8%** wszystkich transakcji (130.9M)
     - **36.5%** calej wartości (20.3B)
 
-    To stali klienci spozywczy, uslugi subskrypcyjne i ulubieni merchanci.
+    To stali klienci spożywczy, usługi subskrypcyjne i ulubieni merchanci.
     **Ochrona i rozwijanie tych cyklicznych relacji to priorytet strategiczny nr 1 Visa.**
     """))
 
@@ -726,14 +726,14 @@ elif current_page == "cash":
     c1, c2, c3, c4 = st.columns(4)
     c1.metric(t("POS Terminals", "Terminale POS"), "1.25M", "+8% YoY")
     c2.metric(t("Terminals/1000 pop", "Terminale/1000 mieszk."), "33.3", t("EU avg ~35", "Średnia UE ~35"))
-    c3.metric(t("Cash at POS", "Gotowka w POS"), "35%", "-2pp YoY")
+    c3.metric(t("Cash at POS", "Gotówka w POS"), "35%", "-2pp YoY")
     c4.metric(t("ATM avg withdrawal", "Średnia wypłata ATM"), "1,521", t("8.3× avg card TX", "8.3× średnia TX kartowa"))
 
     st.divider()
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader(t("Sectors with Lowest Terminal Coverage", "Sektory z Najnizsza Pokryciem Terminali"))
+        st.subheader(t("Sectors with Lowest Terminal Coverage", "Sektory z Najniższym Pokryciem Terminali"))
         sectors = [
             {"Sector": "Tutoring / education services", "Terminal %": 5},
             {"Sector": "Home repair / tradesmen", "Terminal %": 10},
@@ -756,7 +756,7 @@ elif current_page == "cash":
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader(t("Cash Usage by Transaction Size", "Uzycie Gotowki wg Wielkosci Transakcji"))
+        st.subheader(t("Cash Usage by Transaction Size", "Użycie Gotówki wg Wielkości Transakcji"))
         sizes = ["Under 10 PLN", "10-50 PLN", "50-100 PLN", "100-500 PLN", "Over 500 PLN"]
         fig = go.Figure()
         fig.add_trace(go.Bar(name="Cash", x=sizes, y=[65,40,30,25,20], marker_color=ACCENT[1]))
@@ -785,13 +785,13 @@ elif current_page == "cash":
     removed the friction of small amounts. But per NBP data, 65% of sub-10 PLN transactions in Poland are still cash.
     **Opportunity:** "Tap for everything" campaigns + zero-fee micro-transactions for merchants.
     """, """
-    💡 **Mikroplatnosci:** 19.3M transakcji jest ponizej 5 jednostek (srednia 2.86). Istnieja, bo platnosci zblizeniowe
-    usunely tarcie malych kwot. Ale wg danych NBP, 65% transakcji ponizej 10 PLN w Polsce to nadal gotowka.
-    **Szansa:** Kampanie "Przykładaj za wszystko" + zerowe oplaty za mikroplatnosci dla merchantow.
+    💡 **Mikropłatności:** 19.3M transakcji jest poniżej 5 jednostek (średnia 2.86). Istnieją, bo płatności zbliżeniowe
+    usunęły tarcie małych kwot. Ale wg danych NBP, 65% transakcji poniżej 10 PLN w Polsce to nadal gotówka.
+    **Szansa:** Kampanie "Przykładaj za wszystko" + zerowe opłaty za mikropłatności dla merchantów.
     """))
 
     st.divider()
-    st.subheader(t("The ATM Cash Flow", "Przeplyw Gotowki ATM"))
+    st.subheader(t("The ATM Cash Flow", "Przepływ Gotówki ATM"))
     st.markdown("""
     | Metric | Value |
     |---|---|
@@ -823,7 +823,7 @@ elif current_page == "qrpay":
         <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 44px 36px; border-radius: 18px; color: #1A1F71; margin-bottom: 28px; border: 2px solid #B0BDE0;">
             <h1 style="margin:0; font-size:2.4em; color:#0D1137;">Visa QR Pay</h1>
             <p style="color:#333; font-size:1.15em; margin-top:8px;">Twoja karta to Twoja tożsamość. Jedno skanowanie — i płatność przychodzi do Ciebie.</p>
-            <p style="color:#555; font-size:0.95em; margin-top:4px;">Nowy paradygmat płatności: zamiast wpisywać dane karty, skanujesz kod QR na fizycznej karcie. Zadanie platnosci pojawia sie na Twoim telefonie. Zatwierdzasz lub odrzucasz — to wszystko.</p>
+            <p style="color:#555; font-size:0.95em; margin-top:4px;">Nowy paradygmat płatności: zamiast wpisywać dane karty, skanujesz kod QR na fizycznej karcie. Żądanie płatności pojawia sie na Twoim telefonie. Zatwierdzasz lub odrzucasz — to wszystko.</p>
             <span style="background:#F7B600; color:#0D1137; padding:5px 20px; border-radius:16px; font-weight:700; font-size:0.85em;">NASZE ROZWIĄZANIE</span>
         </div>
         """, unsafe_allow_html=True)
@@ -857,9 +857,9 @@ elif current_page == "qrpay":
 
         *There's no card-native way to request money from someone.*
         """, """
-        **🤝 Platnosci P2P: Karty Nie Istnieja**
+        **🤝 Płatności P2P: Karty Nie Istnieja**
 
-        Dzielenie rachunku za kolacje, platnosc za przedmiot z marketplace, zbiorka na prezent —
+        Dzielenie rachunku za kolację, płatność za przedmiot z marketplace, zbiórka na prezent —
         karty sa tu niewidoczne. **BLIK P2P ma 55%**, przelewy 40%, karty ~2%.
 
         *Nie ma natywnego sposobu, by karta poprosic kogos o pieniadze.*
@@ -878,7 +878,7 @@ elif current_page == "qrpay":
         Numer Twojej karty to wrazliwe dane. Za kazdym razem, gdy go wpisujesz, ryzykujesz.
         Za kazdym razem, gdy go udostepniasz, martwisz sie. Kazda nowa strona = kolejne miejsce z danymi Twojej karty.
 
-        *A gdybys nigdy wiecej nie musial wpisywac numeru karty?*
+        *A gdybys nigdy więcej nie musiał wpisywać numeru karty?*
         """))
 
     st.divider()
@@ -891,8 +891,8 @@ elif current_page == "qrpay":
     > between the payer and the cardholder.
     """, """
     > **Kazda karta Visa otrzymuje unikalny kod QR** — wydrukowany na karcie, dostepny w aplikacji bankowej lub jako naklejka.
-    > Skanowanie tego kodu QR nie ujawnia numeru karty. Tworzy **bezpieczny kanal zadania platnosci**
-    > miedzy placacy a posiadaczem karty.
+    > Skanowanie tego kodu QR nie ujawnia numeru karty. Tworzy **bezpieczny kanał żądania płatności**
+    > między płacącym a posiadaczem karty.
     """))
 
     st.divider()
@@ -912,7 +912,7 @@ elif current_page == "qrpay":
         else:
             st.markdown("""
             <div style="background: linear-gradient(135deg, #E8F0FE, #D0E0FF); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
-                <h2 style="color: #1A1F71; margin:0;">Tryb 1: Zadanie Platnosci P2P</h2>
+                <h2 style="color: #1A1F71; margin:0;">Tryb 1: Zadanie Płatności P2P</h2>
                 <p style="color: #333; margin-top:8px; font-size:1.05em;">Ktos jest Ci winien pieniadze? Skanuje kod QR Twojej karty i wysyla Ci platnosc — natychmiast, karta.</p>
             </div>
             """, unsafe_allow_html=True)
@@ -959,16 +959,16 @@ elif current_page == "qrpay":
         uc1, uc2, uc3, uc4 = st.columns(4)
         with uc1:
             st.info(t("**🍕 Split the bill**\n\nScan the card of whoever paid, enter your share. No IBAN, no phone number needed.",
-                       "**🍕 Podziel rachunek**\n\nZeskanuj karte osoby, ktora placila, wpisz swoja czesc. Bez IBAN, bez numeru telefonu."))
+                       "**🍕 Podziel rachunek**\n\nZeskanuj kartę osoby, która płaciła, wpisz swoją część. Bez IBAN, bez numeru telefonu."))
         with uc2:
             st.info(t("**🏪 Marketplace sale**\n\nSelling on OLX? Buyer scans your card QR at meetup. Instant card-to-card payment.",
-                       "**🏪 Sprzedaz na marketplace**\n\nSprzedajesz na OLX? Kupujacy skanuje Twoj QR przy spotkaniu. Natychmiastowa platnosc karta-do-karty."))
+                       "**🏪 Sprzedaż na marketplace**\n\nSprzedajesz na OLX? Kupujący skanuje Twój QR przy spotkaniu. Natychmiastowa płatność kartą-do-karty."))
         with uc3:
             st.info(t("**🎁 Group collection**\n\nOrganizing a gift? Share your card QR in the group chat. Everyone scans & pays.",
-                       "**🎁 Zbiorka grupowa**\n\nOrganizujesz prezent? Udostepnij QR karty na czacie grupowym. Kazdy skanuje i placi."))
+                       "**🎁 Zbiórka grupowa**\n\nOrganizujesz prezent? Udostępnij QR karty na czacie grupowym. Każdy skanuje i płaci."))
         with uc4:
             st.info(t("**🔧 Pay the plumber**\n\nNo terminal needed. The tradesman shows their card, you scan and pay. Done.",
-                       "**🔧 Zaplac hydraulikowi**\n\nBez terminala. Fachowiec pokazuje swoja karte, skanujesz i placisz. Gotowe."))
+                       "**🔧 Zapłać hydraulikowi**\n\nBez terminala. Fachowiec pokazuje swoją kartę, skanujesz i płacisz. Gotowe."))
 
         st.success(t("""
         **Why this changes the game:**
@@ -981,7 +981,7 @@ elif current_page == "qrpay":
         **Dlaczego to zmienia gre:**
         - **Brak udostepniania numeru karty** — QR zawiera tokenizowany identyfikator, nie rzeczywisty numer karty
         - **Dziala offline** — QR jest wydrukowany na fizycznej karcie, nie potrzeba internetu do rozpoczecia
-        - **Model Pull → Push** — *odbiorca* nie sciaga pieniedzy; *nadawca* wysyla zadanie, ktore musi byc zatwierdzone
+        - **Model Pull → Push** — *odbiorca* nie ściąga pieniędzy; *nadawca* wysyla zadanie, które musi być zatwierdzone
         - **Napedzane przez Visa Direct** — natychmiastowe rozliczenie, 24/7, na dowolna karte Visa na swiecie
         - **Bezposrednia konkurencja z BLIK P2P** — ale dziala transgranicznie i nie wymaga tego samego banku
         """))
@@ -998,7 +998,7 @@ elif current_page == "qrpay":
             st.markdown("""
             <div style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2); padding: 28px; border-radius: 16px; margin-bottom: 20px;">
                 <h2 style="color: #1A1F71; margin:0;">Tryb 2: E-Commerce — Zeskanuj Karte i Zaplac</h2>
-                <p style="color: #333; margin-top:8px; font-size:1.05em;">Zamiast wpisywac numer karty przy kasie, zeskanuj QR swojej karty telefonem lub kamerka laptopa. Zadanie platnosci pojawia sie na telefonie — zatwierdz i gotowe.</p>
+                <p style="color: #333; margin-top:8px; font-size:1.05em;">Zamiast wpisywac numer karty przy kasie, zeskanuj QR swojej karty telefonem lub kamerka laptopa. Żądanie płatności pojawia sie na telefonie — zatwierdz i gotowe.</p>
             </div>
             """, unsafe_allow_html=True)
 
@@ -1060,7 +1060,7 @@ elif current_page == "qrpay":
         """, """
         **Kluczowa przewaga nad BLIK:** Visa QR Pay jest **szybszy** (skan vs. wpisywanie 6-cyfrowego kodu), **bezpieczniejszy**
         (brak udostepniania danych karty, tokenizacja), **globalny** (dziala na kazdej stronie akceptujacej Visa na swiecie) i korzysta z
-        **zatwierdzenia biometrycznego** (Face ID / odcisk palca) zamiast recznego potwierdzania w aplikacji bankowej.
+        **zatwierdzenia biometrycznego** (Face ID / odcisk palca) zamiast ręcznego potwierdzania w aplikacji bankowej.
         """))
 
     st.divider()
@@ -1228,7 +1228,7 @@ elif current_page == "qrpay":
         st.metric(t("E-commerce share gain", "Wzrost udzialu e-commerce"), "+3-5pp", help=t("From ~9% to 12-14% of e-commerce", "Z ~9% do 12-14% e-commerce"))
         st.metric(t("New annual e-com volume", "Nowy roczny wolumen e-com"), "~3-4B PLN")
     with col3:
-        st.metric(t("Cash services converted", "Konwersja uslug gotowkowych"), "5-10%", help=t("Of ~50B PLN cash service economy", "Z ~50B PLN gospodarki uslug gotowkowych"))
+        st.metric(t("Cash services converted", "Konwersja usług gotówkowych"), "5-10%", help=t("Of ~50B PLN cash service economy", "Z ~50B PLN gospodarki usług gotówkowych"))
         st.metric(t("New annual service volume", "Nowy roczny wolumen uslug"), "~3-5B PLN")
 
     if lang == "EN":
@@ -1246,7 +1246,7 @@ elif current_page == "qrpay":
             <h3 style="color:#1B7A3D; margin:0 0 8px 0;">Laczny Potencjal: ~35B PLN nowego rocznego wolumenu transakcji kartowych</h3>
             <p style="margin:0; color:#1A3C2A;">Zamieniajac kazda karte Visa w punkt akceptacji platnosci (przez QR), transformujemy karty z "narzedzia wydatkow"
             w <strong style="color:#145A24;">uniwersalna platforme platnicza</strong> — konkurujac z BLIK na wygodzie, jednoczesnie wykorzystujac globalna infrastrukture Visa,
-            bezpieczenstwo i ochrone kupujacego, ktorych BLIK nie moze zapewnic.</p>
+            bezpieczenstwo i ochronę kupującego, których BLIK nie może zapewnić.</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1492,7 +1492,7 @@ elif current_page == "models":
     # ── MODEL 5: E-COMMERCE MARKET SHARE ──
     st.subheader(t("Model 5: E-Commerce Market Share Simulation", "Model 5: Symulacja Udzialu w Rynku E-Commerce"))
     st.caption(t("How QR Pay changes Visa's share of the Polish e-commerce payments market",
-                  "Jak QR Pay zmienia udzial Visa w polskim rynku platnosci e-commerce"))
+                  "Jak QR Pay zmienia udzial Visa w polskim rynku płatności e-commerce"))
 
     es = models["ecom_share"][scenario]
     fig = go.Figure()
@@ -1603,7 +1603,7 @@ elif current_page == "recs":
         <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 24px 28px; border-radius: 14px; color: #0D1137; margin-bottom: 20px; border: 2px solid #B0BDE0;">
             <h3 style="margin:0; color:#1A1F71;">CardFlow — Od Gotówki i Przelewów do Karty</h3>
             <p style="color:#333; margin-top:6px;">Zamieniamy dane transakcyjne w konkretne decyzje. Pokazujemy nie tylko jak ludzie płacą,
-            ale co zrobic, by karta byla ich najwygodniejszym wyborem — online i w platnosci prywatnych.</p>
+            ale co zrobić, by karta była ich najwygodniejszym wyborem — online i w płatności prywatnych.</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -1704,7 +1704,7 @@ elif current_page == "recs":
             Karty juz dominuja na fizycznych POS (58% i rosnie). Ale <strong style="color:#1A1F71;">~25% wydatkow gospodarstw domowych</strong> (mieszkanie, telekom, edukacja)
             jest niewidoczne dla kart, a w e-commerce <strong style="color:#1A1F71;">BLIK przejal 67%</strong>. Szansa nie polega na walce z BLIK czolowo
             w krajowych platnosci jednym kliknieciem, ale na <strong style="color:#1A1F71;">zajmowaniu nisz, gdzie karty maja strukturalne przewagi</strong>:
-            handel miedzynarodowy, subskrypcje, zakupy o wysokiej wartości z ochrona kupujacego, P2P przez Visa Direct
+            handel międzynarodowy, subskrypcje, zakupy o wysokiej wartości z ochroną kupującego, P2P przez Visa Direct
             i niewykorzystany rynek rachunkow cyklicznych. Lacznie to <strong style="color:#1A1F71;">dziesiatki miliardow PLN rocznego wolumenu platnosci</strong>
             plynacych obecnie przez kanaly nie-kartowe.
             </p>
