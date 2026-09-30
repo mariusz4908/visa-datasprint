@@ -33,3 +33,35 @@ ACCENT = ["#4A90D9", "#E85D75", "#2ECC71", "#F39C12", "#9B59B6", "#1ABC9C",
 def t(en, pl):
     """Return text in selected language."""
     return en if st.session_state.get("lang", "EN") == "EN" else pl
+
+
+# ── SOURCE NOTES ────────────────────────────────────────────────────────
+# key -> (badge colour, badge, EN description, PL description)
+SOURCES = {
+    "visa": ("blue", "VISA", "Visa synthetic transactions (305.5M, Jan 2025–Jun 2026)",
+             "syntetyczne transakcje Visa (305,5 mln, I 2025–VI 2026)"),
+    "visa_ml": ("blue", "VISA", "Visa synthetic transactions, Polish cards, Jan–Jun 2026 (ml_readiness/)",
+                "syntetyczne transakcje Visa, polskie karty, I–VI 2026 (ml_readiness/)"),
+    "gus_hbs": ("green", "GUS", "GUS Household Budget Survey 2024 (COICOP)",
+                "GUS, Budżety gospodarstw domowych 2024 (COICOP)"),
+    "nbp": ("orange", "NBP", "NBP payment statistics 2024", "NBP, statystyki płatnicze 2024"),
+    "nbp_survey": ("orange", "NBP", "NBP survey 'Payment habits of Poles' 2024",
+                   "NBP, badanie „Zwyczaje płatnicze Polaków” 2024"),
+    "gemius": ("violet", "GEMIUS", "Gemius/PBI 'E-commerce in Poland' 2022–2024",
+               "Gemius/PBI „E-commerce w Polsce” 2022–2024"),
+    "blik": ("violet", "BLIK", "BLIK S.A. annual reports", "raporty roczne BLIK S.A."),
+    "estimate": ("gray", "EST", "team estimates based on industry reports",
+                 "szacunki zespołu na podstawie raportów branżowych"),
+    "sim": ("red", "SIM", "CardFlow simulation (models.py): scenario assumptions, not observed data",
+            "symulacja CardFlow (models.py): założenia scenariuszowe, nie dane obserwowane"),
+}
+
+
+def source(*keys, note=None):
+    """Caption under a chart saying where its numbers come from; note is an optional (EN, PL) pair."""
+    parts = [f":{colour}-background[{badge}] {t(en, pl)}"
+             for colour, badge, en, pl in (SOURCES[k] for k in keys)]
+    text = f"{t('Source', 'Źródło')}: " + " · ".join(parts)
+    if note:
+        text += f" — {t(*note)}"
+    st.caption(text)

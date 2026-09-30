@@ -6,7 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from app_pages.common import DATA_DIR, load_json, t, VISA_BLUE, VISA_GOLD, BLIK_PINK, ACCENT
+from app_pages.common import DATA_DIR, load_json, source, t, VISA_BLUE, VISA_GOLD, BLIK_PINK, ACCENT
 
 
 def render():
@@ -55,7 +55,7 @@ def render():
     k1.metric(t("Wave 1 · mostly typing", "Fala 1 · głównie przepisują"),
               t(f"{a.cards / 1000:.0f}K cards", f"{a.cards / 1000:.0f} tys. kart"),
               t(f"{a.share_of_typed_tx:.0%} of all typed online payments",
-                f"{a.share_of_typed_tx:.0%} wszystkich przepisań online"), delta_color="off")
+                f"{a.share_of_typed_tx:.0%} wszystkich przepisanych płatności online"), delta_color="off")
     k2.metric(t("From issuance · new cards", "Od wydania · nowe karty"),
               t(f"{new_per_month:.0f}K / month", f"{new_per_month:.0f} tys. / mies."),
               t(f"{new_typed:.0%} of first online payments typed",
@@ -67,10 +67,11 @@ def render():
     k4.metric(t("Model accuracy (AUC)", "Trafność modelu (AUC)"), f"{final['AUC']:.2f}",
               t(f"top 20% of cards = {top20_reach:.0f}% of starters", f"20% kart = {top20_reach:.0f}% startujących"),
               delta_color="off")
+    source("visa_ml")
 
     tab_aud, tab_model, tab_personas, tab_new = st.tabs(
-        [t("🎯 Audiences", "🎯 Grupy"), t("🤖 Readiness model", "🤖 Model gotowości"), t("👥 Personas", "👥 Persony"),
-         t("🆕 New cards", "🆕 Nowe karty")])
+        [t("Audiences", "Grupy"), t("Readiness model", "Model gotowości"), t("Personas", "Persony"),
+         t("New cards", "Nowe karty")])
 
     # ── Audiences ──
     with tab_aud:
@@ -97,12 +98,13 @@ def render():
                          orientation="h", color_discrete_sequence=[BLIK_PINK])
             fig.update_layout(height=320, margin=dict(t=10, b=30), xaxis_tickformat=".0%", xaxis_title="", yaxis_title="")
             st.plotly_chart(fig, use_container_width=True)
+        source("visa_ml")
 
         st.dataframe(pd.DataFrame({
             t("Audience", "Grupa"): tbl.audience,
             t("Cards", "Karty"): tbl.cards.map("{:,.0f}".format),
             t("Share of active cards", "Udział aktywnych kart"): tbl.share_of_cards.map("{:.0%}".format),
-            t("Typed payments / card / month", "Przepisania / karta / mies."):
+            t("Typed payments / card / month", "Przepisane płatności / karta / mies."):
                 tbl.typed_tx_per_card_month.map("{:.1f}".format),
             t("Mostly pay by phone in store", "Głównie telefon w sklepie"): tbl.mostly_wallet_share.map("{:.0%}".format),
             t("Role", "Rola"): tbl.Role,
@@ -118,16 +120,16 @@ def render():
         with col1:
             fig = px.bar(cats.sort_values("share_of_a_typed_pct"), x="share_of_a_typed_pct", y="category",
                          orientation="h", color="polish_merchant_pct", color_continuous_scale="Blues",
-                         labels={"share_of_a_typed_pct": t("% of their typed payments", "% ich przepisań"), "category": "",
+                         labels={"share_of_a_typed_pct": t("% of their typed payments", "% ich przepisanych płatności"), "category": "",
                                  "polish_merchant_pct": t("% Polish merchants", "% polskich sprzedawców")})
             fig.update_layout(height=380, margin=dict(t=10, b=30))
             st.plotly_chart(fig, use_container_width=True)
         with col2:
-            st.metric(t("Typed payments made on a phone", "Przepisania na telefonie"), f"{phone_share:.0%}")
+            st.metric(t("Typed payments made on a phone", "Przepisane płatności na telefonie"), f"{phone_share:.0%}")
             st.caption(t("QR Pay must work from the banking app / phone, not only from the plastic card.",
                           "QR Pay musi działać z aplikacji banku / telefonu, a nie tylko z plastikowej karty."))
             top20 = dec.loc[dec.group == "top 20%", "cum_share_of_typed_pct"].iloc[0]
-            st.metric(t("Typing done by the heaviest 20% of typers", "Przepisania 20% najintensywniejszych"), f"{top20:.0f}%")
+            st.metric(t("Typing done by the heaviest 20% of typers", "Udział 20% najczęściej przepisujących"), f"{top20:.0f}%")
             st.caption(t("Contact order: start with the heaviest typers.",
                           "Kolejność kontaktu: najpierw ci, którzy przepisują najczęściej."))
             fig = go.Figure(go.Scatter(x=[0] + list(range(10, 101, 10)), y=[0] + dec.cum_share_of_typed_pct.tolist(),
@@ -135,8 +137,9 @@ def render():
             fig.add_trace(go.Scatter(x=[0, 100], y=[0, 100], mode="lines", line=dict(color="#bbb", dash="dash")))
             fig.update_layout(height=220, margin=dict(t=10, b=30), showlegend=False,
                               xaxis_title=t("% of typers contacted", "% kontaktowanych"),
-                              yaxis_title=t("% of typing covered", "% pokrytych przepisań"))
+                              yaxis_title=t("% of typing covered", "% objętych przepisanych płatności"))
             st.plotly_chart(fig, use_container_width=True)
+        source("visa_ml")
 
     # ── Readiness model ──
     with tab_model:
@@ -167,7 +170,7 @@ def render():
                               legend=dict(orientation="h", y=-0.2))
             st.plotly_chart(fig, use_container_width=True)
         with col2:
-            st.subheader(t("Gains: reach of future starters", "Zasięg przyszłych startujących"))
+            st.subheader(t("Gains: reach of future starters", "Ilu przyszłych startujących obejmujemy"))
             fig = go.Figure(go.Scatter(x=[0] + gains.contacted_pct.tolist(), y=[0] + gains.starters_reached_pct.tolist(),
                                        mode="lines+markers", name="model", line=dict(color=VISA_BLUE, width=3)))
             fig.add_trace(go.Scatter(x=[0, 100], y=[0, 100], mode="lines", name="random",
@@ -175,6 +178,8 @@ def render():
             fig.update_layout(height=340, margin=dict(t=10, b=30), xaxis_title=t("% of cards contacted", "% kontaktowanych kart"),
                               yaxis_title=t("% of starters reached", "% osiągniętych startujących"), legend=dict(orientation="h", y=-0.2))
             st.plotly_chart(fig, use_container_width=True)
+        source("visa_ml", note=("LightGBM readiness model, rolling backtest on later periods",
+                                "model gotowości LightGBM, test wsteczny na późniejszych okresach"))
 
         labels = {"evening_share": "Evening activity", "s_fast_food": "Fast food", "s_car_fuel": "Fuel & car",
                   "wallet_ever": "Ever paid by phone in store", "s_restaurants_bars": "Restaurants & bars",
@@ -206,6 +211,8 @@ def render():
             fig.update_layout(height=420, margin=dict(t=10, b=30), xaxis_title="score decile (10 = highest)",
                               yaxis_title="start rate (%)", legend=dict(orientation="h", y=-0.15))
             st.plotly_chart(fig, use_container_width=True)
+        source("visa_ml", note=("LightGBM readiness model, rolling backtest on later periods",
+                                "model gotowości LightGBM, test wsteczny na późniejszych okresach"))
         st.info(t("The model predicts who is **about to** start paying online — the moment QR Pay should take over. "
                   "What QR itself adds is measured in the pilot with a random control group (~10% of each audience).",
                   "Model przewiduje, kto **zaraz** zacznie płacić online — to moment, który powinien przejąć QR Pay. "
@@ -233,6 +240,7 @@ def render():
         fig.update_layout(height=260, margin=dict(t=10, b=30), xaxis_tickformat=".0%", legend=dict(orientation="h", y=-0.3))
         st.subheader(t("Persona mix of the audiences", "Skład person w grupach"))
         st.plotly_chart(fig, use_container_width=True)
+        source("visa_ml", note=("KMeans personas from in-store behaviour", "persony KMeans z zachowań w sklepach"))
 
     # ── New cards ──
     with tab_new:
@@ -254,6 +262,7 @@ def render():
                                          line=dict(color=color, width=3)))
             fig.update_layout(height=340, margin=dict(t=10, b=30), yaxis_title="%", legend=dict(orientation="h", y=-0.2))
             st.plotly_chart(fig, use_container_width=True)
+        source("visa_ml")
         st.success(t(f"About half of new cards pay online within 3 months, and **{new_typed:.0%} of those first "
                      "online payments are typed**. QR on every new card makes the first online payment effortless — "
                      "the cheapest way to scale.",

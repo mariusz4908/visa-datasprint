@@ -3,7 +3,7 @@ import streamlit as st
 # ── CONFIG ──────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="CardFlow – Visa DataSprint 2026",
-    page_icon="💳",
+    page_icon=":material/credit_card:",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -27,33 +27,33 @@ from app_pages.common import t  # noqa: E402
 
 # page key -> (EN label, PL label, render function)
 PAGES = {
-    "summary": ("🏠 Executive Summary", "🏠 Podsumowanie", executive_summary.render),
-    "overview": ("📊 Transaction Overview", "📊 Przeglad Transakcji", transaction_overview.render),
-    "ecom": ("🛒 E-Commerce Deep Dive", "🛒 Analiza E-Commerce", e_commerce_deep_dive.render),
-    "blik": ("⚔️ BLIK vs Visa", "⚔️ BLIK vs Visa", blik_vs_visa.render),
-    "cardfree": ("🔴 Card-Free Zones", "🔴 Strefy bez Kart", card_free_zones.render),
-    "subs": ("🔄 Subscription Economy", "🔄 Ekonomia Subskrypcji", subscription_economy.render),
-    "cash": ("💵 Cash Deserts & Infrastructure", "💵 Pustynie Gotówkowe", cash_deserts_infrastructure.render),
-    "qrpay": ("💡 Visa QR Pay — Our Solution", "💡 Visa QR Pay — Nasze Rozwiązanie", visa_qr_pay.render),
-    "innov": ("🚀 Innovation Portfolio", "🚀 Portfolio Innowacji", innovation_portfolio.render),
-    "ml": ("🤖 Who First — ML Targeting", "🤖 Kto Pierwszy — Targetowanie ML", who_first_ml_targeting.render),
-    "models": ("📈 Predictive Models & Simulations", "📈 Modele Predykcyjne", predictive_models_simulations.render),
-    "recs": ("🎯 Recommendations", "🎯 Rekomendacje", recommendations.render),
+    "summary": ("Executive Summary", "Podsumowanie", executive_summary.render),
+    "overview": ("Transaction Overview", "Przegląd transakcji", transaction_overview.render),
+    "ecom": ("E-Commerce Deep Dive", "Analiza e-commerce", e_commerce_deep_dive.render),
+    "blik": ("BLIK vs Visa", "BLIK vs Visa", blik_vs_visa.render),
+    "cardfree": ("Card-Free Zones", "Strefy bez kart", card_free_zones.render),
+    "subs": ("Subscription Economy", "Subskrypcje", subscription_economy.render),
+    "cash": ("Cash Deserts & Infrastructure", "Gdzie rządzi gotówka", cash_deserts_infrastructure.render),
+    "qrpay": ("Visa QR Pay — Our Solution", "Visa QR Pay — nasze rozwiązanie", visa_qr_pay.render),
+    "innov": ("Innovation Portfolio", "Portfolio innowacji", innovation_portfolio.render),
+    "ml": ("Who First — ML Targeting", "Kto pierwszy — targetowanie ML", who_first_ml_targeting.render),
+    "models": ("Predictive Models & Simulations", "Modele predykcyjne", predictive_models_simulations.render),
+    "recs": ("Recommendations", "Rekomendacje", recommendations.render),
 }
 
 # Clean nav labels (no emoji) for sidebar display
 _NAV = {
     "summary":  ("Executive Summary",            "Podsumowanie"),
-    "overview": ("Transaction Overview",          "Przegląd Transakcji"),
-    "ecom":     ("E-Commerce Deep Dive",          "Analiza E-Commerce"),
+    "overview": ("Transaction Overview",          "Przegląd transakcji"),
+    "ecom":     ("E-Commerce Deep Dive",          "Analiza e-commerce"),
     "blik":     ("BLIK vs Visa",                  "BLIK vs Visa"),
-    "cardfree": ("Card-Free Zones",               "Strefy bez Kart"),
-    "subs":     ("Subscription Economy",          "Ekonomia Subskrypcji"),
-    "cash":     ("Cash Deserts",                  "Pustynie Gotówkowe"),
+    "cardfree": ("Card-Free Zones",               "Strefy bez kart"),
+    "subs":     ("Subscription Economy",          "Subskrypcje"),
+    "cash":     ("Cash Deserts",                  "Gdzie rządzi gotówka"),
     "qrpay":    ("Visa QR Pay",                   "Visa QR Pay"),
-    "innov":    ("Innovation Portfolio",          "Portfolio Innowacji"),
+    "innov":    ("Innovation Portfolio",          "Portfolio innowacji"),
     "ml":       ("ML Targeting",                  "Targetowanie ML"),
-    "models":   ("Predictive Models",             "Modele Predykcyjne"),
+    "models":   ("Predictive Models",             "Modele predykcyjne"),
     "recs":     ("Recommendations",               "Rekomendacje"),
 }
 
@@ -210,4 +210,4 @@ PAGES[page][2]()
 # Footer
 st.divider()
 st.caption(t("CardFlow — Visa DataSprint Hackathon 2026 | Data: Visa synthetic transactions (305.5M), GUS (2024), NBP (2024), Gemius (2024)",
-              "CardFlow — Visa DataSprint Hackathon 2026 | Dane: Syntetyczne transakcje Visa (305.5M), GUS (2024), NBP (2024), Gemius (2024)"))
+              "CardFlow — Visa DataSprint Hackathon 2026 | Dane: syntetyczne transakcje Visa (305,5 mln), GUS (2024), NBP (2024), Gemius (2024)"))

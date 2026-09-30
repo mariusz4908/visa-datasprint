@@ -8,7 +8,7 @@ from app_pages.common import t
 def render():
     lang = st.session_state.get("lang", "EN")
 
-    st.header(t("Strategic Recommendations", "Rekomendacje Strategiczne"))
+    st.header(t("Strategic Recommendations", "Rekomendacje strategiczne"))
     if lang == "EN":
         st.markdown("""
         <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 24px 28px; border-radius: 14px; color: #0D1137; margin-bottom: 20px; border: 2px solid #B0BDE0;">
@@ -20,17 +20,17 @@ def render():
     else:
         st.markdown("""
         <div style="background: linear-gradient(135deg, #E8EDF8, #D0D9F0); padding: 24px 28px; border-radius: 14px; color: #0D1137; margin-bottom: 20px; border: 2px solid #B0BDE0;">
-            <h3 style="margin:0; color:#1A1F71;">CardFlow — Od Gotówki i Przelewów do Karty</h3>
+            <h3 style="margin:0; color:#1A1F71;">CardFlow — od gotówki i przelewów do karty</h3>
             <p style="color:#333; margin-top:6px;">Zamieniamy dane transakcyjne w konkretne decyzje. Pokazujemy nie tylko jak ludzie płacą,
-            ale co zrobić, by karta była ich najwygodniejszym wyborem — online i w płatności prywatnych.</p>
+            ale co zrobić, by karta była ich najwygodniejszym wyborem — online i w płatnościach między znajomymi.</p>
         </div>
         """, unsafe_allow_html=True)
 
-    st.subheader(t("For Three Target Audiences", "Dla Trzech Grup Docelowych"))
+    st.subheader(t("For Three Target Audiences", "Dla trzech grup odbiorców"))
 
-    tab1, tab2, tab3 = st.tabs([t("🛍️ Online Merchants", "🛍️ Dla Sklepów Internetowych"),
-                                 t("🏦 Banks & Visa", "🏦 Dla Banków i Visa"),
-                                 t("🏙️ Cities & Municipalities", "🏙️ Dla Miast i Samorządów")])
+    tab1, tab2, tab3 = st.tabs([t("Online Merchants", "Dla sklepów internetowych"),
+                                 t("Banks & Visa", "Dla banków i Visa"),
+                                 t("Cities & Municipalities", "Dla miast i samorządów")])
 
     with tab1:
         if lang == "EN":
@@ -50,18 +50,18 @@ def render():
             """)
         else:
             st.markdown("""
-            ### Sklepy internetowe: Zmniejsz tarcie, zwiększ udział kart
+            ### Sklepy internetowe: prostsza płatność, większy udział kart
 
             | Zidentyfikowany punkt ucieczki | Rekomendacja | Oczekiwany wpływ |
             |---|---|---|
             | **67% e-commerce używa BLIK** bo jest jednym kliknięciem | Wdrożyć **Visa Click to Pay** — tokenizowana płatność kartą jednym kliknięciem | +3-5pp udziału kart |
-            | **E-grocery na 0.12%** online | Uruchomić checkout karta-najpierw dla dostaw spożywczych (Frisco, Barbora) | Średni koszyk online 3.1× wyższy |
+            | **Zakupy spożywcze online: 0.12%** | Karta jako domyślna płatność w dostawach zakupów (Frisco, Barbora) | Średni koszyk online 3.1× wyższy |
             | **Średnia online = 318 vs 165 fizyczna** | Promować kartę dla zakupów online o wysokiej wartości (elektronika, meble) | Wyższy przychód na TX |
-            | **Odzież online: 5% TX, 16% wartości** | Card-on-file + zapisany checkout dla mody e-commerce | Zatrzymanie stałych kupujących |
+            | **Odzież online: 5% TX, 16% wartości** | Zapisana karta i szybka płatność w sklepach z modą | Zatrzymanie stałych kupujących |
             | **Za pobraniem nadal 5% e-commerce** | Zaoferować "Zapłać kartą, dostawa gratis" | Konwersja pobrania → karta |
             | **BLIK nie ma ochrony chargeback** | Podkreślić ochronę kupującego Visa przy drogich zakupach | Przewaga zaufania >200 PLN |
 
-            **Szybka wygrana:** Partnerstwo z Allegro (już 1.8M TX kartowych), by Visa Click to Pay był tak widoczny jak BLIK przy kasie.
+            **Szybki efekt:** Partnerstwo z Allegro (już 1.8M TX kartowych), by Visa Click to Pay był tak widoczny jak BLIK przy kasie.
             """)
 
     with tab2:
@@ -90,14 +90,14 @@ def render():
             | Segment | Obecny stan | Szansa Visa Direct / Karta |
             |---|---|---|
             | **Płatności P2P** | BLIK 55%, karta ~2% | **Visa Direct** na natychmiastowe P2P — "podziel rachunek kartą" |
-            | **Subskrypcje** | 282K kart na Netflix, 240K na Apple | Promować card-on-file dla WSZYSTKICH subskrypcji (telekom, ubezpieczenia) |
+            | **Subskrypcje** | 282K kart na Netflix, 240K na Apple | Promować zapisaną kartę dla WSZYSTKICH subskrypcji (telekom, ubezpieczenia) |
             | **Rachunki cykliczne** | 3% karta, 90% przelew/polecenie zapłaty | Płatność rachunków powiązana z kartą z **2% cashback** |
             | **Wiek 65+** | 72% preferencja gotówki | Uproszczona karta zbliżeniowa dla seniorów + edukacja |
             | **Wiek 45-64** | 40% gotówka | Kampania "Twoja karta działa też online" |
-            | **Mikropłatności <10 PLN** | 65% gotówka | Zerowa opłata za zbliżeniowe poniżej 10 PLN dla merchantów |
-            | **Intensywni użytkownicy ATM** | Średnia 1 521/wypłata | Zidentyfikuj i targetuj "po co wypłacać, skoro możesz przykładać?" |
+            | **Mikropłatności <10 PLN** | 65% gotówka | Zerowa opłata za zbliżeniowe poniżej 10 PLN dla sprzedawców |
+            | **Intensywni użytkownicy ATM** | Średnia 1 521/wypłata | Kampania: „po co wypłacać, skoro możesz zapłacić zbliżeniowo?” |
 
-            **Szybka wygrana:** Uruchomienie "Visa Split" — przelewy karta-do-karty P2P zintegrowane w aplikacjach bankowych, bezpośrednia konkurencja z BLIK P2P.
+            **Szybki efekt:** Uruchomienie "Visa Split" — przelewy karta-do-karty P2P zintegrowane w aplikacjach bankowych, bezpośrednia konkurencja z BLIK P2P.
 
             **Szansa Visa Direct:** 14.5M gospodarstw płacących 416 PLN/mies. czynszu + 68 PLN telekom = **7 mld PLN/mies.** potencjalnych płatności powiązanych z kartą.
             """)
@@ -134,12 +134,12 @@ def render():
             | **Food trucki i street food** | 50% pokrycia terminali | Program wdrożenia mikro-POS SumUp/Zettle |
             | **Instytucje publiczne** | 60% terminali | Kioski płatności kartą w urzędach |
 
-            **Potencjał studium przypadku:** Partnerstwo z jednym polskim miastem (np. Kraków — najwyższa mobilność kartowa 17.7%)
+            **Pilotaż w jednym mieście:** Partnerstwo z jednym polskim miastem (np. Kraków — najwyższa mobilność kartowa 17.7%)
             dla pilotażu **"Miasto Bezgotówkowe"** — pomiar wpływu na lokalny handel, widoczność przychodów podatkowych i wydatki turystów.
             """)
 
     st.divider()
-    st.subheader(t("Priority Matrix", "Macierz Priorytetów"))
+    st.subheader(t("Priority Matrix", "Macierz priorytetów"))
 
     if lang == "EN":
         priorities = pd.DataFrame([
@@ -154,11 +154,11 @@ def render():
         ])
     else:
         priorities = pd.DataFrame([
-            {"Inicjatywa": "Visa Click to Pay u top merchantów", "Wpływ": "Wysoki", "Nakład": "Średni", "Harmonogram": "3-6 miesięcy", "Cel": "Merchanci"},
+            {"Inicjatywa": "Visa Click to Pay u największych sprzedawców", "Wpływ": "Wysoki", "Nakład": "Średni", "Harmonogram": "3-6 miesięcy", "Cel": "Merchanci"},
             {"Inicjatywa": "E-grocery checkout karta-najpierw", "Wpływ": "Wysoki", "Nakład": "Średni", "Harmonogram": "3-6 miesięcy", "Cel": "Merchanci"},
             {"Inicjatywa": "Tap-to-Phone dla usługodawców", "Wpływ": "Wysoki", "Nakład": "Niski", "Harmonogram": "1-3 miesiące", "Cel": "Visa/Banki"},
             {"Inicjatywa": "Visa Direct P2P w aplikacjach bankowych", "Wpływ": "Bardzo Wysoki", "Nakład": "Wysoki", "Harmonogram": "6-12 miesięcy", "Cel": "Banki"},
-            {"Inicjatywa": "Card-on-file dla rachunków cyklicznych", "Wpływ": "Bardzo Wysoki", "Nakład": "Wysoki", "Harmonogram": "6-12 miesięcy", "Cel": "Banki"},
+            {"Inicjatywa": "Zapisana karta dla rachunków cyklicznych", "Wpływ": "Bardzo Wysoki", "Nakład": "Wysoki", "Harmonogram": "6-12 miesięcy", "Cel": "Banki"},
             {"Inicjatywa": "Zerowe opłaty za mikropłatności", "Wpływ": "Średni", "Nakład": "Niski", "Harmonogram": "1-3 miesiące", "Cel": "Visa"},
             {"Inicjatywa": "Pilotaż Miasto Bezgotówkowe", "Wpływ": "Wysoki", "Nakład": "Wysoki", "Harmonogram": "6-12 miesięcy", "Cel": "Miasta"},
             {"Inicjatywa": "Edukacja zbliżeniowa dla seniorów", "Wpływ": "Średni", "Nakład": "Niski", "Harmonogram": "1-3 miesiące", "Cel": "Banki"},
@@ -185,12 +185,12 @@ def render():
         <div style="background: linear-gradient(135deg, #FFF9E6, #FFF3CC); padding: 20px 24px; border-radius: 14px; border-left: 4px solid #F7B600; color:#3D2E00;">
             <h3 style="color:#0D1137; margin:0 0 8px 0;">Podsumowanie</h3>
             <p style="margin:0; font-size:1.05em; color:#3D2E00;">
-            Karty juz dominuja na fizycznych POS (58% i rosnie). Ale <strong style="color:#1A1F71;">~25% wydatkow gospodarstw domowych</strong> (mieszkanie, telekom, edukacja)
-            jest niewidoczne dla kart, a w e-commerce <strong style="color:#1A1F71;">BLIK przejal 67%</strong>. Szansa nie polega na walce z BLIK czolowo
-            w krajowych platnosci jednym kliknieciem, ale na <strong style="color:#1A1F71;">zajmowaniu nisz, gdzie karty maja strukturalne przewagi</strong>:
+            Karty już dominują w sklepach stacjonarnych (58% i rośnie). Ale <strong style="color:#1A1F71;">~25% wydatków gospodarstw domowych</strong> (mieszkanie, telekom, edukacja)
+            jest niewidoczne dla kart, a w e-commerce <strong style="color:#1A1F71;">BLIK przejął 67%</strong>. Szansa nie polega na walce z BLIK wprost
+            w krajowych płatnościach jednym kliknięciem, ale na <strong style="color:#1A1F71;">zajmowaniu nisz, gdzie karty mają trwałą przewagę</strong>:
             handel międzynarodowy, subskrypcje, zakupy o wysokiej wartości z ochroną kupującego, P2P przez Visa Direct
-            i niewykorzystany rynek rachunkow cyklicznych. Lacznie to <strong style="color:#1A1F71;">dziesiatki miliardow PLN rocznego wolumenu platnosci</strong>
-            plynacych obecnie przez kanaly nie-kartowe.
+            i niewykorzystany rynek rachunków cyklicznych. Łącznie to <strong style="color:#1A1F71;">dziesiątki miliardów PLN rocznego wolumenu płatności</strong>
+            płynących dziś poza kartami.
             </p>
         </div>
         """, unsafe_allow_html=True)
