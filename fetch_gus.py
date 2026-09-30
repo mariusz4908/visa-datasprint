@@ -12,8 +12,10 @@ Variable 72305 = total population
 """
 
 import json
+import os
 import sys
 import time
+ROOT = os.path.dirname(os.path.abspath(__file__))  # repository root, where the JSON results live
 
 try:
     import requests
@@ -313,7 +315,7 @@ def main():
     }
 
     # ---- Save to JSON ----
-    output_path = "C:/Users/mariu/warp/visa_heckathon/gus_data.json"
+    output_path = os.path.join(ROOT, "gus_data.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 

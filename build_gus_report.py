@@ -1,9 +1,10 @@
 import json, os
+ROOT = os.path.dirname(os.path.abspath(__file__))  # repository root, where the JSON results live
 
 # Load data
-with open("C:/Users/mariu/warp/visa_heckathon/geo_results.json", "r", encoding="utf-8") as f:
+with open(os.path.join(ROOT, "geo_results.json"), "r", encoding="utf-8") as f:
     geo = json.load(f)
-with open("C:/Users/mariu/warp/visa_heckathon/gus_data.json", "r", encoding="utf-8") as f:
+with open(os.path.join(ROOT, "gus_data.json"), "r", encoding="utf-8") as f:
     gus = json.load(f)
 
 postal_to_woj = gus["postal_to_woj_mapping"]
@@ -142,7 +143,7 @@ for (card_woj, mrch_woj), data in woj_flow.items():
 
 output["woj_inflow"] = dict(sorted(woj_inflow.items(), key=lambda x: x[1], reverse=True))
 
-with open("C:/Users/mariu/warp/visa_heckathon/gus_cross_analysis.json", "w", encoding="utf-8") as f:
+with open(os.path.join(ROOT, "gus_cross_analysis.json"), "w", encoding="utf-8") as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
 
 print("=== RANKING WOJ by cards_per_1000 ===")

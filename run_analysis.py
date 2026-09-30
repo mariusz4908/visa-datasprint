@@ -1,6 +1,7 @@
 import os, json, decimal
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/mariu/Desktop/skrypty/credentials/restaurantclub-prod-62092a15751a.json"
 from google.cloud import bigquery
+ROOT = os.path.dirname(os.path.abspath(__file__))  # repository root, where the JSON results live
 client = bigquery.Client(project="restaurantclub-prod")
 
 TABLE = "`restaurantclub-prod.rozne.datasprint_sample_data`"
@@ -245,7 +246,7 @@ def convert(obj):
         return float(obj)
     raise TypeError(f"{type(obj)}")
 
-with open("C:/Users/mariu/warp/visa_heckathon/analysis_results.json", "w", encoding="utf-8") as f:
+with open(os.path.join(ROOT, "analysis_results.json"), "w", encoding="utf-8") as f:
     json.dump(results, f, default=convert, ensure_ascii=False)
 
 print("DONE - all queries completed")

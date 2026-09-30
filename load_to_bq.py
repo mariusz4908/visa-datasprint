@@ -1,12 +1,13 @@
 import os
 from google.cloud import bigquery
+ROOT = os.path.dirname(os.path.abspath(__file__))  # repository root, where the JSON results live
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/mariu/Desktop/skrypty/credentials/restaurantclub-prod-62092a15751a.json"
 
 client = bigquery.Client(project="restaurantclub-prod")
 
 table_ref = "restaurantclub-prod.rozne.datasprint_sample_data"
-parquet_file = "C:/Users/mariu/warp/visa_heckathon/datasprint_sample_data.parquet"
+parquet_file = os.path.join(ROOT, "datasprint_sample_data.parquet")
 
 job_config = bigquery.LoadJobConfig(
     source_format=bigquery.SourceFormat.PARQUET,
