@@ -11,11 +11,8 @@ st.set_page_config(
 # Page modules are imported after set_page_config: loading their data calls Streamlit
 from app_pages import (  # noqa: E402
     executive_summary,
-    transaction_overview,
-    e_commerce_deep_dive,
     blik_vs_visa,
     card_free_zones,
-    subscription_economy,
     cash_deserts_infrastructure,
     visa_qr_pay,
     innovation_portfolio,
@@ -28,11 +25,8 @@ from app_pages.common import t  # noqa: E402
 # page key -> (EN label, PL label, render function)
 PAGES = {
     "summary": ("Executive Summary", "Podsumowanie", executive_summary.render),
-    "overview": ("Transaction Overview", "Przegląd transakcji", transaction_overview.render),
-    "ecom": ("E-Commerce Deep Dive", "Analiza e-commerce", e_commerce_deep_dive.render),
-    "blik": ("BLIK vs Visa", "BLIK vs Visa", blik_vs_visa.render),
+    "blik": ("The Problem: BLIK vs Visa", "Problem: BLIK vs Visa", blik_vs_visa.render),
     "cardfree": ("Card-Free Zones", "Strefy bez kart", card_free_zones.render),
-    "subs": ("Subscription Economy", "Subskrypcje", subscription_economy.render),
     "cash": ("Cash Deserts & Infrastructure", "Gdzie rządzi gotówka", cash_deserts_infrastructure.render),
     "qrpay": ("Visa QR Pay — Our Solution", "Visa QR Pay — nasze rozwiązanie", visa_qr_pay.render),
     "innov": ("Innovation Portfolio", "Portfolio innowacji", innovation_portfolio.render),
@@ -44,11 +38,8 @@ PAGES = {
 # Clean nav labels (no emoji) for sidebar display
 _NAV = {
     "summary":  ("Executive Summary",            "Podsumowanie"),
-    "overview": ("Transaction Overview",          "Przegląd transakcji"),
-    "ecom":     ("E-Commerce Deep Dive",          "Analiza e-commerce"),
-    "blik":     ("BLIK vs Visa",                  "BLIK vs Visa"),
+    "blik":     ("The Problem: BLIK vs Visa",     "Problem: BLIK vs Visa"),
     "cardfree": ("Card-Free Zones",               "Strefy bez kart"),
-    "subs":     ("Subscription Economy",          "Subskrypcje"),
     "cash":     ("Cash Deserts",                  "Gdzie rządzi gotówka"),
     "qrpay":    ("Visa QR Pay",                   "Visa QR Pay"),
     "innov":    ("Innovation Portfolio",          "Portfolio innowacji"),

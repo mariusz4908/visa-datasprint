@@ -5,7 +5,7 @@ Visa DataSprint Hackathon 2026
 
 | | |
 |---|---|
-| **Live demo** | [CardFlow on Streamlit](LINK_TO_STREAMLIT_APP) |
+| **Live demo** | [CardFlow on Streamlit](https://visa-datasprint-bpszhjrxqjrkpcdhsdm2pe.streamlit.app/) |
 | **Project documentation (PDF)** | [CardFlow documentation](LINK_TO_PROJECT_PDF) |
 | **Presentation** | [CardFlow_Presentation.pdf](./CardFlow_Presentation.pdf) |
 

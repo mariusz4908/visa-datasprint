@@ -1,16 +1,15 @@
-"""Page: BLIK vs Visa."""
+"""Page: The problem. BLIK vs cards in Polish e-commerce, plus why each payment moved online is worth more."""
 import pandas as pd
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import streamlit as st
 
-from app_pages.common import source, t, VISA_BLUE, BLIK_PINK, ACCENT
+from app_pages.common import source, t, ecommerce, VISA_BLUE, BLIK_PINK, ACCENT
 
 
 def render():
     lang = st.session_state.get("lang", "EN")
 
-    st.header(t("BLIK vs Visa: The Battle for Polish E-Commerce", "BLIK vs Visa: walka o polski e-commerce"))
+    st.header(t("The Problem: Cards Lose the Online Checkout", "Problem: karty przegrywają płatność online"))
 
     c1, c2, c3, c4 = st.columns(4)
     c1.metric(t("BLIK e-com share", "Udział BLIK w e-commerce"), "67%", "+5pp vs 2023", delta_color="inverse")
@@ -36,18 +35,30 @@ def render():
         source("gemius")
 
     with col2:
-        st.subheader(t("BLIK Growth vs Card Decline", "Wzrost BLIK a spadek kart"))
-        fig = make_subplots(specs=[[{"secondary_y": True}]])
-        yrs = ["2019","2020","2021","2022","2023","2024"]
-        fig.add_trace(go.Scatter(x=yrs, y=[0.5,0.9,1.5,2.1,2.9,4.2], name=t("BLIK tx (billions)", "BLIK tx (mld)"),
-                                 line=dict(color=BLIK_PINK, width=4), fill="tozeroy", fillcolor="rgba(212,14,106,0.1)"), secondary_y=False)
-        fig.add_trace(go.Scatter(x=yrs, y=[25,23,22,20,18,16], name=t("Card e-com share (%)", "Udział kart w e-commerce (%)"),
-                                 line=dict(color=VISA_BLUE, width=3, dash="dash")), secondary_y=True)
-        fig.update_yaxes(title_text=t("BLIK transactions (B)", "Transakcje BLIK (mld)"), secondary_y=False)
-        fig.update_yaxes(title_text=t("Card e-com share (%)", "Udział kart w e-commerce (%)"), secondary_y=True)
-        fig.update_layout(height=400, margin=dict(t=10,b=40), legend=dict(orientation="h",y=-0.15))
+        st.subheader(t("Why It Matters: Online Baskets Are Bigger", "Dlaczego to ważne: koszyk online jest większy"))
+        overall = ecommerce["ecommerce_overall"]
+        phys = [r for r in overall if r["cp_flag"] == 1][0]
+        onl = [r for r in overall if r["cp_flag"] == 0][0]
+        # Categories that pass the 3/75 rule (cosmetics does not, so it is left out)
+        cats = pd.DataFrame([
+            {"cat": t("Family clothing", "Odzież"), "physical": 179, "online": 646},
+            {"cat": t("Pharmacy", "Apteka"), "physical": 143, "online": 479},
+            {"cat": t("Grocery", "Spożywcze"), "physical": 131, "online": 402},
+            {"cat": t("Service stations", "Stacje paliw"), "physical": 216, "online": 344},
+            {"cat": t("Restaurants", "Restauracje"), "physical": 121, "online": 152},
+        ])
+        fig = go.Figure()
+        fig.add_trace(go.Bar(name=t("In store", "W sklepie"), y=cats["cat"], x=cats["physical"], orientation="h", marker_color=VISA_BLUE, opacity=0.7))
+        fig.add_trace(go.Bar(name="Online", y=cats["cat"], x=cats["online"], orientation="h", marker_color=ACCENT[1]))
+        fig.update_layout(height=400, margin=dict(t=10,b=40), barmode="group", yaxis=dict(autorange="reversed"),
+                          xaxis_title=t("Average transaction value", "Średnia wartość transakcji"), legend=dict(orientation="h", y=-0.15))
         st.plotly_chart(fig, use_container_width=True)
-        source("blik", "gemius", "estimate", note=("card share 2019–2021 estimated", "udział kart 2019–2021 szacowany"))
+        source("visa")
+
+    st.info(t(f"An online card payment averages **{onl['avg_amount']:.0f}** vs **{phys['avg_amount']:.0f}** in store "
+              f"({onl['avg_amount']/phys['avg_amount']:.1f}×). Every checkout Visa wins back from BLIK is worth about twice a shop payment.",
+              f"Płatność kartą online to średnio **{onl['avg_amount']:.0f}**, a w sklepie **{phys['avg_amount']:.0f}** "
+              f"({onl['avg_amount']/phys['avg_amount']:.1f}×). Każda płatność odzyskana od BLIK jest warta mniej więcej dwie płatności w sklepie."))
 
     st.divider()
     st.subheader(t("BLIK vs Visa — Strategic Comparison", "BLIK vs Visa — porównanie strategiczne"))
@@ -79,49 +90,44 @@ def render():
             {"Wymiar": "Zaufanie użytkowników w Polsce", "BLIK": "Bardzo wysokie (wbudowany w aplikację banku)", "Karta Visa": "Wysokie", "Przewaga": "BLIK"},
         ])
     st.dataframe(comparison, use_container_width=True, hide_index=True)
+    source("gemius", "nbp_survey", "estimate")
 
     st.divider()
 
     st.subheader(t("Where Visa Wins Despite BLIK Dominance", "Gdzie Visa wygrywa mimo dominacji BLIK"))
     col1, col2 = st.columns(2)
     with col1:
-        if lang == "EN":
-            st.success("""
-            **Visa Strongholds (BLIK can't easily displace):**
-            - **International subscriptions:** Apple (240K cards), Netflix (282K), Spotify (36K), Disney+ (42K), ChatGPT (26K)
-            - **Cross-border shopping:** AliExpress, Temu, Shein, Amazon — BLIK doesn't work
-            - **In-app purchases:** Google Play, App Store — card-on-file by default
-            - **Travel:** Hotels, airlines, car rental — global card acceptance
-            - **B2B / Corporate:** Business cards for SaaS, advertising, cloud services
-            """)
-        else:
-            st.success("""
-            **Mocne strony Visa (BLIK nie wyprze ich łatwo):**
-            - **Międzynarodowe subskrypcje:** Apple (240K kart), Netflix (282K), Spotify (36K), Disney+ (42K), ChatGPT (26K)
-            - **Zakupy transgraniczne:** AliExpress, Temu, Shein, Amazon — BLIK nie działa
-            - **Zakupy w aplikacjach:** Google Play, App Store — karta domyślnie zapisana
-            - **Podróże:** Hotele, linie lotnicze, wynajem aut — globalna akceptacja kart
-            - **B2B / firmy:** Karty firmowe na SaaS, reklamę, usługi chmurowe
-            """)
+        st.success(t("""
+        **Visa strongholds (BLIK can't easily displace):**
+        - **Habits:** once a card is saved at a shop, it stays. **4.1% of card–merchant pairs make 42.8% of card payments** (36.5% of value)
+        - **Subscriptions and in-app purchases:** card-on-file by default
+        - **Cross-border shopping and travel:** BLIK doesn't work abroad
+        - **B2B:** business cards for SaaS, ads, cloud services
+        """, """
+        **Mocne strony Visa (BLIK nie wyprze ich łatwo):**
+        - **Nawyk:** karta raz zapisana w sklepie zostaje. **4,1% par karta–sprzedawca daje 42,8% płatności kartą** (36,5% wartości)
+        - **Subskrypcje i zakupy w aplikacjach:** karta zapisana domyślnie
+        - **Zakupy za granicą i podróże:** BLIK nie działa za granicą
+        - **B2B:** karty firmowe na SaaS, reklamę, usługi chmurowe
+        """))
+        source("visa", note=("habit = card–merchant pair with 12+ payments in 18 months",
+                             "nawyk = para karta–sprzedawca z 12+ płatnościami w 18 miesięcy"))
     with col2:
-        if lang == "EN":
-            st.error("""
-            **BLIK Strongholds (hard for Visa to compete):**
-            - **Domestic e-commerce:** Allegro, OLX, local shops — one-click BLIK
-            - **P2P payments:** Splitting bills, marketplace transactions
-            - **Quick mobile payments:** 6-digit code, no card number needed
-            - **Bill payments:** Telecom top-ups, utility payments
-            - **Trust factor:** Integrated in banking apps, feels "safer" than card number entry
-            """)
-        else:
-            st.error("""
-            **Mocne strony BLIK (trudne do przejęcia przez Visa):**
-            - **Krajowy e-commerce:** Allegro, OLX, lokalne sklepy — BLIK jednym kliknięciem
-            - **Płatności P2P:** Dzielenie rachunków, transakcje marketplace
-            - **Szybkie płatności mobilne:** 6-cyfrowy kod, bez numeru karty
-            - **Opłacanie rachunków:** Doładowania telekomów, opłaty za media
-            - **Zaufanie:** BLIK jest wbudowany w aplikacje bankowe i wydaje się „bezpieczniejszy” niż wpisywanie numeru karty
-            """)
+        st.error(t("""
+        **BLIK strongholds (hard for Visa to compete):**
+        - **Domestic e-commerce:** one-click BLIK, no card number to type
+        - **P2P payments:** splitting bills, marketplace deals
+        - **Bill payments:** telecom top-ups, utilities
+        - **Trust:** built into banking apps, feels "safer" than typing a card number
+        """, """
+        **Mocne strony BLIK (trudne do przejęcia przez Visa):**
+        - **Krajowy e-commerce:** BLIK jednym kliknięciem, bez wpisywania numeru karty
+        - **Płatności P2P:** dzielenie rachunków, transakcje z ogłoszeń
+        - **Opłacanie rachunków:** doładowania, media
+        - **Zaufanie:** BLIK jest wbudowany w aplikacje bankowe i wydaje się „bezpieczniejszy” niż wpisywanie numeru karty
+        """))
 
-    st.warning(t("**Projection:** At current trajectory (-2pp/year for cards), card share in Polish e-commerce could fall **below 10% by 2027**. Visa's strategy must focus on defending subscriptions, winning international shopping, and making card payment as frictionless as BLIK (Click to Pay, tokenization).",
-                  "**Prognoza:** Przy obecnym trendzie (-2 pp/rok dla kart), udział kart w polskim e-commerce może spaść **poniżej 10% do 2027**. Strategia Visa musi skupić się na obronie subskrypcji, wygrywaniu zakupów międzynarodowych i uproszczeniu płatności kartą do poziomu BLIK (Click to Pay, tokenizacja)."))
+    st.warning(t("**The takeaway:** cards don't lose on trust, they lose on convenience. Visa wins where the card is already saved. "
+                 "Visa QR Pay targets the checkouts where it is not saved yet.",
+                 "**Wniosek:** karty nie przegrywają zaufaniem, tylko wygodą. Visa wygrywa tam, gdzie karta jest już zapisana. "
+                 "Visa QR Pay celuje w płatności, przy których karta nie jest jeszcze zapisana."))
