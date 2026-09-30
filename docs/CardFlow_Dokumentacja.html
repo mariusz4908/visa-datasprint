@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>CardFlow — dokumentacja projektu</title>
+<style>
+  @page { size: A4; margin: 16mm 17mm 16mm 17mm; }
+  :root { --navy:#0D1137; --blue:#1A1F71; --gold:#F7B600; --ink:#1F2937; --muted:#6B7280; --tint:#E9EBF5; --line:#D8DBEA; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.45; margin: 0; }
+  h1 { font-size: 26pt; color: var(--navy); margin: 0; letter-spacing: -0.5px; }
+  h2 { font-size: 13.5pt; color: var(--blue); margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 2px solid var(--gold); page-break-after: avoid; }
+  h3 { font-size: 11pt; color: var(--navy); margin: 10px 0 3px; }
+  p { margin: 4px 0 6px; }
+  ul { margin: 4px 0 6px; padding-left: 18px; }
+  li { margin: 2px 0; }
+  a { color: var(--blue); }
+  .kicker { font-size: 8.5pt; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; }
+  .subtitle { font-size: 12.5pt; color: var(--blue); margin: 2px 0 10px; }
+  .summary { background: var(--tint); border-left: 4px solid var(--gold); padding: 9px 12px; border-radius: 6px; margin: 8px 0 4px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0; }
+  .stat { border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; page-break-inside: avoid; }
+  .stat b { display: block; font-size: 17pt; color: var(--blue); line-height: 1.1; }
+  .stat span { font-size: 8.5pt; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: 9.5pt; page-break-inside: avoid; }
+  th, td { text-align: left; padding: 5px 7px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--tint); color: var(--navy); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 6px 0; }
+  .step { background: var(--tint); border-radius: 8px; padding: 7px 9px; font-size: 9.5pt; }
+  .step b { color: var(--navy); }
+  .note { font-size: 8.5pt; color: var(--muted); }
+  .avoid { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<div class="kicker">Visa DataSprint 2026 · Business challenge · Team Restaurant Week</div>
+
+<!-- 1 -->
+<h1>CardFlow: Visa QR Pay</h1>
+<div class="subtitle">Płatność kartą online bez przepisywania numeru: zeskanuj, zatwierdź, zapłacone</div>
+
+<div class="summary">
+<b>W skrócie.</b> Polacy płacą kartą w sklepach, ale w internecie wybierają BLIK. Jednym z powodów jest wygoda:
+prawie połowa płatności kartą online wciąż wymaga ręcznego wpisania danych karty. Proponujemy <b>Visa QR Pay</b>:
+klient skanuje kod QR swojej karty (z plastiku lub aplikacji banku) i zatwierdza płatność biometrią w telefonie.
+Model uczenia maszynowego (LightGBM) na danych Visa wskazuje, od których klientów zacząć, a symulacja scenariuszy
+pokazuje, kiedy produkt zaczyna na siebie zarabiać.
+</div>
+
+<!-- 2 -->
+<h2>1. Problem</h2>
+<p>Karta wygrywa w sklepach stacjonarnych, ale przegrywa przy płatności online. Klient, który w sklepie odruchowo
+przykłada kartę, w internecie wybiera BLIK, bo nie musi niczego przepisywać.</p>
+<div class="grid">
+  <div class="stat"><b>68%</b><span>polskich e-kupujących płaci BLIK-iem (Gemius/PBI 2024)</span></div>
+  <div class="stat"><b>36%</b><span>aktywnych kart Visa nie zapłaciło online ani razu w 18 miesięcy</span></div>
+  <div class="stat"><b>45%</b><span>płatności kartą online to ręcznie wpisane dane karty (42% na początku 2025)</span></div>
+  <div class="stat"><b>7 na 10</b><span>pierwszych płatności online nowych kart wymaga wpisania danych</span></div>
+</div>
+<p>Pierwsza płatność decyduje o nawyku. Karty, które pierwszą płatność online zrobiły jednym kliknięciem, częściej
+płacą online dalej (45% vs 31% kart płacących online w co najmniej 3 z 6 kolejnych miesięcy). A nawyki się powtarzają:
+4% par karta–sprzedawca daje 43% wszystkich płatności kartą. Kto raz zapłaci kartą w danym sklepie, zwykle przy niej zostaje.</p>
+<p class="note">Źródła: Gemius/PBI „E-commerce w Polsce 2024”; pozostałe liczby z syntetycznych danych transakcyjnych Visa
+(I 2025 – VI 2026). „Ręcznie wpisane” = tryb wprowadzenia karty „Manual key entry”, w odróżnieniu od karty zapisanej
+u sprzedawcy (COF); może obejmować autouzupełnianie w przeglądarce.</p>
+
+<!-- 3 -->
+<h2>2. Rozwiązanie i jego wartość dla użytkownika</h2>
+<p><b>Visa QR Pay</b> to nowy sposób płacenia kartą online i między osobami. Każda karta Visa dostaje kod QR (na karcie
+i w aplikacji banku). Kod zawiera token, a nie numer karty.</p>
+<div class="steps">
+  <div class="step"><b>1. Wybierz</b><br>W sklepie internetowym wybierasz „Visa QR Pay”.</div>
+  <div class="step"><b>2. Zeskanuj</b><br>Skanujesz QR karty telefonem lub kamerą laptopa.</div>
+  <div class="step"><b>3. Zatwierdź</b><br>Potwierdzasz płatność Face ID lub odciskiem palca. Gotowe.</div>
+</div>
+<h3>Wartość dla klienta (posiadacza karty)</h3>
+<ul>
+  <li><b>Wygoda na poziomie BLIK:</b> bez przepisywania 16 cyfr, daty ważności i CVV, także przy pierwszym zakupie w nowym sklepie.</li>
+  <li><b>Bezpieczeństwo:</b> sklep nigdy nie widzi numeru karty (tokenizacja), a klient zachowuje ochronę kupującego Visa (chargeback), której BLIK nie daje.</li>
+  <li><b>Działa wszędzie, gdzie Visa:</b> także w zagranicznych sklepach i na komputerze, gdzie BLIK nie działa.</li>
+  <li><b>Płatności między osobami:</b> ten sam QR pozwala zapłacić znajomemu lub sprzedającemu z ogłoszenia.</li>
+</ul>
+<h3>Komu dać QR Pay najpierw: targetowanie oparte na danych</h3>
+<table>
+  <tr><th>Grupa</th><th>Kto to jest</th><th>Dlaczego</th></tr>
+  <tr><td><b>Fala 1</b></td><td>karty, które dziś najczęściej wpisują dane ręcznie</td><td>22% kart odpowiada za 80% ręcznie wpisanych płatności online, więc tu QR usuwa najwięcej uciążliwości</td></tr>
+  <tr><td><b>Fala 2</b></td><td>karty bez zakupów online, które model ML wskazuje jako gotowe do pierwszej płatności</td><td>54% przyszłych „debiutantów” jest w top 20% rankingu modelu (losowo: 20%); trafność AUC 0,74–0,76 w trzech okresach testowych</td></tr>
+  <tr><td><b>Nowe karty</b></td><td>każda nowo wydana karta (~3% bazy miesięcznie)</td><td>QR dołączony do karty od pierwszego dnia, zanim powstanie nawyk płacenia BLIK-iem</td></tr>
+</table>
+<h3>Wartość biznesowa dla Visa i banków</h3>
+<p>Każda płatność przeniesiona z BLIK lub przelewu na kartę to opłata dla Visa i banku-wydawcy. Symulacja scenariuszy
+(model dyfuzji Bassa + koszty wdrożenia) daje w scenariuszu bazowym <b>próg rentowności w 16. miesiącu</b> i
+<b>ROI 365% w 3 lata</b>. W scenariuszu ostrożnym produkt nie zwraca się w 3 lata (ROI −33%), dlatego proponujemy
+zacząć od 90-dniowego pilotażu z 2 bankami i losową grupą kontrolną, który zmierzy rzeczywisty efekt.</p>
+<p class="note">Opłaty, koszty i tempo adopcji w symulacji to założenia zespołu; wielkości grup i częstotliwość płatności pochodzą z danych Visa.</p>
+
+<!-- 4 -->
+<div class="avoid">
+<h2>3. Użytkownik końcowy</h2>
+<ul>
+  <li><b>Posiadacz karty Visa w Polsce</b>, który kupuje w internecie: przede wszystkim osoby, które dziś ręcznie
+  wpisują dane karty (często na telefonie), oraz osoby, które płacą kartą w sklepach, ale online jeszcze nie.</li>
+  <li><b>Klient biznesowy rozwiązania: Visa i banki-wydawcy</b>, którzy wdrażają QR Pay w aplikacjach i na kartach
+  oraz korzystają z modelu, by wybrać grupy do kampanii.</li>
+  <li><b>Sklepy internetowe</b>, które dodają przycisk „Visa QR Pay” przy kasie i zyskują szybszą płatność z ochroną kupującego.</li>
+</ul>
+</div>
+
+<!-- 5 -->
+<h2>4. Wykorzystane dane</h2>
+<table>
+  <tr><th>Źródło</th><th>Zakres</th><th>Do czego</th></tr>
+  <tr><td><b>Syntetyczne transakcje Visa</b> (dane organizatora)</td><td>305,5 mln transakcji, styczeń 2025 – czerwiec 2026, karty i sprzedawcy w Polsce; m.in. kanał (online/sklep), tryb wprowadzenia karty, kategoria sprzedawcy (MCC), region posiadacza karty, data wydania karty</td><td>skala problemu, grupy docelowe, model gotowości, persony, parametry symulacji</td></tr>
+  <tr><td><b>GUS</b>, Budżety gospodarstw domowych 2024</td><td>struktura wydatków (COICOP)</td><td>porównanie wydatków z płatnościami kartą</td></tr>
+  <tr><td><b>NBP</b>, statystyki i badanie „Zwyczaje płatnicze Polaków” 2024</td><td>udział gotówki, kart, przelewów</td><td>kontekst rynku płatności</td></tr>
+  <tr><td><b>Gemius/PBI</b>, „E-commerce w Polsce” 2022–2024; raporty BLIK</td><td>metody płatności w e-commerce</td><td>udział BLIK vs kart online</td></tr>
+</table>
+<h3>Metody</h3>
+<p>SQL (DuckDB, BigQuery) i Python. Model gotowości: <b>LightGBM</b> z kalibracją, uczony tylko na zachowaniach w sklepach
+i testowany na późniejszych okresach, których nie widział. Persony: <b>KMeans</b>. Symulacja biznesowa: model dyfuzji
+Bassa z trzema scenariuszami. Nie używamy generatywnej AI.</p>
+<h3>Prywatność i zasady wyzwania</h3>
+<p>Wszystkie wyniki to agregaty grup liczących co najmniej 30 kart. Wyniki dla kategorii sprzedawców spełniają regułę 3/75
+(co najmniej 3 sprzedawców w grupie, żaden powyżej 75%). Dane Visa są syntetyczne, więc liczby ilustrują metodę,
+a nie rzeczywisty rynek.</p>
+
+<!-- tech requirement -->
+<div class="avoid">
+<h2>5. Co działa, a co wymaga rozwoju</h2>
+<table>
+  <tr><th>Działający prototyp</th><th>Wymaga rozwoju przed wdrożeniem</th></tr>
+  <tr>
+    <td><ul>
+      <li>analiza danych Visa i danych publicznych (notatniki, zapytania SQL)</li>
+      <li>model gotowości LightGBM z testami wstecznymi i grupy docelowe</li>
+      <li>interaktywny dashboard w Streamlit (PL/EN)</li>
+      <li>symulacja adopcji i ROI w trzech scenariuszach</li>
+    </ul></td>
+    <td><ul>
+      <li>sam produkt Visa QR Pay (token w QR, powiadomienie push, SDK dla sklepów) — na razie koncepcja</li>
+      <li>pomiar rzeczywistego efektu QR w pilotażu z grupą kontrolną</li>
+      <li>trenowanie modelu na prawdziwych danych i w innych krajach</li>
+      <li>opłaty i koszty w symulacji do potwierdzenia z Visa i bankami</li>
+    </ul></td>
+  </tr>
+</table>
+</div>
+
+<!-- links -->
+<div class="avoid">
+<h2>6. Materiały i linki</h2>
+<table>
+  <tr><th style="width:34%">Element</th><th>Link</th></tr>
+  <tr><td>Prezentacja (PDF, 10 slajdów)</td><td><a href="https://github.com/mariusz4908/visa-datasprint/blob/main/CardFlow_Presentation.pdf">CardFlow_Presentation.pdf</a></td></tr>
+  <tr><td>Repozytorium kodu</td><td><a href="https://github.com/mariusz4908/visa-datasprint">github.com/mariusz4908/visa-datasprint</a></td></tr>
+  <tr><td>Działające demo</td><td><a href="https://visa-datasprint-bpszhjrxqjrkpcdhsdm2pe.streamlit.app/">CardFlow na Streamlit Cloud</a></td></tr>
+  <tr><td>Metodologia i model ML</td><td><a href="https://github.com/mariusz4908/visa-datasprint/blob/main/METHODOLOGY.md">METHODOLOGY.md</a>, <a href="https://github.com/mariusz4908/visa-datasprint/tree/main/ml_readiness">ml_readiness/</a></td></tr>
+</table>
+</div>
+
+</body>
+</html>

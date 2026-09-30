@@ -6,7 +6,7 @@ Visa DataSprint Hackathon 2026
 | | |
 |---|---|
 | **Live demo** | [CardFlow on Streamlit](https://visa-datasprint-bpszhjrxqjrkpcdhsdm2pe.streamlit.app/) |
-| **Project documentation (PDF)** | [CardFlow documentation](LINK_TO_PROJECT_PDF) |
+| **Project documentation (PDF, Polish)** | [CardFlow_Dokumentacja.pdf](./CardFlow_Dokumentacja.pdf) |
 | **Presentation** | [CardFlow_Presentation.pdf](./CardFlow_Presentation.pdf) |
 
 ## About
@@ -51,6 +51,7 @@ fetch_*.py,
 build_gus_report.py      GUS / NBP / Gemius data and the GUS x Visa cross-analysis
 load_to_bq.py            loads the raw parquet into BigQuery
 generate_presentation.py builds CardFlow_Presentation.pdf
+docs/                    source of CardFlow_Dokumentacja.pdf (HTML, printed to PDF with Chrome)
 raport_*.html            static analysis reports
 METHODOLOGY.md           methodology and model details
 STORYLINE.md             the project narrative
